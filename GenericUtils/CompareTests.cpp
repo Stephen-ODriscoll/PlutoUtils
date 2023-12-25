@@ -1,4 +1,4 @@
-#include "Compare.hpp"
+#include "Generic/Compare.hpp"
 
 #include <gtest/gtest.h>
 

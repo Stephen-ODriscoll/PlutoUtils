@@ -7,19 +7,19 @@ include_directories(
 
 add_executable(
     ${PROJECT_NAME}
-    ../include/Compare.hpp
-    ../include/ContainerUtils.hpp
-    ../include/FileSystem.hpp
     ../include/Generic.hpp
-    ../include/IteratorUtils.hpp
-    ../include/Locale.hpp
-    ../include/Logger.hpp
-    ../include/LRUCache.hpp
-    ../include/Range.hpp
-    ../include/ScopeExitActions.hpp
-    ../include/Standard.hpp
-    ../include/Stopwatch.hpp
-    ../include/StringUtils.hpp
+    ../include/Generic/Compare.hpp
+    ../include/Generic/ContainerUtils.hpp
+    ../include/Generic/FileSystem.hpp
+    ../include/Generic/IteratorUtils.hpp
+    ../include/Generic/Locale.hpp
+    ../include/Generic/Logger.hpp
+    ../include/Generic/LRUCache.hpp
+    ../include/Generic/Range.hpp
+    ../include/Generic/ScopeExitActions.hpp
+    ../include/Generic/Standard.hpp
+    ../include/Generic/Stopwatch.hpp
+    ../include/Generic/StringUtils.hpp
     
     CompareTests.cpp
     ContainerUtilsTests.cpp

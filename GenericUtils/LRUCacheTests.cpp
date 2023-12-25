@@ -1,4 +1,4 @@
-#include "LRUCache.hpp"
+#include "Generic/LRUCache.hpp"
 
 #include <gtest/gtest.h>
 

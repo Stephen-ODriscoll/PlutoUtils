@@ -1,4 +1,4 @@
-#include "Stopwatch.hpp"
+#include "Generic/Stopwatch.hpp"
 
 #include <gtest/gtest.h>
 

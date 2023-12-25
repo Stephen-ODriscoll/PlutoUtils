@@ -1,4 +1,4 @@
-#include "Locale.hpp"
+#include "Generic/Locale.hpp"
 
 #include <gtest/gtest.h>
 
