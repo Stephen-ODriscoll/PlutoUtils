@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include <deque>
+#include <list>
 #include <mutex>
 #include <atomic>
 #include <chrono>
@@ -18,36 +18,47 @@
 #ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
 #define GENERIC_LOGGER_TIMESTAMP_FORMAT "%d/%m/%Y %H:%M:%S."
 #endif
+
 #ifndef GENERIC_LOGGER_TIMESTAMP_HEADER
 #define GENERIC_LOGGER_TIMESTAMP_HEADER "Date & Time"
 #endif
+
 #ifndef GENERIC_LOGGER_PID_HEADER
 #define GENERIC_LOGGER_PID_HEADER "PID"
 #endif
+
 #ifndef GENERIC_LOGGER_TID_HEADER
 #define GENERIC_LOGGER_TID_HEADER "TID"
 #endif
+
 #ifndef GENERIC_LOGGER_FILE_NAME_HEADER
 #define GENERIC_LOGGER_FILE_NAME_HEADER "File Name"
 #endif
+
 #ifndef GENERIC_LOGGER_LINE_HEADER
 #define GENERIC_LOGGER_LINE_HEADER "Line"
 #endif
+
 #ifndef GENERIC_LOGGER_MESSAGE_HEADER
 #define GENERIC_LOGGER_MESSAGE_HEADER "Message"
 #endif
+
 #ifndef GENERIC_LOGGER_TIMESTAMP_LENGTH
 #define GENERIC_LOGGER_TIMESTAMP_LENGTH 23
 #endif
+
 #ifndef GENERIC_LOGGER_PID_LENGTH
 #define GENERIC_LOGGER_PID_LENGTH 6
 #endif
+
 #ifndef GENERIC_LOGGER_TID_LENGTH
 #define GENERIC_LOGGER_TID_LENGTH 6
 #endif
+
 #ifndef GENERIC_LOGGER_FILE_NAME_LENGTH
 #define GENERIC_LOGGER_FILE_NAME_LENGTH 20
 #endif
+
 #ifndef GENERIC_LOGGER_LINE_LENGTH
 #define GENERIC_LOGGER_LINE_LENGTH 6
 #endif
@@ -56,35 +67,45 @@
 #ifndef GENERIC_LOGGER_DEFAULT_LEVEL
 #define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Info
 #endif
-#ifndef GENERIC_LOGGER_DEFAULT_MAX_QUEUE
-#define GENERIC_LOGGER_DEFAULT_MAX_QUEUE 500    // 0 means unlimited
+
+#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
 #endif
-#ifndef GENERIC_LOGGER_DEFAULT_SEPERATOR
-#define GENERIC_LOGGER_DEFAULT_SEPERATOR " | "
-#endif
+
 #ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORM
 #define GENERIC_LOGGER_DEFAULT_LEVEL_FORM Generic::Logger::LevelForm::Full
 #endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIR
+#define GENERIC_LOGGER_DEFAULT_CREATE_DIR true
+#endif
+
 #ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
 #define GENERIC_LOGGER_DEFAULT_WRITE_HEADER true
 #endif
-#ifndef GENERIC_LOGGER_DEFAULT_LOG_FILE_BUFFER_SIZE
-#define GENERIC_LOGGER_DEFAULT_LOG_FILE_BUFFER_SIZE 50
+
+#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE
+#define GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE 500  // 0 means unlimited
 #endif
-#ifndef GENERIC_LOGGER_DEFAULT_LOG_FILE_ROTATION_SIZE_MB
-#define GENERIC_LOGGER_DEFAULT_LOG_FILE_ROTATION_SIZE_MB 0  // 0 means no rotation
+
+#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
+#define GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 50
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB
+#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB 0  // 0 means no rotation
 #endif
 
 #define GENERIC_LOGGER_OLD_LOG_EXTENSION ".old"
 
 // Define this to hide file name and line number
-#ifdef GENERIC_LOGGER_HIDE_SOURCE_INFO
+#ifdef GENERIC_LOGGER_HIDE_FILE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
-            Generic::Logger::getInstance().write(file, level, "", 0, __VA_ARGS__); \
+            Generic::Logger::getInstance().writef(file, level, "", 0, __VA_ARGS__); \
         } \
     } \
     while (false)
@@ -150,12 +171,12 @@ namespace Generic
         enum class Level : unsigned char
         {
             Off = 0,    // Disable logging.
-            None,       // No level specified. Always logs if logging is enabled.
-            Fatal,      // Blocker issues which break the application or a large portion of it.
-            Critical,   // Severe issues with high impact or loss of functionality.
-            Error,      // Major issues which most likely will have a noticeable impact.
-            Warning,    // Minor issues which should not be noticed or have been mitigated.
-            Notice,     // Strange or significant behaviour that is not an issue alone.
+            None,       // No level specified. Always log if logging is enabled.
+            Fatal,      // Issues which break the application or a large portion of it.
+            Critical,   // Issues which cause high impact or loss of functionality.
+            Error,      // Issues which have a noticeable impact but do not affect functionality.
+            Warning,    // Issues which should not be noticed or have been mitigated.
+            Notice,     // Strange or significant behaviour that is not an issue by itself.
             Info,       // Important updates for tracking activity.
             Debug,      // Helpful updates for more in depth tracking.
             Trace,      // Specialized step-by-step tracking updates.
@@ -171,19 +192,17 @@ namespace Generic
         };
 
     private:
-        struct LogDetails
+        struct Log
         {
-            const std::string       logFile;
-            const std::tm           timestamp;
-            const long long         milliseconds;
-            const std::thread::id   threadID;
-            const Level             level;
-            const std::string       fileName;
-            const int               line;
-            const std::string       message;
+            std::tm         timestamp;
+            long long       milliseconds;
+            std::thread::id threadID;
+            Level           level;
+            std::string     fileName;
+            int             line;
+            std::string     message;
 
-            LogDetails(
-                const std::string&      logFile,
+            Log(
                 const std::tm&          timestamp,
                 const long long         milliseconds,
                 const std::thread::id&  threadID,
@@ -191,7 +210,6 @@ namespace Generic
                 const std::string&      fileName,
                 const int               line,
                 const std::string&      message) :
-                logFile         { logFile },
                 timestamp       { timestamp },
                 milliseconds    { milliseconds },
                 threadID        { threadID },
@@ -200,60 +218,47 @@ namespace Generic
                 line            { line },
                 message         { message } {}
 
-            LogDetails(const LogDetails& other) :
-                logFile         { other.logFile },
-                timestamp       { other.timestamp },
-                milliseconds    { other.milliseconds },
-                threadID        { other.threadID },
-                level           { other.level },
-                fileName        { other.fileName },
-                line            { other.line },
-                message         { other.message } {}
-
-            ~LogDetails() {}
+            ~Log() {}
         };
 
-        struct LogFileDetails
+        typedef std::list<Log> LogBuffer;
+
+        struct LogFile
         {
-            bool                    exists;
-            FileSystem::path        filePath;
-            std::vector<LogDetails> buffer;
+            LogBuffer           buffer;
+            FileSystem::path    filePath;
+            size_t              fileSize;
+            bool                dirCreated;
 
-            LogFileDetails(
-                const bool                      exists,
-                const FileSystem::path&         filePath,
-                const std::vector<LogDetails>&  buffer) :
-                exists      { exists },
-                filePath    { filePath },
-                buffer      { buffer } {}
-
-            LogFileDetails(const LogFileDetails& other) :
-                exists      { other.exists },
-                filePath    { other.filePath },
-                buffer      { other.buffer } {}
-
-            ~LogFileDetails() {}
+            LogFile() :
+                buffer      {},
+                filePath    {},
+                fileSize    {},
+                dirCreated  {} {}
         };
-        
-        mutable std::mutex      m_loggingMutex{};
-        std::thread             m_loggingThread{};
-        std::deque<LogDetails>  m_loggingDetailsQueue{};
-        std::condition_variable m_loggingThreadCondition{};
 
+        mutable std::mutex              m_loggingMutex{};
+        std::thread                     m_loggingThread{};
+        std::condition_variable         m_loggingThreadCondition{};
+        std::map<std::string, LogFile>  m_logFiles{};
+        
         const int               m_pid{ _getpid() };
+        mutable std::mutex      m_separatorMutex{};
         std::atomic<Level>      m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
-        size_t                  m_maxQueue{ GENERIC_LOGGER_DEFAULT_MAX_QUEUE };
         std::atomic_bool        m_isLogging{ true };
-        std::string             m_seperator{ GENERIC_LOGGER_DEFAULT_SEPERATOR };
+        std::string             m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
         std::atomic<LevelForm>  m_levelForm{ GENERIC_LOGGER_DEFAULT_LEVEL_FORM };
+        std::atomic_bool        m_createDir{ GENERIC_LOGGER_DEFAULT_CREATE_DIR };
         std::atomic_bool        m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
-        std::atomic_size_t      m_logFileBufferSize{ GENERIC_LOGGER_DEFAULT_LOG_FILE_BUFFER_SIZE };
-        std::atomic_size_t      m_logFileRotationSizeMB{ GENERIC_LOGGER_DEFAULT_LOG_FILE_ROTATION_SIZE_MB };
+        std::atomic_size_t      m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
+        std::atomic_size_t      m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
+        std::atomic_size_t      m_fileRotationSizeMB{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB };
+        std::atomic_size_t      m_numDiscardedLogs{};
 
     public:
         class Stream
         {
-            const std::string   m_logFile;
+            const std::string   m_fileName;
             const Level         m_level;
             const char* const   m_filePath;
             const int           m_line;
@@ -261,11 +266,11 @@ namespace Generic
 
         public:
             Stream(
-                const std::string   logFile,
+                const std::string   fileName,
                 const Level         level,
                 const char* const   filePath,
                 const int           line) :
-                m_logFile   { logFile },
+                m_fileName  { fileName },
                 m_level     { level },
                 m_filePath  { filePath },
                 m_line      { line },
@@ -273,7 +278,7 @@ namespace Generic
 
             ~Stream()
             {
-                getInstance().write(m_logFile, m_level, m_filePath, m_line, m_stream.str());
+                getInstance().write(m_fileName, m_level, m_filePath, m_line, m_stream.str());
             }
 
             Stream& operator<<(const bool b)
@@ -292,8 +297,7 @@ namespace Generic
 
         static inline std::string getFileName(const char* const filePath)
         {
-            std::string filePathString{ filePath };
-            return filePathString.substr(filePathString.find_last_of("\\") + 1);
+            return Generic::FileSystem::path{ filePath }.filename().string();
         }
         
         static inline std::string cropFileName(const std::string& fileName)
@@ -356,7 +360,7 @@ namespace Generic
                         default:                return "?";
                     }
 
-                default: return "Bad Format";
+                default: return "Bad Form";
             }
         }
 
@@ -367,7 +371,7 @@ namespace Generic
         }
 
         void write(
-            const std::string   logFile,
+            const std::string   fileName,
             const Level         level,
             const char* const   filePath,
             const int           line,
@@ -382,38 +386,44 @@ namespace Generic
             std::tm nowLocalTime{};
             localtime_s(&nowLocalTime, &nowPosixTime);
 
-            // Create log details
-            LogDetails logDetails
-            {
-                logFile,
-                nowLocalTime,
-                nowMilliseconds,
-                std::this_thread::get_id(),
-                level,
-                getFileName(filePath),
-                line,
-                message
-            };
-
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
-            if (m_maxQueue == 0 ||
-                m_loggingDetailsQueue.size() < m_maxQueue)
+            auto it{ m_logFiles.find(fileName) };
+            if (it == m_logFiles.end())
             {
-                m_loggingDetailsQueue.push_back(logDetails);
-                
-                // Unlock the mutex and wake the next thread
-                lock.unlock();
-                m_loggingThreadCondition.notify_one();
+                it = m_logFiles.emplace(fileName, LogFile{}).first;
+            }
+
+            auto& buffer        { it->second.buffer };
+            auto bufferMaxSize  { m_bufferMaxSize.load() };
+
+            if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
+            {
+                buffer.emplace_back(
+                    nowLocalTime,
+                    nowMilliseconds,
+                    std::this_thread::get_id(),
+                    level,
+                    getFileName(filePath),
+                    line,
+                    message);
+
+                if (m_bufferFlushSize.load() <= buffer.size())
+                {
+                    // Unlock the mutex and wake the logging thread
+                    lock.unlock();
+                    m_loggingThreadCondition.notify_one();
+                }
             }
             else
             {
                 // Queue is full, discard log
+                ++m_numDiscardedLogs;
             }
         }
 
         void writef(
-            const std::string   logFile,
+            const std::string   fileName,
             const Level         level,
             const char* const   filePath,
             const int           line,
@@ -435,12 +445,12 @@ namespace Generic
             va_end(args);
 
             // Write message, or use format if message creation failed
-            write(logFile, level, filePath, line, (buffer[0] == '\0') ? format : buffer);
+            write(fileName, level, filePath, line, (buffer[0] == '\0') ? format : buffer);
         }
 
         bool isLogging() const
         {
-            return m_isLogging; // atomic
+            return m_isLogging.load(); // atomic
         }
 
         bool shouldLog(Level level) const
@@ -450,94 +460,109 @@ namespace Generic
 
         Level getLevel() const
         {
-            return m_level; // atomic
+            return m_level.load(); // atomic
         }
 
-        size_t getMaxQueue() const
+        std::string getSeparator() const
         {
-            const std::unique_lock<std::mutex> lock{ m_loggingMutex };
-            return m_maxQueue;
-        }
-
-        std::string getSeperator() const
-        {
-            const std::unique_lock<std::mutex> lock{ m_loggingMutex };
-            return m_seperator;
-        }
-
-        bool getWriteHeader() const
-        {
-            return m_writeHeader; // atomic
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+            return m_separator;
         }
 
         LevelForm getLevelForm() const
         {
-            return m_levelForm; // atomic
+            return m_levelForm.load(); // atomic
         }
 
-        size_t getLogFileBufferSize() const
+        bool getCreateDir() const
         {
-            return m_logFileBufferSize; // atomic
+            return m_createDir.load(); // atomic
         }
 
-        size_t getLogFileRotationSizeMB() const
+        bool getWriteHeader() const
         {
-            return m_logFileRotationSizeMB; // atomic
+            return m_writeHeader.load(); // atomic
+        }
+
+        size_t getBufferMaxSize() const
+        {
+            return m_bufferMaxSize.load(); // atomic
+        }
+
+        size_t getBufferFlushSize() const
+        {
+            return m_bufferFlushSize.load(); // atomic
+        }
+
+        size_t getFileRotationSizeMB() const
+        {
+            return m_fileRotationSizeMB.load(); // atomic
+        }
+
+        size_t getNumDiscardedLogs() const
+        {
+            return m_numDiscardedLogs.load(); // atomic
         }
 
         Logger& setLevel(const Level level)
         {
-            m_level = level; // atomic
+            m_level.store(level); // atomic
             return *this;
         }
 
-        Logger& setMaxQueue(const size_t maxQueue)
+        Logger& setSeparator(const std::string& separator)
         {
-            const std::unique_lock<std::mutex> lock{ m_loggingMutex };
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
 
-            m_maxQueue = maxQueue;
-            while (m_maxQueue < m_loggingDetailsQueue.size())
-            {
-                // Remove most recent logs from queue
-                m_loggingDetailsQueue.pop_back();
-            }
-
-            return *this;
-        }
-
-        Logger& setSeperator(const std::string& seperator)
-        {
-            const std::unique_lock<std::mutex> lock{ m_loggingMutex };
-
-            m_seperator = seperator;
-            return *this;
-        }
-
-        Logger& setWriteHeader(const bool writeHeader)
-        {
-            m_writeHeader = writeHeader; // atomic
+            m_separator = separator;
             return *this;
         }
 
         Logger& setLevelForm(const LevelForm levelForm)
         {
-            m_levelForm = levelForm; // atomic
+            m_levelForm.store(levelForm); // atomic
             return *this;
         }
 
-        Logger& setLogFileBufferSize(const size_t logFileBufferSize)
+        Logger& setCreateDir(const bool createDir)
         {
-            m_logFileBufferSize = logFileBufferSize; // atomic
+            m_createDir.store(createDir); // atomic
             return *this;
         }
 
-        Logger& setLogFileRotationSizeMB(const size_t logFileRotationSizeMB)
+        Logger& setWriteHeader(const bool writeHeader)
         {
-            m_logFileRotationSizeMB = logFileRotationSizeMB; // atomic
+            m_writeHeader.store(writeHeader); // atomic
+            return *this;
+        }
+
+        Logger& setBufferMaxSize(const size_t bufferMaxSize)
+        {
+            m_bufferMaxSize.store(bufferMaxSize); // atomic
+            return *this;
+        }
+
+        Logger& setBufferFlushSize(const size_t bufferFlushSize)
+        {
+            m_bufferFlushSize.store(bufferFlushSize);   // atomic
+            m_loggingThreadCondition.notify_one();      // wake the logging thread
+            return *this;
+        }
+
+        Logger& setFileRotationSizeMB(const size_t fileRotationSizeMB)
+        {
+            m_fileRotationSizeMB.store(fileRotationSizeMB); // atomic
+            return *this;
+        }
+
+        Logger& resetNumDiscardedLogs()
+        {
+            m_numDiscardedLogs.store(0); // atomic
             return *this;
         }
 
         Logger(const Logger&) = delete;
+
         void operator=(const Logger&) = delete;
 
     private:
@@ -548,7 +573,7 @@ namespace Generic
 
         ~Logger()
         {
-            m_isLogging = false;
+            m_isLogging.store(false);
             m_loggingThreadCondition.notify_all();
 
             if (m_loggingThread.joinable())
@@ -557,23 +582,24 @@ namespace Generic
             }
         }
 
-        void writeHeader(const FileSystem::path& filePath)
+        size_t writeHeader(const FileSystem::path& filePath)
         {
             std::ofstream fileStream{ filePath, std::ios_base::app };
 
             if (fileStream.is_open() && fileStream.good())
             {
-                std::stringstream headerStream{};
+                const std::unique_lock<std::mutex> lock{ m_separatorMutex };
 
+                std::stringstream headerStream{};
                 headerStream
                     << std::left << std::setfill(' ')
-                    << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_seperator
-                    << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_seperator
-                    << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_seperator
-                    << levelToString(Level::Header, m_levelForm) << m_seperator
+                    << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
+                    << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
+                    << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
+                    << levelToString(Level::Header, m_levelForm.load()) << m_separator
 #ifndef GENERIC_LOGGER_HIDE_FILE_INFO
-                    << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_seperator
-                    << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_seperator
+                    << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
+                    << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
 #endif
                     << GENERIC_LOGGER_MESSAGE_HEADER << "\n";
 
@@ -583,144 +609,191 @@ namespace Generic
                     << header
                     << std::setw(header.size()) << std::setfill('-') << "\n";
             }
+            else
+            {
+                throw FileSystem::filesystem_error{ "Logger failed to write header",
+                    std::make_error_code(std::errc::io_error) };
+            }
+
+            return fileStream.tellp();
         }
 
-        std::ostream& writeToStream(std::ostream& stream, const LogDetails& logDetails) const
+        std::ostream& writeToStream(std::ostream& stream, const Log& log) const
         {
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+
             stream
                 << std::right << std::setfill('0')
-                << std::put_time(&logDetails.timestamp, GENERIC_LOGGER_TIMESTAMP_FORMAT)
-                << std::setw(3) << logDetails.milliseconds << m_seperator
+                << std::put_time(&log.timestamp, GENERIC_LOGGER_TIMESTAMP_FORMAT)
+                << std::setw(3) << log.milliseconds << m_separator
                 << std::left << std::setfill(' ')
-                << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_seperator
-                << std::setw(GENERIC_LOGGER_TID_LENGTH) << logDetails.threadID << m_seperator
-                << levelToString(logDetails.level, m_levelForm) << m_seperator
+                << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_separator
+                << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << m_separator
+                << levelToString(log.level, m_levelForm.load()) << m_separator
 #ifndef GENERIC_LOGGER_HIDE_FILE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(logDetails.fileName) << m_seperator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << logDetails.line << m_seperator
+                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.fileName) << m_separator
+                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.line << m_separator
 #endif
-                << logDetails.message << '\n';
+                << log.message << '\n';
 
             return stream;
         }
 
-        bool writeToFile(const FileSystem::path& filePath, const std::vector<LogDetails>& logBuffer)
+        size_t writeToFile(
+            const LogBuffer::iterator   begin,
+            const LogBuffer::iterator   end,
+            const FileSystem::path&     filePath)
         {
             std::ofstream fileStream{ filePath, std::ios_base::app };
 
             if (fileStream.is_open() && fileStream.good())
             {
-                for (const auto& logDetails : logBuffer)
+                for (auto it{ begin }; it != end; ++it)
                 {
-                    writeToStream(fileStream, logDetails);
+                    writeToStream(fileStream, *it);
                 }
-                
-                return true;
+            }
+            else
+            {
+                throw FileSystem::filesystem_error{ "Logger failed to write contents",
+                    std::make_error_code(std::errc::io_error) };
             }
 
-            return false;
+            return fileStream.tellp();
         }
 
-        bool ensureFileExists(const FileSystem::path& filePath)
+        void rotateFile(const FileSystem::path& filePath)
         {
+            const auto filePathOld{ FileSystem::path(filePath).append(GENERIC_LOGGER_OLD_LOG_EXTENSION) };
+
+            if (FileSystem::exists(filePathOld))
+            {
+                FileSystem::remove(filePathOld);
+            }
+
+            FileSystem::rename(filePath, filePathOld);
+        }
+
+        bool writeBufferToFile(
+            const LogBuffer::iterator   begin,
+            const LogBuffer::iterator   end,
+            const std::string&          fileName,
+            FileSystem::path&           filePath,
+            size_t&                     fileSize,
+            bool&                       dirCreated)
+        {
+            auto result{ true };
+
             try
             {
-                if (!FileSystem::exists(filePath))
+                // Get file path and size if path is empty
+                if (filePath.empty())
+                {
+                    filePath = FileSystem::absolute(fileName);
+
+                    if (FileSystem::exists(filePath))
+                    {
+                        fileSize = static_cast<size_t>(FileSystem::file_size(filePath));
+                    }
+                }
+
+                // Create path to file if needed
+                if (m_createDir.load() && !dirCreated)
                 {
                     FileSystem::create_directories(filePath.parent_path());
-
-                    if (m_writeHeader)
-                    {
-                        writeHeader(filePath);
-                    }
+                    dirCreated = true;
                 }
 
-                return true;
-            }
-            catch (const FileSystem::filesystem_error&) {}
-
-            return false;
-        }
-
-        void ensureFileRotated(const FileSystem::path& filePath)
-        {
-            try
-            {
-                if (m_logFileRotationSizeMB != 0 &&
-                    (m_logFileRotationSizeMB * 1024 * 1024) < static_cast<size_t>(FileSystem::file_size(filePath)))
+                const auto fileRotationSizeMB{ m_fileRotationSizeMB.load() };
+                
+                // Rotate file if needed
+                if (fileRotationSizeMB != 0 && (fileRotationSizeMB * 1024 * 1024) <= fileSize)
                 {
-                    const auto filePathOld{ FileSystem::path(filePath).append(GENERIC_LOGGER_OLD_LOG_EXTENSION) };
-
-                    if (FileSystem::exists(filePathOld))
-                    {
-                        FileSystem::remove(filePathOld);
-                    }
-
-                    FileSystem::rename(filePath, filePathOld);
+                    rotateFile(filePath);
+                    fileSize = 0;
                 }
+
+                // Write header if needed
+                if (m_writeHeader.load() && fileSize == 0)
+                {
+                    fileSize = writeHeader(filePath);
+                }
+
+                fileSize = writeToFile(begin, end, filePath);
             }
-            catch (const FileSystem::filesystem_error&) {}
+            catch (const FileSystem::filesystem_error&)
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         void startLogging()
         {
+            bool shouldWait{ false };
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
-            std::map<std::string, LogFileDetails> loggingDetails{};
 
-            while (m_isLogging)
+            while (m_isLogging.load())
             {
-                if (m_loggingDetailsQueue.empty())
+                if (shouldWait)
                 {
                     m_loggingThreadCondition.wait(lock);
+                    shouldWait = false;
                 }
                 else
                 {
-                    decltype(loggingDetails)::iterator it;
+                    shouldWait = true;
 
+                    for (auto& logFilePair : m_logFiles)
                     {
-                        auto logDetails{ std::move(m_loggingDetailsQueue.front()) };
-                        m_loggingDetailsQueue.pop_front();
+                        auto& fileName  { logFilePair.first };
+                        auto& buffer    { logFilePair.second.buffer };
+                        auto& filePath  { logFilePair.second.filePath };
+                        auto& fileSize  { logFilePair.second.fileSize };
+                        auto& dirCreated{ logFilePair.second.dirCreated };
 
-                        it = loggingDetails.find(logDetails.logFile);
-                        if (it == loggingDetails.end())
+                        if (!buffer.empty() && m_bufferFlushSize.load() <= buffer.size())
                         {
-                            // For a new file, set up the buffer and reserve space
-                            it = loggingDetails.emplace(
-                                logDetails.logFile,
-                                LogFileDetails{ false, FileSystem::absolute(logDetails.logFile), {} }).first;
-                            it->second.buffer.reserve(m_logFileBufferSize);
+                            const auto begin{ buffer.begin() };
+                            const auto end  { buffer.end() };
+
+                            // Doesn't require synchronization.
+                            // Since this thread stays within the range gotten when locked
+                            // and other threads only add to the end, unlocking is fine.
+                            lock.unlock();
+
+                            // Since other threads can add logs, don't wait when done.
+                            shouldWait = false;
+
+                            const auto result{ writeBufferToFile(
+                                begin, end, fileName, filePath, fileSize, dirCreated) };
+
+                            lock.lock();
+
+                            // Erase the logs after re-locking.
+                            if (result)
+                            {
+                                buffer.erase(begin, end);
+                            }
                         }
-
-                        it->second.buffer.emplace_back(logDetails);
-                    }
-
-                    auto& logFileDetails = it->second;
-
-                    if (logFileDetails.buffer.size() < m_logFileBufferSize)
-                    {
-                        // Buffer the log to be written in bulk
-                    }
-                    else
-                    {
-                        lock.unlock();
-
-                        logFileDetails.exists |= ensureFileExists(logFileDetails.filePath);
-
-                        if (logFileDetails.exists &&
-                            writeToFile(logFileDetails.filePath, logFileDetails.buffer))
-                        {
-                            logFileDetails.buffer.clear();
-                            ensureFileRotated(logFileDetails.filePath);
-                        }
-
-                        lock.lock();
                     }
                 }
             }
 
-            for (const auto& logFilePair : loggingDetails)
+            // Write all buffers to their files
+            for (auto& logFilePair : m_logFiles)
             {
-                writeToFile(logFilePair.second.filePath, logFilePair.second.buffer);
+                auto& fileName  { logFilePair.first };
+                auto& buffer    { logFilePair.second.buffer };
+                auto& filePath  { logFilePair.second.filePath };
+                auto& fileSize  { logFilePair.second.fileSize };
+                auto& dirCreated{ logFilePair.second.dirCreated };
+
+                if (!buffer.empty())
+                {
+                    writeBufferToFile(buffer.begin(), buffer.end(), fileName, filePath, fileSize, dirCreated);
+                }
             }
         }
     };
