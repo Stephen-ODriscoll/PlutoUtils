@@ -8,3 +8,23 @@ protected:
     LocaleTests() {}
     ~LocaleTests() {}
 };
+
+TEST_F(LocaleTests, TestGetCLocale)
+{
+    const auto& cLocale{ Generic::getCLocale() };
+}
+
+TEST_F(LocaleTests, TestGetSystemLocale)
+{
+    const auto& systemLocale{ Generic::getSystemLocale() };
+}
+
+TEST_F(LocaleTests, TestGetDefaultLocale)
+{
+    const auto& defaultLocale{ Generic::getDefaultLocale() };
+}
+
+TEST_F(LocaleTests, TestGetFacet)
+{
+    const auto& facet{ Generic::getFacet<char>(Generic::getDefaultLocale()) };
+}
