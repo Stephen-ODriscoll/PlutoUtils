@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#define TEST_LOCALE Generic::defaultLocale
+#define TEST_LOCALE Generic::getDefaultLocale()
 
 class StringUtilsTests : public testing::Test
 {

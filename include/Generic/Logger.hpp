@@ -186,7 +186,7 @@ namespace Generic
 
         enum class LevelForm : unsigned char
         {
-            Full,
+            Full = 0,
             Short,
             Char
         };
