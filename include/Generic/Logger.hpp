@@ -179,7 +179,7 @@ namespace Generic
             Notice,     // Strange or significant behaviour that is not an issue by itself.
             Info,       // Important updates for tracking activity.
             Debug,      // Helpful updates for more in depth tracking.
-            Trace,      // Specialized step-by-step tracking updates.
+            Trace,      // Specialised step-by-step tracking updates.
             Verbose,    // Very informative and noisy updates.
             Header      // Reserved for header info.
         };
@@ -370,6 +370,118 @@ namespace Generic
             return instance;
         }
 
+        bool isLogging() const
+        {
+            return m_isLogging.load(); // atomic
+        }
+
+        Level getLevel() const
+        {
+            return m_level.load(); // atomic
+        }
+
+        bool shouldLog(Level level) const
+        {
+            return (isLogging() && level <= getLevel());
+        }
+
+        std::string getSeparator() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+            return m_separator;
+        }
+
+        LevelForm getLevelForm() const
+        {
+            return m_levelForm.load(); // atomic
+        }
+
+        bool getCreateDir() const
+        {
+            return m_createDir.load(); // atomic
+        }
+
+        bool getWriteHeader() const
+        {
+            return m_writeHeader.load(); // atomic
+        }
+
+        size_t getBufferMaxSize() const
+        {
+            return m_bufferMaxSize.load(); // atomic
+        }
+
+        size_t getBufferFlushSize() const
+        {
+            return m_bufferFlushSize.load(); // atomic
+        }
+
+        size_t getFileRotationSizeMB() const
+        {
+            return m_fileRotationSizeMB.load(); // atomic
+        }
+
+        size_t getNumDiscardedLogs() const
+        {
+            return m_numDiscardedLogs.load(); // atomic
+        }
+
+        Logger& setLevel(const Level level)
+        {
+            m_level.store(level); // atomic
+            return *this;
+        }
+
+        Logger& setSeparator(const std::string& separator)
+        {
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+            m_separator = separator;
+            return *this;
+        }
+
+        Logger& setLevelForm(const LevelForm levelForm)
+        {
+            m_levelForm.store(levelForm); // atomic
+            return *this;
+        }
+
+        Logger& setCreateDir(const bool createDir)
+        {
+            m_createDir.store(createDir); // atomic
+            return *this;
+        }
+
+        Logger& setWriteHeader(const bool writeHeader)
+        {
+            m_writeHeader.store(writeHeader); // atomic
+            return *this;
+        }
+
+        Logger& setBufferMaxSize(const size_t bufferMaxSize)
+        {
+            m_bufferMaxSize.store(bufferMaxSize); // atomic
+            return *this;
+        }
+
+        Logger& setBufferFlushSize(const size_t bufferFlushSize)
+        {
+            m_bufferFlushSize.store(bufferFlushSize);   // atomic
+            m_loggingThreadCondition.notify_one();      // wake the logging thread
+            return *this;
+        }
+
+        Logger& setFileRotationSizeMB(const size_t fileRotationSizeMB)
+        {
+            m_fileRotationSizeMB.store(fileRotationSizeMB); // atomic
+            return *this;
+        }
+
+        Logger& resetNumDiscardedLogs()
+        {
+            m_numDiscardedLogs.store(0); // atomic
+            return *this;
+        }
+
         void write(
             const std::string   fileName,
             const Level         level,
@@ -446,119 +558,6 @@ namespace Generic
 
             // Write message, or use format if message creation failed
             write(fileName, level, filePath, line, (buffer[0] == '\0') ? format : buffer);
-        }
-
-        bool isLogging() const
-        {
-            return m_isLogging.load(); // atomic
-        }
-
-        bool shouldLog(Level level) const
-        {
-            return (isLogging() && level <= getLevel());
-        }
-
-        Level getLevel() const
-        {
-            return m_level.load(); // atomic
-        }
-
-        std::string getSeparator() const
-        {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-            return m_separator;
-        }
-
-        LevelForm getLevelForm() const
-        {
-            return m_levelForm.load(); // atomic
-        }
-
-        bool getCreateDir() const
-        {
-            return m_createDir.load(); // atomic
-        }
-
-        bool getWriteHeader() const
-        {
-            return m_writeHeader.load(); // atomic
-        }
-
-        size_t getBufferMaxSize() const
-        {
-            return m_bufferMaxSize.load(); // atomic
-        }
-
-        size_t getBufferFlushSize() const
-        {
-            return m_bufferFlushSize.load(); // atomic
-        }
-
-        size_t getFileRotationSizeMB() const
-        {
-            return m_fileRotationSizeMB.load(); // atomic
-        }
-
-        size_t getNumDiscardedLogs() const
-        {
-            return m_numDiscardedLogs.load(); // atomic
-        }
-
-        Logger& setLevel(const Level level)
-        {
-            m_level.store(level); // atomic
-            return *this;
-        }
-
-        Logger& setSeparator(const std::string& separator)
-        {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-
-            m_separator = separator;
-            return *this;
-        }
-
-        Logger& setLevelForm(const LevelForm levelForm)
-        {
-            m_levelForm.store(levelForm); // atomic
-            return *this;
-        }
-
-        Logger& setCreateDir(const bool createDir)
-        {
-            m_createDir.store(createDir); // atomic
-            return *this;
-        }
-
-        Logger& setWriteHeader(const bool writeHeader)
-        {
-            m_writeHeader.store(writeHeader); // atomic
-            return *this;
-        }
-
-        Logger& setBufferMaxSize(const size_t bufferMaxSize)
-        {
-            m_bufferMaxSize.store(bufferMaxSize); // atomic
-            return *this;
-        }
-
-        Logger& setBufferFlushSize(const size_t bufferFlushSize)
-        {
-            m_bufferFlushSize.store(bufferFlushSize);   // atomic
-            m_loggingThreadCondition.notify_one();      // wake the logging thread
-            return *this;
-        }
-
-        Logger& setFileRotationSizeMB(const size_t fileRotationSizeMB)
-        {
-            m_fileRotationSizeMB.store(fileRotationSizeMB); // atomic
-            return *this;
-        }
-
-        Logger& resetNumDiscardedLogs()
-        {
-            m_numDiscardedLogs.store(0); // atomic
-            return *this;
         }
 
         Logger(const Logger&) = delete;
