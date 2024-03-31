@@ -579,6 +579,21 @@ namespace Generic
             {
                 m_loggingThread.join();
             }
+
+            // Write all buffers to their files
+            for (auto& logFilePair : m_logFiles)
+            {
+                auto& fileName  { logFilePair.first };
+                auto& buffer    { logFilePair.second.buffer };
+                auto& filePath  { logFilePair.second.filePath };
+                auto& fileSize  { logFilePair.second.fileSize };
+                auto& dirCreated{ logFilePair.second.dirCreated };
+
+                if (!buffer.empty())
+                {
+                    writeBufferToFile(buffer.begin(), buffer.end(), fileName, filePath, fileSize, dirCreated);
+                }
+            }
         }
 
         size_t writeHeader(const FileSystem::path& filePath)
@@ -777,21 +792,6 @@ namespace Generic
                             }
                         }
                     }
-                }
-            }
-
-            // Write all buffers to their files
-            for (auto& logFilePair : m_logFiles)
-            {
-                auto& fileName  { logFilePair.first };
-                auto& buffer    { logFilePair.second.buffer };
-                auto& filePath  { logFilePair.second.filePath };
-                auto& fileSize  { logFilePair.second.fileSize };
-                auto& dirCreated{ logFilePair.second.dirCreated };
-
-                if (!buffer.empty())
-                {
-                    writeBufferToFile(buffer.begin(), buffer.end(), fileName, filePath, fileSize, dirCreated);
                 }
             }
         }
