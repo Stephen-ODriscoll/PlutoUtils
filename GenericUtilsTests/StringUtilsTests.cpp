@@ -2,9 +2,153 @@
 
 #include <gtest/gtest.h>
 
-#include <memory>
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_1(check, function, x) \
+    check(function(u8##x))
+#else
+#define TEST_CHAR8_ELEM_1(check, function, x) \
+    do {} while (false)
+#endif
 
-#define TEST_LOCALE Generic::getDefaultLocale()
+#define TEST_ALL_ELEM_1(check, function, x) \
+    check(function(x)); \
+    check(function(L##x)); \
+    TEST_CHAR8_ELEM_1(check, function, x); \
+    check(function(u##x)); \
+    check(function(U##x))
+
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_2(check, function, x, y) \
+    check(function(u8##x), u8##y)
+#else
+#define TEST_CHAR8_ELEM_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_2(check, function, x, y) \
+    check(function(x), y); \
+    check(function(L##x), L##y); \
+    TEST_CHAR8_ELEM_2(check, function, x, y); \
+    check(function(u##x), u##y); \
+    check(function(U##x), U##y)
+
+
+
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
+    check(function(u8##x, size))
+#else
+#define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_ARRAYS_1(check, function, x) \
+    do \
+    { \
+        const auto size{ strlen(x) }; \
+        \
+        check(function(x, size)); \
+        check(function(L##x, size)); \
+        TEST_CHAR8_ELEM_ARRAYS_1(check, function, x); \
+        check(function(u##x, size)); \
+        check(function(U##x, size)); \
+    } \
+    while(false)
+
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
+    auto char8Array{ new char8_t[size + 1] }; \
+    memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
+    function(char8Array, size); \
+    check(std::u8string(char8Array), std::u8string(u8##y)); \
+    delete[] char8Array
+#else
+#define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_ARRAYS_2(check, function, x, y) \
+    do \
+    { \
+        const auto size{ strlen(x) }; \
+        \
+        auto charArray{ new char[size + 1] }; \
+        memcpy(charArray, x, ((size + 1) * sizeof(char))); \
+        function(charArray, size); \
+        check(std::string(charArray), std::string(y)); \
+        delete[] charArray; \
+        \
+        auto wcharArray{ new wchar_t[size + 1] }; \
+        memcpy(wcharArray, L##x, ((size + 1) * sizeof(wchar_t))); \
+        function(wcharArray, size); \
+        check(std::wstring(wcharArray), std::wstring(L##y)); \
+        delete[] wcharArray; \
+        \
+        TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y); \
+        \
+        auto char16Array{ new char16_t[size + 1] }; \
+        memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
+        function(char16Array, size); \
+        check(std::u16string(char16Array), std::u16string(u##y)); \
+        delete[] char16Array; \
+        \
+        auto char32Array{ new char32_t[size + 1] }; \
+        memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
+        function(char32Array, size); \
+        check(std::u32string(char32Array), std::u32string(U##y)); \
+        delete[] char32Array; \
+    } \
+    while (false)
+
+
+
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
+    check(function(std::u8string(u8##x)))
+#else
+#define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_1(check, function, x) \
+    check(function(std::string(x))); \
+    check(function(std::wstring(L##x))); \
+    TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
+    check(function(std::u16string(u##x))); \
+    check(function(std::u32string(U##x)))
+
+#ifdef __cpp_lib_char8_t
+#define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
+    auto u8string{ std::u8string{ u8##x } }; \
+    function(u8string); \
+    check(u8string, std::u8string(u8##y))
+#else
+#define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_2(check, function, x, y) \
+    do \
+    { \
+        auto string{ std::string{ x } }; \
+        function(string); \
+        check(string, std::string(y)); \
+        \
+        auto wstring{ std::wstring{ L##x } }; \
+        function(wstring); \
+        check(wstring, std::wstring(L##y)); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
+        \
+        auto u16string{ std::u16string{ u##x } }; \
+        function(u16string); \
+        check(u16string, std::u16string(u##y)); \
+        \
+        auto u32string{ std::u32string{ U##x } }; \
+        function(u32string); \
+        check(u32string, std::u32string(U##y)); \
+    } \
+    while (false)
 
 class StringUtilsTests : public testing::Test
 {
@@ -13,403 +157,154 @@ protected:
     ~StringUtilsTests() {}
 };
 
-struct TestComparison
-{
-    const char* const   left{};
-    const char* const   right{};
-    bool                result{};
-
-    TestComparison(
-        const char* const   left,
-        const char* const   right,
-        bool                result) :
-        left    { left },
-        right   { right },
-        result  { result } {}
-};
-
-struct TestResult
-{
-    const char* const   test{};
-    bool                result{};
-
-    TestResult(
-        const char* const   test,
-        bool                result) :
-        test    { test },
-        result  { result } {}
-};
-
-template<class T>
-struct ArrayWrapper
-{
-    const T* const  test{};
-    const size_t    size{};
-
-    ArrayWrapper(
-        const T* const  test,
-        const size_t    size) :
-        test{ test },
-        size{ size } {}
-
-    bool operator==(const ArrayWrapper<T>& other) const
-    {
-        if (size != other.size)
-        {
-            return false;
-        }
-
-        for (size_t i{}; i < size; ++i)
-        {
-            if (test[i] != other.test[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    bool operator!=(const ArrayWrapper<T>& other) const
-    {
-        return !(*this == other);
-    }
-};
-
-template<class T>
-inline std::ostream& operator<<(std::ostream& stream, const ArrayWrapper<T>& arrayWrapper)
-{
-    auto copy{ std::make_unique<char[]>(arrayWrapper.size) };
-    castArray<char, T>(copy.get(), arrayWrapper.test, arrayWrapper.size);
-
-    stream << copy.get();
-    return stream;
-}
-
-const TestComparison testToLower[] =
-{
-    TestComparison("a", "a", true),
-    TestComparison("A", "a", true),
-    TestComparison("a", "A", false),
-    TestComparison("A", "A", false),
-    TestComparison("ABCDEF", "abcdef", true),
-    TestComparison("ABCDEF", "ABCDEF", false),
-    TestComparison("ABCDEF", "aBcDeF", false)
-};
-
-const TestComparison testToUpper[] =
-{
-    TestComparison("A", "A", true),
-    TestComparison("a", "A", true),
-    TestComparison("A", "a", false),
-    TestComparison("a", "a", false),
-    TestComparison("abcdef", "ABCDEF", true),
-    TestComparison("abcdef", "abcdef", false),
-    TestComparison("abcdef", "aBcDeF", false)
-};
-
-const TestResult testIsLower[] =
-{
-    TestResult("a", true),
-    TestResult("A", false),
-    TestResult("abcdef", true),
-    TestResult("ABCDEF", false),
-    TestResult("aBcDeF", false)
-};
-
-const TestResult testIsUpper[] =
-{
-    TestResult("A", true),
-    TestResult("a", false),
-    TestResult("ABCDEF", true),
-    TestResult("abcdef", false),
-    TestResult("aBcDeF", false),
-};
-
-template<class To, class From>
-void castArray(To* to, const From* const from, const size_t size)
-{
-    for (size_t i{}; i < size; ++i)
-    {
-        to[i] = To(from[i]);
-    }
-}
-
-template<class T>
-void checkResult(const T left, const T right, const bool result)
-{
-    if (result)
-    {
-        ASSERT_EQ(left, right);
-    }
-    else
-    {
-        ASSERT_NE(left, right);
-    }
-}
-
-template<class Elem, class TestFunction>
-void compareElem(TestComparison test, TestFunction function)
-{
-    const auto sizeL{ strlen(test.left) + 1 };
-    const auto sizeR{ strlen(test.right) + 1 };
-
-    auto leftCopy{ std::make_unique<Elem[]>(sizeL) };
-    auto rightCopy{ std::make_unique<Elem[]>(sizeR) };
-
-    castArray<Elem, char>(leftCopy.get(), test.left, sizeL);
-    castArray<Elem, char>(rightCopy.get(), test.right, sizeR);
-
-    for (size_t i{}; i < sizeL; ++i)
-    {
-        leftCopy[i] = function(leftCopy[i], TEST_LOCALE);
-    }
-
-    checkResult(ArrayWrapper<Elem>(leftCopy.get(), sizeL), ArrayWrapper<Elem>(rightCopy.get(), sizeR), test.result);
-}
-
-template<class Elem, class TestFunction>
-void compareElemArray(TestComparison test, TestFunction function)
-{
-    const auto sizeL{ strlen(test.left) + 1 };
-    const auto sizeR{ strlen(test.right) + 1 };
-
-    auto leftCopy{ std::make_unique<Elem[]>(sizeL) };
-    auto rightCopy{ std::make_unique<Elem[]>(sizeR) };
-
-    castArray<Elem, char>(leftCopy.get(), test.left, sizeL);
-    castArray<Elem, char>(rightCopy.get(), test.right, sizeR);
-
-    function(leftCopy.get(), sizeL, TEST_LOCALE);
-
-    checkResult(ArrayWrapper<Elem>(leftCopy.get(), sizeL), ArrayWrapper<Elem>(rightCopy.get(), sizeR), test.result);
-}
-
-template<class String, class TestFunction>
-void compareElemString(TestComparison test, TestFunction function)
-{
-    String leftString(test.left, (test.left + strlen(test.left) + 1));
-    String rightString(test.right, (test.right + strlen(test.right) + 1));
-
-    function(leftString, TEST_LOCALE);
-
-    checkResult(leftString, rightString, test.result);
-}
-
 TEST_F(StringUtilsTests, TestElemToLower)
 {
-    for (const auto& test : testToLower)
-    {
-        compareElem<char, char(const char, const std::locale&)>(test, Generic::toLower);
-        compareElem<wchar_t, wchar_t(const wchar_t, const std::locale&)>(test, Generic::toLower);
-#ifdef __cpp_lib_char8_t
-        compareElem<char8_t, char8_t(const char8_t, const std::locale&)>(test, Generic::toLower);
-#endif
-        compareElem<char16_t, char16_t(const char16_t, const std::locale&)>(test, Generic::toLower);
-        compareElem<char32_t, char32_t(const char32_t, const std::locale&)>(test, Generic::toLower);
-    }
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'a', 'a');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'A', 'a');
+    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toLower, 'a', 'A');
+    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toLower, 'A', 'A');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayToLower)
 {
-    for (const auto& test : testToLower)
-    {
-        compareElemArray<char, void(char* const, const size_t, const std::locale&)>(test, Generic::toLower);
-        compareElemArray<wchar_t, void(wchar_t* const, const size_t, const std::locale&)>(test, Generic::toLower);
-#ifdef __cpp_lib_char8_t
-        compareElemArray<char8_t, void(char8_t* const, const size_t, const std::locale&)>(test, Generic::toLower);
-#endif
-        compareElemArray<char16_t, void(char16_t* const, const size_t, const std::locale&)>(test, Generic::toLower);
-        compareElemArray<char32_t, void(char32_t* const, const size_t, const std::locale&)>(test, Generic::toLower);
-    }
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "A", "A");
+
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "ABCDEF", "ABCDEF");
+
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "aBcDeF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "abcdef", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringToLower)
 {
-    for (const auto& test : testToLower)
-    {
-        compareElemString<std::string, void(std::string&, const std::locale&)>(test, Generic::toLower);
-        compareElemString<std::wstring, void(std::wstring&, const std::locale&)>(test, Generic::toLower);
-#ifdef __cpp_lib_char8_t
-        compareElemString<std::u8string, void(std::u8string&, const std::locale&)>(test, Generic::toLower);
-#endif
-        compareElemString<std::u16string, void(std::u16string&, const std::locale&)>(test, Generic::toLower);
-        compareElemString<std::u32string, void(std::u32string&, const std::locale&)>(test, Generic::toLower);
-    }
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "A", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "a", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "A", "A");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "ABCDEF", "ABCDEF");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "aBcDeF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "abcdef", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemToUpper)
 {
-    for (const auto& test : testToUpper)
-    {
-        compareElem<char, char(const char, const std::locale&)>(test, Generic::toUpper);
-        compareElem<wchar_t, wchar_t(const wchar_t, const std::locale&)>(test, Generic::toUpper);
-#ifdef __cpp_lib_char8_t
-        compareElem<char8_t, char8_t(const char8_t, const std::locale&)>(test, Generic::toUpper);
-#endif
-        compareElem<char16_t, char16_t(const char16_t, const std::locale&)>(test, Generic::toUpper);
-        compareElem<char32_t, char32_t(const char32_t, const std::locale&)>(test, Generic::toUpper);
-    }
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'A', 'A');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'a', 'A');
+    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toUpper, 'A', 'a');
+    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toUpper, 'a', 'a');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayToUpper)
 {
-    for (const auto& test : testToUpper)
-    {
-        compareElemArray<char, void(char* const, const size_t, const std::locale&)>(test, Generic::toUpper);
-        compareElemArray<wchar_t, void(wchar_t* const, const size_t, const std::locale&)>(test, Generic::toUpper);
-#ifdef __cpp_lib_char8_t
-        compareElemArray<char8_t, void(char8_t* const, const size_t, const std::locale&)>(test, Generic::toUpper);
-#endif
-        compareElemArray<char16_t, void(char16_t* const, const size_t, const std::locale&)>(test, Generic::toUpper);
-        compareElemArray<char32_t, void(char32_t* const, const size_t, const std::locale&)>(test, Generic::toUpper);
-    }
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringToUpper)
 {
-    for (const auto& test : testToUpper)
-    {
-        compareElemString<std::string, void(std::string&, const std::locale&)>(test, Generic::toUpper);
-        compareElemString<std::wstring, void(std::wstring&, const std::locale&)>(test, Generic::toUpper);
-#ifdef __cpp_lib_char8_t
-        compareElemString<std::u8string, void(std::u8string&, const std::locale&)>(test, Generic::toUpper);
-#endif
-        compareElemString<std::u16string, void(std::u16string&, const std::locale&)>(test, Generic::toUpper);
-        compareElemString<std::u32string, void(std::u32string&, const std::locale&)>(test, Generic::toUpper);
-    }
-}
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "A", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "a", "a");
 
-template<class Elem, class TestFunction>
-void checkElem(TestResult test, TestFunction function)
-{
-    const auto size{ strlen(test.test) + 1 };
-    auto copy{ std::make_unique<Elem[]>(size) };
-    castArray<Elem, char>(copy.get(), test.test, size);
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "abcdef", "abcdef");
 
-    auto result{ true };
-    for (size_t i{}; i < size; ++i)
-    {
-        result &= function(copy.get()[i], TEST_LOCALE);
-    }
-
-    ASSERT_EQ(result, test.result);
-}
-
-template<class Elem, class TestFunction>
-void checkElemArray(TestResult test, TestFunction function)
-{
-    const auto size{ strlen(test.test) + 1 };
-    auto copy{ std::make_unique<Elem[]>(size) };
-    castArray<Elem, char>(copy.get(), test.test, size);
-
-    ASSERT_EQ(function(copy.get(), size, TEST_LOCALE), test.result);
-}
-
-template<class String, class TestFunction>
-void checkElemString(TestResult test, TestFunction function)
-{
-    String str(test.test, (test.test + strlen(test.test) + 1));
-
-    ASSERT_EQ(function(str, TEST_LOCALE), test.result);
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemIsLower)
 {
-    for (const auto& test : testIsLower)
-    {
-        checkElem<char, bool(const char, const std::locale&)>(test, Generic::isLower);
-        checkElem<wchar_t, bool(const wchar_t, const std::locale&)>(test, Generic::isLower);
-#ifdef __cpp_lib_char8_t
-        checkElem<char8_t, bool(const char8_t, const std::locale&)>(test, Generic::isLower);
-#endif
-        checkElem<char16_t, bool(const char16_t, const std::locale&)>(test, Generic::isLower);
-        checkElem<char32_t, bool(const char32_t, const std::locale&)>(test, Generic::isLower);
-    }
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isLower, 'a');
+    TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isLower, 'A');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsLower)
 {
-    for (const auto& test : testIsLower)
-    {
-        checkElemArray<char, bool(const char* const, const size_t, const std::locale&)>(test, Generic::isLower);
-        checkElemArray<wchar_t, bool(const wchar_t* const, const size_t, const std::locale&)>(test, Generic::isLower);
-#ifdef __cpp_lib_char8_t
-        checkElemArray<char8_t, bool(const char8_t* const, const size_t, const std::locale&)>(test, Generic::isLower);
-#endif
-        checkElemArray<char16_t, bool(const char16_t* const, const size_t, const std::locale&)>(test, Generic::isLower);
-        checkElemArray<char32_t, bool(const char32_t* const, const size_t, const std::locale&)>(test, Generic::isLower);
-    }
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "a");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "A");
+
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
+
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringIsLower)
 {
-    for (const auto& test : testIsLower)
-    {
-        checkElemString<std::string, bool(const std::string&, const std::locale&)>(test, Generic::isLower);
-        checkElemString<std::wstring, bool(const std::wstring&, const std::locale&)>(test, Generic::isLower);
-#ifdef __cpp_lib_char8_t
-        checkElemString<std::u8string, bool(const std::u8string&, const std::locale&)>(test, Generic::isLower);
-#endif
-        checkElemString<std::u16string, bool(const std::u16string&, const std::locale&)>(test, Generic::isLower);
-        checkElemString<std::u32string, bool(const std::u32string&, const std::locale&)>(test, Generic::isLower);
-    }
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "a");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "A");
+
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
+
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemIsUpper)
 {
-    for (const auto& test : testIsUpper)
-    {
-        checkElem<char, bool(const char, const std::locale&)>(test, Generic::isUpper);
-        checkElem<wchar_t, bool(const wchar_t, const std::locale&)>(test, Generic::isUpper);
-#ifdef __cpp_lib_char8_t
-        checkElem<char8_t, bool(const char8_t, const std::locale&)>(test, Generic::isUpper);
-#endif
-        checkElem<char16_t, bool(const char16_t, const std::locale&)>(test, Generic::isUpper);
-        checkElem<char32_t, bool(const char32_t, const std::locale&)>(test, Generic::isUpper);
-    }
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isUpper, 'A');
+    TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isUpper, 'a');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsUpper)
 {
-    for (const auto& test : testIsUpper)
-    {
-        checkElemArray<char, bool(const char* const, const size_t, const std::locale&)>(test, Generic::isUpper);
-        checkElemArray<wchar_t, bool(const wchar_t* const, const size_t, const std::locale&)>(test, Generic::isUpper);
-#ifdef __cpp_lib_char8_t
-        checkElemArray<char8_t, bool(const char8_t* const, const size_t, const std::locale&)>(test, Generic::isUpper);
-#endif
-        checkElemArray<char16_t, bool(const char16_t* const, const size_t, const std::locale&)>(test, Generic::isUpper);
-        checkElemArray<char32_t, bool(const char32_t* const, const size_t, const std::locale&)>(test, Generic::isUpper);
-    }
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "A");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "a");
+
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringIsUpper)
 {
-    for (const auto& test : testIsUpper)
-    {
-        checkElemString<std::string, bool(const std::string&, const std::locale&)>(test, Generic::isUpper);
-        checkElemString<std::wstring, bool(const std::wstring&, const std::locale&)>(test, Generic::isUpper);
-#ifdef __cpp_lib_char8_t
-        checkElemString<std::u8string, bool(const std::u8string&, const std::locale&)>(test, Generic::isUpper);
-#endif
-        checkElemString<std::u16string, bool(const std::u16string&, const std::locale&)>(test, Generic::isUpper);
-        checkElemString<std::u32string, bool(const std::u32string&, const std::locale&)>(test, Generic::isUpper);
-    }
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "A");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "a");
+
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestWideElemArrayToNarrow)
 {
-    const auto wide{ L"abcdef" };
-    const auto narrow{ "abcdef" };
-    const auto size{ strlen(narrow) + 1 };
+    const auto wide     { L"abcdef" };
+    const auto narrow   { "abcdef" };
+    const auto size     { wcslen(wide) };
 
-    ASSERT_EQ(Generic::toNarrow(wide, size), std::string(narrow, (narrow + size)));
+    ASSERT_EQ(Generic::toNarrow(wide, size), std::string(narrow));
 }
 
 TEST_F(StringUtilsTests, TestWideStringToNarrow)
 {
-    const std::wstring wide{ L"abcdef" };
+    const std::wstring wide { L"abcdef" };
     const std::string narrow{ "abcdef" };
 
     ASSERT_EQ(Generic::toNarrow(wide), narrow);
@@ -417,10 +312,10 @@ TEST_F(StringUtilsTests, TestWideStringToNarrow)
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToNarrow)
 {
-    const auto narrow{ "abcdef" };
-    const auto size{ strlen(narrow) + 1 };
+    const auto narrow   { "abcdef" };
+    const auto size     { strlen(narrow) };
 
-    ASSERT_EQ(Generic::toNarrow(narrow, size), std::string(narrow, (narrow + size)));
+    ASSERT_EQ(Generic::toNarrow(narrow, size), std::string(narrow));
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToNarrow)
@@ -432,28 +327,30 @@ TEST_F(StringUtilsTests, TestNarrowStringToNarrow)
 
 TEST_F(StringUtilsTests, TestOtherToNarrow)
 {
-    ASSERT_EQ(Generic::toNarrow(1),     std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1l),    std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1ll),   std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1u),    std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1ul),   std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1ull),  std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1.0),   std::string("1"));
-    ASSERT_EQ(Generic::toNarrow(1.0f),  std::string("1"));
+    const std::string narrow{ "1" };
+
+    ASSERT_EQ(Generic::toNarrow(1),     narrow);
+    ASSERT_EQ(Generic::toNarrow(1l),    narrow);
+    ASSERT_EQ(Generic::toNarrow(1ll),   narrow);
+    ASSERT_EQ(Generic::toNarrow(1u),    narrow);
+    ASSERT_EQ(Generic::toNarrow(1ul),   narrow);
+    ASSERT_EQ(Generic::toNarrow(1ull),  narrow);
+    ASSERT_EQ(Generic::toNarrow(1.0),   narrow);
+    ASSERT_EQ(Generic::toNarrow(1.0f),  narrow);
 }
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToWide)
 {
-    const auto wide{ L"abcdef" };
-    const auto narrow{ "abcdef" };
-    const auto size{ strlen(narrow) + 1 };
+    const auto wide     { L"abcdef" };
+    const auto narrow   { "abcdef" };
+    const auto size     { strlen(narrow) };
 
-    ASSERT_EQ(Generic::toWide(narrow, size), std::wstring(wide, (wide + size)));
+    ASSERT_EQ(Generic::toWide(narrow, size), std::wstring(wide));
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToWide)
 {
-    const std::wstring wide{ L"abcdef" };
+    const std::wstring wide { L"abcdef" };
     const std::string narrow{ "abcdef" };
 
     ASSERT_EQ(Generic::toWide(narrow), wide);
@@ -462,10 +359,9 @@ TEST_F(StringUtilsTests, TestNarrowStringToWide)
 TEST_F(StringUtilsTests, TestWideElemArrayToWide)
 {
     const auto wide{ L"abcdef" };
-    const auto narrow{ "abcdef" };
-    const auto size{ strlen(narrow) + 1 };
+    const auto size{ wcslen(wide) };
 
-    ASSERT_EQ(Generic::toWide(wide, size), std::wstring(wide, (wide + size)));
+    ASSERT_EQ(Generic::toWide(wide, size), std::wstring(wide));
 }
 
 TEST_F(StringUtilsTests, TestWideStringToWide)
@@ -477,60 +373,72 @@ TEST_F(StringUtilsTests, TestWideStringToWide)
 
 TEST_F(StringUtilsTests, TestOtherToWide)
 {
-    ASSERT_EQ(Generic::toWide(1),       std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1l),      std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1ll),     std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1u),      std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1ul),     std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1ull),    std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1.0),     std::wstring(L"1"));
-    ASSERT_EQ(Generic::toWide(1.0f),    std::wstring(L"1"));
+    const std::wstring wide{ L"1" };
+
+    ASSERT_EQ(Generic::toWide(1),       wide);
+    ASSERT_EQ(Generic::toWide(1l),      wide);
+    ASSERT_EQ(Generic::toWide(1ll),     wide);
+    ASSERT_EQ(Generic::toWide(1u),      wide);
+    ASSERT_EQ(Generic::toWide(1ul),     wide);
+    ASSERT_EQ(Generic::toWide(1ull),    wide);
+    ASSERT_EQ(Generic::toWide(1.0),     wide);
+    ASSERT_EQ(Generic::toWide(1.0f),    wide);
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToOther)
 {
-    ASSERT_EQ(Generic::narrowTo<int>(std::string("1")),                 1);
-    ASSERT_EQ(Generic::narrowTo<long>(std::string("1")),                1l);
-    ASSERT_EQ(Generic::narrowTo<long long>(std::string("1")),           1ll);
-    ASSERT_EQ(Generic::narrowTo<unsigned int>(std::string("1")),        1u);
-    ASSERT_EQ(Generic::narrowTo<unsigned long>(std::string("1")),       1ul);
-    ASSERT_EQ(Generic::narrowTo<unsigned long long>(std::string("1")),  1ull);
-    ASSERT_EQ(Generic::narrowTo<double>(std::string("1")),              1.0);
-    ASSERT_EQ(Generic::narrowTo<float>(std::string("1")),               1.0f);
+    const std::string narrow{ "1" };
+
+    ASSERT_EQ(Generic::narrowTo<int>(narrow),                   1);
+    ASSERT_EQ(Generic::narrowTo<long>(narrow),                  1l);
+    ASSERT_EQ(Generic::narrowTo<long long>(narrow),             1ll);
+    ASSERT_EQ(Generic::narrowTo<unsigned int>(narrow),          1u);
+    ASSERT_EQ(Generic::narrowTo<unsigned long>(narrow),         1ul);
+    ASSERT_EQ(Generic::narrowTo<unsigned long long>(narrow),    1ull);
+    ASSERT_EQ(Generic::narrowTo<double>(narrow),                1.0);
+    ASSERT_EQ(Generic::narrowTo<float>(narrow),                 1.0f);
 }
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToOther)
 {
-    ASSERT_EQ(Generic::narrowTo<int>("1", 2),                   1);
-    ASSERT_EQ(Generic::narrowTo<long>("1", 2),                  1l);
-    ASSERT_EQ(Generic::narrowTo<long long>("1", 2),             1ll);
-    ASSERT_EQ(Generic::narrowTo<unsigned int>("1", 2),          1u);
-    ASSERT_EQ(Generic::narrowTo<unsigned long>("1", 2),         1ul);
-    ASSERT_EQ(Generic::narrowTo<unsigned long long>("1", 2),    1ull);
-    ASSERT_EQ(Generic::narrowTo<double>("1", 2),                1.0);
-    ASSERT_EQ(Generic::narrowTo<float>("1", 2),                 1.0f);
+    const auto narrow   { "1" };
+    const auto size     { strlen(narrow) };
+
+    ASSERT_EQ(Generic::narrowTo<int>(narrow, size),                 1);
+    ASSERT_EQ(Generic::narrowTo<long>(narrow, size),                1l);
+    ASSERT_EQ(Generic::narrowTo<long long>(narrow, size),           1ll);
+    ASSERT_EQ(Generic::narrowTo<unsigned int>(narrow, size),        1u);
+    ASSERT_EQ(Generic::narrowTo<unsigned long>(narrow, size),       1ul);
+    ASSERT_EQ(Generic::narrowTo<unsigned long long>(narrow, size),  1ull);
+    ASSERT_EQ(Generic::narrowTo<double>(narrow, size),              1.0);
+    ASSERT_EQ(Generic::narrowTo<float>(narrow, size),               1.0f);
 }
 
 TEST_F(StringUtilsTests, TestWideStringToOther)
 {
-    ASSERT_EQ(Generic::wideTo<int>(std::wstring(L"1")), 1);
-    ASSERT_EQ(Generic::wideTo<long>(std::wstring(L"1")), 1l);
-    ASSERT_EQ(Generic::wideTo<long long>(std::wstring(L"1")), 1ll);
-    ASSERT_EQ(Generic::wideTo<unsigned int>(std::wstring(L"1")), 1u);
-    ASSERT_EQ(Generic::wideTo<unsigned long>(std::wstring(L"1")), 1ul);
-    ASSERT_EQ(Generic::wideTo<unsigned long long>(std::wstring(L"1")), 1ull);
-    ASSERT_EQ(Generic::wideTo<double>(std::wstring(L"1")), 1.0);
-    ASSERT_EQ(Generic::wideTo<float>(std::wstring(L"1")), 1.0f);
+    const std::wstring wide{ L"1" };
+
+    ASSERT_EQ(Generic::wideTo<int>(wide),                   1);
+    ASSERT_EQ(Generic::wideTo<long>(wide),                  1l);
+    ASSERT_EQ(Generic::wideTo<long long>(wide),             1ll);
+    ASSERT_EQ(Generic::wideTo<unsigned int>(wide),          1u);
+    ASSERT_EQ(Generic::wideTo<unsigned long>(wide),         1ul);
+    ASSERT_EQ(Generic::wideTo<unsigned long long>(wide),    1ull);
+    ASSERT_EQ(Generic::wideTo<double>(wide),                1.0);
+    ASSERT_EQ(Generic::wideTo<float>(wide),                 1.0f);
 }
 
 TEST_F(StringUtilsTests, TestWideElemArrayToOther)
 {
-    ASSERT_EQ(Generic::wideTo<int>(L"1", 2), 1);
-    ASSERT_EQ(Generic::wideTo<long>(L"1", 2), 1l);
-    ASSERT_EQ(Generic::wideTo<long long>(L"1", 2), 1ll);
-    ASSERT_EQ(Generic::wideTo<unsigned int>(L"1", 2), 1u);
-    ASSERT_EQ(Generic::wideTo<unsigned long>(L"1", 2), 1ul);
-    ASSERT_EQ(Generic::wideTo<unsigned long long>(L"1", 2), 1ull);
-    ASSERT_EQ(Generic::wideTo<double>(L"1", 2), 1.0);
-    ASSERT_EQ(Generic::wideTo<float>(L"1", 2), 1.0f);
+    const auto wide{ L"1" };
+    const auto size{ wcslen(wide) };
+
+    ASSERT_EQ(Generic::wideTo<int>(wide, size),                 1);
+    ASSERT_EQ(Generic::wideTo<long>(wide, size),                1l);
+    ASSERT_EQ(Generic::wideTo<long long>(wide, size),           1ll);
+    ASSERT_EQ(Generic::wideTo<unsigned int>(wide, size),        1u);
+    ASSERT_EQ(Generic::wideTo<unsigned long>(wide, size),       1ul);
+    ASSERT_EQ(Generic::wideTo<unsigned long long>(wide, size),  1ull);
+    ASSERT_EQ(Generic::wideTo<double>(wide, size),              1.0);
+    ASSERT_EQ(Generic::wideTo<float>(wide, size),               1.0f);
 }
