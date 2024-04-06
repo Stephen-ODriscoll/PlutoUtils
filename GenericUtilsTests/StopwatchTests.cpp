@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <thread>
+
 class StopwatchTests : public testing::Test
 {
 protected:

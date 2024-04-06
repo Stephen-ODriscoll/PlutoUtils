@@ -7,8 +7,8 @@
 class LRUCacheTests : public testing::Test
 {
 public:
-    Generic::LRUCache<size_t, size_t> cache{ CACHE_CAPACITY };
-    Generic::SafeLRUCache<size_t, size_t> safeCache{ CACHE_CAPACITY };
+    Generic::LRUCache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
+    Generic::SafeLRUCache<std::size_t, std::size_t> safeCache{ CACHE_CAPACITY };
 
 protected:
     LRUCacheTests() {}
@@ -23,7 +23,7 @@ protected:
 
 TEST_F(LRUCacheTests, TestCacheSanity)
 {
-    size_t value{};
+    std::size_t value{};
 
     ASSERT_EQ(cache.size(), 0);
     ASSERT_EQ(cache.capacity(), CACHE_CAPACITY);
@@ -51,7 +51,7 @@ TEST_F(LRUCacheTests, TestCacheSanity)
 
 TEST_F(LRUCacheTests, TestSafeCacheSanity)
 {
-    size_t value{};
+    std::size_t value{};
 
     ASSERT_EQ(safeCache.size(), 0);
     ASSERT_EQ(safeCache.capacity(), CACHE_CAPACITY);
@@ -79,15 +79,15 @@ TEST_F(LRUCacheTests, TestSafeCacheSanity)
 
 TEST_F(LRUCacheTests, TestInsertAndGet)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         cache.insert(i, i);
     }
 
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
-        size_t value{};
+        std::size_t value{};
         ASSERT_TRUE(cache.get(i, value));
         ASSERT_EQ(value, i);
     }
@@ -95,15 +95,15 @@ TEST_F(LRUCacheTests, TestInsertAndGet)
 
 TEST_F(LRUCacheTests, TestSafeInsertAndGet)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         safeCache.insert(i, i);
     }
 
     ASSERT_EQ(safeCache.size(), CACHE_CAPACITY);
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
-        size_t value{};
+        std::size_t value{};
         ASSERT_TRUE(safeCache.get(i, value));
         ASSERT_EQ(value, i);
     }
@@ -111,7 +111,7 @@ TEST_F(LRUCacheTests, TestSafeInsertAndGet)
 
 TEST_F(LRUCacheTests, TestInsertEvictsOldest)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         cache.insert(i, i);
     }
@@ -120,13 +120,13 @@ TEST_F(LRUCacheTests, TestInsertEvictsOldest)
 
     cache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_FALSE(cache.get(1, value));
 }
 
 TEST_F(LRUCacheTests, TestSafeInsertEvictsOldest)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         safeCache.insert(i, i);
     }
@@ -135,13 +135,13 @@ TEST_F(LRUCacheTests, TestSafeInsertEvictsOldest)
 
     safeCache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_FALSE(safeCache.get(1, value));
 }
 
 TEST_F(LRUCacheTests, TestInsertUpdatesExisting)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         cache.insert(i, i);
     }
@@ -150,14 +150,14 @@ TEST_F(LRUCacheTests, TestInsertUpdatesExisting)
 
     cache.insert(1, 2);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 2);
 }
 
 TEST_F(LRUCacheTests, TestSafeInsertUpdatesExisting)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         safeCache.insert(i, i);
     }
@@ -166,14 +166,14 @@ TEST_F(LRUCacheTests, TestSafeInsertUpdatesExisting)
 
     safeCache.insert(1, 2);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 2);
 }
 
 TEST_F(LRUCacheTests, TestInsertMovesToFront)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         cache.insert(i, i);
     }
@@ -183,14 +183,14 @@ TEST_F(LRUCacheTests, TestInsertMovesToFront)
 
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 1);
 }
 
 TEST_F(LRUCacheTests, TestSafeInsertMovesToFront)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         safeCache.insert(i, i);
     }
@@ -200,43 +200,43 @@ TEST_F(LRUCacheTests, TestSafeInsertMovesToFront)
 
     ASSERT_EQ(safeCache.size(), CACHE_CAPACITY);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 1);
 }
 
 TEST_F(LRUCacheTests, TestGetMovesToFront)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         cache.insert(i, i);
     }
 
-    size_t unused{};
+    std::size_t unused{};
     cache.get(1, unused);
     cache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 1);
 }
 
 TEST_F(LRUCacheTests, TestSafeGetMovesToFront)
 {
-    for (size_t i = 1; i <= CACHE_CAPACITY; ++i)
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
         safeCache.insert(i, i);
     }
 
-    size_t unused{};
+    std::size_t unused{};
     safeCache.get(1, unused);
     safeCache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
     ASSERT_EQ(safeCache.size(), CACHE_CAPACITY);
 
-    size_t value{};
+    std::size_t value{};
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 1);
 }

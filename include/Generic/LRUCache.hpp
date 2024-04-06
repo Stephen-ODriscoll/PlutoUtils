@@ -2,6 +2,7 @@
 
 #include <map>
 #include <list>
+#include <mutex>
 #include <shared_mutex>
 
 namespace Generic
@@ -16,18 +17,18 @@ namespace Generic
         typedef std::map<Key, std::pair<Value, typename List::iterator>> Map;
 
     private:
-        size_t  m_capacity;
-        List    m_list{};
-        Map     m_map{};
+        std::size_t m_capacity;
+        List        m_list{};
+        Map         m_map{};
     
     public:
-        LRUCache(const size_t capacity) :
+        LRUCache(const std::size_t capacity) :
             m_capacity{ capacity } {}
 
         ~LRUCache() {}
 
-        size_t size()                   const   { return m_map.size(); }
-        size_t capacity()               const   { return m_capacity; }
+        std::size_t size()              const   { return m_map.size(); }
+        std::size_t capacity()          const   { return m_capacity; }
         bool empty()                    const   { return m_map.empty(); }
         bool contains(const Key& key)   const   { return (m_map.find(key) != m_map.end()); }
 
@@ -100,8 +101,14 @@ namespace Generic
     template<class KeyType, class ValueType>
     class SafeLRUCache
     {
-        mutable std::shared_mutex m_mutex{};
-        LRUCache<KeyType, ValueType> m_lruCache;
+#if (defined(_WIN32) && !_HAS_CXX17) || (!defined(_WIN32) && __cplusplus < 201703L)
+        typedef std::shared_timed_mutex SharedMutexType;
+#else
+        typedef std::shared_mutex SharedMutexType;
+#endif
+
+        mutable SharedMutexType         m_mutex{};
+        LRUCache<KeyType, ValueType>    m_lruCache;
 
     public:
         typedef typename LRUCache<KeyType, ValueType>::Key Key;
@@ -109,50 +116,50 @@ namespace Generic
         typedef typename LRUCache<KeyType, ValueType>::List List;
         typedef typename LRUCache<KeyType, ValueType>::Map Map;
 
-        SafeLRUCache(const size_t capacity) :
+        SafeLRUCache(const std::size_t capacity) :
             m_lruCache{ capacity } {}
 
         ~SafeLRUCache() {}
 
-        size_t size() const
+        std::size_t size() const
         {
-            const std::shared_lock<std::shared_mutex> reader{ m_mutex };
+            const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.size();
         }
 
-        size_t capacity() const
+        std::size_t capacity() const
         {
-            const std::shared_lock<std::shared_mutex> reader{ m_mutex };
+            const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.capacity();
         }
 
         bool empty() const
         {
-            const std::shared_lock<std::shared_mutex> reader{ m_mutex };
+            const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.empty();
         }
 
         bool contains(const Key& key) const
         {
-            const std::shared_lock<std::shared_mutex> reader{ m_mutex };
+            const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.contains(key);
         }
 
         void insert(const Key& key, const Value& value)
         {
-            const std::unique_lock<std::shared_mutex> writer{ m_mutex };
+            const std::unique_lock<SharedMutexType> writer{ m_mutex };
             m_lruCache.insert(key, value);
         }
 
         bool get(const Key& key, Value& value)
         {
-            const std::unique_lock<std::shared_mutex> writer{ m_mutex };
+            const std::unique_lock<SharedMutexType> writer{ m_mutex };
             return m_lruCache.get(key, value);
         }
 
         void clear()
         {
-            const std::unique_lock<std::shared_mutex> writer{ m_mutex };
+            const std::unique_lock<SharedMutexType> writer{ m_mutex };
             m_lruCache.clear();
         }
     };

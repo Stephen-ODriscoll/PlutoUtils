@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstddef>
+
 namespace Generic
 {
     template<class Type, class Size = Type>
@@ -103,11 +105,11 @@ namespace Generic
         }
     };
 
-    typedef Range<int>              IntRange;
-    typedef Range<size_t>           SizeRange;
-    typedef Range<void*, size_t>    PVoidRange;
+    typedef Range<int>                  IntRange;
+    typedef Range<std::size_t>          SizeRange;
+    typedef Range<void*, std::size_t>   PVoidRange;
 
-    typedef RangeNoOverlap<int>             IntRangeNoOverlap;
-    typedef RangeNoOverlap<size_t>          SizeRangeNoOverlap;
-    typedef RangeNoOverlap<void*, size_t>   PVoidRangeNoOverlap;
+    typedef RangeNoOverlap<int>                 IntRangeNoOverlap;
+    typedef RangeNoOverlap<std::size_t>         SizeRangeNoOverlap;
+    typedef RangeNoOverlap<void*, std::size_t>  PVoidRangeNoOverlap;
 }

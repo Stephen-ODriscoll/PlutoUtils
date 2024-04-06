@@ -11,6 +11,13 @@
 #include <iomanip>
 #include <sstream>
 #include <stdarg.h>
+#include <condition_variable>
+
+#ifdef _WIN32
+#include <process.h>
+#else
+#include <unistd.h>
+#endif
 
 #include "FileSystem.hpp"
 
@@ -227,7 +234,7 @@ namespace Generic
         {
             LogBuffer           buffer;
             FileSystem::path    filePath;
-            size_t              fileSize;
+            std::size_t         fileSize;
             bool                dirCreated;
 
             LogFile() :
@@ -242,7 +249,11 @@ namespace Generic
         std::condition_variable         m_loggingThreadCondition{};
         std::map<std::string, LogFile>  m_logFiles{};
         
-        const int               m_pid{ _getpid() };
+#ifdef _WIN32
+        const int m_pid{ _getpid() };
+#else
+        const int m_pid{ getpid() };
+#endif
         mutable std::mutex      m_separatorMutex{};
         std::atomic<Level>      m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
         std::atomic_bool        m_isLogging{ true };
@@ -406,22 +417,22 @@ namespace Generic
             return m_writeHeader.load(); // atomic
         }
 
-        size_t getBufferMaxSize() const
+        std::size_t getBufferMaxSize() const
         {
             return m_bufferMaxSize.load(); // atomic
         }
 
-        size_t getBufferFlushSize() const
+        std::size_t getBufferFlushSize() const
         {
             return m_bufferFlushSize.load(); // atomic
         }
 
-        size_t getFileRotationSizeMB() const
+        std::size_t getFileRotationSizeMB() const
         {
             return m_fileRotationSizeMB.load(); // atomic
         }
 
-        size_t getNumDiscardedLogs() const
+        std::size_t getNumDiscardedLogs() const
         {
             return m_numDiscardedLogs.load(); // atomic
         }
@@ -457,20 +468,20 @@ namespace Generic
             return *this;
         }
 
-        Logger& setBufferMaxSize(const size_t bufferMaxSize)
+        Logger& setBufferMaxSize(const std::size_t bufferMaxSize)
         {
             m_bufferMaxSize.store(bufferMaxSize); // atomic
             return *this;
         }
 
-        Logger& setBufferFlushSize(const size_t bufferFlushSize)
+        Logger& setBufferFlushSize(const std::size_t bufferFlushSize)
         {
             m_bufferFlushSize.store(bufferFlushSize);   // atomic
             m_loggingThreadCondition.notify_one();      // wake the logging thread
             return *this;
         }
 
-        Logger& setFileRotationSizeMB(const size_t fileRotationSizeMB)
+        Logger& setFileRotationSizeMB(const std::size_t fileRotationSizeMB)
         {
             m_fileRotationSizeMB.store(fileRotationSizeMB); // atomic
             return *this;
@@ -496,7 +507,11 @@ namespace Generic
                 nowTime.time_since_epoch()).count() % 1000 };
 
             std::tm nowLocalTime{};
+#ifdef _WIN32
             localtime_s(&nowLocalTime, &nowPosixTime);
+#else
+            localtime_r(&nowPosixTime, &nowLocalTime);
+#endif
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
@@ -596,7 +611,7 @@ namespace Generic
             }
         }
 
-        size_t writeHeader(const FileSystem::path& filePath)
+        std::size_t writeHeader(const FileSystem::path& filePath)
         {
             std::ofstream fileStream{ filePath, std::ios_base::app };
 
@@ -653,7 +668,7 @@ namespace Generic
             return stream;
         }
 
-        size_t writeToFile(
+        std::size_t writeToFile(
             const LogBuffer::iterator   begin,
             const LogBuffer::iterator   end,
             const FileSystem::path&     filePath)
@@ -693,7 +708,7 @@ namespace Generic
             const LogBuffer::iterator   end,
             const std::string&          fileName,
             FileSystem::path&           filePath,
-            size_t&                     fileSize,
+            std::size_t&                fileSize,
             bool&                       dirCreated)
         {
             auto result{ true };
@@ -707,7 +722,7 @@ namespace Generic
 
                     if (FileSystem::exists(filePath))
                     {
-                        fileSize = static_cast<size_t>(FileSystem::file_size(filePath));
+                        fileSize = static_cast<std::size_t>(FileSystem::file_size(filePath));
                     }
                 }
 

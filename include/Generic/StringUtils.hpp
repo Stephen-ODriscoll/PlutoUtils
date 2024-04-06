@@ -3,12 +3,10 @@
 // Note that std::codecvt_utf8 is deprecated but there is no alternative in the std library
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 
-#include <cstring>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <codecvt>
-#include <algorithm>
 
 #include "ContainerUtils.hpp"
 
@@ -25,7 +23,7 @@ namespace Generic
     template<class Elem>
     inline void toLower(
         Elem* const         pElem,
-        const size_t        size,
+        const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         Generic::getFacet<Elem>(locale).tolower(pElem, (pElem + size));
@@ -50,7 +48,7 @@ namespace Generic
     template<class Elem>
     inline void toUpper(
         Elem* const         pElem,
-        const size_t        size,
+        const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         Generic::getFacet<Elem>(locale).toupper(pElem, (pElem + size));
@@ -75,7 +73,7 @@ namespace Generic
     template<class Elem>
     inline bool isLower(
         const Elem* const   pElem,
-        const size_t        size,
+        const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         const auto& facet{ Generic::getFacet<Elem>(locale) };
@@ -111,7 +109,7 @@ namespace Generic
     template<class Elem>
     inline bool isUpper(
         const Elem* const   pElem,
-        const size_t        size,
+        const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         const auto& facet{ Generic::getFacet<Elem>(locale) };
@@ -136,7 +134,7 @@ namespace Generic
         return Generic::isUpper(&str[0], str.size(), locale);
     }
 
-    inline std::string toNarrow(const wchar_t* const str, const size_t size)
+    inline std::string toNarrow(const wchar_t* const str, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
         return converter.to_bytes(str, (str + size));
@@ -147,7 +145,7 @@ namespace Generic
         return Generic::toNarrow(&str[0], str.size());
     }
 
-    inline std::string toNarrow(const char* const str, const size_t size)
+    inline std::string toNarrow(const char* const str, const std::size_t size)
     {
         return std::string(str, size);
     }
@@ -165,7 +163,7 @@ namespace Generic
         return ss.str();
     }
 
-    inline std::wstring toWide(const char* const str, const size_t size)
+    inline std::wstring toWide(const char* const str, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
         return converter.from_bytes(str, (str + size));
@@ -176,7 +174,7 @@ namespace Generic
         return Generic::toWide(&str[0], str.size());
     }
 
-    inline std::wstring toWide(const wchar_t* const str, const size_t size)
+    inline std::wstring toWide(const wchar_t* const str, const std::size_t size)
     {
         return std::wstring(str, size);
     }
@@ -203,7 +201,7 @@ namespace Generic
     }
 
     template<class T>
-    inline T narrowTo(const char* const str, const size_t size)
+    inline T narrowTo(const char* const str, const std::size_t size)
     {
         return Generic::narrowTo<T>(std::string(str, size));
     }
@@ -217,7 +215,7 @@ namespace Generic
     }
 
     template<class T>
-    inline T wideTo(const wchar_t* const str, const size_t size)
+    inline T wideTo(const wchar_t* const str, const std::size_t size)
     {
         return Generic::wideTo<T>(std::wstring(str, size));
     }
@@ -225,9 +223,9 @@ namespace Generic
     template<class Elem>
     inline bool equalsIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::equals(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -245,9 +243,9 @@ namespace Generic
     template<class ElemT>
     inline bool beginsWithIgnoreCase(
         const ElemT* const  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const ElemT* const  beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::beginsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
@@ -265,9 +263,9 @@ namespace Generic
     template<class Elem>
     inline bool endsWithIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::endsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -284,9 +282,9 @@ namespace Generic
     template<class Elem>
     inline bool findIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -304,9 +302,9 @@ namespace Generic
     template<class Elem>
     inline bool findFirstIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::findFirst(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -324,9 +322,9 @@ namespace Generic
     template<class Elem>
     inline bool rfindIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::rfind(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -344,9 +342,9 @@ namespace Generic
     template<class Elem>
     inline bool findLastIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::findLast(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -364,9 +362,9 @@ namespace Generic
     template<class Elem>
     inline bool containsIgnoreCase(
         const Elem* const   beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const Elem* const   beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
         return Generic::contains(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
@@ -387,7 +385,7 @@ namespace Generic
         const std::basic_string<Elem, Traits, Alloc>&           str,
         const std::basic_string<Elem, Traits, Alloc>&           delim = " ")
     {
-        size_t start, end{};
+        std::size_t start, end{};
         while ((start = str.find_first_not_of(delim, end)) != str.npos)
         {
             end = str.find(delim, start);

@@ -8,8 +8,6 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
 
-add_compile_options(/MT$<$<CONFIG:Debug>:d>)
-
 add_subdirectory(GenericUtilsTests)
 add_subdirectory(googletest)
 add_subdirectory(include)

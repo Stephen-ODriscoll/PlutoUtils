@@ -39,9 +39,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline bool equals(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return (sizeL == sizeR) &&
@@ -63,9 +63,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline bool beginsWith(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return (sizeR <= sizeL) &&
@@ -89,9 +89,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline bool endsWith(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return (sizeR <= sizeL) &&
@@ -142,9 +142,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline IteratorLeft find(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         const auto endL{ beginL + sizeL };
@@ -194,9 +194,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline IteratorLeft findFirst(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return Generic::find(beginL, sizeL, beginR, sizeR, predicate);
@@ -245,9 +245,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline IteratorLeft rfind(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         const auto endL{ beginL + sizeL };
@@ -296,9 +296,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline IteratorLeft findLast(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return Generic::rfind(beginL, sizeL, beginR, sizeR, predicate);
@@ -318,9 +318,9 @@ namespace Generic
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
     inline bool contains(
         const IteratorLeft  beginL,
-        const size_t        sizeL,
+        const std::size_t   sizeL,
         const IteratorRight beginR,
-        const size_t        sizeR,
+        const std::size_t   sizeR,
         Predicate           predicate = {})
     {
         return (Generic::find(beginL, sizeL, beginR, sizeR, predicate) != (beginL + sizeL));
