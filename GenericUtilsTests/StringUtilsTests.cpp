@@ -80,8 +80,12 @@
     { \
         auto char8Array{ new char8_t[size + 1] }; \
         memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
-        try { function(char8Array, size); } catch (const std::bad_cast&) {} \
-        check(std::u8string(char8Array), std::u8string(u8##y)); \
+        try \
+        { \
+            function(char8Array, size); \
+            check(std::u8string(char8Array), std::u8string(u8##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
         delete[] char8Array; \
     } \
     while (false)
@@ -111,14 +115,22 @@
         \
         auto char16Array{ new char16_t[size + 1] }; \
         memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
-        try { function(char16Array, size); } catch (const std::bad_cast&) {} \
-        check(std::u16string(char16Array), std::u16string(u##y)); \
+        try \
+        { \
+            function(char16Array, size); \
+            check(std::u16string(char16Array), std::u16string(u##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
         delete[] char16Array; \
         \
         auto char32Array{ new char32_t[size + 1] }; \
         memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
-        try { function(char32Array, size); } catch (const std::bad_cast&) {} \
-        check(std::u32string(char32Array), std::u32string(U##y)); \
+        try \
+        { \
+            function(char32Array, size); \
+            check(std::u32string(char32Array), std::u32string(U##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
         delete[] char32Array; \
     } \
     while (false)
@@ -153,8 +165,12 @@
     do \
     { \
         auto u8string{ std::u8string{ u8##x } }; \
-        try { function(u8string); } catch (const std::bad_cast&) {} \
-        check(u8string, std::u8string(u8##y)); \
+        try \
+        { \
+            function(u8string); \
+            check(u8string, std::u8string(u8##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
     } \
     while (false)
 #else
@@ -176,12 +192,20 @@
         TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
         \
         auto u16string{ std::u16string{ u##x } }; \
-        try { function(u16string); } catch (const std::bad_cast&) {} \
-        check(u16string, std::u16string(u##y)); \
+        try \
+        { \
+            function(u16string); \
+            check(u16string, std::u16string(u##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
         \
         auto u32string{ std::u32string{ U##x } }; \
-        try { function(u32string); } catch (const std::bad_cast&) {} \
-        check(u32string, std::u32string(U##y)); \
+        try \
+        { \
+            function(u32string); \
+            check(u32string, std::u32string(U##y)); \
+        } \
+        catch (const std::bad_cast&) {} \
     } \
     while (false)
 
