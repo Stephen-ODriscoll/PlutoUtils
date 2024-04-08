@@ -80,8 +80,8 @@
     { \
         auto char8Array{ new char8_t[size + 1] }; \
         memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
-        function(char8Array, size); \
-        try { check(std::u8string(char8Array), std::u8string(u8##y)); } catch (const std::bad_cast&) {} \
+        try { function(char8Array, size); } catch (const std::bad_cast&) {} \
+        check(std::u8string(char8Array), std::u8string(u8##y)); \
         delete[] char8Array; \
     } \
     while (false)
@@ -111,14 +111,14 @@
         \
         auto char16Array{ new char16_t[size + 1] }; \
         memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
-        function(char16Array, size); \
-        try { check(std::u16string(char16Array), std::u16string(u##y)); } catch (const std::bad_cast&) {} \
+        try { function(char16Array, size); } catch (const std::bad_cast&) {} \
+        check(std::u16string(char16Array), std::u16string(u##y)); \
         delete[] char16Array; \
         \
         auto char32Array{ new char32_t[size + 1] }; \
         memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
-        function(char32Array, size); \
-        try { check(std::u32string(char32Array), std::u32string(U##y)); } catch (const std::bad_cast&) {} \
+        try { function(char32Array, size); } catch (const std::bad_cast&) {} \
+        check(std::u32string(char32Array), std::u32string(U##y)); \
         delete[] char32Array; \
     } \
     while (false)
@@ -153,8 +153,8 @@
     do \
     { \
         auto u8string{ std::u8string{ u8##x } }; \
-        function(u8string); \
-        try { check(u8string, std::u8string(u8##y)); } catch (const std::bad_cast&) {} \
+        try { function(u8string); } catch (const std::bad_cast&) {} \
+        check(u8string, std::u8string(u8##y)); \
     } \
     while (false)
 #else
@@ -176,12 +176,12 @@
         TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
         \
         auto u16string{ std::u16string{ u##x } }; \
-        function(u16string); \
-        try { check(u16string, std::u16string(u##y)); } catch (const std::bad_cast&) {} \
+        try { function(u16string); } catch (const std::bad_cast&) {} \
+        check(u16string, std::u16string(u##y)); \
         \
         auto u32string{ std::u32string{ U##x } }; \
-        function(u32string); \
-        try { check(u32string, std::u32string(U##y)); } catch (const std::bad_cast&) {} \
+        try { function(u32string); } catch (const std::bad_cast&) {} \
+        check(u32string, std::u32string(U##y)); \
     } \
     while (false)
 
