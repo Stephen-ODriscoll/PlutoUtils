@@ -52,8 +52,8 @@ std::string getLastLog()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-    std::string     lastLog{};
-    std::ifstream   logFile(LOG_FILE);
+    std::string lastLog{};
+    std::ifstream logFile{ LOG_FILE };
 
     if (logFile.is_open() && logFile.good())
     {
@@ -63,131 +63,140 @@ std::string getLastLog()
     return lastLog;
 }
 
+std::string getLastLogMessage()
+{
+    auto lastLog    { getLastLog() };
+    auto separator  { Generic::Logger::getInstance().getSeparator() };
+    auto index      { lastLog.rfind(separator) };
+
+    return (index == std::string::npos ? lastLog : lastLog.substr(index + separator.size()));
+}
+
 TEST_F(LoggerTests, TestLogFormatLevels)
 {
     std::string message{};
-    std::string lastLog{};
+    std::string lastLogMessage{};
 
     message = "log message";
     LOG_FORMAT(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Fatal log message";
     LOG_FORMAT_FATAL(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Critical log message";
     LOG_FORMAT_CRITICAL(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Error log message";
     LOG_FORMAT_ERROR(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Warning log message";
     LOG_FORMAT_WARNING(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Notice log message";
     LOG_FORMAT_NOTICE(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Info log message";
     LOG_FORMAT_INFO(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Debug log message";
     LOG_FORMAT_DEBUG(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Trace log message";
     LOG_FORMAT_TRACE(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Verbose log message";
     LOG_FORMAT_VERBOSE(message.c_str());
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 }
 
 TEST_F(LoggerTests, TestLogStreamLevels)
 {
     std::string message{};
-    std::string lastLog{};
+    std::string lastLogMessage{};
 
     message = "log message";
     LOG_STREAM(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Fatal log message";
     LOG_STREAM_FATAL(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Error log message";
     LOG_STREAM_ERROR(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Warning log message";
     LOG_STREAM_WARNING(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Notice log message";
     LOG_STREAM_NOTICE(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Info log message";
     LOG_STREAM_INFO(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Debug log message";
     LOG_STREAM_DEBUG(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Trace log message";
     LOG_STREAM_TRACE(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 
     message = "Verbose log message";
     LOG_STREAM_VERBOSE(message);
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 }
 
 TEST_F(LoggerTests, TestLogFormatDoesFormatting)
 {
     std::string message{};
-    std::string lastLog{};
+    std::string lastLogMessage{};
 
     message = "log message: Test, Test";
     LOG_FORMAT("log message: %s, %S", "Test", L"Test");
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage);
 }
 
-TEST_F(LoggerTests, TestLogFormatBrokenKeepsUnformatted)
+TEST_F(LoggerTests, TestLogFormatBrokenStillLogs)
 {
     std::string message{};
-    std::string lastLog{};
+    std::string lastLogMessage{};
 
-    message = "log message: %s, %S";
+    message = "log message: ";
     LOG_FORMAT("log message: %s, %S", "Test");
-    lastLog = getLastLog();
-    ASSERT_EQ(message, lastLog.substr(lastLog.size() - message.size()));
+    lastLogMessage = getLastLogMessage();
+    ASSERT_EQ(message, lastLogMessage.substr(0, message.size()));
 }

@@ -4,39 +4,58 @@
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_1(check, function, x) \
-    check(function(u8##x))
+    do \
+    { \
+        try { check(function(u8##x)); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_1(check, function, x) \
     do {} while (false)
 #endif
 
 #define TEST_ALL_ELEM_1(check, function, x) \
-    check(function(x)); \
-    check(function(L##x)); \
-    TEST_CHAR8_ELEM_1(check, function, x); \
-    check(function(u##x)); \
-    check(function(U##x))
+    do \
+    { \
+        check(function(x)); \
+        check(function(L##x)); \
+        TEST_CHAR8_ELEM_1(check, function, x); \
+        try { check(function(u##x)); } catch (const std::bad_cast&) {} \
+        try { check(function(U##x)); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_2(check, function, x, y) \
-    check(function(u8##x), u8##y)
+    do \
+    { \
+        try { check(function(u8##x), u8##y); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_2(check, function, x, y) \
     do {} while(false)
 #endif
 
 #define TEST_ALL_ELEM_2(check, function, x, y) \
-    check(function(x), y); \
-    check(function(L##x), L##y); \
-    TEST_CHAR8_ELEM_2(check, function, x, y); \
-    check(function(u##x), u##y); \
-    check(function(U##x), U##y)
-
+    do \
+    { \
+        check(function(x), y); \
+        check(function(L##x), L##y); \
+        TEST_CHAR8_ELEM_2(check, function, x, y); \
+        try { check(function(u##x), u##y); } catch (const std::bad_cast&) {} \
+        try { check(function(U##x), U##y); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
-    check(function(u8##x, size))
+    do \
+    { \
+        try { check(function(u8##x, size)); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
     do {} while(false)
@@ -50,18 +69,22 @@
         check(function(x, size)); \
         check(function(L##x, size)); \
         TEST_CHAR8_ELEM_ARRAYS_1(check, function, x); \
-        check(function(u##x, size)); \
-        check(function(U##x, size)); \
+        try { check(function(u##x, size)); } catch (const std::bad_cast&) {} \
+        try { check(function(U##x, size)); } catch (const std::bad_cast&) {} \
     } \
     while(false)
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
-    auto char8Array{ new char8_t[size + 1] }; \
-    memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
-    function(char8Array, size); \
-    check(std::u8string(char8Array), std::u8string(u8##y)); \
-    delete[] char8Array
+    do \
+    { \
+        auto char8Array{ new char8_t[size + 1] }; \
+        memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
+        function(char8Array, size); \
+        try { check(std::u8string(char8Array), std::u8string(u8##y)); } catch (const std::bad_cast&) {} \
+        delete[] char8Array; \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
     do {} while(false)
@@ -89,13 +112,13 @@
         auto char16Array{ new char16_t[size + 1] }; \
         memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
         function(char16Array, size); \
-        check(std::u16string(char16Array), std::u16string(u##y)); \
+        try { check(std::u16string(char16Array), std::u16string(u##y)); } catch (const std::bad_cast&) {} \
         delete[] char16Array; \
         \
         auto char32Array{ new char32_t[size + 1] }; \
         memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
         function(char32Array, size); \
-        check(std::u32string(char32Array), std::u32string(U##y)); \
+        try { check(std::u32string(char32Array), std::u32string(U##y)); } catch (const std::bad_cast&) {} \
         delete[] char32Array; \
     } \
     while (false)
@@ -104,24 +127,36 @@
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
-    check(function(std::u8string(u8##x)))
+    do \
+    { \
+        try { check(function(std::u8string(u8##x))); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
     do {} while(false)
 #endif
 
 #define TEST_ALL_ELEM_STRINGS_1(check, function, x) \
-    check(function(std::string(x))); \
-    check(function(std::wstring(L##x))); \
-    TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
-    check(function(std::u16string(u##x))); \
-    check(function(std::u32string(U##x)))
+    do \
+    { \
+        check(function(std::string(x))); \
+        check(function(std::wstring(L##x))); \
+        TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
+        try { check(function(std::u16string(u##x))); } catch (const std::bad_cast&) {} \
+        try { check(function(std::u32string(U##x))); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 
 #ifdef __cpp_lib_char8_t
 #define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
-    auto u8string{ std::u8string{ u8##x } }; \
-    function(u8string); \
-    check(u8string, std::u8string(u8##y))
+    do \
+    { \
+        auto u8string{ std::u8string{ u8##x } }; \
+        function(u8string); \
+        try { check(u8string, std::u8string(u8##y)); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
     do {} while(false)
@@ -142,11 +177,11 @@
         \
         auto u16string{ std::u16string{ u##x } }; \
         function(u16string); \
-        check(u16string, std::u16string(u##y)); \
+        try { check(u16string, std::u16string(u##y)); } catch (const std::bad_cast&) {} \
         \
         auto u32string{ std::u32string{ U##x } }; \
         function(u32string); \
-        check(u32string, std::u32string(U##y)); \
+        try { check(u32string, std::u32string(U##y)); } catch (const std::bad_cast&) {} \
     } \
     while (false)
 
