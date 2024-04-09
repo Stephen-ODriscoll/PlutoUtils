@@ -4,9 +4,30 @@
 #include <array>
 #include <atomic>
 #include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cerrno>
+#include <cfenv>
+#include <cfloat>
 #include <chrono>
+#include <cinttypes>
+#include <climits>
+#include <clocale>
+#include <cmath>
 #include <complex>
 #include <condition_variable>
+#include <csetjmp>
+#include <csignal>
+#include <cstdarg>
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <cuchar>
+#include <cwchar>
+#include <cwctype>
 #include <deque>
 #include <exception>
 #include <forward_list>
@@ -44,15 +65,16 @@
 #include <system_error>
 #include <thread>
 #include <tuple>
-#include <typeinfo>
 #include <type_traits>
+#include <typeindex>
+#include <typeinfo>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <valarray>
 #include <vector>
 
-#if _HAS_CXX17
+#if (defined(_WIN32) && _HAS_CXX17) || (!defined(_WIN32) && __cplusplus >= 201703L)
 #include <any>
 #include <charconv>
 #include <execution>
@@ -65,7 +87,7 @@
 #include <codecvt>
 #endif
 
-#if _HAS_CXX20
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #include <barrier>
 #include <bit>
 #include <compare>
@@ -83,20 +105,24 @@
 #include <version>
 #endif
 
-#if _HAS_CXX23
-#include <expected>
-#include <flat_map>
-#include <flat_set>
-#include <generator>
-#include <mdspan>
-#include <print>
-#include <stacktrace>
-#include <stdfloat>
-#include <spanstream>
-#endif
+/*
+* // Support for C++ 23 is limited right now
+* #include <expected>
+* #include <flat_map>
+* #include <flat_set>
+* #include <generator>
+* #include <mdspan>
+* #include <print>
+* #include <spanstream>
+* #include <stacktrace>
+* #include <stdfloat>
+*/
 
-#if _HAS_CXX26
-#include <hazard_pointer>
-#include <rcu>
-#include <text_encoding>
-#endif
+/*
+* // There is no support for C++ 26 yet
+* #include <debugging>
+* #include <hazard_pointer>
+* #include <linalg>
+* #include <rcu>
+* #include <text_encoding>
+*/

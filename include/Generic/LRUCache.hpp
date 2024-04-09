@@ -101,10 +101,10 @@ namespace Generic
     template<class KeyType, class ValueType>
     class SafeLRUCache
     {
-#if (defined(_WIN32) && !_HAS_CXX17) || (!defined(_WIN32) && __cplusplus < 201703L)
-        typedef std::shared_timed_mutex SharedMutexType;
-#else
+#if (defined(_WIN32) && _HAS_CXX17) || (!defined(_WIN32) && __cplusplus >= 201703L)
         typedef std::shared_mutex SharedMutexType;
+#else
+        typedef std::shared_timed_mutex SharedMutexType;
 #endif
 
         mutable SharedMutexType         m_mutex{};
