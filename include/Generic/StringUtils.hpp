@@ -1,3 +1,10 @@
+/*
+* Copyright (c) 2024 Stephen O Driscoll
+*
+* Distributed under the MIT License (See accompanying file LICENSE)
+* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+*/
+
 #pragma once
 
 // Note that std::codecvt_utf8 is deprecated but there is no alternative in the std library
