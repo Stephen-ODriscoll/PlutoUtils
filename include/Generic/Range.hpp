@@ -19,14 +19,14 @@ namespace Generic
 
     public:
         Range(const Type& begin, const Size& size = {}) :
-            m_begin{ begin },
-            m_size{ size } {}
+            m_begin { begin },
+            m_size  { size } {}
 
         Range(const Range& other) :
-            m_begin{ other.m_begin },
-            m_size{ other.m_size } {}
+            m_begin { other.m_begin },
+            m_size  { other.m_size } {}
 
-        virtual ~Range() {}
+        ~Range() {}
 
         void begin(const Type& begin)   { m_begin = begin; }
         void size(const Size& size)     { m_size = size; }
@@ -68,55 +68,23 @@ namespace Generic
             return (!isLessNoOverlap(other) && !other.isLessNoOverlap(*this));
         }
 
-        virtual bool operator<(const Range& other) const
+        bool operator<(const Range& other) const
         {
             return isLess(other);
         }
 
-        virtual bool operator>(const Range& other) const
+        bool operator>(const Range& other) const
         {
             return other.isLess(*this);
         }
 
-        virtual bool operator==(const Range& other) const
+        bool operator==(const Range& other) const
         {
             return isEqual(other);
-        }
-    };
-
-    template<class Type, class Size = Type>
-    class RangeNoOverlap : public Range<Type, Size>
-    {
-    public:
-        RangeNoOverlap(const Type& begin, const Size& size = {}) :
-            Range<Type, Size>(begin, size) {}
-
-        RangeNoOverlap(const Range<Type, Size>& other) :
-            Range<Type, Size>(other) {}
-
-        ~RangeNoOverlap() override {}
-
-        bool operator<(const Range<Type, Size>& other) const override
-        {
-            return Range<Type, Size>::isLessNoOverlap(other);
-        }
-
-        bool operator>(const Range<Type, Size>& other) const override
-        {
-            return other.isLessNoOverlap(*this);
-        }
-
-        bool operator==(const Range<Type, Size>& other) const override
-        {
-            return Range<Type, Size>::isOverlapping(other);
         }
     };
 
     typedef Range<int>                  IntRange;
     typedef Range<std::size_t>          SizeRange;
     typedef Range<void*, std::size_t>   PVoidRange;
-
-    typedef RangeNoOverlap<int>                 IntRangeNoOverlap;
-    typedef RangeNoOverlap<std::size_t>         SizeRangeNoOverlap;
-    typedef RangeNoOverlap<void*, std::size_t>  PVoidRangeNoOverlap;
 }
