@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_1(check, function, x) \
     do \
     { \
@@ -32,7 +32,7 @@
     } \
     while (false)
 
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_2(check, function, x, y) \
     do \
     { \
@@ -56,7 +56,7 @@
     while (false)
 
 
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
     do \
     { \
@@ -81,7 +81,7 @@
     } \
     while(false)
 
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
     do \
     { \
@@ -143,8 +143,7 @@
     while (false)
 
 
-
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
@@ -167,7 +166,7 @@
     } \
     while (false)
 
-#ifdef __cpp_lib_char8_t
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
     do \
     { \
