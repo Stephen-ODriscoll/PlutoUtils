@@ -390,23 +390,30 @@ namespace Generic
     inline void split(
         std::vector<std::basic_string<Elem>>&   splits,
         const std::basic_string<Elem>&          str,
-        const std::basic_string<Elem>&          delim = " ")
+        const std::basic_string<Elem>&          sep = { Elem(' ') })
     {
-        std::size_t start, end{};
-        while ((start = str.find_first_not_of(delim, end)) != str.npos)
+        if (sep.empty())
         {
-            end = str.find(delim, start);
-            splits.push_back(str.substr(start, end - start));
+            throw std::invalid_argument("Generic::split() got empty separator");
         }
+
+        std::size_t start{}, end;
+        while ((end = str.find(sep, start)) != str.npos)
+        {
+            splits.push_back(str.substr(start, (end - start)));
+            start = (end + sep.size());
+        }
+
+        splits.push_back(str.substr(start));
     }
 
     template<class Elem>
     inline std::vector<std::basic_string<Elem>> split(
         const std::basic_string<Elem>& str,
-        const std::basic_string<Elem>& delim = " ")
+        const std::basic_string<Elem>& sep = { Elem(' ') })
     {
         std::vector<std::basic_string<Elem>> splits{};
-        Generic::split(splits, str, delim);
+        Generic::split(splits, str, sep);
         return splits;
     }
 
@@ -424,7 +431,7 @@ namespace Generic
                 str.append(sep);
             }
 
-            str.append(Generic::toNarrow(*it));
+            str.append(*it);
         }
     }
 
