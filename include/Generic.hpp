@@ -17,5 +17,4 @@
 #include "Generic/Range.hpp"
 #include "Generic/ScopeExitActions.hpp"
 #include "Generic/Stopwatch.hpp"
-//#include "Generic/String.hpp"
 #include "Generic/StringUtils.hpp"
