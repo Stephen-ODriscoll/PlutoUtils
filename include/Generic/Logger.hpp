@@ -29,9 +29,25 @@
 #include "FileSystem.hpp"
 
 // Configurable with macros
-#ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
-#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%d/%m/%Y %H:%M:%S."
+#ifndef GENERIC_LOGGER_WRITE_PID
+#define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
 #endif
+
+#ifndef GENERIC_LOGGER_WRITE_FILE_INFO
+#define GENERIC_LOGGER_WRITE_FILE_INFO 1    // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_WRITE_MILLISECONDS
+#define GENERIC_LOGGER_WRITE_MILLISECONDS 1 // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
+#if GENERIC_LOGGER_WRITE_MILLISECONDS
+#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%d/%m/%Y %H:%M:%S."
+#else // GENERIC_LOGGER_WRITE_MILLISECONDS
+#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%d/%m/%Y %H:%M:%S"
+#endif // GENERIC_LOGGER_WRITE_MILLISECONDS
+#endif // GENERIC_LOGGER_TIMESTAMP_FORMAT
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_HEADER
 #define GENERIC_LOGGER_TIMESTAMP_HEADER "Date & Time"
@@ -58,8 +74,12 @@
 #endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_LENGTH
+#if GENERIC_LOGGER_WRITE_MILLISECONDS
 #define GENERIC_LOGGER_TIMESTAMP_LENGTH 23
-#endif
+#else // GENERIC_LOGGER_WRITE_MILLISECONDS
+#define GENERIC_LOGGER_TIMESTAMP_LENGTH 19
+#endif // GENERIC_LOGGER_WRITE_MILLISECONDS
+#endif // GENERIC_LOGGER_TIMESTAMP_LENGTH
 
 #ifndef GENERIC_LOGGER_PID_LENGTH
 #define GENERIC_LOGGER_PID_LENGTH 6
@@ -112,28 +132,7 @@
 
 #define GENERIC_LOGGER_OLD_LOG_EXTENSION ".old"
 
-// Define this to hide file name and line number
-#ifdef GENERIC_LOGGER_HIDE_FILE_INFO
-#define GENERIC_LOG_FORMAT(file, level, ...) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::getInstance().writef(file, level, "", 0, __VA_ARGS__); \
-        } \
-    } \
-    while (false)
-
-#define GENERIC_LOG_STREAM(file, level, message) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::Stream(file, level, "", 0) << message; \
-        } \
-    } \
-    while (false)
-#else
+#if GENERIC_LOGGER_WRITE_FILE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
@@ -153,7 +152,27 @@
         } \
     } \
     while (false)
-#endif
+#else // GENERIC_LOGGER_WRITE_FILE_INFO
+#define GENERIC_LOG_FORMAT(file, level, ...) \
+    do \
+    { \
+        if (Generic::Logger::getInstance().shouldLog(level)) \
+        { \
+            Generic::Logger::getInstance().writef(file, level, "", 0, __VA_ARGS__); \
+        } \
+    } \
+    while (false)
+
+#define GENERIC_LOG_STREAM(file, level, message) \
+    do \
+    { \
+        if (Generic::Logger::getInstance().shouldLog(level)) \
+        { \
+            Generic::Logger::Stream(file, level, "", 0) << message; \
+        } \
+    } \
+    while (false)
+#endif // GENERIC_LOGGER_WRITE_FILE_INFO
 
 #define GENERIC_LOG_FORMAT_NONE(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::None, __VA_ARGS__)
 #define GENERIC_LOG_FORMAT_FATAL(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Fatal, __VA_ARGS__)
@@ -255,7 +274,7 @@ namespace Generic
         std::thread                     m_loggingThread{};
         std::condition_variable         m_loggingThreadCondition{};
         std::map<std::string, LogFile>  m_logFiles{};
-        
+
 #ifdef _WIN32
         const int m_pid{ _getpid() };
 #else
@@ -317,7 +336,7 @@ namespace Generic
         {
             return Generic::FileSystem::path{ filePath }.filename().string();
         }
-        
+
         static inline std::string cropFileName(const std::string& fileName)
         {
             return fileName.substr(0, GENERIC_LOGGER_FILE_NAME_LENGTH);
@@ -630,10 +649,12 @@ namespace Generic
                 headerStream
                     << std::left << std::setfill(' ')
                     << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
+#if GENERIC_LOGGER_WRITE_PID
                     << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
+#endif
                     << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
                     << levelToString(Level::Header, m_levelForm.load()) << m_separator
-#ifndef GENERIC_LOGGER_HIDE_FILE_INFO
+#if GENERIC_LOGGER_WRITE_FILE_INFO
                     << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
                     << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
 #endif
@@ -659,14 +680,19 @@ namespace Generic
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
 
             stream
-                << std::right << std::setfill('0')
                 << std::put_time(&log.timestamp, GENERIC_LOGGER_TIMESTAMP_FORMAT)
-                << std::setw(3) << log.milliseconds << m_separator
+#if GENERIC_LOGGER_WRITE_MILLISECONDS
+                << std::right << std::setfill('0')
+                << std::setw(3) << log.milliseconds
+#endif
+                << m_separator
                 << std::left << std::setfill(' ')
+#if GENERIC_LOGGER_WRITE_PID
                 << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_separator
+#endif
                 << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << m_separator
                 << levelToString(log.level, m_levelForm.load()) << m_separator
-#ifndef GENERIC_LOGGER_HIDE_FILE_INFO
+#if GENERIC_LOGGER_WRITE_FILE_INFO
                 << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.fileName) << m_separator
                 << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.line << m_separator
 #endif
@@ -741,7 +767,7 @@ namespace Generic
                 }
 
                 const auto fileRotationSizeMB{ m_fileRotationSizeMB.load() };
-                
+
                 // Rotate file if needed
                 if (fileRotationSizeMB != 0 && (fileRotationSizeMB * 1024 * 1024) <= fileSize)
                 {
