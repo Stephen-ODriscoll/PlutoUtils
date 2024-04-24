@@ -591,9 +591,12 @@ namespace Generic
             try
             {
                 // Create message from format and args
-                vsnprintf(buffer, (sizeof(buffer) / sizeof(buffer[0])), format, args);
+                if (vsnprintf(buffer, (sizeof(buffer) / sizeof(buffer[0])), format, args) < 0)
+                {
+                    buffer[0] = '\0';
+                }
             }
-            catch (...) {}
+            catch (...) { buffer[0] = '\0'; }
 
             va_end(args);
 

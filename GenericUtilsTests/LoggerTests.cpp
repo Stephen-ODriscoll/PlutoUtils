@@ -202,8 +202,8 @@ TEST_F(LoggerTests, TestLogFormatBrokenStillLogs)
     std::string message{};
     std::string lastLogMessage{};
 
-    message = "log message: ";
+    message = "log message: %s, %S";
     LOG_FORMAT("log message: %s, %S", "Test");
     lastLogMessage = getLastLogMessage();
-    ASSERT_EQ(message, lastLogMessage.substr(0, message.size()));
+    ASSERT_EQ(message, lastLogMessage);
 }
