@@ -307,26 +307,6 @@ namespace Generic
     }
 
     template<class Elem>
-    inline bool findFirstIgnoreCase(
-        const Elem* const   beginL,
-        const std::size_t   sizeL,
-        const Elem* const   beginR,
-        const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
-    {
-        return Generic::findFirst(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
-    }
-
-    template<class Elem>
-    inline bool findFirstIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
-        const std::locale&              locale = Generic::getDefaultLocale())
-    {
-        return Generic::findFirst(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
-    }
-
-    template<class Elem>
     inline bool rfindIgnoreCase(
         const Elem* const   beginL,
         const std::size_t   sizeL,
@@ -344,26 +324,6 @@ namespace Generic
         const std::locale&              locale = Generic::getDefaultLocale())
     {
         return Generic::rfind(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
-    }
-
-    template<class Elem>
-    inline bool findLastIgnoreCase(
-        const Elem* const   beginL,
-        const std::size_t   sizeL,
-        const Elem* const   beginR,
-        const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
-    {
-        return Generic::findLast(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
-    }
-
-    template<class Elem>
-    inline bool findLastIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
-        const std::locale&              locale = Generic::getDefaultLocale())
-    {
-        return Generic::findLast(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
     }
 
     template<class Elem>

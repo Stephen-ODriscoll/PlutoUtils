@@ -180,36 +180,6 @@ namespace Generic
     }
 
     /*
-    * Returns pointer to first occurence of right in left if found
-    * Returns pointer to end of left if not found
-    */
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft findFirst(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
-    {
-        return Generic::find(beginL, endL, beginR, endR, predicate);
-    }
-
-    /*
-    * Returns pointer to first occurence of right in left if found
-    * Returns pointer to end of left if not found
-    */
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft findFirst(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
-    {
-        return Generic::find(beginL, sizeL, beginR, sizeR, predicate);
-    }
-
-    /*
     * Returns pointer to last occurence of right in left if found
     * Returns pointer to end of left if not found
     */
@@ -279,36 +249,6 @@ namespace Generic
         }
 
         return endL;
-    }
-
-    /*
-    * Returns pointer to last occurence of right in left if found
-    * Returns pointer to end of left if not found
-    */
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft findLast(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
-    {
-        return Generic::rfind(beginL, endL, beginR, endR, predicate);
-    }
-
-    /*
-    * Returns pointer to last occurence of right in left if found
-    * Returns pointer to end of left if not found
-    */
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft findLast(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
-    {
-        return Generic::rfind(beginL, sizeL, beginR, sizeR, predicate);
     }
 
     template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
