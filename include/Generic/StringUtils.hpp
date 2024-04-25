@@ -74,7 +74,7 @@ namespace Generic
         const Elem          elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return !Generic::getFacet<Elem>(locale).is(std::ctype_base::upper, elem);
+        return !(Generic::getFacet<Elem>(locale).is(std::ctype_base::upper, elem));
     }
 
     template<class Elem>
@@ -110,7 +110,7 @@ namespace Generic
         const Elem          elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return !Generic::getFacet<Elem>(locale).is(std::ctype_base::lower, elem);
+        return !(Generic::getFacet<Elem>(locale).is(std::ctype_base::lower, elem));
     }
 
     template<class Elem>
