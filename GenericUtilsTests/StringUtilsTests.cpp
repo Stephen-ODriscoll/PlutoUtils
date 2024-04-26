@@ -224,6 +224,7 @@ protected:
 
 TEST_F(StringUtilsTests, TestElemToLower)
 {
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, ' ', ' ');
     TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'a', 'a');
     TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'A', 'a');
     TEST_ALL_ELEM_2(ASSERT_NE, Generic::toLower, 'a', 'A');
@@ -232,11 +233,13 @@ TEST_F(StringUtilsTests, TestElemToLower)
 
 TEST_F(StringUtilsTests, TestElemArrayToLower)
 {
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, " ", " ");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "a", "a");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "A", "a");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "a", "A");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "A", "A");
 
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "", "");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
@@ -248,11 +251,13 @@ TEST_F(StringUtilsTests, TestElemArrayToLower)
 
 TEST_F(StringUtilsTests, TestElemStringToLower)
 {
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, " ", " ");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "a", "a");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "A", "a");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "a", "A");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "A", "A");
 
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "", "");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
@@ -264,6 +269,7 @@ TEST_F(StringUtilsTests, TestElemStringToLower)
 
 TEST_F(StringUtilsTests, TestElemToUpper)
 {
+    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, ' ', ' ');
     TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'A', 'A');
     TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'a', 'A');
     TEST_ALL_ELEM_2(ASSERT_NE, Generic::toUpper, 'A', 'a');
@@ -272,11 +278,13 @@ TEST_F(StringUtilsTests, TestElemToUpper)
 
 TEST_F(StringUtilsTests, TestElemArrayToUpper)
 {
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, " ", " ");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "A", "a");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "a", "a");
 
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "", "");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
@@ -288,11 +296,13 @@ TEST_F(StringUtilsTests, TestElemArrayToUpper)
 
 TEST_F(StringUtilsTests, TestElemStringToUpper)
 {
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, " ", " ");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "A", "a");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "a", "a");
 
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "", "");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
     TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
@@ -304,15 +314,18 @@ TEST_F(StringUtilsTests, TestElemStringToUpper)
 
 TEST_F(StringUtilsTests, TestElemIsLower)
 {
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isLower, ' ');
     TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isLower, 'a');
     TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isLower, 'A');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsLower)
 {
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, " ");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "a");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "A");
 
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
 
@@ -321,9 +334,11 @@ TEST_F(StringUtilsTests, TestElemArrayIsLower)
 
 TEST_F(StringUtilsTests, TestElemStringIsLower)
 {
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, " ");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "a");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "A");
 
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
 
@@ -332,15 +347,18 @@ TEST_F(StringUtilsTests, TestElemStringIsLower)
 
 TEST_F(StringUtilsTests, TestElemIsUpper)
 {
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isUpper, ' ');
     TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isUpper, 'A');
     TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isUpper, 'a');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsUpper)
 {
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, " ");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "A");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "a");
 
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
 
@@ -349,9 +367,11 @@ TEST_F(StringUtilsTests, TestElemArrayIsUpper)
 
 TEST_F(StringUtilsTests, TestElemStringIsUpper)
 {
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, " ");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "A");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "a");
 
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
     TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
 
