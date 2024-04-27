@@ -18,6 +18,7 @@
 class IteratorUtilsTests : public testing::Test
 {
 public:
+    const std::vector<int> empty            { };
     const std::vector<int> zero             { 0 };
     const std::vector<int> one              { 1 };
     const std::vector<int> three            { 3 };
@@ -40,12 +41,16 @@ protected:
 
 TEST_F(IteratorUtilsTests, TestEqualsUseEndReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_END(Generic::equals, empty, empty));
+
     ASSERT_TRUE(TEST_USE_END(Generic::equals, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_END(Generic::equals, zeroToFour, zeroToFour2));
 }
 
 TEST_F(IteratorUtilsTests, TestEqualsUseSizeReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_SIZE(Generic::equals, empty, empty));
+
     ASSERT_TRUE(TEST_USE_SIZE(Generic::equals, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::equals, zeroToFour, zeroToFour2));
 }
@@ -90,6 +95,8 @@ TEST_F(IteratorUtilsTests, TestEqualsUseSizeReturnsFalse)
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseEndReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_END(Generic::beginsWith, empty, empty));
+
     ASSERT_TRUE(TEST_USE_END(Generic::beginsWith, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_END(Generic::beginsWith, zeroToFour, zeroToFour2));
     ASSERT_TRUE(TEST_USE_END(Generic::beginsWith, zeroToFour, zeroToThree));
@@ -98,6 +105,8 @@ TEST_F(IteratorUtilsTests, TestBeginsWithUseEndReturnsTrue)
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseSizeReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_SIZE(Generic::beginsWith, empty, empty));
+
     ASSERT_TRUE(TEST_USE_SIZE(Generic::beginsWith, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::beginsWith, zeroToFour, zeroToFour2));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::beginsWith, zeroToFour, zeroToThree));
@@ -142,6 +151,8 @@ TEST_F(IteratorUtilsTests, TestBeginsWithUseSizeReturnsFalse)
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseEndReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_END(Generic::endsWith, empty, empty));
+
     ASSERT_TRUE(TEST_USE_END(Generic::endsWith, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_END(Generic::endsWith, zeroToFour, zeroToFour2));
     ASSERT_TRUE(TEST_USE_END(Generic::endsWith, zeroToFour, oneToFour));
@@ -150,6 +161,8 @@ TEST_F(IteratorUtilsTests, TestEndsWithUseEndReturnsTrue)
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseSizeReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_SIZE(Generic::endsWith, empty, empty));
+
     ASSERT_TRUE(TEST_USE_SIZE(Generic::endsWith, zeroToFour, zeroToFour));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::endsWith, zeroToFour, zeroToFour2));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::endsWith, zeroToFour, oneToFour));
@@ -194,6 +207,9 @@ TEST_F(IteratorUtilsTests, TestEndsWithUseSizeReturnsFalse)
 
 TEST_F(IteratorUtilsTests, TestFindUseEndReturnsPosition)
 {
+    ASSERT_EQ(TEST_USE_END(Generic::find, empty, empty), empty.begin());
+    ASSERT_EQ(TEST_USE_END(Generic::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
+
     ASSERT_EQ(TEST_USE_END(Generic::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_END(Generic::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_END(Generic::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
@@ -207,6 +223,9 @@ TEST_F(IteratorUtilsTests, TestFindUseEndReturnsPosition)
 
 TEST_F(IteratorUtilsTests, TestFindUseSizeReturnsPosition)
 {
+    ASSERT_EQ(TEST_USE_SIZE(Generic::find, empty, empty), empty.begin());
+    ASSERT_EQ(TEST_USE_SIZE(Generic::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
+
     ASSERT_EQ(TEST_USE_SIZE(Generic::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_SIZE(Generic::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_SIZE(Generic::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
@@ -228,44 +247,11 @@ TEST_F(IteratorUtilsTests, TestFindUseSizeReturnsEnd)
     ASSERT_EQ(TEST_USE_SIZE(Generic::find, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-TEST_F(IteratorUtilsTests, TestRfindUseEndReturnsPosition)
-{
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 6);
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, zero), zeroToFourTwice.begin() + 5);
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, four), zeroToFourTwice.begin() + 9);
-
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, fourZeroOne, four), fourZeroOne.begin());
-}
-
-TEST_F(IteratorUtilsTests, TestRfindUseSizeReturnsPosition)
-{
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 6);
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, zero), zeroToFourTwice.begin() + 5);
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, four), zeroToFourTwice.begin() + 9);
-
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, fourZeroOne, four), fourZeroOne.begin());
-}
-
-TEST_F(IteratorUtilsTests, TestRfindUseEndReturnsEnd)
-{
-    ASSERT_EQ(TEST_USE_END(Generic::rfind, zeroToFourTwice, five), zeroToFourTwice.end());
-}
-
-TEST_F(IteratorUtilsTests, TestRfindUseSizeReturnsEnd)
-{
-    ASSERT_EQ(TEST_USE_SIZE(Generic::rfind, zeroToFourTwice, five), zeroToFourTwice.end());
-}
-
 TEST_F(IteratorUtilsTests, TestContainsUseEndReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_END(Generic::contains, empty, empty));
+    ASSERT_TRUE(TEST_USE_END(Generic::contains, zeroToFourTwice, empty));
+
     ASSERT_TRUE(TEST_USE_END(Generic::contains, zeroToFourTwice, zeroToFourTwice));
     ASSERT_TRUE(TEST_USE_END(Generic::contains, zeroToFourTwice, zeroToFourTwice2));
     ASSERT_TRUE(TEST_USE_END(Generic::contains, zeroToFourTwice, fourZeroOne));
@@ -279,6 +265,9 @@ TEST_F(IteratorUtilsTests, TestContainsUseEndReturnsTrue)
 
 TEST_F(IteratorUtilsTests, TestContainsUseSizeReturnsTrue)
 {
+    ASSERT_TRUE(TEST_USE_SIZE(Generic::contains, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE(Generic::contains, zeroToFourTwice, empty));
+
     ASSERT_TRUE(TEST_USE_SIZE(Generic::contains, zeroToFourTwice, zeroToFourTwice));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::contains, zeroToFourTwice, zeroToFourTwice2));
     ASSERT_TRUE(TEST_USE_SIZE(Generic::contains, zeroToFourTwice, fourZeroOne));
