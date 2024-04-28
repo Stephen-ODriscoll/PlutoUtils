@@ -539,6 +539,12 @@ namespace Generic
             localtime_r(&nowPosixTime, &nowLocalTime);
 #endif
 
+            // Make timestamp valid on failure to prevent an exception
+            if (nowLocalTime.tm_mday == 0)
+            {
+                nowLocalTime.tm_mday = 1;
+            }
+
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
             auto it{ m_logFiles.find(fileName) };
