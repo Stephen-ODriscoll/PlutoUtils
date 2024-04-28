@@ -7,63 +7,18 @@
 
 #pragma once
 
+#include <functional>
+
 #include "Locale.hpp"
 
 namespace Generic
 {
-    struct IsEqual
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left == right);
-        }
-    };
-
-    struct IsNotEqual
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left != right);
-        }
-    };
-
-    struct IsLess
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left < right);
-        }
-    };
-    
-    struct IsGreater
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left > right);
-        }
-    };
-    
-    struct IsLessEqual
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left <= right);
-        }
-    };
-
-    struct IsGreaterEqual
-    {
-        template<class Left, class Right>
-        bool operator()(const Left& left, const Right& right) const
-        {
-            return (left >= right);
-        }
-    };
+    typedef std::equal_to<>         IsEqual;
+    typedef std::not_equal_to<>     IsNotEqual;
+    typedef std::less<>             IsLess;
+    typedef std::greater<>          IsGreater;
+    typedef std::less_equal<>       IsLessEqual;
+    typedef std::greater_equal<>    IsGreaterEqual;
 
     template<class Elem>
     struct IsEqualIgnoreCase
