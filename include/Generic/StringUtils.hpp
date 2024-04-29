@@ -143,7 +143,7 @@ namespace Generic
 
     inline std::string toNarrow(const wchar_t* const str, const std::size_t size)
     {
-        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
         return converter.to_bytes(str, (str + size));
     }
 
@@ -172,7 +172,7 @@ namespace Generic
 
     inline std::wstring toWide(const char* const str, const std::size_t size)
     {
-        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
         return converter.from_bytes(str, (str + size));
     }
 
