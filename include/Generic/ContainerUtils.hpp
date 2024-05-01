@@ -39,7 +39,7 @@ namespace Generic
     }
 
     template<class ContainerLeft, class ContainerRight, class Predicate = Generic::IsEqual>
-    inline bool find(
+    inline auto find(
         const ContainerLeft&    left,
         const ContainerRight&   right,
         Predicate               predicate = {})

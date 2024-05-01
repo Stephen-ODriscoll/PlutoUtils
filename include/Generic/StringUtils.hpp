@@ -287,7 +287,7 @@ namespace Generic
         return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
     }
     template<class Elem>
-    inline bool findIgnoreCase(
+    inline const Elem* const findIgnoreCase(
         const Elem* const   beginL,
         const std::size_t   sizeL,
         const Elem* const   beginR,
@@ -298,7 +298,7 @@ namespace Generic
     }
 
     template<class Elem>
-    inline bool findIgnoreCase(
+    inline std::basic_string<Elem>::const_iterator findIgnoreCase(
         const std::basic_string<Elem>&  left,
         const std::basic_string<Elem>&  right,
         const std::locale&              locale = Generic::getDefaultLocale())
