@@ -90,7 +90,7 @@
         try \
         { \
             function(char8Array, size); \
-            check(std::u8string(char8Array), std::u8string(u8##y)); \
+            check(std::u8string{ char8Array }, std::u8string{ u8##y }); \
         } \
         catch (const std::bad_cast&) {} \
         delete[] char8Array; \
@@ -109,13 +109,13 @@
         auto charArray{ new char[size + 1] }; \
         memcpy(charArray, x, ((size + 1) * sizeof(char))); \
         function(charArray, size); \
-        check(std::string(charArray), std::string(y)); \
+        check(std::string{ charArray }, std::string{ y }); \
         delete[] charArray; \
         \
         auto wcharArray{ new wchar_t[size + 1] }; \
         memcpy(wcharArray, L##x, ((size + 1) * sizeof(wchar_t))); \
         function(wcharArray, size); \
-        check(std::wstring(wcharArray), std::wstring(L##y)); \
+        check(std::wstring{ wcharArray }, std::wstring{ L##y }); \
         delete[] wcharArray; \
         \
         TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y); \
@@ -125,7 +125,7 @@
         try \
         { \
             function(char16Array, size); \
-            check(std::u16string(char16Array), std::u16string(u##y)); \
+            check(std::u16string{ char16Array }, std::u16string{ u##y }); \
         } \
         catch (const std::bad_cast&) {} \
         delete[] char16Array; \
@@ -135,19 +135,92 @@
         try \
         { \
             function(char32Array, size); \
-            check(std::u32string(char32Array), std::u32string(U##y)); \
+            check(std::u32string{ char32Array }, std::u32string{ U##y }); \
         } \
         catch (const std::bad_cast&) {} \
         delete[] char32Array; \
     } \
     while (false)
 
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y) \
+    do \
+    { \
+        try { check(function(u8##x, xSize, u8##y, ySize)); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_ARRAYS_3(check, function, x, y) \
+    do \
+    { \
+        const auto xSize{ strlen(x) }; \
+        const auto ySize{ strlen(y) }; \
+        \
+        check(function(x, xSize, y, ySize)); \
+        check(function(L##x, xSize, L##y, ySize)); \
+        TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y); \
+        try { check(function(u##x, xSize, u##y, ySize)); } catch (const std::bad_cast&) {} \
+        try { check(function(U##x, xSize, U##y, ySize)); } catch (const std::bad_cast&) {} \
+    } \
+    while(false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z) \
+    do \
+    { \
+        try \
+        { \
+            const auto u8str{ u8##x }; \
+            check(function(u8str, xSize, u8##y, ySize), u8str + z); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_ARRAYS_4(check, function, x, y, z) \
+    do \
+    { \
+        const auto xSize{ strlen(x) }; \
+        const auto ySize{ strlen(y) }; \
+        \
+        const auto str{ x }; \
+        check(function(str, xSize, y, ySize), str + z); \
+        \
+        const auto wstr{ L##x }; \
+        check(function(wstr, xSize, L##y, ySize), wstr + z); \
+        \
+        TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z); \
+        \
+        try \
+        { \
+            const auto u16str{ u##x }; \
+            check(function(u16str, xSize, u##y, ySize), u16str + z); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            const auto u32str{ U##x }; \
+            check(function(u32str, xSize, U##y, ySize), u32str + z); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while(false)
+
 
 #if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
-        try { check(function(std::u8string(u8##x))); } catch (const std::bad_cast&) {} \
+        try { check(function(std::u8string{ u8##x })); } catch (const std::bad_cast&) {} \
     } \
     while (false)
 #else
@@ -158,11 +231,11 @@
 #define TEST_ALL_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
-        check(function(std::string(x))); \
-        check(function(std::wstring(L##x))); \
+        check(function(std::string{ x })); \
+        check(function(std::wstring{ L##x })); \
         TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
-        try { check(function(std::u16string(u##x))); } catch (const std::bad_cast&) {} \
-        try { check(function(std::u32string(U##x))); } catch (const std::bad_cast&) {} \
+        try { check(function(std::u16string{ u##x })); } catch (const std::bad_cast&) {} \
+        try { check(function(std::u32string{ U##x })); } catch (const std::bad_cast&) {} \
     } \
     while (false)
 
@@ -174,7 +247,7 @@
         try \
         { \
             function(u8string); \
-            check(u8string, std::u8string(u8##y)); \
+            check(u8string, std::u8string{ u8##y }); \
         } \
         catch (const std::bad_cast&) {} \
     } \
@@ -189,11 +262,11 @@
     { \
         auto string{ std::string{ x } }; \
         function(string); \
-        check(string, std::string(y)); \
+        check(string, std::string{ y }); \
         \
         auto wstring{ std::wstring{ L##x } }; \
         function(wstring); \
-        check(wstring, std::wstring(L##y)); \
+        check(wstring, std::wstring{ L##y }); \
         \
         TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
         \
@@ -201,7 +274,7 @@
         try \
         { \
             function(u16string); \
-            check(u16string, std::u16string(u##y)); \
+            check(u16string, std::u16string{ u##y }); \
         } \
         catch (const std::bad_cast&) {} \
         \
@@ -209,7 +282,74 @@
         try \
         { \
             function(u32string); \
-            check(u32string, std::u32string(U##y)); \
+            check(u32string, std::u32string{ U##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y) \
+    do \
+    { \
+        try { check(function(std::u8string{ u8##x }, std::u8string{ u8##y })); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_3(check, function, x, y) \
+    do \
+    { \
+        check(function(std::string{ x }, std::string{ y })); \
+        check(function(std::wstring{ L##x }, std::wstring{ L##y })); \
+        TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y); \
+        try { check(function(std::u16string{ u##x }, std::u16string{ u##y })); } catch (const std::bad_cast&) {} \
+        try { check(function(std::u32string{ U##x }, std::u32string{ U##y })); } catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z) \
+    do \
+    { \
+        try \
+        { \
+            std::u8string u8str{ u8##x }; \
+            check(function(u8str, std::u8string{ u8##y }), u8str.begin() + z); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_4(check, function, x, y, z) \
+    do \
+    { \
+        std::string str{ x }; \
+        check(function(str, std::string{ y }), str.begin() + z); \
+        \
+        std::wstring wstr{ L##x }; \
+        check(function(wstr, std::wstring{ L##y }), wstr.begin() + z); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z); \
+        \
+        try \
+        { \
+            std::u16string u16str{ u##x }; \
+            check(function(u16str, std::u16string{ u##y }), u16str.begin() + z); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::u32string u32str{ U##x }; \
+            check(function(u32str, std::u32string{ U##y }), u32str.begin() + z); \
         } \
         catch (const std::bad_cast&) {} \
     } \
@@ -526,4 +666,484 @@ TEST_F(StringUtilsTests, TestWideElemArrayToOther)
     ASSERT_EQ(Generic::wideTo<unsigned long long>(wide, size),  1ull);
     ASSERT_EQ(Generic::wideTo<double>(wide, size),              1.0);
     ASSERT_EQ(Generic::wideTo<float>(wide, size),               1.0f);
+}
+
+TEST_F(StringUtilsTests, TestElemArrayEqualsIgnoreCase)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemStringEqualsIgnoreCase)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemArrayBeginsWithIgnoreCase)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemStringBeginsWithIgnoreCase)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemArrayEndsWithIgnoreCase)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemStringEndsWithIgnoreCase)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemArrayFindIgnoreCase)
+{
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdeg", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+}
+
+TEST_F(StringUtilsTests, TestElemStringFindIgnoreCase)
+{
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdefg", 6); // end
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+}
+
+TEST_F(StringUtilsTests, TestElemArrayContainsIgnoreCase)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemStringContainsIgnoreCase)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
 }
