@@ -355,6 +355,222 @@
     } \
     while (false)
 
+#define VECTOR_HELPER_0()
+#define VECTOR_HELPER_1(x)                  x
+#define VECTOR_HELPER_2(x, y)               x, VECTOR_HELPER_1(y)
+#define VECTOR_HELPER_3(x, y, z)            x, VECTOR_HELPER_2(y, z)
+#define VECTOR_HELPER_4(x, y, z, a)         x, VECTOR_HELPER_3(y, z, a)
+#define VECTOR_HELPER_5(x, y, z, a, b)      x, VECTOR_HELPER_4(y, z, a, b)
+#define VECTOR_HELPER_6(x, y, z, a, b, c)   x, VECTOR_HELPER_5(y, z, a, b, c)
+
+#define VECTOR_HELPER_W_0()
+#define VECTOR_HELPER_W_1(x)                L##x
+#define VECTOR_HELPER_W_2(x, y)             L##x, VECTOR_HELPER_W_1(y)
+#define VECTOR_HELPER_W_3(x, y, z)          L##x, VECTOR_HELPER_W_2(y, z)
+#define VECTOR_HELPER_W_4(x, y, z, a)       L##x, VECTOR_HELPER_W_3(y, z, a)
+#define VECTOR_HELPER_W_5(x, y, z, a, b)    L##x, VECTOR_HELPER_W_4(y, z, a, b)
+#define VECTOR_HELPER_W_6(x, y, z, a, b, c) L##x, VECTOR_HELPER_W_5(y, z, a, b, c)
+
+#define VECTOR_HELPER_U8_0()
+#define VECTOR_HELPER_U8_1(x)                   u8##x
+#define VECTOR_HELPER_U8_2(x, y)                u8##x, VECTOR_HELPER_U8_1(y)
+#define VECTOR_HELPER_U8_3(x, y, z)             u8##x, VECTOR_HELPER_U8_2(y, z)
+#define VECTOR_HELPER_U8_4(x, y, z, a)          u8##x, VECTOR_HELPER_U8_3(y, z, a)
+#define VECTOR_HELPER_U8_5(x, y, z, a, b)       u8##x, VECTOR_HELPER_U8_4(y, z, a, b)
+#define VECTOR_HELPER_U8_6(x, y, z, a, b, c)    u8##x, VECTOR_HELPER_U8_5(y, z, a, b, c)
+
+#define VECTOR_HELPER_U16_0()
+#define VECTOR_HELPER_U16_1(x)                  u##x
+#define VECTOR_HELPER_U16_2(x, y)               u##x, VECTOR_HELPER_U16_1(y)
+#define VECTOR_HELPER_U16_3(x, y, z)            u##x, VECTOR_HELPER_U16_2(y, z)
+#define VECTOR_HELPER_U16_4(x, y, z, a)         u##x, VECTOR_HELPER_U16_3(y, z, a)
+#define VECTOR_HELPER_U16_5(x, y, z, a, b)      u##x, VECTOR_HELPER_U16_4(y, z, a, b)
+#define VECTOR_HELPER_U16_6(x, y, z, a, b, c)   u##x, VECTOR_HELPER_U16_5(y, z, a, b, c)
+
+#define VECTOR_HELPER_U32_0()
+#define VECTOR_HELPER_U32_1(x)                  U##x
+#define VECTOR_HELPER_U32_2(x, y)               U##x, VECTOR_HELPER_U32_1(y)
+#define VECTOR_HELPER_U32_3(x, y, z)            U##x, VECTOR_HELPER_U32_2(y, z)
+#define VECTOR_HELPER_U32_4(x, y, z, a)         U##x, VECTOR_HELPER_U32_3(y, z, a)
+#define VECTOR_HELPER_U32_5(x, y, z, a, b)      U##x, VECTOR_HELPER_U32_4(y, z, a, b)
+#define VECTOR_HELPER_U32_6(x, y, z, a, b, c)   U##x, VECTOR_HELPER_U32_5(y, z, a, b, c)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, args, size) \
+    do \
+    { \
+        try \
+        { \
+            std::vector<std::u8string> u8splits{ VECTOR_HELPER_U8_##size##args }; \
+            check(function(std::u8string{ u8##x }), u8splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, args, size) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_5(check, function, x, args, size) \
+    do \
+    { \
+        std::vector<std::string> splits{ VECTOR_HELPER_##size##args }; \
+        check(function(std::string{ x }), splits); \
+        \
+        std::vector<std::wstring> wsplits{ VECTOR_HELPER_W_##size##args }; \
+        check(function(std::wstring{ L##x }), wsplits); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_5(check, function, x, args, size); \
+        \
+        try \
+        { \
+            std::vector<std::u16string> u16splits{ VECTOR_HELPER_U16_##size##args }; \
+            check(function(std::u16string{ u##x }), u16splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::vector<std::u32string> u32splits{ VECTOR_HELPER_U32_##size##args }; \
+            check(function(std::u32string{ U##x }), u32splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, args, size) \
+    do \
+    { \
+        try \
+        { \
+            std::vector<std::u8string> u8splits{ VECTOR_HELPER_U8_##size##args }; \
+            check(function(std::u8string{ u8##x }, std::u8string{ u8##y }), u8splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, args, size) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_6(check, function, x, y, args, size) \
+    do \
+    { \
+        std::vector<std::string> splits{ VECTOR_HELPER_##size##args }; \
+        check(function(std::string{ x }, std::string{ y }), splits); \
+        \
+        std::vector<std::wstring> wsplits{ VECTOR_HELPER_W_##size##args }; \
+        check(function(std::wstring{ L##x }, std::wstring{ L##y }), wsplits); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, args, size); \
+        \
+        try \
+        { \
+            std::vector<std::u16string> u16splits{ VECTOR_HELPER_U16_##size##args }; \
+            check(function(std::u16string{ u##x }, std::u16string{ u##y }), u16splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::vector<std::u32string> u32splits{ VECTOR_HELPER_U32_##size##args }; \
+            check(function(std::u32string{ U##x }, std::u32string{ U##y }), u32splits); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_7(check, function, x, args, size, y) \
+    do \
+    { \
+        try \
+        { \
+            std::vector<std::u8string> u8splits{ VECTOR_HELPER_U8_##size##args }; \
+            check(function(std::u8string{ u8##x }, u8splits.begin(), u8splits.end()), std::u8string{ u8##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_7(check, function, x, args, size, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_7(check, function, x, args, size, y) \
+    do \
+    { \
+        std::vector<std::string> splits{ VECTOR_HELPER_##size##args }; \
+        check(function(std::string{ x }, splits.begin(), splits.end()), std::string{ y }); \
+        \
+        std::vector<std::wstring> wsplits{ VECTOR_HELPER_W_##size##args }; \
+        check(function(std::wstring{ L##x }, wsplits.begin(), wsplits.end()), std::wstring{ L##y }); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_7(check, function, x, args, size, y); \
+        \
+        try \
+        { \
+            std::vector<std::u16string> u16splits{ VECTOR_HELPER_U16_##size##args }; \
+            check(function(std::u16string{ u##x }, u16splits.begin(), u16splits.end()), std::u16string{ u##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::vector<std::u32string> u32splits{ VECTOR_HELPER_U32_##size##args }; \
+            check(function(std::u32string{ U##x }, u32splits.begin(), u32splits.end()), std::u32string{ U##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
+#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_8(check, function, x, args, size, y) \
+    do \
+    { \
+        try \
+        { \
+            std::vector<std::u8string> u8splits{ VECTOR_HELPER_U8_##size##args }; \
+            check(function(std::u8string{ u8##x }, u8splits), std::u8string{ u8##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_8(check, function, x, args, size, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_8(check, function, x, args, size, y) \
+    do \
+    { \
+        std::vector<std::string> splits{ VECTOR_HELPER_##size##args }; \
+        check(function(std::string{ x }, splits), std::string{ y }); \
+        \
+        std::vector<std::wstring> wsplits{ VECTOR_HELPER_W_##size##args }; \
+        check(function(std::wstring{ L##x }, wsplits), std::wstring{ L##y }); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_8(check, function, x, args, size, y); \
+        \
+        try \
+        { \
+            std::vector<std::u16string> u16splits{ VECTOR_HELPER_U16_##size##args }; \
+            check(function(std::u16string{ u##x }, u16splits), std::u16string{ u##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::vector<std::u32string> u32splits{ VECTOR_HELPER_U32_##size##args }; \
+            check(function(std::u32string{ U##x }, u32splits), std::u32string{ U##y }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
 class StringUtilsTests : public testing::Test
 {
 protected:
@@ -1146,4 +1362,116 @@ TEST_F(StringUtilsTests, TestElemStringContainsIgnoreCase)
 
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEG");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(StringUtilsTests, TestElemStringSplit)
+{
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a", ("a"), 1);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "A", ("A"), 1);
+
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "", (), 0);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "   ", (), 0);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "\t\n\v\f\r ", (), 0);
+
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, " a ", ("a"), 1);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a b c d e f", ("a", "b", "c", "d", "e", "f"), 6);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "A B C D E F", ("A", "B", "C", "D", "E", "F"), 6);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a\tb\nc\vd\fe\rf", ("a", "b", "c", "d", "e", "f"), 6);
+}
+
+TEST_F(StringUtilsTests, TestElemStringSplitWithDelim)
+{
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a", " ", ("a"), 1);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "A", " ", ("A"), 1);
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "", " ", (""), 1);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "   ", " ", ("", "", "", ""), 4);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "\t\n\v\f\r ", " ", ("\t\n\v\f\r", ""), 2);
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, " a ", " ", ("", "a", ""), 3);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a b c d e f", " ", ("a", "b", "c", "d", "e", "f"), 6);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "A B C D E F", " ", ("A", "B", "C", "D", "E", "F"), 6);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a\tb\nc\vd\fe\rf", " ", ("a\tb\nc\vd\fe\rf"), 1);
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a:b:c:d:e:f", ":", ("a", "b", "c", "d", "e", "f"), 6);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a;b;c;d;e;f", ";", ("a", "b", "c", "d", "e", "f"), 6);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a-b-c-d-e-f", "-", ("a", "b", "c", "d", "e", "f"), 6);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a#b#c#d#e#f", "#", ("a", "b", "c", "d", "e", "f"), 6);
+}
+
+TEST_F(StringUtilsTests, TestElemStringJoinIterators)
+{
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ("a"), 1, "a");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ("A"), 1, "A");
+
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", (""), 1, "");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ("", "", ""), 3, ",,");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ("", "", "", "", "", ""), 6, ",,,,,");
+
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, "", ("a", "b", "c", "d", "e", "f"), 6, "abcdef");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, "", ("A", "B", "C", "D", "E", "F"), 6, "ABCDEF");
+
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, " ", ("a", "b", "c", "d", "e", "f"), 6, "a b c d e f");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, " ", ("A", "B", "C", "D", "E", "F"), 6, "A B C D E F");
+
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ", ", ("a", "b", "c", "d", "e", "f"), 6, "a, b, c, d, e, f");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ", ", ("A", "B", "C", "D", "E", "F"), 6, "A, B, C, D, E, F");
+}
+
+TEST_F(StringUtilsTests, TestElemStringJoinContainer)
+{
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ("a"), 1, "a");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ("A"), 1, "A");
+
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", (""), 1, "");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ("", "", ""), 3, ",,");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ("", "", "", "", "", ""), 6, ",,,,,");
+
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, "", ("a", "b", "c", "d", "e", "f"), 6, "abcdef");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, "", ("A", "B", "C", "D", "E", "F"), 6, "ABCDEF");
+
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, " ", ("a", "b", "c", "d", "e", "f"), 6, "a b c d e f");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, " ", ("A", "B", "C", "D", "E", "F"), 6, "A B C D E F");
+
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ", ", ("a", "b", "c", "d", "e", "f"), 6, "a, b, c, d, e, f");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ", ", ("A", "B", "C", "D", "E", "F"), 6, "A, B, C, D, E, F");
+}
+
+TEST_F(StringUtilsTests, TestElemStringLstrip)
+{
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "A", "A");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " a ", "a ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " A ", "A ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " a b c ", "a b c ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
+}
+
+TEST_F(StringUtilsTests, TestElemStringRstrip)
+{
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "A", "A");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " a ", " a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " A ", " A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " a b c ", " a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
+}
+
+TEST_F(StringUtilsTests, TestElemStringStrip)
+{
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "A", "A");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " a ", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " A ", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "\t\n\v\f\ra\t\n\v\f\r", "a");
+
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " a b c ", "a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }
