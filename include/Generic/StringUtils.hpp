@@ -298,7 +298,7 @@ namespace Generic
     }
 
     template<class Elem>
-    inline std::basic_string<Elem>::const_iterator findIgnoreCase(
+    inline auto findIgnoreCase(
         const std::basic_string<Elem>&  left,
         const std::basic_string<Elem>&  right,
         const std::locale&              locale = Generic::getDefaultLocale())
