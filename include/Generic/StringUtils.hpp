@@ -327,10 +327,42 @@ namespace Generic
     }
 
     template<class Elem>
-    inline void split(
-        std::vector<std::basic_string<Elem>>&   splits,
-        const std::basic_string<Elem>&          str,
-        const std::basic_string<Elem>&          sep = { Elem(' ') })
+    inline const Elem* const getWhitespace()
+    {
+        static constexpr Elem whitespace[]
+        {
+            static_cast<Elem>('\t'),
+            static_cast<Elem>('\n'),
+            static_cast<Elem>('\v'),
+            static_cast<Elem>('\f'),
+            static_cast<Elem>('\r'),
+            static_cast<Elem>(' '),
+            static_cast<Elem>('\0') // Marks the end
+        };
+
+        return whitespace;
+    }
+
+    template<class Elem>
+    inline std::vector<std::basic_string<Elem>> split(const std::basic_string<Elem>& str)
+    {
+        const auto whitespace{ getWhitespace<Elem>() };
+        
+        std::size_t start, end{};
+        std::vector<std::basic_string<Elem>> splits{};
+        while ((start = str.find_first_not_of(whitespace, end)) != str.npos)
+        {
+            end = str.find_first_of(whitespace, start);
+            splits.push_back(str.substr(start, (end - start)));
+        }
+
+        return splits;
+    }
+
+    template<class Elem>
+    inline std::vector<std::basic_string<Elem>> split(
+        const std::basic_string<Elem>& str,
+        const std::basic_string<Elem>& sep)
     {
         if (sep.empty())
         {
@@ -338,6 +370,7 @@ namespace Generic
         }
 
         std::size_t start{}, end;
+        std::vector<std::basic_string<Elem>> splits{};
         while ((end = str.find(sep, start)) != str.npos)
         {
             splits.push_back(str.substr(start, (end - start)));
@@ -345,34 +378,7 @@ namespace Generic
         }
 
         splits.push_back(str.substr(start));
-    }
-
-    template<class Elem>
-    inline std::vector<std::basic_string<Elem>> split(
-        const std::basic_string<Elem>& str,
-        const std::basic_string<Elem>& sep = { Elem(' ') })
-    {
-        std::vector<std::basic_string<Elem>> splits{};
-        Generic::split(splits, str, sep);
         return splits;
-    }
-
-    template<class Elem, class Iterator>
-    inline void join(
-        std::basic_string<Elem>&        str,
-        const std::basic_string<Elem>&  sep,
-        const Iterator                  begin,
-        const Iterator                  end)
-    {
-        for (auto it{ begin }; it < end; ++it)
-        {
-            if (!str.empty())
-            {
-                str.append(sep);
-            }
-
-            str.append(*it);
-        }
     }
 
     template<class Elem, class Iterator>
@@ -382,46 +388,43 @@ namespace Generic
         const Iterator                  end)
     {
         std::basic_string<Elem> str{};
-        Generic::join(str, sep, begin, end);
+        for (auto it{ begin }; it < end; ++it)
+        {
+            if (it != begin)
+            {
+                str.append(sep);
+            }
+
+            str.append(*it);
+        }
+
         return str;
     }
 
-    template<class Elem>
-    inline void ltrim(std::basic_string<Elem>& str)
+    template<class Elem, class Container>
+    inline std::basic_string<Elem> join(
+        const std::basic_string<Elem>&  sep,
+        const Container&                container)
     {
-        static constexpr Elem whitespace[] =
-        {
-            Elem('\t'),
-            Elem('\n'),
-            Elem('\v'),
-            Elem('\f'),
-            Elem('\r'),
-            Elem(' ')
-        };
-
-        str.erase(0, str.find_first_not_of(whitespace));
+        return join(sep, std::begin(container), std::end(container));
     }
 
     template<class Elem>
-    inline void rtrim(std::basic_string<Elem>& str)
+    inline void lstrip(std::basic_string<Elem>& str)
     {
-        static constexpr Elem whitespace[] =
-        {
-            Elem('\t'),
-            Elem('\n'),
-            Elem('\v'),
-            Elem('\f'),
-            Elem('\r'),
-            Elem(' ')
-        };
-
-        str.erase(str.find_last_not_of(whitespace) + 1);
+        str.erase(0, str.find_first_not_of(getWhitespace<Elem>()));
     }
 
     template<class Elem>
-    inline void trim(std::basic_string<Elem>& str)
+    inline void rstrip(std::basic_string<Elem>& str)
     {
-        ltrim(str);
-        rtrim(str);
+        str.erase(str.find_last_not_of(getWhitespace<Elem>()) + 1);
+    }
+
+    template<class Elem>
+    inline void strip(std::basic_string<Elem>& str)
+    {
+        lstrip(str);
+        rstrip(str);
     }
 }
