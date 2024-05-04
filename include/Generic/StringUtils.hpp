@@ -346,7 +346,7 @@ namespace Generic
     template<class Elem>
     inline std::vector<std::basic_string<Elem>> split(const std::basic_string<Elem>& str)
     {
-        const auto whitespace{ getWhitespace<Elem>() };
+        const auto whitespace{ Generic::getWhitespace<Elem>() };
         
         std::size_t start, end{};
         std::vector<std::basic_string<Elem>> splits{};
@@ -406,25 +406,25 @@ namespace Generic
         const std::basic_string<Elem>&  sep,
         const Container&                container)
     {
-        return join(sep, std::begin(container), std::end(container));
+        return Generic::join(sep, std::begin(container), std::end(container));
     }
 
     template<class Elem>
     inline void lstrip(std::basic_string<Elem>& str)
     {
-        str.erase(0, str.find_first_not_of(getWhitespace<Elem>()));
+        str.erase(0, str.find_first_not_of(Generic::getWhitespace<Elem>()));
     }
 
     template<class Elem>
     inline void rstrip(std::basic_string<Elem>& str)
     {
-        str.erase(str.find_last_not_of(getWhitespace<Elem>()) + 1);
+        str.erase(str.find_last_not_of(Generic::getWhitespace<Elem>()) + 1);
     }
 
     template<class Elem>
     inline void strip(std::basic_string<Elem>& str)
     {
-        lstrip(str);
-        rstrip(str);
+        Generic::lstrip(str);
+        Generic::rstrip(str);
     }
 }

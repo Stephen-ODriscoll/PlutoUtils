@@ -114,14 +114,14 @@ namespace Generic
         typedef std::shared_timed_mutex SharedMutexType;
 #endif
 
-        mutable SharedMutexType         m_mutex{};
-        LRUCache<KeyType, ValueType>    m_lruCache;
+        mutable SharedMutexType                 m_mutex{};
+        Generic::LRUCache<KeyType, ValueType>   m_lruCache;
 
     public:
-        typedef typename LRUCache<KeyType, ValueType>::Key Key;
-        typedef typename LRUCache<KeyType, ValueType>::Value Value;
-        typedef typename LRUCache<KeyType, ValueType>::List List;
-        typedef typename LRUCache<KeyType, ValueType>::Map Map;
+        typedef typename Generic::LRUCache<KeyType, ValueType>::Key Key;
+        typedef typename Generic::LRUCache<KeyType, ValueType>::Value Value;
+        typedef typename Generic::LRUCache<KeyType, ValueType>::List List;
+        typedef typename Generic::LRUCache<KeyType, ValueType>::Map Map;
 
         SafeLRUCache(const std::size_t capacity) :
             m_lruCache{ capacity } {}
