@@ -7,6 +7,10 @@
 
 project(GenericUtilsTests)
 
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:preprocessor")
+endif()
+
 include_directories(
     ../include)
 
@@ -31,7 +35,7 @@ target_link_libraries(
     ${PROJECT_NAME}
     gtest)
 
-if((NOT WIN32) AND CMAKE_CXX_STANDARD EQUAL 14)
+if((NOT MSVC) AND CMAKE_CXX_STANDARD EQUAL 14)
     target_link_libraries(
         ${PROJECT_NAME}
         stdc++fs)
