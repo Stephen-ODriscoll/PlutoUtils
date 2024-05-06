@@ -356,12 +356,12 @@
     while (false)
 
 #define VECTOR_HELPER_0(pre, x)
-#define VECTOR_HELPER_1(pre, x)                 pre##x
-#define VECTOR_HELPER_2(pre, x, y)              pre##x, VECTOR_HELPER_1(pre, y)
-#define VECTOR_HELPER_3(pre, x, y, z)           pre##x, VECTOR_HELPER_2(pre, y, z)
-#define VECTOR_HELPER_4(pre, x, y, z, a)        pre##x, VECTOR_HELPER_3(pre, y, z, a)
-#define VECTOR_HELPER_5(pre, x, y, z, a, b)     pre##x, VECTOR_HELPER_4(pre, y, z, a, b)
-#define VECTOR_HELPER_6(pre, x, y, z, a, b, c)  pre##x, VECTOR_HELPER_5(pre, y, z, a, b, c)
+#define VECTOR_HELPER_1(pre, x)         pre##x
+#define VECTOR_HELPER_2(pre, x, ...)    pre##x, VECTOR_HELPER_1(pre, __VA_ARGS__)
+#define VECTOR_HELPER_3(pre, x, ...)    pre##x, VECTOR_HELPER_2(pre, __VA_ARGS__)
+#define VECTOR_HELPER_4(pre, x, ...)    pre##x, VECTOR_HELPER_3(pre, __VA_ARGS__)
+#define VECTOR_HELPER_5(pre, x, ...)    pre##x, VECTOR_HELPER_4(pre, __VA_ARGS__)
+#define VECTOR_HELPER_6(pre, x, ...)    pre##x, VECTOR_HELPER_5(pre, __VA_ARGS__)
 
 #if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
 #define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, ...) \
