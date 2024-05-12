@@ -410,21 +410,21 @@ namespace Generic
     }
 
     template<class Elem>
-    inline void lstrip(std::basic_string<Elem>& str)
+    inline void ltrim(std::basic_string<Elem>& str)
     {
         str.erase(0, str.find_first_not_of(Generic::getWhitespace<Elem>()));
     }
 
     template<class Elem>
-    inline void rstrip(std::basic_string<Elem>& str)
+    inline void rtrim(std::basic_string<Elem>& str)
     {
         str.erase(str.find_last_not_of(Generic::getWhitespace<Elem>()) + 1);
     }
 
     template<class Elem>
-    inline void strip(std::basic_string<Elem>& str)
+    inline void trim(std::basic_string<Elem>& str)
     {
-        Generic::lstrip(str);
-        Generic::rstrip(str);
+        Generic::ltrim(str);
+        Generic::rtrim(str);
     }
 }

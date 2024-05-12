@@ -1405,41 +1405,41 @@ TEST_F(StringUtilsTests, TestElemStringJoinContainer)
     TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
-TEST_F(StringUtilsTests, TestElemStringLstrip)
+TEST_F(StringUtilsTests, TestElemStringLtrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "A", "A");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " a ", "a ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " A ", "A ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " a ", "a ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " A ", "A ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, " a b c ", "a b c ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " a b c ", "a b c ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
-TEST_F(StringUtilsTests, TestElemStringRstrip)
+TEST_F(StringUtilsTests, TestElemStringRtrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "A", "A");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " a ", " a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " A ", " A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " a ", " a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " A ", " A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, " a b c ", " a b c");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " a b c ", " a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
-TEST_F(StringUtilsTests, TestElemStringStrip)
+TEST_F(StringUtilsTests, TestElemStringTrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "A", "A");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " a ", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " A ", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "\t\n\v\f\ra\t\n\v\f\r", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " a ", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " A ", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "\t\n\v\f\ra\t\n\v\f\r", "a");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, " a b c ", "a b c");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " a b c ", "a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }
