@@ -30,7 +30,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (left == right || facet.tolower(left) == facet.tolower(right));
+            return (left == right || facet.toupper(left) == facet.toupper(right));
         }
     };
 
@@ -44,7 +44,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (left != right && facet.tolower(left) != facet.tolower(right));
+            return (left != right && facet.toupper(left) != facet.toupper(right));
         }
     };
 
@@ -58,7 +58,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (facet.tolower(left) < facet.tolower(right));
+            return (facet.toupper(left) < facet.toupper(right));
         }
     };
     
@@ -72,7 +72,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (facet.tolower(left) > facet.tolower(right));
+            return (facet.toupper(left) > facet.toupper(right));
         }
     };
 
@@ -86,7 +86,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (left == right || facet.tolower(left) <= facet.tolower(right));
+            return (left == right || facet.toupper(left) <= facet.toupper(right));
         }
     };
 
@@ -100,7 +100,7 @@ namespace Generic
 
         bool operator()(const Elem& left, const Elem& right) const
         {
-            return (left == right || facet.tolower(left) >= facet.tolower(right));
+            return (left == right || facet.toupper(left) >= facet.toupper(right));
         }
     };
 }
