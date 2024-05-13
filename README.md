@@ -38,3 +38,27 @@ The only dependencies required to build the unit tests are CMake and Google Test
 ### Clang
 1. Untested, you can try the same way as GCC. I'll probably test this soon.
 
+## Documentation
+[Compare.hpp](./docs/Compare.md)
+
+[ContainerUtils.hpp](./docs/ContainerUtils.md)
+
+[FileSystem.hpp](./docs/FileSystem.md)
+
+[IteratorUtils.hpp](./docs/IteratorUtils.md)
+
+[Locale.hpp](./docs/Locale.md)
+
+[Logger.hpp](./docs/Logger.md)
+
+[LRUCache.hpp](./docs/LRUCache.md)
+
+[Range.hpp](./docs/Range.md)
+
+[ScopeExitActions.hpp](./docs/ScopeExitActions.md)
+
+[Stopwatch.hpp](./docs/Stopwatch.md)
+
+[Standard.hpp](./docs/Standard.md)
+
+[StringUtils.hpp](./docs/StringUtils.md)
