@@ -1,4 +1,4 @@
 # GenericUtils
-[Back to README](../README.md#Documentation)
+[Back to README](../README.md#documentation)
 
 ## Locale.hpp
