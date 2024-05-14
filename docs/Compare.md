@@ -1,5 +1,5 @@
 # GenericUtils
-[Back to README](../README.md#documentation)
+[Back to README](https://www.github.com/Stephen-ODriscoll/GenericUtils/blob/main/README.md#documentation)
 
 ## Compare.hpp
 Contains comparison operators used by other utilities. Also contains case insensitive comparison operators.
