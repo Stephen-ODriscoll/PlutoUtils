@@ -14,71 +14,71 @@
 
 namespace Generic
 {
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool equalsSameSize(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        PredicateT              predicate = {})
     {
         return std::equal(beginL, endL, beginR, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool equals(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
     {
         return (std::distance(beginL, endL) == std::distance(beginR, endR)) &&
             Generic::equalsSameSize(beginL, endL, beginR, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool equals(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
     {
         return (sizeL == sizeR) &&
             Generic::equalsSameSize(beginL, std::next(beginL, sizeL), beginR, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool beginsWith(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
     {
         return (std::distance(beginR, endR) <= std::distance(beginL, endL)) &&
             Generic::equalsSameSize(beginR, endR, beginL, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool beginsWith(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
     {
         return (sizeR <= sizeL) &&
             Generic::equalsSameSize(beginR, std::next(beginR, sizeR), beginL, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool endsWith(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
     {
         const auto sizeR{ std::distance(beginR, endR) };
 
@@ -86,59 +86,59 @@ namespace Generic
             Generic::equalsSameSize(beginR, endR, std::prev(endL, sizeR), predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool endsWith(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
     {
         return (sizeR <= sizeL) &&
             Generic::equalsSameSize(beginR, std::next(beginR, sizeR), std::next(beginL, (sizeL - sizeR)), predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft find(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
+    inline IteratorLeftT find(
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
     {
         return std::search(beginL, endL, beginR, endR, predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
-    inline IteratorLeft find(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
+    inline IteratorLeftT find(
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
     {
         return Generic::find(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool contains(
-        const IteratorLeft  beginL,
-        const IteratorLeft  endL,
-        const IteratorRight beginR,
-        const IteratorRight endR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
     {
         return (beginR == endR) ||
             (Generic::find(beginL, endL, beginR, endR, predicate) != endL);
     }
 
-    template<class IteratorLeft, class IteratorRight, class Predicate = Generic::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
     inline bool contains(
-        const IteratorLeft  beginL,
-        const std::size_t   sizeL,
-        const IteratorRight beginR,
-        const std::size_t   sizeR,
-        Predicate           predicate = {})
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
     {
         if (sizeR == 0)
         {

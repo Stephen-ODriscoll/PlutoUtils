@@ -11,14 +11,14 @@
 
 namespace Generic
 {
-    template<class Type, class Size = Type>
+    template<class TypeT, class SizeT = TypeT>
     class Range
     {
-        Type m_begin;
-        Size m_size;
+        TypeT m_begin;
+        SizeT m_size;
 
     public:
-        Range(const Type& begin, const Size& size = {}) :
+        Range(const TypeT& begin, const SizeT& size = {}) :
             m_begin { begin },
             m_size  { size } {}
 
@@ -28,12 +28,12 @@ namespace Generic
 
         ~Range() {}
 
-        void begin(const Type& begin)   { m_begin = begin; }
-        void size(const Size& size)     { m_size = size; }
+        void begin(const TypeT& begin)  { m_begin = begin; }
+        void size(const SizeT& size)    { m_size = size; }
 
-        Type begin()    const   { return m_begin; }
-        Type end()      const   { return (m_begin + m_size); }
-        Size size()     const   { return m_size; }
+        TypeT begin()   const   { return m_begin; }
+        TypeT end()     const   { return (m_begin + m_size); }
+        SizeT size()    const   { return m_size; }
 
         bool isLess(const Range& other) const
         {

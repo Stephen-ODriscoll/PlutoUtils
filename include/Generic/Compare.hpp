@@ -20,85 +20,85 @@ namespace Generic
     typedef std::less_equal<>       IsLessEqual;
     typedef std::greater_equal<>    IsGreaterEqual;
 
-    template<class Elem>
+    template<class ElemT>
     struct IsEqualIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) == facet.toupper(right));
         }
     };
 
-    template<class Elem>
+    template<class ElemT>
     struct IsNotEqualIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsNotEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left != right && facet.toupper(left) != facet.toupper(right));
         }
     };
 
-    template<class Elem>
+    template<class ElemT>
     struct IsLessIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsLessIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (facet.toupper(left) < facet.toupper(right));
         }
     };
     
-    template<class Elem>
+    template<class ElemT>
     struct IsGreaterIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsGreaterIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (facet.toupper(left) > facet.toupper(right));
         }
     };
 
-    template<class Elem>
+    template<class ElemT>
     struct IsLessEqualIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsLessEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) <= facet.toupper(right));
         }
     };
 
-    template<class Elem>
+    template<class ElemT>
     struct IsGreaterEqualIgnoreCase
     {
-        const std::ctype<Elem>& facet;
+        const std::ctype<ElemT>& facet;
 
         IsGreaterEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<Elem>(locale) } {}
+            facet{ Generic::getFacet<ElemT>(locale) } {}
 
-        bool operator()(const Elem& left, const Elem& right) const
+        bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) >= facet.toupper(right));
         }

@@ -19,71 +19,71 @@
 
 namespace Generic
 {
-    template<class Elem>
-    inline Elem toLower(
-        const Elem          elem,
+    template<class ElemT>
+    inline ElemT toLower(
+        const ElemT         elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::getFacet<Elem>(locale).tolower(elem);
+        return Generic::getFacet<ElemT>(locale).tolower(elem);
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline void toLower(
-        Elem* const         pElem,
+        ElemT* const        pElem,
         const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        Generic::getFacet<Elem>(locale).tolower(pElem, (pElem + size));
+        Generic::getFacet<ElemT>(locale).tolower(pElem, (pElem + size));
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline void toLower(
-        std::basic_string<Elem>&    str,
+        std::basic_string<ElemT>&   str,
         const std::locale&          locale = Generic::getDefaultLocale())
     {
         Generic::toLower(&str[0], str.size(), locale);
     }
     
-    template<class Elem>
-    inline Elem toUpper(
-        const Elem          elem,
+    template<class ElemT>
+    inline ElemT toUpper(
+        const ElemT         elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::getFacet<Elem>(locale).toupper(elem);
+        return Generic::getFacet<ElemT>(locale).toupper(elem);
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline void toUpper(
-        Elem* const         pElem,
+        ElemT* const        pElem,
         const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        Generic::getFacet<Elem>(locale).toupper(pElem, (pElem + size));
+        Generic::getFacet<ElemT>(locale).toupper(pElem, (pElem + size));
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline void toUpper(
-        std::basic_string<Elem>&    str,
+        std::basic_string<ElemT>&   str,
         const std::locale&          locale = Generic::getDefaultLocale())
     {
         Generic::toUpper(&str[0], str.size(), locale);
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isLower(
-        const Elem          elem,
+        const ElemT         elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return !(Generic::getFacet<Elem>(locale).is(std::ctype_base::upper, elem));
+        return !(Generic::getFacet<ElemT>(locale).is(std::ctype_base::upper, elem));
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isLower(
-        const Elem* const   pElem,
+        const ElemT* const  pElem,
         const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<Elem>(locale) };
+        const auto& facet{ Generic::getFacet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -97,29 +97,29 @@ namespace Generic
         return true;
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isLower(
-        const std::basic_string<Elem>&  str,
+        const std::basic_string<ElemT>& str,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
         return Generic::isLower(&str[0], str.size(), locale);
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isUpper(
-        const Elem          elem,
+        const ElemT         elem,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return !(Generic::getFacet<Elem>(locale).is(std::ctype_base::lower, elem));
+        return !(Generic::getFacet<ElemT>(locale).is(std::ctype_base::lower, elem));
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isUpper(
-        const Elem* const   pElem,
+        const ElemT* const  pElem,
         const std::size_t   size,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<Elem>(locale) };
+        const auto& facet{ Generic::getFacet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -133,9 +133,9 @@ namespace Generic
         return true;
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool isUpper(
-        const std::basic_string<Elem>&  str,
+        const std::basic_string<ElemT>& str,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
         return Generic::isUpper(&str[0], str.size(), locale);
@@ -227,24 +227,24 @@ namespace Generic
         return Generic::wideTo<T>(std::wstring(str, size));
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool equalsIgnoreCase(
-        const Elem* const   beginL,
+        const ElemT* const  beginL,
         const std::size_t   sizeL,
-        const Elem* const   beginR,
+        const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::equals(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::equals(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool equalsIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::equals(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::equals(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
@@ -258,98 +258,98 @@ namespace Generic
         return Generic::beginsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool beginsWithIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::beginsWith(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::beginsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool endsWithIgnoreCase(
-        const Elem* const   beginL,
+        const ElemT* const  beginL,
         const std::size_t   sizeL,
-        const Elem* const   beginR,
+        const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::endsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::endsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool endsWithIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
-    template<class Elem>
-    inline const Elem* const findIgnoreCase(
-        const Elem* const   beginL,
+    template<class ElemT>
+    inline const ElemT* const findIgnoreCase(
+        const ElemT* const  beginL,
         const std::size_t   sizeL,
-        const Elem* const   beginR,
+        const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline auto findIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::find(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::find(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool containsIgnoreCase(
-        const Elem* const   beginL,
+        const ElemT* const  beginL,
         const std::size_t   sizeL,
-        const Elem* const   beginR,
+        const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::contains(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::contains(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline bool containsIgnoreCase(
-        const std::basic_string<Elem>&  left,
-        const std::basic_string<Elem>&  right,
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::contains(left, right, Generic::IsEqualIgnoreCase<Elem>{ locale });
+        return Generic::contains(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class Elem>
-    inline const Elem* const getWhitespace()
+    template<class ElemT>
+    inline const ElemT* const getWhitespace()
     {
-        static constexpr Elem whitespace[]
+        static constexpr ElemT whitespace[]
         {
-            static_cast<Elem>('\t'),
-            static_cast<Elem>('\n'),
-            static_cast<Elem>('\v'),
-            static_cast<Elem>('\f'),
-            static_cast<Elem>('\r'),
-            static_cast<Elem>(' '),
-            static_cast<Elem>('\0') // Marks the end
+            static_cast<ElemT>('\t'),
+            static_cast<ElemT>('\n'),
+            static_cast<ElemT>('\v'),
+            static_cast<ElemT>('\f'),
+            static_cast<ElemT>('\r'),
+            static_cast<ElemT>(' '),
+            static_cast<ElemT>('\0') // Marks the end
         };
 
         return whitespace;
     }
 
-    template<class Elem>
-    inline std::vector<std::basic_string<Elem>> split(const std::basic_string<Elem>& str)
+    template<class ElemT>
+    inline std::vector<std::basic_string<ElemT>> split(const std::basic_string<ElemT>& str)
     {
-        const auto whitespace{ Generic::getWhitespace<Elem>() };
+        const auto whitespace{ Generic::getWhitespace<ElemT>() };
         
         std::size_t start, end{};
-        std::vector<std::basic_string<Elem>> splits{};
+        std::vector<std::basic_string<ElemT>> splits{};
         while ((start = str.find_first_not_of(whitespace, end)) != str.npos)
         {
             end = str.find_first_of(whitespace, start);
@@ -359,10 +359,10 @@ namespace Generic
         return splits;
     }
 
-    template<class Elem>
-    inline std::vector<std::basic_string<Elem>> split(
-        const std::basic_string<Elem>& str,
-        const std::basic_string<Elem>& sep)
+    template<class ElemT>
+    inline std::vector<std::basic_string<ElemT>> split(
+        const std::basic_string<ElemT>& str,
+        const std::basic_string<ElemT>& sep)
     {
         if (sep.empty())
         {
@@ -370,7 +370,7 @@ namespace Generic
         }
 
         std::size_t start{}, end;
-        std::vector<std::basic_string<Elem>> splits{};
+        std::vector<std::basic_string<ElemT>> splits{};
         while ((end = str.find(sep, start)) != str.npos)
         {
             splits.push_back(str.substr(start, (end - start)));
@@ -381,13 +381,13 @@ namespace Generic
         return splits;
     }
 
-    template<class Elem, class Iterator>
-    inline std::basic_string<Elem> join(
-        const std::basic_string<Elem>&  sep,
-        const Iterator                  begin,
-        const Iterator                  end)
+    template<class ElemT, class IteratorT>
+    inline std::basic_string<ElemT> join(
+        const std::basic_string<ElemT>& sep,
+        const IteratorT                 begin,
+        const IteratorT                 end)
     {
-        std::basic_string<Elem> str{};
+        std::basic_string<ElemT> str{};
         for (auto it{ begin }; it < end; ++it)
         {
             if (it != begin)
@@ -401,28 +401,28 @@ namespace Generic
         return str;
     }
 
-    template<class Elem, class Container>
-    inline std::basic_string<Elem> join(
-        const std::basic_string<Elem>&  sep,
-        const Container&                container)
+    template<class ElemT, class ContainerT>
+    inline std::basic_string<ElemT> join(
+        const std::basic_string<ElemT>& sep,
+        const ContainerT&               container)
     {
         return Generic::join(sep, std::begin(container), std::end(container));
     }
 
-    template<class Elem>
-    inline void ltrim(std::basic_string<Elem>& str)
+    template<class ElemT>
+    inline void ltrim(std::basic_string<ElemT>& str)
     {
-        str.erase(0, str.find_first_not_of(Generic::getWhitespace<Elem>()));
+        str.erase(0, str.find_first_not_of(Generic::getWhitespace<ElemT>()));
     }
 
-    template<class Elem>
-    inline void rtrim(std::basic_string<Elem>& str)
+    template<class ElemT>
+    inline void rtrim(std::basic_string<ElemT>& str)
     {
-        str.erase(str.find_last_not_of(Generic::getWhitespace<Elem>()) + 1);
+        str.erase(str.find_last_not_of(Generic::getWhitespace<ElemT>()) + 1);
     }
 
-    template<class Elem>
-    inline void trim(std::basic_string<Elem>& str)
+    template<class ElemT>
+    inline void trim(std::basic_string<ElemT>& str)
     {
         Generic::ltrim(str);
         Generic::rtrim(str);

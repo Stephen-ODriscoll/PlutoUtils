@@ -14,19 +14,19 @@
 
 namespace Generic
 {
-    template<class KeyType, class ValueType>
+    template<class KeyT, class ValueT>
     class LRUCache
     {
     public:
-        typedef KeyType Key;
-        typedef ValueType Value;
-        typedef std::list<Key> List;
-        typedef std::map<Key, std::pair<Value, typename List::iterator>> Map;
+        typedef KeyT KeyType;
+        typedef ValueT ValueType;
+        typedef std::list<KeyType> ListType;
+        typedef std::map<KeyType, std::pair<ValueType, typename ListType::iterator>> MapType;
 
     private:
         std::size_t m_capacity;
-        List        m_list{};
-        Map         m_map{};
+        ListType    m_list{};
+        MapType     m_map{};
     
     public:
         LRUCache(const std::size_t capacity) :
@@ -34,12 +34,12 @@ namespace Generic
 
         ~LRUCache() {}
 
-        std::size_t size()              const   { return m_map.size(); }
-        std::size_t capacity()          const   { return m_capacity; }
-        bool empty()                    const   { return m_map.empty(); }
-        bool contains(const Key& key)   const   { return (m_map.find(key) != m_map.end()); }
+        std::size_t size()                  const   { return m_map.size(); }
+        std::size_t capacity()              const   { return m_capacity; }
+        bool empty()                        const   { return m_map.empty(); }
+        bool contains(const KeyType& key)   const   { return (m_map.find(key) != m_map.end()); }
 
-        void insert(const Key& key, const Value& value)
+        void insert(const KeyType& key, const ValueType& value)
         {
             auto itMap{ m_map.find(key) };
             if (itMap == m_map.end())
@@ -62,7 +62,7 @@ namespace Generic
             }
         }
 
-        bool get(const Key& key, Value& value)
+        bool get(const KeyType& key, ValueType& value)
         {
             auto itMap{ m_map.find(key) };
             if (itMap == m_map.end())
@@ -83,7 +83,7 @@ namespace Generic
         }
 
     private:
-        void moveToFront(typename Map::iterator itMap)
+        void moveToFront(typename MapType::iterator itMap)
         {
             // Move item to front of most recently used list
             auto itList{ itMap->second.second };
@@ -105,7 +105,7 @@ namespace Generic
         }
     };
 
-    template<class KeyType, class ValueType>
+    template<class KeyT, class ValueT>
     class SafeLRUCache
     {
 #if (defined(_WIN32) && _HAS_CXX17) || (!defined(_WIN32) && __cplusplus >= 201703L)
@@ -114,14 +114,14 @@ namespace Generic
         typedef std::shared_timed_mutex SharedMutexType;
 #endif
 
-        mutable SharedMutexType                 m_mutex{};
-        Generic::LRUCache<KeyType, ValueType>   m_lruCache;
+        mutable SharedMutexType         m_mutex{};
+        Generic::LRUCache<KeyT, ValueT> m_lruCache;
 
     public:
-        typedef typename Generic::LRUCache<KeyType, ValueType>::Key Key;
-        typedef typename Generic::LRUCache<KeyType, ValueType>::Value Value;
-        typedef typename Generic::LRUCache<KeyType, ValueType>::List List;
-        typedef typename Generic::LRUCache<KeyType, ValueType>::Map Map;
+        typedef typename Generic::LRUCache<KeyT, ValueT>::KeyType KeyType;
+        typedef typename Generic::LRUCache<KeyT, ValueT>::ValueType ValueType;
+        typedef typename Generic::LRUCache<KeyT, ValueT>::ListType ListType;
+        typedef typename Generic::LRUCache<KeyT, ValueT>::MapType MapType;
 
         SafeLRUCache(const std::size_t capacity) :
             m_lruCache{ capacity } {}
@@ -146,19 +146,19 @@ namespace Generic
             return m_lruCache.empty();
         }
 
-        bool contains(const Key& key) const
+        bool contains(const KeyType& key) const
         {
             const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.contains(key);
         }
 
-        void insert(const Key& key, const Value& value)
+        void insert(const KeyType& key, const ValueType& value)
         {
             const std::unique_lock<SharedMutexType> writer{ m_mutex };
             m_lruCache.insert(key, value);
         }
 
-        bool get(const Key& key, Value& value)
+        bool get(const KeyType& key, ValueType& value)
         {
             const std::unique_lock<SharedMutexType> writer{ m_mutex };
             return m_lruCache.get(key, value);

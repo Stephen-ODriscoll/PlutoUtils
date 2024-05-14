@@ -76,11 +76,11 @@ namespace Generic
             return m_time;
         }
 
-        template<class Duration>
-        auto count() const { return std::chrono::duration_cast<Duration>(time()).count(); }
+        template<class DurationT>
+        auto count() const { return std::chrono::duration_cast<DurationT>(time()).count(); }
 
-        template<class Duration>
-        auto count(const long long rollover) const { return (count<Duration>() % rollover); }
+        template<class DurationT>
+        auto count(const long long rollover) const { return (count<DurationT>() % rollover); }
 
         auto inNanoseconds()    const   { return count<std::chrono::nanoseconds>(); }
         auto inMicroseconds()   const   { return count<std::chrono::microseconds>(); }

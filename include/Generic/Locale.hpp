@@ -34,9 +34,9 @@ namespace Generic
         return defaultLocale;
     }
 
-    template<class Elem>
+    template<class ElemT>
     inline const auto& getFacet(const std::locale& locale)
     {
-        return std::use_facet<std::ctype<Elem>>(locale);
+        return std::use_facet<std::ctype<ElemT>>(locale);
     }
 }
