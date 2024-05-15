@@ -7,42 +7,47 @@
 
 #pragma once
 
-#include <cstddef>
-
 namespace Generic
 {
-    template<class TypeT, class SizeT = TypeT>
-    class Range
+    template<class T>
+    struct Range
     {
-        TypeT m_begin;
-        SizeT m_size;
+        T begin;
+        T end;
 
-    public:
-        Range(const TypeT& begin, const SizeT& size = {}) :
-            m_begin { begin },
-            m_size  { size } {}
+        Range(const T& begin, const T& end) :
+            begin   { begin },
+            end     { end } {}
 
         Range(const Range& other) :
-            m_begin { other.m_begin },
-            m_size  { other.m_size } {}
+            begin   { other.begin },
+            end     { other.end } {}
 
         ~Range() {}
 
-        void begin(const TypeT& begin)  { m_begin = begin; }
-        void size(const SizeT& size)    { m_size = size; }
+        auto size() const
+        {
+            return (end - begin);
+        }
 
-        TypeT begin()   const   { return m_begin; }
-        TypeT end()     const   { return (m_begin + m_size); }
-        SizeT size()    const   { return m_size; }
+        bool isEqual(const Range& other) const
+        {
+            return (begin == other.begin && end == other.end);
+        }
+
+        bool isOverlapping(const Range& other) const
+        {
+            return (begin < other.end && other.begin < end);
+        }
 
         bool isLess(const Range& other) const
         {
-            if (m_begin == other.m_begin)
+            if (begin == other.begin)
             {
-                return (m_size < other.m_size);
+                return (end < other.end);
             }
 
-            return (m_begin < other.m_begin);
+            return (begin < other.begin);
         }
 
         // Warning:
@@ -55,17 +60,17 @@ namespace Generic
         // This is correct, technically a range of size 0 doesn't physically exist.
         bool isLessNoOverlap(const Range& other) const
         {
-            return (end() <= other.m_begin);
+            return (end <= other.begin);
         }
 
-        bool isEqual(const Range& other) const
+        bool operator==(const Range& other) const
         {
-            return (m_begin == other.m_begin && m_size == other.m_size);
+            return isEqual(other);
         }
 
-        bool isOverlapping(const Range& other) const
+        bool operator!=(const Range& other) const
         {
-            return (!isLessNoOverlap(other) && !other.isLessNoOverlap(*this));
+            return !(isEqual(other));
         }
 
         bool operator<(const Range& other) const
@@ -78,13 +83,22 @@ namespace Generic
             return other.isLess(*this);
         }
 
-        bool operator==(const Range& other) const
+        bool operator<=(const Range& other) const
         {
-            return isEqual(other);
+            return !(other.isLess(*this));
+        }
+
+        bool operator>=(const Range& other) const
+        {
+            return !(isLess(other));
         }
     };
 
     typedef Range<int>                  IntRange;
-    typedef Range<std::size_t>          SizeRange;
-    typedef Range<void*, std::size_t>   PVoidRange;
+    typedef Range<unsigned int>         UIntRange;
+    typedef Range<long>                 LongRange;
+    typedef Range<unsigned long>        ULongRange;
+    typedef Range<long long>            LongLongRange;
+    typedef Range<unsigned long long>   ULongLongRange;
+    typedef Range<void*>                PVoidRange;
 }
