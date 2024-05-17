@@ -31,7 +31,7 @@ namespace Generic
         }
 
         ~Stopwatch() {}
-        
+
         void reset()
         {
             m_time = {};
@@ -55,25 +55,29 @@ namespace Generic
             }
         }
 
-        auto stop()
+        void stop()
         {
             if (m_isRunning)
             {
                 m_time += (Clock::now() - m_start);
                 m_isRunning = false;
             }
+        }
 
+        auto stopAndTime()
+        {
+            stop();
             return m_time;
         }
 
         auto time() const
         {
-            if (m_isRunning)
-            {
-                return (m_time + (Clock::now() - m_start));
-            }
+            return (m_isRunning ? (m_time + (Clock::now() - m_start)) : m_time);
+        }
 
-            return m_time;
+        bool isRunning() const
+        {
+            return m_isRunning;
         }
 
         template<class DurationT>
