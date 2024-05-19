@@ -327,36 +327,41 @@ namespace Generic
     }
 
     template<class ElemT>
-    inline const ElemT* const getWhitespace()
+    inline const std::basic_string<ElemT>& getWhitespace()
     {
-        static constexpr ElemT whitespace[]
+        static const std::basic_string<ElemT> whitespace
         {
             static_cast<ElemT>('\t'),
             static_cast<ElemT>('\n'),
             static_cast<ElemT>('\v'),
             static_cast<ElemT>('\f'),
             static_cast<ElemT>('\r'),
-            static_cast<ElemT>(' '),
-            static_cast<ElemT>('\0') // Marks the end
+            static_cast<ElemT>(' ')
         };
 
         return whitespace;
     }
 
     template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split(const std::basic_string<ElemT>& str)
+    inline std::vector<std::basic_string<ElemT>> splitAnyOf(
+        const std::basic_string<ElemT>& str,
+        const std::basic_string<ElemT>& sep)
     {
-        const auto whitespace{ Generic::getWhitespace<ElemT>() };
-        
         std::size_t start, end{};
         std::vector<std::basic_string<ElemT>> splits{};
-        while ((start = str.find_first_not_of(whitespace, end)) != str.npos)
+        while ((start = str.find_first_not_of(sep, end)) != str.npos)
         {
-            end = str.find_first_of(whitespace, start);
+            end = str.find_first_of(sep, start);
             splits.push_back(str.substr(start, (end - start)));
         }
 
         return splits;
+    }
+
+    template<class ElemT>
+    inline std::vector<std::basic_string<ElemT>> split(const std::basic_string<ElemT>& str)
+    {
+        return Generic::splitAnyOf(str, Generic::getWhitespace<ElemT>());
     }
 
     template<class ElemT>

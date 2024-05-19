@@ -1332,6 +1332,29 @@ TEST_F(StringUtilsTests, TestElemStringContainsIgnoreCase)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
+TEST_F(StringUtilsTests, TestElemStringSplitAnyOf)
+{
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "A", " ", 1, "A");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "   ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "\t\n\v\f\r ", " ", 1, "\t\n\v\f\r");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, " a ", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "abcdefabcdef", "abc", 2, "def", "def");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
+}
+
 TEST_F(StringUtilsTests, TestElemStringSplit)
 {
     TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a", 1, "a");
@@ -1365,6 +1388,9 @@ TEST_F(StringUtilsTests, TestElemStringSplitWithDelim)
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "abcdefabcdef", "abc", 3, "", "def", "def");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
 }
 
 TEST_F(StringUtilsTests, TestElemStringJoinIterators)
