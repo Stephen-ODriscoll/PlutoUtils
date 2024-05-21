@@ -103,7 +103,7 @@
 
 // Configurable with macros or setters
 #ifndef GENERIC_LOGGER_DEFAULT_LEVEL
-#define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Info
+#define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
 #endif
 
 #ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
