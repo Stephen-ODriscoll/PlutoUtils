@@ -130,8 +130,8 @@
 #define GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 50
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB
-#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB 0  // 0 means no rotation
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE
+#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
 #endif
 
 #if GENERIC_LOGGER_WRITE_FILE_INFO
@@ -291,7 +291,7 @@ namespace Generic
         std::atomic_bool        m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
         std::atomic_size_t      m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
         std::atomic_size_t      m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
-        std::atomic_size_t      m_fileRotationSizeMB{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE_MB };
+        std::atomic_size_t      m_fileRotationSize{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
         std::atomic_size_t      m_numDiscardedLogs{};
 
     public:
@@ -455,9 +455,9 @@ namespace Generic
             return m_bufferFlushSize.load(); // atomic
         }
 
-        std::size_t getFileRotationSizeMB() const
+        std::size_t getFileRotationSize() const
         {
-            return m_fileRotationSizeMB.load(); // atomic
+            return m_fileRotationSize.load(); // atomic
         }
 
         std::size_t getNumDiscardedLogs() const
@@ -509,9 +509,9 @@ namespace Generic
             return *this;
         }
 
-        Logger& setFileRotationSizeMB(const std::size_t fileRotationSizeMB)
+        Logger& setFileRotationSize(const std::size_t fileRotationSize)
         {
-            m_fileRotationSizeMB.store(fileRotationSizeMB); // atomic
+            m_fileRotationSize.store(fileRotationSize); // atomic
             return *this;
         }
 
@@ -777,10 +777,10 @@ namespace Generic
                     dirCreated = true;
                 }
 
-                const auto fileRotationSizeMB{ m_fileRotationSizeMB.load() };
+                const auto fileRotationSize{ m_fileRotationSize.load() };
 
                 // Rotate file if needed
-                if (fileRotationSizeMB != 0 && (fileRotationSizeMB * 1024 * 1024) <= fileSize)
+                if (fileRotationSize != 0 && fileRotationSize <= fileSize)
                 {
                     rotateFile(filePath);
                     fileSize = 0;
