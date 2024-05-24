@@ -229,8 +229,7 @@ namespace Generic
     private:
         struct Log
         {
-            std::tm         timestamp;
-            long long       milliseconds;
+            std::string     timestamp;
             std::thread::id threadID;
             Level           level;
             std::string     fileName;
@@ -238,15 +237,13 @@ namespace Generic
             std::string     message;
 
             Log(
-                const std::tm&          timestamp,
-                const long long         milliseconds,
+                const std::string&      timestamp,
                 const std::thread::id&  threadID,
                 const Level             level,
                 const std::string&      fileName,
                 const int               line,
                 const std::string&      message) :
                 timestamp       { timestamp },
-                milliseconds    { milliseconds },
                 threadID        { threadID },
                 level           { level },
                 fileName        { fileName },
@@ -333,6 +330,36 @@ namespace Generic
                 return *this;
             }
         };
+
+        static inline std::string getLocalTimestamp(const char* const format, bool appendMilliseconds = false)
+        {
+            const auto nowTime{ std::chrono::system_clock::now() };
+            const auto nowPosixTime{ std::chrono::system_clock::to_time_t(nowTime) };
+
+            std::tm nowLocalTime{};
+            std::string timestamp{};
+#ifdef _WIN32
+            if (localtime_s(&nowLocalTime, &nowPosixTime) == 0)
+#else
+            if (localtime_r(&nowPosixTime, &nowLocalTime) != nullptr)
+#endif
+            {
+                std::ostringstream ss{};
+                ss << std::put_time(&nowLocalTime, format);
+
+                if (appendMilliseconds)
+                {
+                    const auto nowMilliseconds{ std::chrono::duration_cast<std::chrono::milliseconds>(
+                        nowTime.time_since_epoch()).count() % 1000 };
+
+                    ss << std::right << std::setfill('0') << std::setw(3) << nowMilliseconds;
+                }
+
+                timestamp = ss.str();
+            }
+
+            return timestamp;
+        }
 
         static inline std::string getFileName(const char* const filePath)
         {
@@ -528,24 +555,13 @@ namespace Generic
             const int           line,
             const std::string&  message)
         {
-            // Gather timestamp info
-            const auto nowTime{ std::chrono::system_clock::now() };
-            const auto nowPosixTime{ std::chrono::system_clock::to_time_t(nowTime) };
-            const auto nowMilliseconds{ std::chrono::duration_cast<std::chrono::milliseconds>(
-                nowTime.time_since_epoch()).count() % 1000 };
-
-            std::tm nowLocalTime{};
-#ifdef _WIN32
-            localtime_s(&nowLocalTime, &nowPosixTime);
+#if GENERIC_LOGGER_WRITE_MILLISECONDS
+            const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT, true) };
 #else
-            localtime_r(&nowPosixTime, &nowLocalTime);
+            const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT) };
 #endif
-
-            // Make timestamp valid on failure to prevent an exception
-            if (nowLocalTime.tm_mday == 0)
-            {
-                nowLocalTime.tm_mday = 1;
-            }
+            const auto threadID{ std::this_thread::get_id() };
+            const auto fileName2{ getFileName(filePath) };
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
@@ -561,11 +577,10 @@ namespace Generic
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
                 buffer.emplace_back(
-                    nowLocalTime,
-                    nowMilliseconds,
-                    std::this_thread::get_id(),
+                    timestamp,
+                    threadID,
                     level,
-                    getFileName(filePath),
+                    fileName2,
                     line,
                     message);
 
@@ -691,13 +706,8 @@ namespace Generic
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
 
             stream
-                << std::put_time(&log.timestamp, GENERIC_LOGGER_TIMESTAMP_FORMAT)
-#if GENERIC_LOGGER_WRITE_MILLISECONDS
-                << std::right << std::setfill('0')
-                << std::setw(3) << log.milliseconds
-#endif
-                << m_separator
                 << std::left << std::setfill(' ')
+                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << log.timestamp << m_separator
 #if GENERIC_LOGGER_WRITE_PID
                 << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_separator
 #endif
