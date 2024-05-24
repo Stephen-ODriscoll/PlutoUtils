@@ -33,8 +33,8 @@
 #define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
 #endif
 
-#ifndef GENERIC_LOGGER_WRITE_FILE_INFO
-#define GENERIC_LOGGER_WRITE_FILE_INFO 1    // Define as 1 or 0
+#ifndef GENERIC_LOGGER_WRITE_SOURCE_INFO
+#define GENERIC_LOGGER_WRITE_SOURCE_INFO 1  // Define as 1 or 0
 #endif
 
 #ifndef GENERIC_LOGGER_WRITE_MILLISECONDS
@@ -134,7 +134,7 @@
 #define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
 #endif
 
-#if GENERIC_LOGGER_WRITE_FILE_INFO
+#if GENERIC_LOGGER_WRITE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
@@ -154,7 +154,7 @@
         } \
     } \
     while (false)
-#else // GENERIC_LOGGER_WRITE_FILE_INFO
+#else // GENERIC_LOGGER_WRITE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
@@ -174,7 +174,7 @@
         } \
     } \
     while (false)
-#endif // GENERIC_LOGGER_WRITE_FILE_INFO
+#endif // GENERIC_LOGGER_WRITE_SOURCE_INFO
 
 #define GENERIC_LOG_FORMAT_NONE(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::None, __VA_ARGS__)
 #define GENERIC_LOG_FORMAT_FATAL(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Fatal, __VA_ARGS__)
@@ -232,22 +232,22 @@ namespace Generic
             std::string     timestamp;
             std::thread::id threadID;
             Level           level;
-            std::string     fileName;
-            int             line;
+            std::string     sourceFileName;
+            int             sourceLine;
             std::string     message;
 
             Log(
                 const std::string&      timestamp,
                 const std::thread::id&  threadID,
                 const Level             level,
-                const std::string&      fileName,
-                const int               line,
+                const std::string&      sourceFileName,
+                const int               sourceLine,
                 const std::string&      message) :
                 timestamp       { timestamp },
                 threadID        { threadID },
                 level           { level },
-                fileName        { fileName },
-                line            { line },
+                sourceFileName  { sourceFileName },
+                sourceLine      { sourceLine },
                 message         { message } {}
 
             ~Log() {}
@@ -294,27 +294,27 @@ namespace Generic
     public:
         class Stream
         {
-            const std::string   m_fileName;
+            const std::string   m_logFileName;
             const Level         m_level;
-            const char* const   m_filePath;
-            const int           m_line;
+            const char* const   m_sourceFilePath;
+            const int           m_sourceLine;
             std::stringstream   m_stream;
 
         public:
             Stream(
-                const std::string   fileName,
+                const std::string   logFileName,
                 const Level         level,
-                const char* const   filePath,
-                const int           line) :
-                m_fileName  { fileName },
-                m_level     { level },
-                m_filePath  { filePath },
-                m_line      { line },
-                m_stream    {} {}
+                const char* const   sourceFilePath,
+                const int           sourceLine) :
+                m_logFileName   { logFileName },
+                m_level         { level },
+                m_sourceFilePath{ sourceFilePath },
+                m_sourceLine    { sourceLine },
+                m_stream        {} {}
 
             ~Stream()
             {
-                getInstance().write(m_fileName, m_level, m_filePath, m_line, m_stream.str());
+                getInstance().write(m_logFileName, m_level, m_sourceFilePath, m_sourceLine, m_stream.str());
             }
 
             Stream& operator<<(const bool b)
@@ -549,10 +549,10 @@ namespace Generic
         }
 
         void write(
-            const std::string   fileName,
+            const std::string   logFileName,
             const Level         level,
-            const char* const   filePath,
-            const int           line,
+            const char* const   sourceFilePath,
+            const int           sourceLine,
             const std::string&  message)
         {
 #if GENERIC_LOGGER_WRITE_MILLISECONDS
@@ -560,15 +560,17 @@ namespace Generic
 #else
             const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT) };
 #endif
+
             const auto threadID{ std::this_thread::get_id() };
-            const auto fileName2{ getFileName(filePath) };
+
+            const auto sourceFileName{ getFileName(sourceFilePath) };
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
-            auto it{ m_logFiles.find(fileName) };
+            auto it{ m_logFiles.find(logFileName) };
             if (it == m_logFiles.end())
             {
-                it = m_logFiles.emplace(fileName, LogFile{}).first;
+                it = m_logFiles.emplace(logFileName, LogFile{}).first;
             }
 
             auto& buffer        { it->second.buffer };
@@ -580,8 +582,8 @@ namespace Generic
                     timestamp,
                     threadID,
                     level,
-                    fileName2,
-                    line,
+                    sourceFileName,
+                    sourceLine,
                     message);
 
                 if (m_bufferFlushSize.load() <= buffer.size())
@@ -599,10 +601,10 @@ namespace Generic
         }
 
         void writef(
-            const std::string   fileName,
+            const std::string   logFileName,
             const Level         level,
-            const char* const   filePath,
-            const int           line,
+            const char* const   sourceFilePath,
+            const int           sourceLine,
             const char* const   format,
             ...)
         {
@@ -624,7 +626,7 @@ namespace Generic
             va_end(args);
 
             // Write message, or use format if message creation failed
-            write(fileName, level, filePath, line, (buffer[0] == '\0') ? format : buffer);
+            write(logFileName, level, sourceFilePath, sourceLine, (buffer[0] == '\0') ? format : buffer);
         }
 
         Logger(const Logger&) = delete;
@@ -680,7 +682,7 @@ namespace Generic
 #endif
                     << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
                     << levelToString(Level::Header, m_levelForm.load()) << m_separator
-#if GENERIC_LOGGER_WRITE_FILE_INFO
+#if GENERIC_LOGGER_WRITE_SOURCE_INFO
                     << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
                     << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
 #endif
@@ -713,9 +715,9 @@ namespace Generic
 #endif
                 << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << m_separator
                 << levelToString(log.level, m_levelForm.load()) << m_separator
-#if GENERIC_LOGGER_WRITE_FILE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.fileName) << m_separator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.line << m_separator
+#if GENERIC_LOGGER_WRITE_SOURCE_INFO
+                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << m_separator
+                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << m_separator
 #endif
                 << log.message << '\n';
 
