@@ -29,16 +29,28 @@
 #include "FileSystem.hpp"
 
 // Configurable with macros
-#ifndef GENERIC_LOGGER_WRITE_PID
-#define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
-#endif
-
-#ifndef GENERIC_LOGGER_WRITE_SOURCE_INFO
-#define GENERIC_LOGGER_WRITE_SOURCE_INFO 1  // Define as 1 or 0
+#ifndef GENERIC_LOGGER_WRITE_TIMESTAMP
+#define GENERIC_LOGGER_WRITE_TIMESTAMP 1    // Define as 1 or 0
 #endif
 
 #ifndef GENERIC_LOGGER_WRITE_MILLISECONDS
 #define GENERIC_LOGGER_WRITE_MILLISECONDS 1 // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_WRITE_PID
+#define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_WRITE_TID
+#define GENERIC_LOGGER_WRITE_TID 1  // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_WRITE_LEVEL
+#define GENERIC_LOGGER_WRITE_LEVEL 1    // Define as 1 or 0
+#endif
+
+#ifndef GENERIC_LOGGER_WRITE_SOURCE_INFO
+#define GENERIC_LOGGER_WRITE_SOURCE_INFO 1  // Define as 1 or 0
 #endif
 
 #ifndef GENERIC_LOGGER_OLD_LOG_EXTENSION
@@ -676,12 +688,18 @@ namespace Generic
                 std::stringstream headerStream{};
                 headerStream
                     << std::left << std::setfill(' ')
+#if GENERIC_LOGGER_WRITE_TIMESTAMP
                     << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
+#endif
 #if GENERIC_LOGGER_WRITE_PID
                     << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
 #endif
+#if GENERIC_LOGGER_WRITE_TID
                     << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_LEVEL
                     << levelToString(Level::Header, m_levelForm.load()) << m_separator
+#endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
                     << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
                     << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
@@ -709,12 +727,18 @@ namespace Generic
 
             stream
                 << std::left << std::setfill(' ')
+#if GENERIC_LOGGER_WRITE_TIMESTAMP
                 << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << log.timestamp << m_separator
+#endif
 #if GENERIC_LOGGER_WRITE_PID
                 << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_separator
 #endif
+#if GENERIC_LOGGER_WRITE_TID
                 << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_LEVEL
                 << levelToString(log.level, m_levelForm.load()) << m_separator
+#endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
                 << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << m_separator
                 << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << m_separator
