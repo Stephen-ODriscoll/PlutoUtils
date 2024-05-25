@@ -98,6 +98,6 @@ namespace Generic
         auto millisecondsPart() const   { return count<std::chrono::milliseconds>(1000); }
         auto secondsPart()      const   { return count<std::chrono::seconds>(60); }
         auto minutesPart()      const   { return count<std::chrono::minutes>(60); }
-        auto hoursPart()        const   { return count<std::chrono::hours>(24); }
+        auto hoursPart()        const   { return count<std::chrono::hours>(); }
     };
 }
