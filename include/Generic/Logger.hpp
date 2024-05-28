@@ -773,7 +773,7 @@ namespace Generic
 
         void rotateFile(const FileSystem::path& filePath)
         {
-            const auto filePathOld{ FileSystem::path(filePath).append(GENERIC_LOGGER_OLD_LOG_EXTENSION) };
+            const FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
 
             if (FileSystem::exists(filePathOld))
             {
