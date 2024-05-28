@@ -58,12 +58,8 @@
 #endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
-#if GENERIC_LOGGER_WRITE_MILLISECONDS
-#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S."
-#else // GENERIC_LOGGER_WRITE_MILLISECONDS
 #define GENERIC_LOGGER_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S"
-#endif // GENERIC_LOGGER_WRITE_MILLISECONDS
-#endif // GENERIC_LOGGER_TIMESTAMP_FORMAT
+#endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_HEADER
 #define GENERIC_LOGGER_TIMESTAMP_HEADER "Date & Time"
@@ -364,7 +360,7 @@ namespace Generic
                     const auto nowMilliseconds{ std::chrono::duration_cast<std::chrono::milliseconds>(
                         nowTime.time_since_epoch()).count() % 1000 };
 
-                    ss << std::right << std::setfill('0') << std::setw(3) << nowMilliseconds;
+                    ss << "." << std::right << std::setfill('0') << std::setw(3) << nowMilliseconds;
                 }
 
                 timestamp = ss.str();
