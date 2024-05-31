@@ -267,13 +267,11 @@ namespace Generic
         {
             LogBuffer           buffer;
             FileSystem::path    filePath;
-            std::size_t         fileSize;
             bool                dirCreated;
 
             LogFile() :
                 buffer      {},
                 filePath    {},
-                fileSize    {},
                 dirCreated  {} {}
         };
 
@@ -339,7 +337,7 @@ namespace Generic
             }
         };
 
-        static inline std::string getLocalTimestamp(const char* const format, bool appendMilliseconds = false)
+        static inline std::string getLocalTimestamp(const char* const format, const bool appendMilliseconds = false)
         {
             const auto nowTime{ std::chrono::system_clock::now() };
             const auto nowPosixTime{ std::chrono::system_clock::to_time_t(nowTime) };
@@ -557,7 +555,7 @@ namespace Generic
         }
 
         void write(
-            const std::string   logFileName,
+            const std::string&  logFileName,
             const Level         level,
             const char* const   sourceFilePath,
             const int           sourceLine,
@@ -609,7 +607,7 @@ namespace Generic
         }
 
         void writef(
-            const std::string   logFileName,
+            const std::string&  logFileName,
             const Level         level,
             const char* const   sourceFilePath,
             const int           sourceLine,
@@ -663,61 +661,71 @@ namespace Generic
                 auto& fileName  { logFilePair.first };
                 auto& buffer    { logFilePair.second.buffer };
                 auto& filePath  { logFilePair.second.filePath };
-                auto& fileSize  { logFilePair.second.fileSize };
                 auto& dirCreated{ logFilePair.second.dirCreated };
 
                 if (!buffer.empty())
                 {
-                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, fileSize, dirCreated);
+                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirCreated);
                 }
             }
         }
 
-        std::size_t writeHeader(const FileSystem::path& filePath)
+        void rotateFile(const FileSystem::path& filePath) const
         {
-            std::ofstream fileStream{ filePath, std::ios_base::app };
+            const FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
 
-            if (fileStream.is_open() && fileStream.good())
+            if (FileSystem::exists(filePathOld))
             {
-                const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-
-                std::stringstream headerStream{};
-                headerStream
-                    << std::left << std::setfill(' ')
-#if GENERIC_LOGGER_WRITE_TIMESTAMP
-                    << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
-#endif
-#if GENERIC_LOGGER_WRITE_PID
-                    << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
-#endif
-#if GENERIC_LOGGER_WRITE_TID
-                    << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
-#endif
-#if GENERIC_LOGGER_WRITE_LEVEL
-                    << levelToString(Level::Header, m_levelForm.load()) << m_separator
-#endif
-#if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                    << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
-                    << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
-#endif
-                    << GENERIC_LOGGER_MESSAGE_HEADER << "\n";
-
-                const auto header{ headerStream.str() };
-
-                fileStream
-                    << header
-                    << std::setw(header.size()) << std::setfill('-') << "\n";
-            }
-            else
-            {
-                throw FileSystem::filesystem_error{ "Logger failed to write header",
-                    std::make_error_code(std::errc::io_error) };
+                FileSystem::remove(filePathOld);
             }
 
-            return fileStream.tellp();
+            FileSystem::rename(filePath, filePathOld);
         }
 
-        std::ostream& writeToStream(std::ostream& stream, const Log& log) const
+        void openFileStream(std::ofstream& fileStream, const FileSystem::path& filePath) const
+        {
+            fileStream.open(filePath, (std::ios_base::ate | std::ios_base::app));
+
+            if (!fileStream.is_open() || !fileStream.good())
+            {
+                throw FileSystem::filesystem_error{ "Logger failed to open file",
+                    std::make_error_code(std::errc::io_error) };
+            }
+        }
+
+        void writeHeaderToStream(std::ostream& stream) const
+        {
+            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+
+            std::stringstream headerStream{};
+            headerStream
+                << std::left << std::setfill(' ')
+#if GENERIC_LOGGER_WRITE_TIMESTAMP
+                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_PID
+                << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_TID
+                << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_LEVEL
+                << levelToString(Level::Header, m_levelForm.load()) << m_separator
+#endif
+#if GENERIC_LOGGER_WRITE_SOURCE_INFO
+                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
+                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
+#endif
+                << GENERIC_LOGGER_MESSAGE_HEADER;
+
+            const auto header{ headerStream.str() };
+
+            stream
+                << header << "\n"
+                << std::string(header.size(), '-') << "\n";
+        }
+
+        void writeLogToStream(std::ostream& stream, const Log& log) const
         {
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
 
@@ -740,48 +748,6 @@ namespace Generic
                 << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << m_separator
 #endif
                 << log.message << '\n';
-
-            return stream;
-        }
-
-        std::size_t writeToFile(
-            const LogBuffer::iterator   begin,
-            const LogBuffer::iterator   secondToEnd,
-            const FileSystem::path&     filePath)
-        {
-            std::ofstream fileStream{ filePath, std::ios_base::app };
-
-            if (fileStream.is_open() && fileStream.good())
-            {
-                for (auto it{ begin }; ; ++it)
-                {
-                    writeToStream(fileStream, *it);
-
-                    if (it == secondToEnd)
-                    {
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                throw FileSystem::filesystem_error{ "Logger failed to write contents",
-                    std::make_error_code(std::errc::io_error) };
-            }
-
-            return fileStream.tellp();
-        }
-
-        void rotateFile(const FileSystem::path& filePath)
-        {
-            const FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
-
-            if (FileSystem::exists(filePathOld))
-            {
-                FileSystem::remove(filePathOld);
-            }
-
-            FileSystem::rename(filePath, filePathOld);
         }
 
         bool writeBufferToFile(
@@ -789,22 +755,16 @@ namespace Generic
             const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
             FileSystem::path&           filePath,
-            std::size_t&                fileSize,
-            bool&                       dirCreated)
+            bool&                       dirCreated) const
         {
             auto result{ true };
 
             try
             {
-                // Get file path and size if path is empty
+                // Get file path if empty
                 if (filePath.empty())
                 {
                     filePath = FileSystem::absolute(fileName);
-
-                    if (FileSystem::exists(filePath))
-                    {
-                        fileSize = static_cast<std::size_t>(FileSystem::file_size(filePath));
-                    }
                 }
 
                 // Create path to file if needed
@@ -814,22 +774,39 @@ namespace Generic
                     dirCreated = true;
                 }
 
+                const auto writeHeader{ m_writeHeader.load() };
                 const auto fileRotationSize{ m_fileRotationSize.load() };
 
-                // Rotate file if needed
-                if (fileRotationSize != 0 && fileRotationSize <= fileSize)
-                {
-                    rotateFile(filePath);
-                    fileSize = 0;
-                }
+                std::size_t fileSize{};
+                std::ofstream fileStream{};
+                openFileStream(fileStream, filePath);
 
-                // Write header if needed
-                if (m_writeHeader.load() && fileSize == 0)
+                for (auto it{ begin }; ; ++it)
                 {
-                    fileSize = writeHeader(filePath);
-                }
+                    fileSize = static_cast<std::size_t>(fileStream.tellp());
 
-                fileSize = writeToFile(begin, secondToEnd, filePath);
+                    // Rotate file if needed
+                    if (fileRotationSize != 0 && fileRotationSize <= fileSize)
+                    {
+                        fileStream.close();
+                        rotateFile(filePath);
+                        openFileStream(fileStream, filePath);
+                        fileSize = static_cast<std::size_t>(fileStream.tellp());
+                    }
+
+                    // Write header if needed
+                    if (writeHeader && fileSize == 0)
+                    {
+                        writeHeaderToStream(fileStream);
+                    }
+
+                    writeLogToStream(fileStream, *it);
+
+                    if (it == secondToEnd)
+                    {
+                        break;
+                    }
+                }
             }
             catch (const FileSystem::filesystem_error&)
             {
@@ -860,7 +837,6 @@ namespace Generic
                         auto& fileName  { logFilePair.first };
                         auto& buffer    { logFilePair.second.buffer };
                         auto& filePath  { logFilePair.second.filePath };
-                        auto& fileSize  { logFilePair.second.fileSize };
                         auto& dirCreated{ logFilePair.second.dirCreated };
 
                         if (!buffer.empty() && m_bufferFlushSize.load() <= buffer.size())
@@ -877,7 +853,7 @@ namespace Generic
                             shouldWait = false;
 
                             const auto result{ writeBufferToFile(
-                                begin, secondToEnd, fileName, filePath, fileSize, dirCreated) };
+                                begin, secondToEnd, fileName, filePath, dirCreated) };
 
                             lock.lock();
 

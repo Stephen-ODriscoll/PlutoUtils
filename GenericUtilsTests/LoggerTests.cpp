@@ -246,7 +246,7 @@ TEST_F(LoggerTests, TestAllFormatLogsAreWritten)
         LOG_FORMAT_VERBOSE("log message %z of %z", i, numLogs);
     }
 
-    ASSERT_EQ(countLogs(), 1000);
+    ASSERT_EQ(countLogs(), 1002);   // +2 for header
 }
 
 TEST_F(LoggerTests, TestAllStreamLogsAreWritten)
@@ -266,5 +266,5 @@ TEST_F(LoggerTests, TestAllStreamLogsAreWritten)
         LOG_STREAM_VERBOSE("Log entry " << i << " of " << numLogs);
     }
 
-    ASSERT_EQ(countLogs(), 1000);
+    ASSERT_EQ(countLogs(), 1002);   // +2 for header
 }
