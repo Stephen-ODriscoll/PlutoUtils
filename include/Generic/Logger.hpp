@@ -668,7 +668,7 @@ namespace Generic
 
                 if (!buffer.empty())
                 {
-                    writeBufferToFile(buffer.begin(), buffer.end(), fileName, filePath, fileSize, dirCreated);
+                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, fileSize, dirCreated);
                 }
             }
         }
@@ -746,16 +746,21 @@ namespace Generic
 
         std::size_t writeToFile(
             const LogBuffer::iterator   begin,
-            const LogBuffer::iterator   end,
+            const LogBuffer::iterator   secondToEnd,
             const FileSystem::path&     filePath)
         {
             std::ofstream fileStream{ filePath, std::ios_base::app };
 
             if (fileStream.is_open() && fileStream.good())
             {
-                for (auto it{ begin }; it != end; ++it)
+                for (auto it{ begin }; ; ++it)
                 {
                     writeToStream(fileStream, *it);
+
+                    if (it == secondToEnd)
+                    {
+                        break;
+                    }
                 }
             }
             else
@@ -781,7 +786,7 @@ namespace Generic
 
         bool writeBufferToFile(
             const LogBuffer::iterator   begin,
-            const LogBuffer::iterator   end,
+            const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
             FileSystem::path&           filePath,
             std::size_t&                fileSize,
@@ -824,7 +829,7 @@ namespace Generic
                     fileSize = writeHeader(filePath);
                 }
 
-                fileSize = writeToFile(begin, end, filePath);
+                fileSize = writeToFile(begin, secondToEnd, filePath);
             }
             catch (const FileSystem::filesystem_error&)
             {
@@ -860,26 +865,26 @@ namespace Generic
 
                         if (!buffer.empty() && m_bufferFlushSize.load() <= buffer.size())
                         {
-                            const auto begin{ buffer.begin() };
-                            const auto end  { buffer.end() };
+                            const auto begin        { buffer.begin() };
+                            const auto secondToEnd  { --(buffer.end()) };
 
                             // Doesn't require synchronization.
                             // Since this thread stays within the range gotten when locked
-                            // and other threads only add to the end, unlocking is fine.
+                            // and other threads only add after second to end, unlocking is fine.
                             lock.unlock();
 
                             // Since other threads can add logs, don't wait when done.
                             shouldWait = false;
 
                             const auto result{ writeBufferToFile(
-                                begin, end, fileName, filePath, fileSize, dirCreated) };
+                                begin, secondToEnd, fileName, filePath, fileSize, dirCreated) };
 
                             lock.lock();
 
                             // Erase the logs after re-locking.
                             if (result)
                             {
-                                buffer.erase(begin, end);
+                                buffer.erase(begin, std::next(secondToEnd));
                             }
                         }
                     }

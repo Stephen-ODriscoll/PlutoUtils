@@ -38,13 +38,7 @@ class LoggerTests : public testing::Test
 protected:
     LoggerTests() {}
 
-    ~LoggerTests()
-    {
-        if (Generic::FileSystem::exists(LOG_FILE))
-        {
-            Generic::FileSystem::remove(LOG_FILE);
-        }
-    }
+    ~LoggerTests() {}
 
     void SetUp() override
     {
@@ -53,7 +47,34 @@ protected:
             .setBufferFlushSize(1)
             .setLevel(Generic::Logger::Level::Verbose);
     }
+
+    void TearDown() override
+    {
+        if (Generic::FileSystem::exists(LOG_FILE))
+        {
+            Generic::FileSystem::remove(LOG_FILE);
+        }
+    }
 };
+
+std::size_t countLogs()
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    std::string lastLog{};
+    std::size_t logCount{};
+    std::ifstream logFile{ LOG_FILE };
+
+    if (logFile.is_open() && logFile.good())
+    {
+        while (logFile >> std::ws && std::getline(logFile, lastLog))
+        {
+            ++logCount;
+        }
+    }
+
+    return logCount;
+}
 
 std::string getLastLog()
 {
@@ -206,4 +227,44 @@ TEST_F(LoggerTests, TestLogFormatBrokenStillLogs)
     LOG_FORMAT("log message: %s, %S", "Test");
     lastLogMessage = getLastLogMessage();
     ASSERT_EQ(message, lastLogMessage);
+}
+
+TEST_F(LoggerTests, TestAllFormatLogsAreWritten)
+{
+    std::size_t numLogs{ 100 };
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
+        LOG_FORMAT("log message %z of %z", i, numLogs);
+        LOG_FORMAT_FATAL("log message %z of %z", i, numLogs);
+        LOG_FORMAT_CRITICAL("log message %z of %z", i, numLogs);
+        LOG_FORMAT_ERROR("log message %z of %z", i, numLogs);
+        LOG_FORMAT_WARNING("log message %z of %z", i, numLogs);
+        LOG_FORMAT_NOTICE("log message %z of %z", i, numLogs);
+        LOG_FORMAT_INFO("log message %z of %z", i, numLogs);
+        LOG_FORMAT_DEBUG("log message %z of %z", i, numLogs);
+        LOG_FORMAT_TRACE("log message %z of %z", i, numLogs);
+        LOG_FORMAT_VERBOSE("log message %z of %z", i, numLogs);
+    }
+
+    ASSERT_EQ(countLogs(), 1000);
+}
+
+TEST_F(LoggerTests, TestAllStreamLogsAreWritten)
+{
+    std::size_t numLogs{ 100 };
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
+        LOG_STREAM("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_FATAL("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_CRITICAL("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_ERROR("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_WARNING("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_NOTICE("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_INFO("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_DEBUG("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_TRACE("Log entry " << i << " of " << numLogs);
+        LOG_STREAM_VERBOSE("Log entry " << i << " of " << numLogs);
+    }
+
+    ASSERT_EQ(countLogs(), 1000);
 }
