@@ -40,14 +40,6 @@ protected:
 
     ~LoggerTests() {}
 
-    void SetUp() override
-    {
-        Generic::Logger::getInstance()
-            .setWriteHeader(true)
-            .setBufferFlushSize(1)
-            .setLevel(Generic::Logger::Level::Verbose);
-    }
-
     void TearDown() override
     {
         if (Generic::FileSystem::exists(LOG_FILE))
