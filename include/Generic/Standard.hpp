@@ -81,49 +81,112 @@
 #include <valarray>
 #include <vector>
 
-#if (defined(_WIN32) && _HAS_CXX17) || (!defined(_WIN32) && __cplusplus >= 201703L)
+#if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
+#if __has_include(<any>)
 #include <any>
+#endif
+#if __has_include(<charconv>)
 #include <charconv>
+#endif
+#if __has_include(<execution>)
 #include <execution>
+#endif
+#if __has_include(<filesystem>)
 #include <filesystem>
+#endif
+#if __has_include(<memory_resource>)
 #include <memory_resource>
+#endif
+#if __has_include(<optional>)
 #include <optional>
+#endif
+#if __has_include(<string_view>)
 #include <string_view>
+#endif
+#if __has_include(<variant>)
 #include <variant>
+#endif
 #else
 #include <codecvt>
 #endif
 
-#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#if (defined(_MSVC_LANG) && _MSVC_LANG > 201703L) || (defined(__cplusplus) && __cplusplus > 201703L)
+#if __has_include(<barrier>)
 #include <barrier>
+#endif
+#if __has_include(<bit>)
 #include <bit>
+#endif
+#if __has_include(<compare>)
 #include <compare>
+#endif
+#if __has_include(<concepts>)
 #include <concepts>
+#endif
+#if __has_include(<coroutine>)
 #include <coroutine>
+#endif
+#if __has_include(<format>)
 #include <format>
+#endif
+#if __has_include(<latch>)
 #include <latch>
+#endif
+#if __has_include(<numbers>)
 #include <numbers>
+#endif
+#if __has_include(<ranges>)
 #include <ranges>
+#endif
+#if __has_include(<semaphore>)
 #include <semaphore>
+#endif
+#if __has_include(<source_location>)
 #include <source_location>
+#endif
+#if __has_include(<span>)
 #include <span>
+#endif
+#if __has_include(<stop_token>)
 #include <stop_token>
+#endif
+#if __has_include(<syncstream>)
 #include <syncstream>
+#endif
+#if __has_include(<version>)
 #include <version>
 #endif
+#endif
 
-/*
-* // Support for C++ 23 is limited right now
-* #include <expected>
-* #include <flat_map>
-* #include <flat_set>
-* #include <generator>
-* #include <mdspan>
-* #include <print>
-* #include <spanstream>
-* #include <stacktrace>
-* #include <stdfloat>
-*/
+#if (defined(_MSVC_LANG) && _MSVC_LANG > 202002L) || (defined(__cplusplus) && __cplusplus > 202002L)
+#if __has_include(<expected>)
+#include <expected>
+#endif
+#if __has_include(<flat_map>)
+#include <flat_map>
+#endif
+#if __has_include(<flat_set>)
+#include <flat_set>
+#endif
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#if __has_include(<mdspan>)
+#include <mdspan>
+#endif
+#if __has_include(<print>)
+#include <print>
+#endif
+#if __has_include(<spanstream>)
+#include <spanstream>
+#endif
+#if __has_include(<stacktrace>)
+#include <stacktrace>
+#endif
+#if __has_include(<stdfloat>)
+#include <stdfloat>
+#endif
+#endif
 
 /*
 * // There is no support for C++ 26 yet
