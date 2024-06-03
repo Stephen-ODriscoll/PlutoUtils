@@ -81,6 +81,7 @@
 #include <valarray>
 #include <vector>
 
+// C++ 17
 #if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
 #if __has_include(<any>)
 #include <any>
@@ -110,6 +111,7 @@
 #include <codecvt>
 #endif
 
+// C++ 20
 #if (defined(_MSVC_LANG) && _MSVC_LANG > 201703L) || (defined(__cplusplus) && __cplusplus > 201703L)
 #if __has_include(<barrier>)
 #include <barrier>
@@ -158,6 +160,7 @@
 #endif
 #endif
 
+// C++ 23
 #if (defined(_MSVC_LANG) && _MSVC_LANG > 202002L) || (defined(__cplusplus) && __cplusplus > 202002L)
 #if __has_include(<expected>)
 #include <expected>
@@ -188,11 +191,21 @@
 #endif
 #endif
 
-/*
-* // There is no support for C++ 26 yet
-* #include <debugging>
-* #include <hazard_pointer>
-* #include <linalg>
-* #include <rcu>
-* #include <text_encoding>
-*/
+// C++ 26 (when available)
+#if (defined(_MSVC_LANG) && _MSVC_LANG > 202302L) || (defined(__cplusplus) && __cplusplus > 202302L)
+#if __has_include(<debugging>)
+#include <debugging>
+#endif
+#if __has_include(<hazard_pointer>)
+#include <hazard_pointer>
+#endif
+#if __has_include(<linalg>)
+#include <linalg>
+#endif
+#if __has_include(<rcu>)
+#include <rcu>
+#endif
+#if __has_include(<text_encoding>)
+#include <text_encoding>
+#endif
+#endif
