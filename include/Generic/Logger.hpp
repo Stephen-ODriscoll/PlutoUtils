@@ -88,10 +88,10 @@
 #ifndef GENERIC_LOGGER_TIMESTAMP_LENGTH
 #if GENERIC_LOGGER_WRITE_MILLISECONDS
 #define GENERIC_LOGGER_TIMESTAMP_LENGTH 23
-#else // GENERIC_LOGGER_WRITE_MILLISECONDS
+#else
 #define GENERIC_LOGGER_TIMESTAMP_LENGTH 19
-#endif // GENERIC_LOGGER_WRITE_MILLISECONDS
-#endif // GENERIC_LOGGER_TIMESTAMP_LENGTH
+#endif
+#endif
 
 #ifndef GENERIC_LOGGER_PID_LENGTH
 #define GENERIC_LOGGER_PID_LENGTH 6
@@ -162,7 +162,7 @@
         } \
     } \
     while (false)
-#else // GENERIC_LOGGER_WRITE_SOURCE_INFO
+#else
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
@@ -182,7 +182,7 @@
         } \
     } \
     while (false)
-#endif // GENERIC_LOGGER_WRITE_SOURCE_INFO
+#endif
 
 #define GENERIC_LOG_FORMAT_NONE(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::None, __VA_ARGS__)
 #define GENERIC_LOG_FORMAT_FATAL(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Fatal, __VA_ARGS__)
