@@ -7,23 +7,18 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <vcruntime.h>
-
-#if !_HAS_CXX17
+#ifndef GENERIC_FILESYSTEM_IS_EXPERIMENTAL
+#if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
+#define GENERIC_FILESYSTEM_IS_EXPERIMENTAL 0
+#else
+#define GENERIC_FILESYSTEM_IS_EXPERIMENTAL 1
+#if (defined(_MSVC_LANG) && !defined(_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING))
 #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
-#define GENERIC_FILESYSTEM_IS_USING_EXPERIMENTAL
-#endif // !_HAS_CXX17
+#endif
+#endif
+#endif
 
-#else // _WIN32
-
-#if __cplusplus < 201703L
-#define GENERIC_FILESYSTEM_IS_USING_EXPERIMENTAL
-#endif // __cplusplus < 201703L
-
-#endif // _WIN32
-
-#ifdef GENERIC_FILESYSTEM_IS_USING_EXPERIMENTAL
+#if GENERIC_FILESYSTEM_IS_EXPERIMENTAL
 #include <experimental/filesystem>
 #else
 #include <filesystem>
@@ -31,7 +26,7 @@
 
 namespace Generic
 {
-#ifdef GENERIC_FILESYSTEM_IS_USING_EXPERIMENTAL
+#if GENERIC_FILESYSTEM_IS_EXPERIMENTAL
     namespace FileSystem = std::experimental::filesystem;
 #else
     namespace FileSystem = std::filesystem;
