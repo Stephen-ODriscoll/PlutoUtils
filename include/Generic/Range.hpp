@@ -51,7 +51,7 @@ namespace Generic
         }
 
         // Warning:
-        // Ranges of size 0 sorted by "no overlap" may behave strangely.
+        // Ranges of size 0 sorted by "no overlap" will behave strangely.
         // They will never overlap with anything as their size is 0.
         // Multiple ranges of size 0 can exist at the same spot.
         // Ranges of size 0 cannot be found using "no overlap".
