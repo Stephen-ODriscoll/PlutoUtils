@@ -38,6 +38,23 @@ TEST_F(RangeTests, TestRangeSanity)
     ASSERT_EQ(intRange.size(), 2);
 }
 
+TEST_F(RangeTests, TestRangeCopyConstructor)
+{
+    Generic::IntRange intRange{ 1, 2 };
+
+    ASSERT_EQ(intRange.begin, 1);
+    ASSERT_EQ(intRange.end, 2);
+
+    ASSERT_EQ(intRange.size(), 1);
+
+    Generic::IntRange intRange2{ intRange };
+
+    ASSERT_EQ(intRange2.begin, 1);
+    ASSERT_EQ(intRange2.end, 2);
+
+    ASSERT_EQ(intRange2.size(), 1);
+}
+
 TEST_F(RangeTests, TestRangeIsEqual)
 {
     ASSERT_TRUE(intRange1.isEqual(intRange2));
