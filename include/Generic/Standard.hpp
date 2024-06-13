@@ -116,7 +116,11 @@
 #include <variant>
 #endif
 #else
+#include <ccomplex>
 #include <codecvt>
+#include <cstdalign>
+#include <cstdbool>
+#include <ctgmath>
 #endif
 
 // C++ 20
@@ -166,6 +170,8 @@
 #if __has_include(<version>)
 #include <version>
 #endif
+#else
+#include <ciso646>
 #endif
 
 // C++ 23
