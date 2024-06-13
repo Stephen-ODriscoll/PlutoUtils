@@ -265,9 +265,9 @@ namespace Generic
 
         struct LogFile
         {
-            LogBuffer           buffer;
-            FileSystem::path    filePath;
-            bool                dirCreated;
+            LogBuffer                   buffer;
+            Generic::FileSystem::path   filePath;
+            bool                        dirCreated;
 
             LogFile() :
                 buffer      {},
@@ -670,25 +670,25 @@ namespace Generic
             }
         }
 
-        void rotateFile(const FileSystem::path& filePath) const
+        void rotateFile(const Generic::FileSystem::path& filePath) const
         {
-            const FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
+            const Generic::FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
 
-            if (FileSystem::exists(filePathOld))
+            if (Generic::FileSystem::exists(filePathOld))
             {
-                FileSystem::remove(filePathOld);
+                Generic::FileSystem::remove(filePathOld);
             }
 
-            FileSystem::rename(filePath, filePathOld);
+            Generic::FileSystem::rename(filePath, filePathOld);
         }
 
-        void openFileStream(std::ofstream& fileStream, const FileSystem::path& filePath) const
+        void openFileStream(std::ofstream& fileStream, const Generic::FileSystem::path& filePath) const
         {
             fileStream.open(filePath, (std::ios_base::ate | std::ios_base::app));
 
             if (!fileStream.is_open() || !fileStream.good())
             {
-                throw FileSystem::filesystem_error{ "Logger failed to open file",
+                throw Generic::FileSystem::filesystem_error{ "Logger failed to open file",
                     std::make_error_code(std::errc::io_error) };
             }
         }
@@ -754,7 +754,7 @@ namespace Generic
             const LogBuffer::iterator   begin,
             const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
-            FileSystem::path&           filePath,
+            Generic::FileSystem::path&  filePath,
             bool&                       dirCreated) const
         {
             auto result{ true };
@@ -764,13 +764,13 @@ namespace Generic
                 // Get file path if empty
                 if (filePath.empty())
                 {
-                    filePath = FileSystem::absolute(fileName);
+                    filePath = Generic::FileSystem::absolute(fileName);
                 }
 
                 // Create path to file if needed
                 if (m_createDir.load() && !dirCreated)
                 {
-                    FileSystem::create_directories(filePath.parent_path());
+                    Generic::FileSystem::create_directories(filePath.parent_path());
                     dirCreated = true;
                 }
 
@@ -808,7 +808,7 @@ namespace Generic
                     }
                 }
             }
-            catch (const FileSystem::filesystem_error&)
+            catch (const Generic::FileSystem::filesystem_error&)
             {
                 result = false;
             }
