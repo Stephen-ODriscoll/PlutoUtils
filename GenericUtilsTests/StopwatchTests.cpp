@@ -33,6 +33,18 @@ TEST_F(StopwatchTests, TestSeconds)
     ASSERT_EQ(stopwatch.secondsPart(), 1);
 }
 
+TEST_F(StopwatchTests, TestCopyConstructor)
+{
+    Generic::Stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.isRunning());
+
+    stopwatch.stop();
+    ASSERT_FALSE(stopwatch.isRunning());
+
+    Generic::Stopwatch stopwatch2{ stopwatch };
+    ASSERT_EQ(stopwatch.time(), stopwatch2.time());
+}
+
 TEST_F(StopwatchTests, TestTimeCallDoesNotStop)
 {
     Generic::Stopwatch stopwatch{ true };

@@ -17,18 +17,26 @@ namespace Generic
         typedef std::chrono::high_resolution_clock Clock;
 
     private:
-        Clock::duration     m_time{};
-        Clock::time_point   m_start{};
-        bool                m_isRunning{ false };
+        Clock::duration     m_time;
+        Clock::time_point   m_start;
+        bool                m_isRunning;
 
     public:
-        Stopwatch(const bool startNow = false)
+        Stopwatch(const bool startNow = false) :
+            m_time      {},
+            m_start     {},
+            m_isRunning { false }
         {
             if (startNow)
             {
                 start();
             }
         }
+
+        Stopwatch(const Stopwatch& other) :
+            m_time      { other.m_time },
+            m_start     { other.m_start },
+            m_isRunning { other.m_isRunning } {}
 
         ~Stopwatch() {}
 
