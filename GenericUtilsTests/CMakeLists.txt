@@ -26,6 +26,7 @@ add_executable(
     LRUCacheTests.cpp
     Main.cpp
     RangeTests.cpp
+    SafeLRUCacheTests.cpp
     ScopeExitActionsTests.cpp
     StandardTests.cpp
     StopwatchTests.cpp

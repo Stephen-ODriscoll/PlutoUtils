@@ -19,6 +19,7 @@ add_library(
     Generic/Logger.hpp
     Generic/LRUCache.hpp
     Generic/Range.hpp
+    Generic/SafeLRUCache.hpp
     Generic/ScopeExitActions.hpp
     Generic/Standard.hpp
     Generic/Stopwatch.hpp
