@@ -122,8 +122,8 @@
 #define GENERIC_LOGGER_DEFAULT_LEVEL_FORM Generic::Logger::LevelForm::Full
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIR
-#define GENERIC_LOGGER_DEFAULT_CREATE_DIR true
+#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIRS
+#define GENERIC_LOGGER_DEFAULT_CREATE_DIRS true
 #endif
 
 #ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
@@ -267,12 +267,12 @@ namespace Generic
         {
             LogBuffer                   buffer;
             Generic::FileSystem::path   filePath;
-            bool                        dirCreated;
+            bool                        dirsCreated;
 
             LogFile() :
                 buffer      {},
                 filePath    {},
-                dirCreated  {} {}
+                dirsCreated {} {}
         };
 
         mutable std::mutex              m_loggingMutex{};
@@ -290,7 +290,7 @@ namespace Generic
         std::atomic_bool        m_isLogging{ true };
         std::string             m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
         std::atomic<LevelForm>  m_levelForm{ GENERIC_LOGGER_DEFAULT_LEVEL_FORM };
-        std::atomic_bool        m_createDir{ GENERIC_LOGGER_DEFAULT_CREATE_DIR };
+        std::atomic_bool        m_createDirs{ GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
         std::atomic_bool        m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
         std::atomic_size_t      m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
         std::atomic_size_t      m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
@@ -468,9 +468,9 @@ namespace Generic
             return m_levelForm.load(); // atomic
         }
 
-        bool getCreateDir() const
+        bool getCreateDirs() const
         {
-            return m_createDir.load(); // atomic
+            return m_createDirs.load(); // atomic
         }
 
         bool getWriteHeader() const
@@ -517,9 +517,9 @@ namespace Generic
             return *this;
         }
 
-        Logger& setCreateDir(const bool createDir)
+        Logger& setCreateDirs(const bool createDirs)
         {
-            m_createDir.store(createDir); // atomic
+            m_createDirs.store(createDirs); // atomic
             return *this;
         }
 
@@ -658,14 +658,14 @@ namespace Generic
             // Write all buffers to their files
             for (auto& logFilePair : m_logFiles)
             {
-                auto& fileName  { logFilePair.first };
-                auto& buffer    { logFilePair.second.buffer };
-                auto& filePath  { logFilePair.second.filePath };
-                auto& dirCreated{ logFilePair.second.dirCreated };
+                auto& fileName      { logFilePair.first };
+                auto& buffer        { logFilePair.second.buffer };
+                auto& filePath      { logFilePair.second.filePath };
+                auto& dirsCreated   { logFilePair.second.dirsCreated };
 
                 if (!buffer.empty())
                 {
-                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirCreated);
+                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
                 }
             }
         }
@@ -755,7 +755,7 @@ namespace Generic
             const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
             Generic::FileSystem::path&  filePath,
-            bool&                       dirCreated) const
+            bool&                       dirsCreated) const
         {
             auto result{ true };
 
@@ -768,10 +768,10 @@ namespace Generic
                 }
 
                 // Create path to file if needed
-                if (m_createDir.load() && !dirCreated)
+                if (m_createDirs.load() && !dirsCreated)
                 {
                     Generic::FileSystem::create_directories(filePath.parent_path());
-                    dirCreated = true;
+                    dirsCreated = true;
                 }
 
                 const auto writeHeader{ m_writeHeader.load() };
@@ -834,10 +834,10 @@ namespace Generic
 
                     for (auto& logFilePair : m_logFiles)
                     {
-                        auto& fileName  { logFilePair.first };
-                        auto& buffer    { logFilePair.second.buffer };
-                        auto& filePath  { logFilePair.second.filePath };
-                        auto& dirCreated{ logFilePair.second.dirCreated };
+                        auto& fileName      { logFilePair.first };
+                        auto& buffer        { logFilePair.second.buffer };
+                        auto& filePath      { logFilePair.second.filePath };
+                        auto& dirsCreated   { logFilePair.second.dirsCreated };
 
                         if (!buffer.empty() && m_bufferFlushSize.load() <= buffer.size())
                         {
@@ -853,7 +853,7 @@ namespace Generic
                             shouldWait = false;
 
                             const auto result{ writeBufferToFile(
-                                begin, secondToEnd, fileName, filePath, dirCreated) };
+                                begin, secondToEnd, fileName, filePath, dirsCreated) };
 
                             lock.lock();
 
