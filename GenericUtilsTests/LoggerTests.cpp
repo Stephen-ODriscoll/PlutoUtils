@@ -86,7 +86,7 @@ std::string getLastLog()
 std::string getLastLogMessage()
 {
     auto lastLog    { getLastLog() };
-    auto separator  { Generic::Logger::getInstance().getSeparator() };
+    auto separator  { Generic::Logger::getInstance().separator() };
     auto index      { lastLog.rfind(separator) };
 
     return (index == std::string::npos ? lastLog : lastLog.substr(index + separator.size()));

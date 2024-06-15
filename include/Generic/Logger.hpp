@@ -301,7 +301,7 @@ namespace Generic
         class Stream
         {
             const std::string   m_logFileName;
-            const Level         m_level;
+            const Level         m_logLevel;
             const char* const   m_sourceFilePath;
             const int           m_sourceLine;
             std::stringstream   m_stream;
@@ -309,18 +309,18 @@ namespace Generic
         public:
             Stream(
                 const std::string   logFileName,
-                const Level         level,
+                const Level         logLevel,
                 const char* const   sourceFilePath,
                 const int           sourceLine) :
                 m_logFileName   { logFileName },
-                m_level         { level },
+                m_logLevel      { logLevel },
                 m_sourceFilePath{ sourceFilePath },
                 m_sourceLine    { sourceLine },
                 m_stream        {} {}
 
             ~Stream()
             {
-                getInstance().write(m_logFileName, m_level, m_sourceFilePath, m_sourceLine, m_stream.str());
+                getInstance().write(m_logFileName, m_logLevel, m_sourceFilePath, m_sourceLine, m_stream.str());
             }
 
             Stream& operator<<(const bool b)
@@ -447,104 +447,104 @@ namespace Generic
             return m_isLogging.load(); // atomic
         }
 
-        Level getLevel() const
+        Level level() const
         {
             return m_level.load(); // atomic
         }
 
-        bool shouldLog(Level level) const
+        bool shouldLog(const Level logLevel) const
         {
-            return (isLogging() && level <= getLevel());
+            return (isLogging() && logLevel <= level());
         }
 
-        std::string getSeparator() const
+        std::string separator() const
         {
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
             return m_separator;
         }
 
-        LevelForm getLevelForm() const
+        LevelForm levelForm() const
         {
             return m_levelForm.load(); // atomic
         }
 
-        bool getCreateDirs() const
+        bool createDirs() const
         {
             return m_createDirs.load(); // atomic
         }
 
-        bool getWriteHeader() const
+        bool writeHeader() const
         {
             return m_writeHeader.load(); // atomic
         }
 
-        std::size_t getBufferMaxSize() const
+        std::size_t bufferMaxSize() const
         {
             return m_bufferMaxSize.load(); // atomic
         }
 
-        std::size_t getBufferFlushSize() const
+        std::size_t bufferFlushSize() const
         {
             return m_bufferFlushSize.load(); // atomic
         }
 
-        std::size_t getFileRotationSize() const
+        std::size_t fileRotationSize() const
         {
             return m_fileRotationSize.load(); // atomic
         }
 
-        std::size_t getNumDiscardedLogs() const
+        std::size_t numDiscardedLogs() const
         {
             return m_numDiscardedLogs.load(); // atomic
         }
 
-        Logger& setLevel(const Level level)
+        Logger& level(const Level newLevel)
         {
-            m_level.store(level); // atomic
+            m_level.store(newLevel); // atomic
             return *this;
         }
 
-        Logger& setSeparator(const std::string& separator)
+        Logger& separator(const std::string& newSeparator)
         {
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-            m_separator = separator;
+            m_separator = newSeparator;
             return *this;
         }
 
-        Logger& setLevelForm(const LevelForm levelForm)
+        Logger& levelForm(const LevelForm newLevelForm)
         {
-            m_levelForm.store(levelForm); // atomic
+            m_levelForm.store(newLevelForm); // atomic
             return *this;
         }
 
-        Logger& setCreateDirs(const bool createDirs)
+        Logger& createDirs(const bool newCreateDirs)
         {
-            m_createDirs.store(createDirs); // atomic
+            m_createDirs.store(newCreateDirs); // atomic
             return *this;
         }
 
-        Logger& setWriteHeader(const bool writeHeader)
+        Logger& writeHeader(const bool newWriteHeader)
         {
-            m_writeHeader.store(writeHeader); // atomic
+            m_writeHeader.store(newWriteHeader); // atomic
             return *this;
         }
 
-        Logger& setBufferMaxSize(const std::size_t bufferMaxSize)
+        Logger& bufferMaxSize(const std::size_t newBufferMaxSize)
         {
-            m_bufferMaxSize.store(bufferMaxSize); // atomic
+            m_bufferMaxSize.store(newBufferMaxSize); // atomic
             return *this;
         }
 
-        Logger& setBufferFlushSize(const std::size_t bufferFlushSize)
+        Logger& bufferFlushSize(const std::size_t newBufferFlushSize)
         {
-            m_bufferFlushSize.store(bufferFlushSize);   // atomic
-            m_loggingThreadCondition.notify_one();      // wake the logging thread
+            m_bufferFlushSize.store(newBufferFlushSize);    // atomic
+            m_loggingThreadCondition.notify_one();          // wake the logging thread
             return *this;
         }
 
-        Logger& setFileRotationSize(const std::size_t fileRotationSize)
+        Logger& fileRotationSize(const std::size_t newFileRotationSize)
         {
-            m_fileRotationSize.store(fileRotationSize); // atomic
+            m_fileRotationSize.store(newFileRotationSize); // atomic
             return *this;
         }
 
@@ -556,7 +556,7 @@ namespace Generic
 
         void write(
             const std::string&  logFileName,
-            const Level         level,
+            const Level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const std::string&  message)
@@ -587,7 +587,7 @@ namespace Generic
                 buffer.emplace_back(
                     timestamp,
                     threadID,
-                    level,
+                    logLevel,
                     sourceFileName,
                     sourceLine,
                     message);
@@ -608,7 +608,7 @@ namespace Generic
 
         void writef(
             const std::string&  logFileName,
-            const Level         level,
+            const Level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const char* const   format,
@@ -632,7 +632,7 @@ namespace Generic
             va_end(args);
 
             // Write message, or use format if message creation failed
-            write(logFileName, level, sourceFilePath, sourceLine, (buffer[0] == '\0') ? format : buffer);
+            write(logFileName, logLevel, sourceFilePath, sourceLine, (buffer[0] == '\0') ? format : buffer);
         }
 
         Logger(const Logger&) = delete;
