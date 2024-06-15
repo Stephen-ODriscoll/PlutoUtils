@@ -54,6 +54,33 @@ TEST_F(LRUCacheTests, TestCacheSanity)
     ASSERT_FALSE(cache.get(1, value));
 }
 
+TEST_F(LRUCacheTests, TestChangeCapacity)
+{
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
+    {
+        cache.insert(i, i);
+    }
+
+    ASSERT_EQ(cache.size(), CACHE_CAPACITY);
+
+    std::size_t newCapacity{ CACHE_CAPACITY / 2 };
+    std::size_t evictedSize{ CACHE_CAPACITY - newCapacity };
+
+    cache.capacity(newCapacity);
+    ASSERT_EQ(cache.size(), newCapacity);
+
+    std::size_t value{};
+    for (std::size_t i{ 1 }; i <= evictedSize; ++i)
+    {
+        ASSERT_FALSE(cache.get(i, value));
+    }
+
+    for (std::size_t i{ evictedSize + 1 }; i <= CACHE_CAPACITY; ++i)
+    {
+        ASSERT_TRUE(cache.get(i, value));
+    }
+}
+
 TEST_F(LRUCacheTests, TestInsertAndGet)
 {
     for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
@@ -134,4 +161,19 @@ TEST_F(LRUCacheTests, TestGetMovesToFront)
     std::size_t value{};
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 1);
+}
+
+TEST_F(LRUCacheTests, TestRemove)
+{
+    for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
+    {
+        cache.insert(i, i);
+    }
+
+    ASSERT_EQ(cache.size(), CACHE_CAPACITY);
+
+    cache.remove(1);
+
+    std::size_t value{};
+    ASSERT_FALSE(cache.get(1, value));
 }

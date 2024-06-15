@@ -54,6 +54,33 @@ TEST_F(SafeLRUCacheTests, TestCacheSanity)
     ASSERT_FALSE(safeCache.get(1, value));
 }
 
+TEST_F(SafeLRUCacheTests, TestChangeCapacity)
+{
+    for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
+    {
+        safeCache.insert(i, i);
+    }
+
+    ASSERT_EQ(safeCache.size(), SAFE_CACHE_CAPACITY);
+
+    std::size_t newCapacity{ SAFE_CACHE_CAPACITY / 2 };
+    std::size_t evictedSize{ SAFE_CACHE_CAPACITY - newCapacity };
+
+    safeCache.capacity(newCapacity);
+    ASSERT_EQ(safeCache.size(), newCapacity);
+
+    std::size_t value{};
+    for (std::size_t i{ 1 }; i <= evictedSize; ++i)
+    {
+        ASSERT_FALSE(safeCache.get(i, value));
+    }
+
+    for (std::size_t i{ evictedSize + 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
+    {
+        ASSERT_TRUE(safeCache.get(i, value));
+    }
+}
+
 TEST_F(SafeLRUCacheTests, TestInsertAndGet)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
@@ -134,4 +161,19 @@ TEST_F(SafeLRUCacheTests, TestGetMovesToFront)
     std::size_t value{};
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 1);
+}
+
+TEST_F(SafeLRUCacheTests, TestRemove)
+{
+    for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
+    {
+        safeCache.insert(i, i);
+    }
+
+    ASSERT_EQ(safeCache.size(), SAFE_CACHE_CAPACITY);
+
+    safeCache.remove(1);
+
+    std::size_t value{};
+    ASSERT_FALSE(safeCache.get(1, value));
 }

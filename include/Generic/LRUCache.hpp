@@ -37,26 +37,39 @@ namespace Generic
         bool empty()                        const   { return m_map.empty(); }
         bool contains(const KeyType& key)   const   { return (m_map.find(key) != m_map.end()); }
 
+        void capacity(const std::size_t newCapacity)
+        {
+            m_capacity = newCapacity;
+
+            // While cache is above capacity, evict the least recently used item
+            while (m_capacity < size())
+            {
+                evictLRU();
+            }
+        }
+
         void insert(const KeyType& key, const ValueType& value)
         {
             auto itMap{ m_map.find(key) };
             if (itMap == m_map.end())
             {
-                // If cache is full, evict the least recently used item
-                if (m_capacity <= size())
+                if (m_capacity != 0)
                 {
-                    evict();
-                }
+                    // If cache is full, evict the least recently used item
+                    if (m_capacity <= size())
+                    {
+                        evictLRU();
+                    }
 
-                m_list.push_front(key);
-                m_map.emplace(key, std::make_pair(value, m_list.begin()));
+                    m_list.push_front(key);
+                    m_map.emplace(key, std::make_pair(value, m_list.begin()));
+                }
             }
             else
             {
-                moveToFront(itMap);
-
                 // Replace value in cache with new value
                 itMap->second.first = value;
+                moveToFront(itMap);
             }
         }
 
@@ -68,9 +81,21 @@ namespace Generic
                 return false;
             }
 
-            moveToFront(itMap);
-
             value = itMap->second.first;
+            moveToFront(itMap);
+            return true;
+        }
+
+        bool remove(const KeyType& key)
+        {
+            auto itMap{ m_map.find(key) };
+            if (itMap == m_map.end())
+            {
+                return false;
+            }
+
+            m_list.erase(itMap->second.second);
+            m_map.erase(itMap);
             return true;
         }
 
@@ -94,7 +119,7 @@ namespace Generic
             }
         }
 
-        void evict()
+        void evictLRU()
         {
             // Evict least recently used item
             auto itList{ --m_list.end() };
