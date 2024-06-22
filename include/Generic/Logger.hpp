@@ -580,7 +580,7 @@ namespace Generic
             }
 
             auto& buffer        { it->second.buffer };
-            auto bufferMaxSize  { m_bufferMaxSize.load() };
+            auto bufferMaxSize  { this->bufferMaxSize() };
 
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
@@ -592,7 +592,7 @@ namespace Generic
                     sourceLine,
                     message);
 
-                if (m_bufferFlushSize.load() <= buffer.size())
+                if (bufferFlushSize() <= buffer.size())
                 {
                     // Unlock the mutex and wake the logging thread
                     lock.unlock();
@@ -695,26 +695,26 @@ namespace Generic
 
         void writeHeaderToStream(std::ostream& stream) const
         {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+            const auto separator{ this->separator() };
 
             std::stringstream headerStream{};
             headerStream
                 << std::left << std::setfill(' ')
 #if GENERIC_LOGGER_WRITE_TIMESTAMP
-                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << m_separator
+                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << separator
 #endif
 #if GENERIC_LOGGER_WRITE_PID
-                << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << m_separator
+                << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << separator
 #endif
 #if GENERIC_LOGGER_WRITE_TID
-                << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << m_separator
+                << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << separator
 #endif
 #if GENERIC_LOGGER_WRITE_LEVEL
-                << levelToString(Level::Header, m_levelForm.load()) << m_separator
+                << levelToString(Level::Header, levelForm()) << separator
 #endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << m_separator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << m_separator
+                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << separator
+                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << separator
 #endif
                 << GENERIC_LOGGER_MESSAGE_HEADER;
 
@@ -727,25 +727,25 @@ namespace Generic
 
         void writeLogToStream(std::ostream& stream, const Log& log) const
         {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
+            const auto separator{ this->separator() };
 
             stream
                 << std::left << std::setfill(' ')
 #if GENERIC_LOGGER_WRITE_TIMESTAMP
-                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << log.timestamp << m_separator
+                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << log.timestamp << separator
 #endif
 #if GENERIC_LOGGER_WRITE_PID
-                << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << m_separator
+                << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << separator
 #endif
 #if GENERIC_LOGGER_WRITE_TID
-                << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << m_separator
+                << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << separator
 #endif
 #if GENERIC_LOGGER_WRITE_LEVEL
-                << levelToString(log.level, m_levelForm.load()) << m_separator
+                << levelToString(log.level, levelForm()) << separator
 #endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << m_separator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << m_separator
+                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << separator
+                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << separator
 #endif
                 << log.message << '\n';
         }
@@ -768,14 +768,14 @@ namespace Generic
                 }
 
                 // Create path to file if needed
-                if (m_createDirs.load() && !dirsCreated)
+                if (createDirs() && !dirsCreated)
                 {
                     Generic::FileSystem::create_directories(filePath.parent_path());
                     dirsCreated = true;
                 }
 
-                const auto writeHeader{ m_writeHeader.load() };
-                const auto fileRotationSize{ m_fileRotationSize.load() };
+                const auto writeHeader{ this->writeHeader() };
+                const auto fileRotationSize{ this->fileRotationSize() };
 
                 std::size_t fileSize{};
                 std::ofstream fileStream{};
@@ -839,7 +839,7 @@ namespace Generic
                         auto& filePath      { logFilePair.second.filePath };
                         auto& dirsCreated   { logFilePair.second.dirsCreated };
 
-                        if (!buffer.empty() && m_bufferFlushSize.load() <= buffer.size())
+                        if (!buffer.empty() && bufferFlushSize() <= buffer.size())
                         {
                             const auto begin        { buffer.begin() };
                             const auto secondToEnd  { --(buffer.end()) };
