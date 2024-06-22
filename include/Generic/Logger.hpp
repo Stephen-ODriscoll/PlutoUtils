@@ -142,6 +142,18 @@
 #define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
 #endif
 
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
+#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
+#endif
+
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
@@ -286,6 +298,7 @@ namespace Generic
         const int m_pid{ getpid() };
 #endif
         mutable std::mutex      m_separatorMutex{};
+        mutable std::mutex      m_headerSeparatorMutex{};
         std::atomic<Level>      m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
         std::atomic_bool        m_isLogging{ true };
         std::string             m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
@@ -295,6 +308,9 @@ namespace Generic
         std::atomic_size_t      m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
         std::atomic_size_t      m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
         std::atomic_size_t      m_fileRotationSize{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
+        std::atomic_char        m_headerUnderlineFill{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
+        std::atomic_bool        m_writeHeaderUnderline{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
+        std::string             m_headerUnderlineSeparator{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
         std::atomic_size_t      m_numDiscardedLogs{};
 
     public:
@@ -493,6 +509,22 @@ namespace Generic
             return m_fileRotationSize.load(); // atomic
         }
 
+        char headerUnderlineFill() const
+        {
+            return m_headerUnderlineFill.load(); // atomic
+        }
+
+        bool writeHeaderUnderline() const
+        {
+            return m_writeHeaderUnderline.load(); // atomic
+        }
+
+        std::string headerUnderlineSeparator() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
+            return m_headerUnderlineSeparator;
+        }
+
         std::size_t numDiscardedLogs() const
         {
             return m_numDiscardedLogs.load(); // atomic
@@ -545,6 +577,25 @@ namespace Generic
         Logger& fileRotationSize(const std::size_t newFileRotationSize)
         {
             m_fileRotationSize.store(newFileRotationSize); // atomic
+            return *this;
+        }
+
+        Logger& headerUnderlineFill(const char newHeaderUnderlineFill)
+        {
+            m_headerUnderlineFill.store(newHeaderUnderlineFill); // atomic
+            return *this;
+        }
+
+        Logger& writeHeaderUnderline(const bool newWriteHeaderUnderline)
+        {
+            m_writeHeaderUnderline.store(newWriteHeaderUnderline); // atomic
+            return *this;
+        }
+
+        Logger& headerUnderlineSeparator(const std::string& newHeaderUnderlineSeparator)
+        {
+            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
+            m_headerUnderlineSeparator = newHeaderUnderlineSeparator;
             return *this;
         }
 
@@ -696,9 +747,10 @@ namespace Generic
         void writeHeaderToStream(std::ostream& stream) const
         {
             const auto separator{ this->separator() };
+            const auto headerUnderlineSeparator{ this->headerUnderlineSeparator() };
+            const auto levelHeader{ levelToString(Level::Header, levelForm()) };
 
-            std::stringstream headerStream{};
-            headerStream
+            stream
                 << std::left << std::setfill(' ')
 #if GENERIC_LOGGER_WRITE_TIMESTAMP
                 << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << separator
@@ -710,19 +762,36 @@ namespace Generic
                 << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << separator
 #endif
 #if GENERIC_LOGGER_WRITE_LEVEL
-                << levelToString(Level::Header, levelForm()) << separator
+                << levelHeader << separator
 #endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
                 << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << separator
                 << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << separator
 #endif
-                << GENERIC_LOGGER_MESSAGE_HEADER;
+                << GENERIC_LOGGER_MESSAGE_HEADER << '\n';
 
-            const auto header{ headerStream.str() };
-
-            stream
-                << header << "\n"
-                << std::string(header.size(), '-') << "\n";
+            if (writeHeaderUnderline())
+            {
+                stream
+                    << std::left << std::setfill(headerUnderlineFill())
+#if GENERIC_LOGGER_WRITE_TIMESTAMP
+                    << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << "" << headerUnderlineSeparator
+#endif
+#if GENERIC_LOGGER_WRITE_PID
+                    << std::setw(GENERIC_LOGGER_PID_LENGTH) << "" << headerUnderlineSeparator
+#endif
+#if GENERIC_LOGGER_WRITE_TID
+                    << std::setw(GENERIC_LOGGER_TID_LENGTH) << "" << headerUnderlineSeparator
+#endif
+#if GENERIC_LOGGER_WRITE_LEVEL
+                    << std::setw(levelHeader.size()) << "" << headerUnderlineSeparator
+#endif
+#if GENERIC_LOGGER_WRITE_SOURCE_INFO
+                    << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << "" << headerUnderlineSeparator
+                    << std::setw(GENERIC_LOGGER_LINE_LENGTH) << "" << headerUnderlineSeparator
+#endif
+                    << std::setw(std::strlen(GENERIC_LOGGER_MESSAGE_HEADER)) << "" << '\n';
+            }
         }
 
         void writeLogToStream(std::ostream& stream, const Log& log) const
