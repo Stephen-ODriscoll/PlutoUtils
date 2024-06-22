@@ -15,6 +15,7 @@
 #include "Generic/Logger.hpp"
 #include "Generic/LRUCache.hpp"
 #include "Generic/Range.hpp"
+#include "Generic/SafeLRUCache.hpp"
 #include "Generic/ScopeExitActions.hpp"
 #include "Generic/Stopwatch.hpp"
 #include "Generic/StringUtils.hpp"
