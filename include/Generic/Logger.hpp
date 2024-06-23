@@ -114,12 +114,12 @@
 #define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
+#ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT
+#define GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT Generic::Logger::LevelFormat::Full
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORM
-#define GENERIC_LOGGER_DEFAULT_LEVEL_FORM Generic::Logger::LevelForm::Full
+#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
 #endif
 
 #ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIRS
@@ -128,6 +128,18 @@
 
 #ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
 #define GENERIC_LOGGER_DEFAULT_WRITE_HEADER true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
+#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
 #endif
 
 #ifndef GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE
@@ -140,18 +152,6 @@
 
 #ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE
 #define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
-#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
 #endif
 
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
@@ -239,7 +239,7 @@ namespace Generic
             Header      // Reserved for header info.
         };
 
-        enum class LevelForm : unsigned char
+        enum class LevelFormat : unsigned char
         {
             Full = 0,
             Short,
@@ -297,21 +297,21 @@ namespace Generic
 #else
         const int m_pid{ getpid() };
 #endif
-        mutable std::mutex      m_separatorMutex{};
-        mutable std::mutex      m_headerSeparatorMutex{};
-        std::atomic<Level>      m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
-        std::atomic_bool        m_isLogging{ true };
-        std::string             m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
-        std::atomic<LevelForm>  m_levelForm{ GENERIC_LOGGER_DEFAULT_LEVEL_FORM };
-        std::atomic_bool        m_createDirs{ GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
-        std::atomic_bool        m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
-        std::atomic_size_t      m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
-        std::atomic_size_t      m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
-        std::atomic_size_t      m_fileRotationSize{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
-        std::atomic_char        m_headerUnderlineFill{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
-        std::atomic_bool        m_writeHeaderUnderline{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
-        std::string             m_headerUnderlineSeparator{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
-        std::atomic_size_t      m_numDiscardedLogs{};
+        mutable std::mutex          m_separatorMutex{};
+        mutable std::mutex          m_headerSeparatorMutex{};
+        std::atomic_bool            m_isLogging{ true };
+        std::atomic<Level>          m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
+        std::atomic<LevelFormat>    m_levelFormat{ GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT };
+        std::string                 m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
+        std::atomic_bool            m_createDirs{ GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
+        std::atomic_bool            m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
+        std::atomic_bool            m_writeHeaderUnderline{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
+        std::string                 m_headerUnderlineSeparator{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
+        std::atomic_char            m_headerUnderlineFill{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
+        std::atomic_size_t          m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
+        std::atomic_size_t          m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
+        std::atomic_size_t          m_fileRotationSize{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
+        std::atomic_size_t          m_numDiscardedLogs{};
 
     public:
         class Stream
@@ -393,11 +393,11 @@ namespace Generic
             return fileName.substr(0, GENERIC_LOGGER_FILE_NAME_LENGTH);
         }
 
-        static inline std::string levelToString(const Level level, const LevelForm levelForm)
+        static inline std::string levelToString(const Level level, const LevelFormat levelFormat)
         {
-            switch (levelForm)
+            switch (levelFormat)
             {
-                case LevelForm::Full:
+                case LevelFormat::Full:
                     switch (level)
                     {
                         case Level::None:       return "        ";
@@ -414,7 +414,7 @@ namespace Generic
                         default:                return "Unknown ";
                     }
 
-                case LevelForm::Short:
+                case LevelFormat::Short:
                     switch (level)
                     {
                         case Level::None:       return "   ";
@@ -431,7 +431,7 @@ namespace Generic
                         default:                return "UNK";
                     }
 
-                case LevelForm::Char:
+                case LevelFormat::Char:
                     switch (level)
                     {
                         case Level::None:       return " ";
@@ -448,7 +448,7 @@ namespace Generic
                         default:                return "?";
                     }
 
-                default: return "Bad Form";
+                default: return "Bad Format";
             }
         }
 
@@ -468,72 +468,32 @@ namespace Generic
             return m_level.load(); // atomic
         }
 
+        Logger& level(const Level newLevel)
+        {
+            m_level.store(newLevel); // atomic
+            return *this;
+        }
+
         bool shouldLog(const Level logLevel) const
         {
             return (isLogging() && logLevel <= level());
+        }
+
+        LevelFormat levelFormat() const
+        {
+            return m_levelFormat.load(); // atomic
+        }
+
+        Logger& levelFormat(const LevelFormat newLevelFormat)
+        {
+            m_levelFormat.store(newLevelFormat); // atomic
+            return *this;
         }
 
         std::string separator() const
         {
             const std::unique_lock<std::mutex> lock{ m_separatorMutex };
             return m_separator;
-        }
-
-        LevelForm levelForm() const
-        {
-            return m_levelForm.load(); // atomic
-        }
-
-        bool createDirs() const
-        {
-            return m_createDirs.load(); // atomic
-        }
-
-        bool writeHeader() const
-        {
-            return m_writeHeader.load(); // atomic
-        }
-
-        std::size_t bufferMaxSize() const
-        {
-            return m_bufferMaxSize.load(); // atomic
-        }
-
-        std::size_t bufferFlushSize() const
-        {
-            return m_bufferFlushSize.load(); // atomic
-        }
-
-        std::size_t fileRotationSize() const
-        {
-            return m_fileRotationSize.load(); // atomic
-        }
-
-        char headerUnderlineFill() const
-        {
-            return m_headerUnderlineFill.load(); // atomic
-        }
-
-        bool writeHeaderUnderline() const
-        {
-            return m_writeHeaderUnderline.load(); // atomic
-        }
-
-        std::string headerUnderlineSeparator() const
-        {
-            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
-            return m_headerUnderlineSeparator;
-        }
-
-        std::size_t numDiscardedLogs() const
-        {
-            return m_numDiscardedLogs.load(); // atomic
-        }
-
-        Logger& level(const Level newLevel)
-        {
-            m_level.store(newLevel); // atomic
-            return *this;
         }
 
         Logger& separator(const std::string& newSeparator)
@@ -543,10 +503,9 @@ namespace Generic
             return *this;
         }
 
-        Logger& levelForm(const LevelForm newLevelForm)
+        bool createDirs() const
         {
-            m_levelForm.store(newLevelForm); // atomic
-            return *this;
+            return m_createDirs.load(); // atomic
         }
 
         Logger& createDirs(const bool newCreateDirs)
@@ -555,16 +514,66 @@ namespace Generic
             return *this;
         }
 
+        bool writeHeader() const
+        {
+            return m_writeHeader.load(); // atomic
+        }
+
         Logger& writeHeader(const bool newWriteHeader)
         {
             m_writeHeader.store(newWriteHeader); // atomic
             return *this;
         }
 
+        bool writeHeaderUnderline() const
+        {
+            return m_writeHeaderUnderline.load(); // atomic
+        }
+
+        Logger& writeHeaderUnderline(const bool newWriteHeaderUnderline)
+        {
+            m_writeHeaderUnderline.store(newWriteHeaderUnderline); // atomic
+            return *this;
+        }
+
+        std::string headerUnderlineSeparator() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
+            return m_headerUnderlineSeparator;
+        }
+
+        Logger& headerUnderlineSeparator(const std::string& newHeaderUnderlineSeparator)
+        {
+            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
+            m_headerUnderlineSeparator = newHeaderUnderlineSeparator;
+            return *this;
+        }
+
+        char headerUnderlineFill() const
+        {
+            return m_headerUnderlineFill.load(); // atomic
+        }
+
+        Logger& headerUnderlineFill(const char newHeaderUnderlineFill)
+        {
+            m_headerUnderlineFill.store(newHeaderUnderlineFill); // atomic
+            return *this;
+        }
+
+        std::size_t bufferMaxSize() const
+        {
+            return m_bufferMaxSize.load(); // atomic
+        }
+
         Logger& bufferMaxSize(const std::size_t newBufferMaxSize)
         {
             m_bufferMaxSize.store(newBufferMaxSize); // atomic
             return *this;
+        }
+
+        std::size_t bufferFlushSize() const
+        {
+            return m_bufferFlushSize.load(); // atomic
         }
 
         Logger& bufferFlushSize(const std::size_t newBufferFlushSize)
@@ -574,29 +583,20 @@ namespace Generic
             return *this;
         }
 
+        std::size_t fileRotationSize() const
+        {
+            return m_fileRotationSize.load(); // atomic
+        }
+
         Logger& fileRotationSize(const std::size_t newFileRotationSize)
         {
             m_fileRotationSize.store(newFileRotationSize); // atomic
             return *this;
         }
 
-        Logger& headerUnderlineFill(const char newHeaderUnderlineFill)
+        std::size_t numDiscardedLogs() const
         {
-            m_headerUnderlineFill.store(newHeaderUnderlineFill); // atomic
-            return *this;
-        }
-
-        Logger& writeHeaderUnderline(const bool newWriteHeaderUnderline)
-        {
-            m_writeHeaderUnderline.store(newWriteHeaderUnderline); // atomic
-            return *this;
-        }
-
-        Logger& headerUnderlineSeparator(const std::string& newHeaderUnderlineSeparator)
-        {
-            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
-            m_headerUnderlineSeparator = newHeaderUnderlineSeparator;
-            return *this;
+            return m_numDiscardedLogs.load(); // atomic
         }
 
         Logger& resetNumDiscardedLogs()
@@ -748,7 +748,7 @@ namespace Generic
         {
             const auto separator{ this->separator() };
             const auto headerUnderlineSeparator{ this->headerUnderlineSeparator() };
-            const auto levelHeader{ levelToString(Level::Header, levelForm()) };
+            const auto levelHeader{ levelToString(Level::Header, levelFormat()) };
 
             stream
                 << std::left << std::setfill(' ')
@@ -810,7 +810,7 @@ namespace Generic
                 << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << separator
 #endif
 #if GENERIC_LOGGER_WRITE_LEVEL
-                << levelToString(log.level, levelForm()) << separator
+                << levelToString(log.level, levelFormat()) << separator
 #endif
 #if GENERIC_LOGGER_WRITE_SOURCE_INFO
                 << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << separator
