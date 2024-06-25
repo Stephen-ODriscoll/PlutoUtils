@@ -8,7 +8,7 @@
 #pragma once
 
 #ifndef GENERIC_FILESYSTEM_IS_EXPERIMENTAL
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
+#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
 #define GENERIC_FILESYSTEM_IS_EXPERIMENTAL 0
 #else
 #define GENERIC_FILESYSTEM_IS_EXPERIMENTAL 1

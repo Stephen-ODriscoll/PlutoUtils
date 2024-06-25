@@ -58,7 +58,7 @@
 #include <vector>
 
 // C++ 11
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 199711L) || (defined(__cplusplus) && __cplusplus > 199711L)
+#if (defined(__cplusplus) && __cplusplus > 199711L) || (defined(_MSVC_LANG) && _MSVC_LANG > 199711L)
 #include <array>
 #include <atomic>
 #include <cfenv>
@@ -85,12 +85,12 @@
 #endif
 
 // C++ 14
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 201103L) || (defined(__cplusplus) && __cplusplus > 201103L)
+#if (defined(__cplusplus) && __cplusplus > 201103L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201103L)
 #include <shared_mutex>
 #endif
 
 // C++ 17
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
+#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
 #if __has_include(<any>)
 #include <any>
 #endif
@@ -124,7 +124,7 @@
 #endif
 
 // C++ 20
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 201703L) || (defined(__cplusplus) && __cplusplus > 201703L)
+#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #if __has_include(<barrier>)
 #include <barrier>
 #endif
@@ -175,7 +175,7 @@
 #endif
 
 // C++ 23
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 202002L) || (defined(__cplusplus) && __cplusplus > 202002L)
+#if (defined(__cplusplus) && __cplusplus > 202002L) || (defined(_MSVC_LANG) && _MSVC_LANG > 202002L)
 #if __has_include(<expected>)
 #include <expected>
 #endif
@@ -206,7 +206,7 @@
 #endif
 
 // C++ 26 (when available)
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 202302L) || (defined(__cplusplus) && __cplusplus > 202302L)
+#if (defined(__cplusplus) && __cplusplus > 202302L) || (defined(_MSVC_LANG) && _MSVC_LANG > 202302L)
 #if __has_include(<debugging>)
 #include <debugging>
 #endif

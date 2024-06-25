@@ -16,7 +16,7 @@ protected:
     ~CompareTests() {}
 };
 
-#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #define TEST_CHAR8_ELEM(check, function, x, y) \
     do \
     { \
@@ -39,7 +39,7 @@ protected:
     } \
     while (false)
 
-#if (defined(_WIN32) && _HAS_CXX20) || (!defined(_WIN32) && __cplusplus > 201703L)
+#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #define TEST_CHAR8_ELEM_IGNORE_CASE(check, function, x, y, z) \
     do \
     { \

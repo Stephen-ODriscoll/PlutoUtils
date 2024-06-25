@@ -17,7 +17,7 @@ namespace Generic
     template<class KeyT, class ValueT>
     class SafeLRUCache
     {
-#if (defined(_MSVC_LANG) && _MSVC_LANG > 201402L) || (defined(__cplusplus) && __cplusplus > 201402L)
+#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
         typedef std::shared_mutex SharedMutexType;
 #else
         typedef std::shared_timed_mutex SharedMutexType;
