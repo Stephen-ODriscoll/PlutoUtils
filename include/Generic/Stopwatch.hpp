@@ -101,9 +101,9 @@ namespace Generic
         auto inMinutes()        const   { return count<std::chrono::minutes>(); }
         auto inHours()          const   { return count<std::chrono::hours>(); }
 
-        auto nanosecondsPart()  const   { return count<std::chrono::nanoseconds>(1000); }
-        auto microsecondsPart() const   { return count<std::chrono::microseconds>(1000); }
-        auto millisecondsPart() const   { return count<std::chrono::milliseconds>(1000); }
+        auto nanosecondsPart()  const   { return count<std::chrono::nanoseconds>(1'000); }
+        auto microsecondsPart() const   { return count<std::chrono::microseconds>(1'000); }
+        auto millisecondsPart() const   { return count<std::chrono::milliseconds>(1'000); }
         auto secondsPart()      const   { return count<std::chrono::seconds>(60); }
         auto minutesPart()      const   { return count<std::chrono::minutes>(60); }
         auto hoursPart()        const   { return count<std::chrono::hours>(); }
