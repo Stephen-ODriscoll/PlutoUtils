@@ -33,10 +33,6 @@
 #define GENERIC_LOGGER_WRITE_TIMESTAMP 1    // Define as 1 or 0
 #endif
 
-#ifndef GENERIC_LOGGER_WRITE_MILLISECONDS
-#define GENERIC_LOGGER_WRITE_MILLISECONDS 1 // Define as 1 or 0
-#endif
-
 #ifndef GENERIC_LOGGER_WRITE_PID
 #define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
 #endif
@@ -58,7 +54,7 @@
 #endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
-#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S"
+#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.4S"
 #endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_HEADER
@@ -86,11 +82,7 @@
 #endif
 
 #ifndef GENERIC_LOGGER_TIMESTAMP_LENGTH
-#if GENERIC_LOGGER_WRITE_MILLISECONDS
-#define GENERIC_LOGGER_TIMESTAMP_LENGTH 23
-#else
-#define GENERIC_LOGGER_TIMESTAMP_LENGTH 19
-#endif
+#define GENERIC_LOGGER_TIMESTAMP_LENGTH 24
 #endif
 
 #ifndef GENERIC_LOGGER_PID_LENGTH
@@ -353,34 +345,42 @@ namespace Generic
             }
         };
 
-        static inline std::string getLocalTimestamp(const char* const format, const bool appendMilliseconds = false)
+        static inline std::string getLocalTimestamp(const char* const format)
         {
             const auto nowTime{ std::chrono::system_clock::now() };
             const auto nowPosixTime{ std::chrono::system_clock::to_time_t(nowTime) };
 
             std::tm nowLocalTime{};
-            std::string timestamp{};
 #ifdef _WIN32
             if (localtime_s(&nowLocalTime, &nowPosixTime) == 0)
 #else
             if (localtime_r(&nowPosixTime, &nowLocalTime) != nullptr)
 #endif
             {
-                std::ostringstream ss{};
-                ss << std::put_time(&nowLocalTime, format);
+                std::string formatCopy{ format };
 
-                if (appendMilliseconds)
+                for (std::size_t i{ 0 }; (i + 3) < formatCopy.size(); ++i)
                 {
-                    const auto nowMilliseconds{ std::chrono::duration_cast<std::chrono::milliseconds>(
-                        nowTime.time_since_epoch()).count() % 1000 };
+                    if (formatCopy[i] == '%' && formatCopy[i + 1] == '.' && formatCopy[i + 3] == 'S')
+                    {
+                        const auto precision{ static_cast<std::size_t>(formatCopy[i + 2]) - '0' };
 
-                    ss << "." << std::right << std::setfill('0') << std::setw(3) << nowMilliseconds;
+                        if (0 < precision && precision < 10)
+                        {
+                            const auto nowNanoseconds{ std::chrono::duration_cast<std::chrono::nanoseconds>(
+                                nowTime.time_since_epoch()).count() % 1'000'000'000 };
+
+                            formatCopy.replace(i, 4, std::to_string(nowNanoseconds), 0, precision);
+                        }
+                    }
                 }
 
-                timestamp = ss.str();
+                std::ostringstream ss{};
+                ss << std::put_time(&nowLocalTime, formatCopy.c_str());
+                return ss.str();
             }
 
-            return timestamp;
+            return {};
         }
 
         static inline std::string getFileName(const char* const filePath)
@@ -612,11 +612,7 @@ namespace Generic
             const int           sourceLine,
             const std::string&  message)
         {
-#if GENERIC_LOGGER_WRITE_MILLISECONDS
-            const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT, true) };
-#else
             const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT) };
-#endif
 
             const auto threadID{ std::this_thread::get_id() };
 
