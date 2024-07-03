@@ -89,7 +89,7 @@ std::string getLastLogMessage()
     auto separator  { Generic::Logger::getInstance().separator() };
     auto index      { lastLog.rfind(separator) };
 
-    return (index == std::string::npos ? lastLog : lastLog.substr(index + separator.size()));
+    return ((index == std::string::npos) ? lastLog : lastLog.substr(index + separator.size()));
 }
 
 TEST_F(LoggerTests, TestLogFormatLevels)
