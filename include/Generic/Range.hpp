@@ -42,12 +42,7 @@ namespace Generic
 
         bool isLess(const Range& other) const
         {
-            if (begin == other.begin)
-            {
-                return (end < other.end);
-            }
-
-            return (begin < other.begin);
+            return ((begin == other.begin) ? (end < other.end) : (begin < other.begin));
         }
 
         // Warning:
