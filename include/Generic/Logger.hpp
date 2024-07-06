@@ -578,6 +578,12 @@ namespace Generic
             return *this;
         }
 
+        template<typename ...Ts>
+        Logger& metaDataColumns(const Ts... ts)
+        {
+            return metaDataColumns({ ts... });
+        }
+
         bool shouldLog(const Level logLevel) const
         {
             return (isLogging() && logLevel <= level());
