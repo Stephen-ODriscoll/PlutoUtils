@@ -14,6 +14,7 @@
 #include <chrono>
 #include <string>
 #include <thread>
+#include <vector>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
@@ -29,144 +30,15 @@
 #include "FileSystem.hpp"
 
 // Configurable with macros
-#ifndef GENERIC_LOGGER_WRITE_TIMESTAMP
-#define GENERIC_LOGGER_WRITE_TIMESTAMP 1    // Define as 1 or 0
-#endif
-
-#ifndef GENERIC_LOGGER_WRITE_PID
-#define GENERIC_LOGGER_WRITE_PID 1  // Define as 1 or 0
-#endif
-
-#ifndef GENERIC_LOGGER_WRITE_TID
-#define GENERIC_LOGGER_WRITE_TID 1  // Define as 1 or 0
-#endif
-
-#ifndef GENERIC_LOGGER_WRITE_LEVEL
-#define GENERIC_LOGGER_WRITE_LEVEL 1    // Define as 1 or 0
-#endif
-
-#ifndef GENERIC_LOGGER_WRITE_SOURCE_INFO
-#define GENERIC_LOGGER_WRITE_SOURCE_INFO 1  // Define as 1 or 0
-#endif
-
 #ifndef GENERIC_LOGGER_OLD_LOG_EXTENSION
 #define GENERIC_LOGGER_OLD_LOG_EXTENSION ".old"
 #endif
 
-#ifndef GENERIC_LOGGER_TIMESTAMP_FORMAT
-#define GENERIC_LOGGER_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.4S"
+#ifndef GENERIC_LOGGER_HIDE_SOURCE_INFO
+#define GENERIC_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
 
-#ifndef GENERIC_LOGGER_TIMESTAMP_HEADER
-#define GENERIC_LOGGER_TIMESTAMP_HEADER "Date & Time"
-#endif
-
-#ifndef GENERIC_LOGGER_PID_HEADER
-#define GENERIC_LOGGER_PID_HEADER "PID"
-#endif
-
-#ifndef GENERIC_LOGGER_TID_HEADER
-#define GENERIC_LOGGER_TID_HEADER "TID"
-#endif
-
-#ifndef GENERIC_LOGGER_FILE_NAME_HEADER
-#define GENERIC_LOGGER_FILE_NAME_HEADER "File Name"
-#endif
-
-#ifndef GENERIC_LOGGER_LINE_HEADER
-#define GENERIC_LOGGER_LINE_HEADER "Line"
-#endif
-
-#ifndef GENERIC_LOGGER_MESSAGE_HEADER
-#define GENERIC_LOGGER_MESSAGE_HEADER "Message"
-#endif
-
-#ifndef GENERIC_LOGGER_TIMESTAMP_LENGTH
-#define GENERIC_LOGGER_TIMESTAMP_LENGTH 24
-#endif
-
-#ifndef GENERIC_LOGGER_PID_LENGTH
-#define GENERIC_LOGGER_PID_LENGTH 6
-#endif
-
-#ifndef GENERIC_LOGGER_TID_LENGTH
-#define GENERIC_LOGGER_TID_LENGTH 6
-#endif
-
-#ifndef GENERIC_LOGGER_FILE_NAME_LENGTH
-#define GENERIC_LOGGER_FILE_NAME_LENGTH 20
-#endif
-
-#ifndef GENERIC_LOGGER_LINE_LENGTH
-#define GENERIC_LOGGER_LINE_LENGTH 6
-#endif
-
-// Configurable with macros or setters
-#ifndef GENERIC_LOGGER_DEFAULT_LEVEL
-#define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT
-#define GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT Generic::Logger::LevelFormat::Full
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIRS
-#define GENERIC_LOGGER_DEFAULT_CREATE_DIRS true
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
-#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER true
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
-#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE
-#define GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE 0    // 0 means unlimited
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
-#define GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 1
-#endif
-
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE
-#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
-#endif
-
-#if GENERIC_LOGGER_WRITE_SOURCE_INFO
-#define GENERIC_LOG_FORMAT(file, level, ...) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __VA_ARGS__); \
-        } \
-    } \
-    while (false)
-
-#define GENERIC_LOG_STREAM(file, level, message) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::Stream(file, level, __FILE__, __LINE__) << message; \
-        } \
-    } \
-    while (false)
-#else
+#if GENERIC_LOGGER_HIDE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
     { \
@@ -183,6 +55,26 @@
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
             Generic::Logger::Stream(file, level, "", 0) << message; \
+        } \
+    } \
+    while (false)
+#else
+#define GENERIC_LOG_FORMAT(file, level, ...) \
+    do \
+    { \
+        if (Generic::Logger::getInstance().shouldLog(level)) \
+        { \
+            Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __VA_ARGS__); \
+        } \
+    } \
+    while (false)
+
+#define GENERIC_LOG_STREAM(file, level, message) \
+    do \
+    { \
+        if (Generic::Logger::getInstance().shouldLog(level)) \
+        { \
+            Generic::Logger::Stream(file, level, __FILE__, __LINE__) << message; \
         } \
     } \
     while (false)
@@ -238,6 +130,16 @@ namespace Generic
             Char
         };
 
+        enum class MetaDataColumn : unsigned char
+        {
+            Timestamp = 0,
+            ProcessID,
+            ThreadID,
+            Level,
+            FileName,
+            Line
+        };
+
     private:
         struct Log
         {
@@ -279,31 +181,52 @@ namespace Generic
                 dirsCreated {} {}
         };
 
-        mutable std::mutex              m_loggingMutex{};
-        std::thread                     m_loggingThread{};
+        mutable std::mutex              m_loggingMutex          {};
+        std::thread                     m_loggingThread         {};
         std::condition_variable         m_loggingThreadCondition{};
-        std::map<std::string, LogFile>  m_logFiles{};
+        std::map<std::string, LogFile>  m_logFiles              {};
 
 #ifdef _WIN32
         const int m_pid{ _getpid() };
 #else
         const int m_pid{ getpid() };
 #endif
-        mutable std::mutex          m_separatorMutex{};
-        mutable std::mutex          m_headerSeparatorMutex{};
-        std::atomic_bool            m_isLogging{ true };
-        std::atomic<Level>          m_level{ GENERIC_LOGGER_DEFAULT_LEVEL };
-        std::atomic<LevelFormat>    m_levelFormat{ GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT };
-        std::string                 m_separator{ GENERIC_LOGGER_DEFAULT_SEPARATOR };
-        std::atomic_bool            m_createDirs{ GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
-        std::atomic_bool            m_writeHeader{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
-        std::atomic_bool            m_writeHeaderUnderline{ GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
-        std::string                 m_headerUnderlineSeparator{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
-        std::atomic_char            m_headerUnderlineFill{ GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
-        std::atomic_size_t          m_bufferMaxSize{ GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
-        std::atomic_size_t          m_bufferFlushSize{ GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
-        std::atomic_size_t          m_fileRotationSize{ GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
-        std::atomic_size_t          m_numDiscardedLogs{};
+        std::atomic_bool            m_isLogging             { true };
+        std::atomic<Level>          m_level                 { Level::Verbose };
+        std::atomic<LevelFormat>    m_levelFormat           { LevelFormat::Full };
+        std::atomic_bool            m_createDirs            { true };
+        std::atomic_bool            m_writeHeader           { true };
+        std::atomic_bool            m_writeHeaderUnderline  { true };
+        std::atomic_char            m_headerUnderlineFill   { '-' };
+        std::atomic_size_t          m_bufferMaxSize         { 0 };  // 0 means unlimited
+        std::atomic_size_t          m_bufferFlushSize       { 1 };
+        std::atomic_size_t          m_fileRotationSize      { 0 };  // 0 means no rotation (in bytes)
+        std::atomic_size_t          m_numDiscardedLogs      { 0 };
+        std::atomic_size_t          m_timestampLength       { 24 };
+        std::atomic_size_t          m_processIDLength       { 6 };
+        std::atomic_size_t          m_threadIDLength        { 6 };
+        std::atomic_size_t          m_fileNameLength        { 20 };
+        std::atomic_size_t          m_lineLength            { 6 };
+
+        mutable std::mutex          m_configMutex               {};
+        std::string                 m_separator                 { " | " };
+        std::string                 m_headerUnderlineSeparator  { "-+-" };
+        std::string                 m_timestampFormat           { "%Y-%m-%d %H:%M:%S.%.4S" };
+        std::string                 m_timestampHeader           { "Timestamp" };
+        std::string                 m_processIDHeader           { "PID" };
+        std::string                 m_threadIDHeader            { "TID" };
+        std::string                 m_fileNameHeader            { "File Name" };
+        std::string                 m_lineHeader                { "Line" };
+        std::string                 m_messageHeader             { "Message" };
+        std::vector<MetaDataColumn> m_metaDataColumns
+        {
+            MetaDataColumn::Timestamp,
+            MetaDataColumn::ProcessID,
+            MetaDataColumn::ThreadID,
+            MetaDataColumn::Level,
+            MetaDataColumn::FileName,
+            MetaDataColumn::Line
+        };
 
     public:
         class Stream
@@ -388,11 +311,6 @@ namespace Generic
             return Generic::FileSystem::path{ filePath }.filename().string();
         }
 
-        static inline std::string cropFileName(const std::string& fileName)
-        {
-            return fileName.substr(0, GENERIC_LOGGER_FILE_NAME_LENGTH);
-        }
-
         static inline std::string levelToString(const Level level, const LevelFormat levelFormat)
         {
             switch (levelFormat)
@@ -458,151 +376,180 @@ namespace Generic
             return instance;
         }
 
-        bool isLogging() const
+        int pid()                       const   { return m_pid; }
+        bool isLogging()                const   { return m_isLogging.load(); }
+        Level level()                   const   { return m_level.load(); }
+        LevelFormat levelFormat()       const   { return m_levelFormat.load(); }
+        bool createDirs()               const   { return m_createDirs.load(); }
+        bool writeHeader()              const   { return m_writeHeader.load(); }
+        bool writeHeaderUnderline()     const   { return m_writeHeaderUnderline.load(); }
+        char headerUnderlineFill()      const   { return m_headerUnderlineFill.load(); }
+        std::size_t bufferMaxSize()     const   { return m_bufferMaxSize.load(); }
+        std::size_t bufferFlushSize()   const   { return m_bufferFlushSize.load(); }
+        std::size_t fileRotationSize()  const   { return m_fileRotationSize.load(); }
+        std::size_t numDiscardedLogs()  const   { return m_numDiscardedLogs.load(); }
+        std::size_t timestampLength()   const   { return m_timestampLength.load(); }
+        std::size_t processIDLength()   const   { return m_processIDLength.load(); }
+        std::size_t threadIDLength()    const   { return m_threadIDLength.load(); }
+        std::size_t fileNameLength()    const   { return m_fileNameLength.load(); }
+        std::size_t lineLength()        const   { return m_lineLength.load(); }
+
+        std::string separator() const
         {
-            return m_isLogging.load(); // atomic
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_separator;
         }
 
-        Level level() const
+        std::string headerUnderlineSeparator() const
         {
-            return m_level.load(); // atomic
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_headerUnderlineSeparator;
         }
 
-        Logger& level(const Level newLevel)
+        std::string timestampFormat() const
         {
-            m_level.store(newLevel); // atomic
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_timestampFormat;
+        }
+
+        std::string timestampHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_timestampHeader;
+        }
+
+        std::string processIDHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_processIDHeader;
+        }
+
+        std::string threadIDHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_threadIDHeader;
+        }
+
+        std::string fileNameHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_fileNameHeader;
+        }
+
+        std::string lineHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_lineHeader;
+        }
+
+        std::string messageHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_messageHeader;
+        }
+
+        std::vector<MetaDataColumn> metaDataColumns() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_metaDataColumns;
+        }
+        
+        Logger& level(const Level l)                { m_level.store(l);                 return *this; }
+        Logger& levelFormat(const LevelFormat lf)   { m_levelFormat.store(lf);          return *this; }
+        Logger& createDirs(const bool b)            { m_createDirs.store(b);            return *this; }
+        Logger& writeHeader(const bool b)           { m_writeHeader.store(b);           return *this; }
+        Logger& writeHeaderUnderline(const bool b)  { m_writeHeaderUnderline.store(b);  return *this; }
+        Logger& headerUnderlineFill(const char c)   { m_headerUnderlineFill.store(c);   return *this; }
+        Logger& bufferMaxSize(const std::size_t s)  { m_bufferMaxSize.store(s);         return *this; }
+
+        Logger& bufferFlushSize(const std::size_t s)
+        {
+            m_bufferFlushSize.store(s);
+            m_loggingThreadCondition.notify_one();  // wake the logging thread
+            return *this;
+        }
+
+        Logger& fileRotationSize(const std::size_t s)   { m_fileRotationSize.store(s);  return *this; }
+        Logger& resetNumDiscardedLogs()                 { m_numDiscardedLogs.store(0);  return *this; }
+        Logger& timestampLength(const std::size_t s)    { m_timestampLength.store(s);   return *this; }
+        Logger& processIDLength(const std::size_t s)    { m_processIDLength.store(s);   return *this; }
+        Logger& threadIDLength(const std::size_t s)     { m_threadIDLength.store(s);    return *this; }
+        Logger& fileNameLength(const std::size_t s)     { m_fileNameLength.store(s);    return *this; }
+        Logger& lineLength(const std::size_t s)         { m_lineLength.store(s);        return *this; }
+        
+        Logger& separator(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_separator = s;
+            return *this;
+        }
+
+        Logger& headerUnderlineSeparator(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_headerUnderlineSeparator = s;
+            return *this;
+        }
+
+        Logger& timestampFormat(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_timestampFormat = s;
+            return *this;
+        }
+
+        Logger& timestampHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_timestampHeader = s;
+            return *this;
+        }
+
+        Logger& processIDHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_processIDHeader = s;
+            return *this;
+        }
+
+        Logger& threadIDHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_threadIDHeader = s;
+            return *this;
+        }
+
+        Logger& fileNameHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_fileNameHeader = s;
+            return *this;
+        }
+
+        Logger& lineHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_lineHeader = s;
+            return *this;
+        }
+
+        Logger& messageHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_messageHeader = s;
+            return *this;
+        }
+
+        Logger& metaDataColumns(const std::vector<MetaDataColumn>& v)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_metaDataColumns = v;
             return *this;
         }
 
         bool shouldLog(const Level logLevel) const
         {
             return (isLogging() && logLevel <= level());
-        }
-
-        LevelFormat levelFormat() const
-        {
-            return m_levelFormat.load(); // atomic
-        }
-
-        Logger& levelFormat(const LevelFormat newLevelFormat)
-        {
-            m_levelFormat.store(newLevelFormat); // atomic
-            return *this;
-        }
-
-        std::string separator() const
-        {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-            return m_separator;
-        }
-
-        Logger& separator(const std::string& newSeparator)
-        {
-            const std::unique_lock<std::mutex> lock{ m_separatorMutex };
-            m_separator = newSeparator;
-            return *this;
-        }
-
-        bool createDirs() const
-        {
-            return m_createDirs.load(); // atomic
-        }
-
-        Logger& createDirs(const bool newCreateDirs)
-        {
-            m_createDirs.store(newCreateDirs); // atomic
-            return *this;
-        }
-
-        bool writeHeader() const
-        {
-            return m_writeHeader.load(); // atomic
-        }
-
-        Logger& writeHeader(const bool newWriteHeader)
-        {
-            m_writeHeader.store(newWriteHeader); // atomic
-            return *this;
-        }
-
-        bool writeHeaderUnderline() const
-        {
-            return m_writeHeaderUnderline.load(); // atomic
-        }
-
-        Logger& writeHeaderUnderline(const bool newWriteHeaderUnderline)
-        {
-            m_writeHeaderUnderline.store(newWriteHeaderUnderline); // atomic
-            return *this;
-        }
-
-        std::string headerUnderlineSeparator() const
-        {
-            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
-            return m_headerUnderlineSeparator;
-        }
-
-        Logger& headerUnderlineSeparator(const std::string& newHeaderUnderlineSeparator)
-        {
-            const std::unique_lock<std::mutex> lock{ m_headerSeparatorMutex };
-            m_headerUnderlineSeparator = newHeaderUnderlineSeparator;
-            return *this;
-        }
-
-        char headerUnderlineFill() const
-        {
-            return m_headerUnderlineFill.load(); // atomic
-        }
-
-        Logger& headerUnderlineFill(const char newHeaderUnderlineFill)
-        {
-            m_headerUnderlineFill.store(newHeaderUnderlineFill); // atomic
-            return *this;
-        }
-
-        std::size_t bufferMaxSize() const
-        {
-            return m_bufferMaxSize.load(); // atomic
-        }
-
-        Logger& bufferMaxSize(const std::size_t newBufferMaxSize)
-        {
-            m_bufferMaxSize.store(newBufferMaxSize); // atomic
-            return *this;
-        }
-
-        std::size_t bufferFlushSize() const
-        {
-            return m_bufferFlushSize.load(); // atomic
-        }
-
-        Logger& bufferFlushSize(const std::size_t newBufferFlushSize)
-        {
-            m_bufferFlushSize.store(newBufferFlushSize);    // atomic
-            m_loggingThreadCondition.notify_one();          // wake the logging thread
-            return *this;
-        }
-
-        std::size_t fileRotationSize() const
-        {
-            return m_fileRotationSize.load(); // atomic
-        }
-
-        Logger& fileRotationSize(const std::size_t newFileRotationSize)
-        {
-            m_fileRotationSize.store(newFileRotationSize); // atomic
-            return *this;
-        }
-
-        std::size_t numDiscardedLogs() const
-        {
-            return m_numDiscardedLogs.load(); // atomic
-        }
-
-        Logger& resetNumDiscardedLogs()
-        {
-            m_numDiscardedLogs.store(0); // atomic
-            return *this;
         }
 
         void write(
@@ -612,7 +559,7 @@ namespace Generic
             const int           sourceLine,
             const std::string&  message)
         {
-            const auto timestamp{ getLocalTimestamp(GENERIC_LOGGER_TIMESTAMP_FORMAT) };
+            const auto timestamp{ getLocalTimestamp(timestampFormat().c_str()) };
 
             const auto threadID{ std::this_thread::get_id() };
 
@@ -742,77 +689,123 @@ namespace Generic
 
         void writeHeaderToStream(std::ostream& stream) const
         {
-            const auto separator{ this->separator() };
-            const auto headerUnderlineSeparator{ this->headerUnderlineSeparator() };
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+
             const auto levelHeader{ levelToString(Level::Header, levelFormat()) };
 
-            stream
-                << std::left << std::setfill(' ')
-#if GENERIC_LOGGER_WRITE_TIMESTAMP
-                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << GENERIC_LOGGER_TIMESTAMP_HEADER << separator
-#endif
-#if GENERIC_LOGGER_WRITE_PID
-                << std::setw(GENERIC_LOGGER_PID_LENGTH) << GENERIC_LOGGER_PID_HEADER << separator
-#endif
-#if GENERIC_LOGGER_WRITE_TID
-                << std::setw(GENERIC_LOGGER_TID_LENGTH) << GENERIC_LOGGER_TID_HEADER << separator
-#endif
-#if GENERIC_LOGGER_WRITE_LEVEL
-                << levelHeader << separator
-#endif
-#if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << GENERIC_LOGGER_FILE_NAME_HEADER << separator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << GENERIC_LOGGER_LINE_HEADER << separator
-#endif
-                << GENERIC_LOGGER_MESSAGE_HEADER << '\n';
+            stream << std::left << std::setfill(' ');
+
+            for (const auto metaDataColumn : m_metaDataColumns)
+            {
+                switch (metaDataColumn)
+                {
+                    case MetaDataColumn::Timestamp:
+                        stream << std::setw(timestampLength()) << m_timestampHeader << m_separator;
+                        break;
+
+                    case MetaDataColumn::ProcessID:
+                        stream << std::setw(processIDLength()) << m_processIDHeader << m_separator;
+                        break;
+
+                    case MetaDataColumn::ThreadID:
+                        stream << std::setw(threadIDLength()) << m_threadIDHeader << m_separator;
+                        break;
+
+                    case MetaDataColumn::Level:
+                        stream << levelHeader << m_separator;
+                        break;
+
+                    case MetaDataColumn::FileName:
+                        stream << std::setw(fileNameLength()) << m_fileNameHeader << m_separator;
+                        break;
+
+                    case MetaDataColumn::Line:
+                        stream << std::setw(lineLength()) << m_lineHeader << m_separator;
+                        break;
+                }
+            }
+
+            stream << m_messageHeader << '\n';
 
             if (writeHeaderUnderline())
             {
-                stream
-                    << std::left << std::setfill(headerUnderlineFill())
-#if GENERIC_LOGGER_WRITE_TIMESTAMP
-                    << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << "" << headerUnderlineSeparator
-#endif
-#if GENERIC_LOGGER_WRITE_PID
-                    << std::setw(GENERIC_LOGGER_PID_LENGTH) << "" << headerUnderlineSeparator
-#endif
-#if GENERIC_LOGGER_WRITE_TID
-                    << std::setw(GENERIC_LOGGER_TID_LENGTH) << "" << headerUnderlineSeparator
-#endif
-#if GENERIC_LOGGER_WRITE_LEVEL
-                    << std::setw(levelHeader.size()) << "" << headerUnderlineSeparator
-#endif
-#if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                    << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << "" << headerUnderlineSeparator
-                    << std::setw(GENERIC_LOGGER_LINE_LENGTH) << "" << headerUnderlineSeparator
-#endif
-                    << std::setw(std::strlen(GENERIC_LOGGER_MESSAGE_HEADER)) << "" << '\n';
+                stream << std::left << std::setfill(headerUnderlineFill());
+
+                for (const auto metaDataColumn : m_metaDataColumns)
+                {
+                    switch (metaDataColumn)
+                    {
+                        case MetaDataColumn::Timestamp:
+                            stream << std::setw(timestampLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::ProcessID:
+                            stream << std::setw(processIDLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::ThreadID:
+                            stream << std::setw(threadIDLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::Level:
+                            stream << std::setw(levelHeader.size()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::FileName:
+                            stream << std::setw(fileNameLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::Line:
+                            stream << std::setw(lineLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+                    }
+                }
+
+                stream << std::setw(m_messageHeader.size()) << "" << '\n';
             }
         }
 
         void writeLogToStream(std::ostream& stream, const Log& log) const
         {
-            const auto separator{ this->separator() };
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
 
-            stream
-                << std::left << std::setfill(' ')
-#if GENERIC_LOGGER_WRITE_TIMESTAMP
-                << std::setw(GENERIC_LOGGER_TIMESTAMP_LENGTH) << log.timestamp << separator
-#endif
-#if GENERIC_LOGGER_WRITE_PID
-                << std::setw(GENERIC_LOGGER_PID_LENGTH) << m_pid << separator
-#endif
-#if GENERIC_LOGGER_WRITE_TID
-                << std::setw(GENERIC_LOGGER_TID_LENGTH) << log.threadID << separator
-#endif
-#if GENERIC_LOGGER_WRITE_LEVEL
-                << levelToString(log.level, levelFormat()) << separator
-#endif
-#if GENERIC_LOGGER_WRITE_SOURCE_INFO
-                << std::setw(GENERIC_LOGGER_FILE_NAME_LENGTH) << cropFileName(log.sourceFileName) << separator
-                << std::setw(GENERIC_LOGGER_LINE_LENGTH) << log.sourceLine << separator
-#endif
-                << log.message << '\n';
+            stream << std::left << std::setfill(' ');
+
+            for (const auto metaDataColumn : m_metaDataColumns)
+            {
+                switch (metaDataColumn)
+                {
+                    case MetaDataColumn::Timestamp:
+                        stream << std::setw(timestampLength()) << log.timestamp << m_separator;
+                        break;
+
+                    case MetaDataColumn::ProcessID:
+                        stream << std::setw(processIDLength()) << m_pid << m_separator;
+                        break;
+
+                    case MetaDataColumn::ThreadID:
+                        stream << std::setw(threadIDLength()) << log.threadID << m_separator;
+                        break;
+
+                    case MetaDataColumn::Level:
+                        stream << levelToString(log.level, levelFormat()) << m_separator;
+                        break;
+
+                    case MetaDataColumn::FileName:
+                    {
+                        const auto fileNameLength{ this->fileNameLength() };
+                        const auto fileName{ log.sourceFileName.substr(0, fileNameLength) };
+                        stream << std::setw(fileNameLength) << fileName << m_separator;
+                        break;
+                    }
+
+                    case MetaDataColumn::Line:
+                        stream << std::setw(lineLength()) << log.sourceLine << m_separator;
+                        break;
+                }
+            }
+
+            stream << log.message << '\n';
         }
 
         bool writeBufferToFile(
