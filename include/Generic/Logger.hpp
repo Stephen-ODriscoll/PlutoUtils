@@ -44,7 +44,7 @@
     { \
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
-            Generic::Logger::getInstance().writef(file, level, "", 0, __VA_ARGS__); \
+            Generic::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__); \
         } \
     } \
     while (false)
@@ -54,7 +54,7 @@
     { \
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
-            Generic::Logger::Stream(file, level, "", 0) << message; \
+            Generic::Logger::Stream(file, level, "", 0, "") << message; \
         } \
     } \
     while (false)
@@ -64,7 +64,7 @@
     { \
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
-            Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __VA_ARGS__); \
+            Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__); \
         } \
     } \
     while (false)
@@ -74,7 +74,7 @@
     { \
         if (Generic::Logger::getInstance().shouldLog(level)) \
         { \
-            Generic::Logger::Stream(file, level, __FILE__, __LINE__) << message; \
+            Generic::Logger::Stream(file, level, __FILE__, __LINE__, __func__) << message; \
         } \
     } \
     while (false)
@@ -137,7 +137,8 @@ namespace Generic
             ThreadID,
             Level,
             FileName,
-            Line
+            Line,
+            Function
         };
 
     private:
@@ -148,6 +149,7 @@ namespace Generic
             Level           level;
             std::string     sourceFileName;
             int             sourceLine;
+            std::string     sourceFunction;
             std::string     message;
 
             Log(
@@ -156,12 +158,14 @@ namespace Generic
                 const Level             level,
                 const std::string&      sourceFileName,
                 const int               sourceLine,
+                const std::string&      sourceFunction,
                 const std::string&      message) :
                 timestamp       { timestamp },
                 threadID        { threadID },
                 level           { level },
                 sourceFileName  { sourceFileName },
                 sourceLine      { sourceLine },
+                sourceFunction  { sourceFunction },
                 message         { message } {}
 
             ~Log() {}
@@ -207,6 +211,7 @@ namespace Generic
         std::atomic_size_t          m_threadIDLength        { 6 };
         std::atomic_size_t          m_fileNameLength        { 20 };
         std::atomic_size_t          m_lineLength            { 6 };
+        std::atomic_size_t          m_functionLength        { 20 };
 
         mutable std::mutex          m_configMutex               {};
         std::string                 m_separator                 { " | " };
@@ -217,6 +222,7 @@ namespace Generic
         std::string                 m_threadIDHeader            { "TID" };
         std::string                 m_fileNameHeader            { "File Name" };
         std::string                 m_lineHeader                { "Line" };
+        std::string                 m_functionHeader            { "Function" };
         std::string                 m_messageHeader             { "Message" };
         std::vector<MetaDataColumn> m_metaDataColumns
         {
@@ -225,7 +231,8 @@ namespace Generic
             MetaDataColumn::ThreadID,
             MetaDataColumn::Level,
             MetaDataColumn::FileName,
-            MetaDataColumn::Line
+            MetaDataColumn::Line,
+            MetaDataColumn::Function
         };
 
     public:
@@ -235,6 +242,7 @@ namespace Generic
             const Level         m_logLevel;
             const char* const   m_sourceFilePath;
             const int           m_sourceLine;
+            const char* const   m_sourceFunction;
             std::stringstream   m_stream;
 
         public:
@@ -242,16 +250,24 @@ namespace Generic
                 const std::string   logFileName,
                 const Level         logLevel,
                 const char* const   sourceFilePath,
-                const int           sourceLine) :
+                const int           sourceLine,
+                const char* const   sourceFunction) :
                 m_logFileName   { logFileName },
                 m_logLevel      { logLevel },
                 m_sourceFilePath{ sourceFilePath },
                 m_sourceLine    { sourceLine },
+                m_sourceFunction{ sourceFunction },
                 m_stream        {} {}
 
             ~Stream()
             {
-                getInstance().write(m_logFileName, m_logLevel, m_sourceFilePath, m_sourceLine, m_stream.str());
+                getInstance().write(
+                    m_logFileName,
+                    m_logLevel,
+                    m_sourceFilePath,
+                    m_sourceLine,
+                    m_sourceFunction,
+                    m_stream.str());
             }
 
             Stream& operator<<(const bool b)
@@ -393,6 +409,7 @@ namespace Generic
         std::size_t threadIDLength()    const   { return m_threadIDLength.load(); }
         std::size_t fileNameLength()    const   { return m_fileNameLength.load(); }
         std::size_t lineLength()        const   { return m_lineLength.load(); }
+        std::size_t functionLength()    const   { return m_functionLength.load(); }
 
         std::string separator() const
         {
@@ -442,6 +459,12 @@ namespace Generic
             return m_lineHeader;
         }
 
+        std::string functionHeader() const
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            return m_functionHeader;
+        }
+
         std::string messageHeader() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
@@ -476,6 +499,7 @@ namespace Generic
         Logger& threadIDLength(const std::size_t s)     { m_threadIDLength.store(s);    return *this; }
         Logger& fileNameLength(const std::size_t s)     { m_fileNameLength.store(s);    return *this; }
         Logger& lineLength(const std::size_t s)         { m_lineLength.store(s);        return *this; }
+        Logger& functionLength(const std::size_t s)     { m_functionLength.store(s);    return *this; }
         
         Logger& separator(const std::string& s)
         {
@@ -533,6 +557,13 @@ namespace Generic
             return *this;
         }
 
+        Logger& functionHeader(const std::string& s)
+        {
+            const std::unique_lock<std::mutex> lock{ m_configMutex };
+            m_functionHeader = s;
+            return *this;
+        }
+
         Logger& messageHeader(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
@@ -557,6 +588,7 @@ namespace Generic
             const Level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
+            const char* const   sourceFunction,
             const std::string&  message)
         {
             const auto timestamp{ getLocalTimestamp(timestampFormat().c_str()) };
@@ -584,6 +616,7 @@ namespace Generic
                     logLevel,
                     sourceFileName,
                     sourceLine,
+                    sourceFunction,
                     message);
 
                 if (bufferFlushSize() <= buffer.size())
@@ -605,6 +638,7 @@ namespace Generic
             const Level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
+            const char* const   sourceFunction,
             const char* const   format,
             ...)
         {
@@ -626,7 +660,13 @@ namespace Generic
             va_end(args);
 
             // Write message, or use format if message creation failed
-            write(logFileName, logLevel, sourceFilePath, sourceLine, (buffer[0] == '\0') ? format : buffer);
+            write(
+                logFileName,
+                logLevel,
+                sourceFilePath,
+                sourceLine,
+                sourceFunction,
+                (buffer[0] == '\0') ? format : buffer);
         }
 
         Logger(const Logger&) = delete;
@@ -722,6 +762,10 @@ namespace Generic
                     case MetaDataColumn::Line:
                         stream << std::setw(lineLength()) << m_lineHeader << m_separator;
                         break;
+
+                    case MetaDataColumn::Function:
+                        stream << std::setw(functionLength()) << m_functionHeader << m_separator;
+                        break;
                 }
             }
 
@@ -757,6 +801,10 @@ namespace Generic
 
                         case MetaDataColumn::Line:
                             stream << std::setw(lineLength()) << "" << m_headerUnderlineSeparator;
+                            break;
+
+                        case MetaDataColumn::Function:
+                            stream << std::setw(functionLength()) << "" << m_headerUnderlineSeparator;
                             break;
                     }
                 }
@@ -802,6 +850,14 @@ namespace Generic
                     case MetaDataColumn::Line:
                         stream << std::setw(lineLength()) << log.sourceLine << m_separator;
                         break;
+
+                    case MetaDataColumn::Function:
+                    {
+                        const auto functionLength{ this->functionLength() };
+                        const auto function{ log.sourceFunction.substr(0, functionLength) };
+                        stream << std::setw(functionLength) << function << m_separator;
+                        break;
+                    }
                 }
             }
 
