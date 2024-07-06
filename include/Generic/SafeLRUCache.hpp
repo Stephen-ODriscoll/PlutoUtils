@@ -48,12 +48,6 @@ namespace Generic
             const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.capacity();
         }
-        
-        void capacity(const std::size_t newCapacity)
-        {
-            const std::unique_lock<SharedMutexType> writer{ m_mutex };
-            m_lruCache.capacity(newCapacity);
-        }
 
         bool empty() const
         {
@@ -65,6 +59,12 @@ namespace Generic
         {
             const std::shared_lock<SharedMutexType> reader{ m_mutex };
             return m_lruCache.contains(key);
+        }
+
+        void capacity(const std::size_t newCapacity)
+        {
+            const std::unique_lock<SharedMutexType> writer{ m_mutex };
+            m_lruCache.capacity(newCapacity);
         }
 
         void insert(const KeyType& key, const ValueType& value)

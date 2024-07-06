@@ -32,15 +32,10 @@ namespace Generic
 
         ~LRUCache() {}
 
-        std::size_t size() const
-        {
-            return m_map.size();
-        }
-
-        std::size_t capacity() const
-        {
-            return m_capacity;
-        }
+        std::size_t size()                  const   { return m_map.size(); }
+        std::size_t capacity()              const   { return m_capacity; }
+        bool empty()                        const   { return m_map.empty(); }
+        bool contains(const KeyType& key)   const   { return (m_map.find(key) != m_map.end()); }
 
         void capacity(const std::size_t newCapacity)
         {
@@ -51,16 +46,6 @@ namespace Generic
             {
                 evictLRU();
             }
-        }
-
-        bool empty() const
-        {
-            return m_map.empty();
-        }
-
-        bool contains(const KeyType& key) const
-        {
-            return (m_map.find(key) != m_map.end());
         }
 
         void insert(const KeyType& key, const ValueType& value)
