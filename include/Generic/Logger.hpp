@@ -29,11 +29,7 @@
 
 #include "FileSystem.hpp"
 
-// Configurable with macros
-#ifndef GENERIC_LOGGER_OLD_LOG_EXTENSION
-#define GENERIC_LOGGER_OLD_LOG_EXTENSION ".old"
-#endif
-
+// Configurable with macro
 #ifndef GENERIC_LOGGER_HIDE_SOURCE_INFO
 #define GENERIC_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
@@ -205,6 +201,7 @@ namespace Generic
         std::atomic_size_t          m_bufferMaxSize         { 0 };  // 0 means unlimited
         std::atomic_size_t          m_bufferFlushSize       { 1 };
         std::atomic_size_t          m_fileRotationSize      { 0 };  // 0 means no rotation (in bytes)
+        std::atomic_size_t          m_fileRotationLimit     { 1 };
         std::atomic_size_t          m_numDiscardedLogs      { 0 };
         std::atomic_size_t          m_timestampLength       { 24 };
         std::atomic_size_t          m_processIDLength       { 6 };
@@ -403,6 +400,7 @@ namespace Generic
         std::size_t bufferMaxSize()     const   { return m_bufferMaxSize.load(); }
         std::size_t bufferFlushSize()   const   { return m_bufferFlushSize.load(); }
         std::size_t fileRotationSize()  const   { return m_fileRotationSize.load(); }
+        std::size_t fileRotationLimit() const   { return m_fileRotationLimit.load(); }
         std::size_t numDiscardedLogs()  const   { return m_numDiscardedLogs.load(); }
         std::size_t timestampLength()   const   { return m_timestampLength.load(); }
         std::size_t processIDLength()   const   { return m_processIDLength.load(); }
@@ -493,6 +491,7 @@ namespace Generic
         }
 
         Logger& fileRotationSize(const std::size_t s)   { m_fileRotationSize.store(s);  return *this; }
+        Logger& fileRotationLimit(const std::size_t s)  { m_fileRotationLimit.store(s); return *this; }
         Logger& resetNumDiscardedLogs()                 { m_numDiscardedLogs.store(0);  return *this; }
         Logger& timestampLength(const std::size_t s)    { m_timestampLength.store(s);   return *this; }
         Logger& processIDLength(const std::size_t s)    { m_processIDLength.store(s);   return *this; }
@@ -712,14 +711,40 @@ namespace Generic
 
         void rotateFile(const Generic::FileSystem::path& filePath) const
         {
-            const Generic::FileSystem::path filePathOld{ filePath.string() + GENERIC_LOGGER_OLD_LOG_EXTENSION };
+            const auto stem             { filePath.stem().string() };
+            const auto extension        { filePath.extension().string() };
+            const auto parentPath       { filePath.parent_path() };
+            const auto fileRotationLimit{ this->fileRotationLimit() };
 
-            if (Generic::FileSystem::exists(filePathOld))
+            std::size_t numFiles{ 0 };
+            for (std::size_t i{ 0 }; ; ++i)
             {
-                Generic::FileSystem::remove(filePathOld);
+                const auto thisPath{ parentPath / (stem + ((i == 0) ? "" : ("_" + std::to_string(i))) + extension) };
+
+                if (!Generic::FileSystem::exists(thisPath))
+                {
+                    break;
+                }
+
+                if (i < fileRotationLimit)
+                {
+                    ++numFiles;
+                    continue;
+                }
+
+                Generic::FileSystem::remove(thisPath);
             }
 
-            Generic::FileSystem::rename(filePath, filePathOld);
+            for (auto i{ numFiles }; 0 < i; )
+            {
+                const auto newPath{ parentPath / (stem + "_" + std::to_string(i) + extension) };
+
+                --i;
+
+                const auto oldPath{ parentPath / (stem + ((i == 0) ? "" : ("_" + std::to_string(i))) + extension) };
+
+                Generic::FileSystem::rename(oldPath, newPath);
+            }
         }
 
         void openFileStream(std::ofstream& fileStream, const Generic::FileSystem::path& filePath) const

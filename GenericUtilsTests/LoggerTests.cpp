@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-#define LOG_FILE "./test.log"
+#define LOG_FILE "test.log"
 
 #define LOG_FORMAT(...)             GENERIC_LOG_FORMAT_NONE(LOG_FILE, __VA_ARGS__)
 #define LOG_FORMAT_FATAL(...)       GENERIC_LOG_FORMAT_FATAL(LOG_FILE, __VA_ARGS__)
