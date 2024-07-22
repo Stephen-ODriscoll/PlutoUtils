@@ -327,41 +327,57 @@ namespace Generic
     }
 
     template<class ElemT>
-    inline const std::basic_string<ElemT>& getWhitespace()
-    {
-        static const std::basic_string<ElemT> whitespace
-        {
-            static_cast<ElemT>('\t'),
-            static_cast<ElemT>('\n'),
-            static_cast<ElemT>('\v'),
-            static_cast<ElemT>('\f'),
-            static_cast<ElemT>('\r'),
-            static_cast<ElemT>(' ')
-        };
-
-        return whitespace;
-    }
-
-    template<class ElemT>
     inline std::vector<std::basic_string<ElemT>> splitAnyOf(
         const std::basic_string<ElemT>& str,
         const std::basic_string<ElemT>& sep)
     {
-        std::size_t start, end{};
+        std::size_t from, to{ 0 };
         std::vector<std::basic_string<ElemT>> splits{};
-        while ((start = str.find_first_not_of(sep, end)) != str.npos)
+        while ((from = str.find_first_not_of(sep, to)) != str.npos)
         {
-            end = str.find_first_of(sep, start);
-            splits.push_back(str.substr(start, (end - start)));
+            to = str.find_first_of(sep, from);
+            splits.push_back(str.substr(from, (to - from)));
         }
 
         return splits;
     }
 
     template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split(const std::basic_string<ElemT>& str)
+    inline std::vector<std::basic_string<ElemT>> split(
+        const std::basic_string<ElemT>& str,
+        const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::splitAnyOf(str, Generic::getWhitespace<ElemT>());
+        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+
+        std::size_t from{ 0 }, to;
+        std::vector<std::basic_string<ElemT>> splits{};
+        while (from < str.size())
+        {
+            while (facet.is(std::ctype_base::space, str[from]))
+            {
+                ++from;
+
+                if (!(from < str.size()))
+                {
+                    goto done;
+                }
+            }
+
+            to = from;
+            ++to;
+
+            while (to < str.size() && !facet.is(std::ctype_base::space, str[to]))
+            {
+                ++to;
+            }
+
+            splits.push_back(str.substr(from, (to - from)));
+            from = to;
+            ++from;
+        }
+
+    done:
+        return splits;
     }
 
     template<class ElemT>
@@ -374,15 +390,15 @@ namespace Generic
             throw std::invalid_argument("Generic::split() got empty separator");
         }
 
-        std::size_t start{}, end;
+        std::size_t from{ 0 }, to;
         std::vector<std::basic_string<ElemT>> splits{};
-        while ((end = str.find(sep, start)) != str.npos)
+        while ((to = str.find(sep, from)) != str.npos)
         {
-            splits.push_back(str.substr(start, (end - start)));
-            start = (end + sep.size());
+            splits.push_back(str.substr(from, (to - from)));
+            from = (to + sep.size());
         }
 
-        splits.push_back(str.substr(start));
+        splits.push_back(str.substr(from));
         return splits;
     }
 
@@ -393,7 +409,7 @@ namespace Generic
         const IteratorT                 end)
     {
         std::basic_string<ElemT> str{};
-        for (auto it{ begin }; it < end; ++it)
+        for (auto it{ begin }; it != end; ++it)
         {
             if (it != begin)
             {
@@ -415,21 +431,47 @@ namespace Generic
     }
 
     template<class ElemT>
-    inline void ltrim(std::basic_string<ElemT>& str)
+    inline void ltrim(
+        std::basic_string<ElemT>&   str,
+        const std::locale&          locale = Generic::getDefaultLocale())
     {
-        str.erase(0, str.find_first_not_of(Generic::getWhitespace<ElemT>()));
+        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+
+        std::size_t from{ 0 };
+        while (from < str.size() && facet.is(std::ctype_base::space, str[from]))
+        {
+            ++from;
+        }
+
+        str.erase(0, from);
     }
 
     template<class ElemT>
-    inline void rtrim(std::basic_string<ElemT>& str)
+    inline void rtrim(
+        std::basic_string<ElemT>&   str,
+        const std::locale&          locale = Generic::getDefaultLocale())
     {
-        str.erase(str.find_last_not_of(Generic::getWhitespace<ElemT>()) + 1);
+        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+
+        std::size_t to{ str.size() };
+        while (0 < to)
+        {
+            if (!facet.is(std::ctype_base::space, str[--to]))
+            {
+                ++to;
+                break;
+            }
+        }
+
+        str.erase(to);
     }
 
     template<class ElemT>
-    inline void trim(std::basic_string<ElemT>& str)
+    inline void trim(
+        std::basic_string<ElemT>&   str,
+        const std::locale&          locale = Generic::getDefaultLocale())
     {
-        Generic::ltrim(str);
-        Generic::rtrim(str);
+        Generic::ltrim(str, locale);
+        Generic::rtrim(str, locale);
     }
 }
