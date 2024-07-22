@@ -28,7 +28,7 @@ protected:
 
 TEST_F(LRUCacheTests, TestCacheSanity)
 {
-    std::size_t value{};
+    std::size_t value{ 0 };
 
     ASSERT_EQ(cache.size(), 0);
     ASSERT_EQ(cache.capacity(), CACHE_CAPACITY);
@@ -69,7 +69,7 @@ TEST_F(LRUCacheTests, TestChangeCapacity)
     cache.capacity(newCapacity);
     ASSERT_EQ(cache.size(), newCapacity);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     for (std::size_t i{ 1 }; i <= evictedSize; ++i)
     {
         ASSERT_FALSE(cache.get(i, value));
@@ -91,7 +91,7 @@ TEST_F(LRUCacheTests, TestInsertAndGet)
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
     for (std::size_t i{ 1 }; i <= CACHE_CAPACITY; ++i)
     {
-        std::size_t value{};
+        std::size_t value{ 0 };
         ASSERT_TRUE(cache.get(i, value));
         ASSERT_EQ(value, i);
     }
@@ -108,7 +108,7 @@ TEST_F(LRUCacheTests, TestInsertEvictsOldest)
 
     cache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_FALSE(cache.get(1, value));
 }
 
@@ -123,7 +123,7 @@ TEST_F(LRUCacheTests, TestInsertUpdatesExisting)
 
     cache.insert(1, 2);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 2);
 }
@@ -140,7 +140,7 @@ TEST_F(LRUCacheTests, TestInsertMovesToFront)
 
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 1);
 }
@@ -152,13 +152,13 @@ TEST_F(LRUCacheTests, TestGetMovesToFront)
         cache.insert(i, i);
     }
 
-    std::size_t unused{};
+    std::size_t unused;
     cache.get(1, unused);
     cache.insert(CACHE_CAPACITY + 1, CACHE_CAPACITY + 1);
 
     ASSERT_EQ(cache.size(), CACHE_CAPACITY);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(cache.get(1, value));
     ASSERT_EQ(value, 1);
 }
@@ -174,6 +174,6 @@ TEST_F(LRUCacheTests, TestRemove)
 
     cache.remove(1);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_FALSE(cache.get(1, value));
 }

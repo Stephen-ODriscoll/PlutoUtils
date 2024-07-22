@@ -302,7 +302,7 @@ namespace Generic
             LogFile() :
                 buffer      {},
                 filePath    {},
-                dirsCreated {} {}
+                dirsCreated { false } {}
         };
 
         mutable std::mutex              m_loggingMutex          {};
@@ -1038,7 +1038,7 @@ namespace Generic
                 const auto writeHeader{ this->writeHeader() };
                 const auto fileRotationSize{ this->fileRotationSize() };
 
-                std::size_t fileSize{};
+                std::size_t fileSize{ 0 };
                 std::ofstream fileStream{};
                 openFileStream(fileStream, filePath);
 

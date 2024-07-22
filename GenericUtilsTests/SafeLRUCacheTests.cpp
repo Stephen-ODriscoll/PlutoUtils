@@ -28,7 +28,7 @@ protected:
 
 TEST_F(SafeLRUCacheTests, TestCacheSanity)
 {
-    std::size_t value{};
+    std::size_t value{ 0 };
 
     ASSERT_EQ(safeCache.size(), 0);
     ASSERT_EQ(safeCache.capacity(), SAFE_CACHE_CAPACITY);
@@ -69,7 +69,7 @@ TEST_F(SafeLRUCacheTests, TestChangeCapacity)
     safeCache.capacity(newCapacity);
     ASSERT_EQ(safeCache.size(), newCapacity);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     for (std::size_t i{ 1 }; i <= evictedSize; ++i)
     {
         ASSERT_FALSE(safeCache.get(i, value));
@@ -91,7 +91,7 @@ TEST_F(SafeLRUCacheTests, TestInsertAndGet)
     ASSERT_EQ(safeCache.size(), SAFE_CACHE_CAPACITY);
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
-        std::size_t value{};
+        std::size_t value{ 0 };
         ASSERT_TRUE(safeCache.get(i, value));
         ASSERT_EQ(value, i);
     }
@@ -108,7 +108,7 @@ TEST_F(SafeLRUCacheTests, TestInsertEvictsOldest)
 
     safeCache.insert(SAFE_CACHE_CAPACITY + 1, SAFE_CACHE_CAPACITY + 1);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_FALSE(safeCache.get(1, value));
 }
 
@@ -123,7 +123,7 @@ TEST_F(SafeLRUCacheTests, TestInsertUpdatesExisting)
 
     safeCache.insert(1, 2);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 2);
 }
@@ -140,7 +140,7 @@ TEST_F(SafeLRUCacheTests, TestInsertMovesToFront)
 
     ASSERT_EQ(safeCache.size(), SAFE_CACHE_CAPACITY);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 1);
 }
@@ -152,13 +152,13 @@ TEST_F(SafeLRUCacheTests, TestGetMovesToFront)
         safeCache.insert(i, i);
     }
 
-    std::size_t unused{};
+    std::size_t unused;
     safeCache.get(1, unused);
     safeCache.insert(SAFE_CACHE_CAPACITY + 1, SAFE_CACHE_CAPACITY + 1);
 
     ASSERT_EQ(safeCache.size(), SAFE_CACHE_CAPACITY);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_TRUE(safeCache.get(1, value));
     ASSERT_EQ(value, 1);
 }
@@ -174,6 +174,6 @@ TEST_F(SafeLRUCacheTests, TestRemove)
 
     safeCache.remove(1);
 
-    std::size_t value{};
+    std::size_t value{ 0 };
     ASSERT_FALSE(safeCache.get(1, value));
 }

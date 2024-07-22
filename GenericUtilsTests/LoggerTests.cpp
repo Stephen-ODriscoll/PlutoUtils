@@ -54,7 +54,7 @@ std::size_t countLogs()
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     std::string lastLog{};
-    std::size_t logCount{};
+    std::size_t logCount{ 0 };
     std::ifstream logFile{ LOG_FILE };
 
     if (logFile.is_open() && logFile.good())
