@@ -34,6 +34,130 @@
 #define GENERIC_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
 
+// Configurable with macros or setters
+#ifndef GENERIC_LOGGER_DEFAULT_LEVEL
+#define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT
+#define GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT Generic::Logger::LevelFormat::Full
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIRS
+#define GENERIC_LOGGER_DEFAULT_CREATE_DIRS true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
+#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
+#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE
+#define GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE 0    // 0 means unlimited
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
+#define GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 1
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE
+#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT
+#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT 1
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH
+#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH 24
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH
+#define GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH 6
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH
+#define GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH 6
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH
+#define GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH 20
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_LINE_LENGTH
+#define GENERIC_LOGGER_DEFAULT_LINE_LENGTH 6
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH
+#define GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH 20
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
+#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT
+#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.4S"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER
+#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER "Timestamp"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER
+#define GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER "PID"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER
+#define GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER "TID"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER
+#define GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER "File Name"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_LINE_HEADER
+#define GENERIC_LOGGER_DEFAULT_LINE_HEADER "Line"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER
+#define GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER "Function"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER
+#define GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER "Message"
+#endif
+
+#ifndef GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS
+#if GENERIC_LOGGER_HIDE_SOURCE_INFO
+#define GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS \
+    MetaDataColumn::Timestamp, \
+    MetaDataColumn::ProcessID, \
+    MetaDataColumn::ThreadID, \
+    MetaDataColumn::Level
+#else
+#define GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS \
+    MetaDataColumn::Timestamp, \
+    MetaDataColumn::ProcessID, \
+    MetaDataColumn::ThreadID, \
+    MetaDataColumn::Level, \
+    MetaDataColumn::FileName, \
+    MetaDataColumn::Line, \
+    MetaDataColumn::Function
+#endif
+#endif
+
 #if GENERIC_LOGGER_HIDE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
     do \
@@ -187,50 +311,42 @@ namespace Generic
         std::map<std::string, LogFile>  m_logFiles              {};
 
 #ifdef _WIN32
-        const int m_pid{ _getpid() };
+        const int m_processID{ _getpid() };
 #else
-        const int m_pid{ getpid() };
+        const int m_processID{ getpid() };
 #endif
+
         std::atomic_bool            m_isLogging             { true };
-        std::atomic<Level>          m_level                 { Level::Verbose };
-        std::atomic<LevelFormat>    m_levelFormat           { LevelFormat::Full };
-        std::atomic_bool            m_createDirs            { true };
-        std::atomic_bool            m_writeHeader           { true };
-        std::atomic_bool            m_writeHeaderUnderline  { true };
-        std::atomic_char            m_headerUnderlineFill   { '-' };
-        std::atomic_size_t          m_bufferMaxSize         { 0 };  // 0 means unlimited
-        std::atomic_size_t          m_bufferFlushSize       { 1 };
-        std::atomic_size_t          m_fileRotationSize      { 0 };  // 0 means no rotation (in bytes)
-        std::atomic_size_t          m_fileRotationLimit     { 1 };
+        std::atomic<Level>          m_level                 { GENERIC_LOGGER_DEFAULT_LEVEL };
+        std::atomic<LevelFormat>    m_levelFormat           { GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT };
+        std::atomic_bool            m_createDirs            { GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
+        std::atomic_bool            m_writeHeader           { GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
+        std::atomic_bool            m_writeHeaderUnderline  { GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
+        std::atomic_char            m_headerUnderlineFill   { GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
+        std::atomic_size_t          m_bufferMaxSize         { GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
+        std::atomic_size_t          m_bufferFlushSize       { GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
+        std::atomic_size_t          m_fileRotationSize      { GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
+        std::atomic_size_t          m_fileRotationLimit     { GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT };
         std::atomic_size_t          m_numDiscardedLogs      { 0 };
-        std::atomic_size_t          m_timestampLength       { 24 };
-        std::atomic_size_t          m_processIDLength       { 6 };
-        std::atomic_size_t          m_threadIDLength        { 6 };
-        std::atomic_size_t          m_fileNameLength        { 20 };
-        std::atomic_size_t          m_lineLength            { 6 };
-        std::atomic_size_t          m_functionLength        { 20 };
+        std::atomic_size_t          m_timestampLength       { GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH };
+        std::atomic_size_t          m_processIDLength       { GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH };
+        std::atomic_size_t          m_threadIDLength        { GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH };
+        std::atomic_size_t          m_fileNameLength        { GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH };
+        std::atomic_size_t          m_lineLength            { GENERIC_LOGGER_DEFAULT_LINE_LENGTH };
+        std::atomic_size_t          m_functionLength        { GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH };
 
         mutable std::mutex          m_configMutex               {};
-        std::string                 m_separator                 { " | " };
-        std::string                 m_headerUnderlineSeparator  { "-+-" };
-        std::string                 m_timestampFormat           { "%Y-%m-%d %H:%M:%S.%.4S" };
-        std::string                 m_timestampHeader           { "Timestamp" };
-        std::string                 m_processIDHeader           { "PID" };
-        std::string                 m_threadIDHeader            { "TID" };
-        std::string                 m_fileNameHeader            { "File Name" };
-        std::string                 m_lineHeader                { "Line" };
-        std::string                 m_functionHeader            { "Function" };
-        std::string                 m_messageHeader             { "Message" };
-        std::vector<MetaDataColumn> m_metaDataColumns
-        {
-            MetaDataColumn::Timestamp,
-            MetaDataColumn::ProcessID,
-            MetaDataColumn::ThreadID,
-            MetaDataColumn::Level,
-            MetaDataColumn::FileName,
-            MetaDataColumn::Line,
-            MetaDataColumn::Function
-        };
+        std::string                 m_separator                 { GENERIC_LOGGER_DEFAULT_SEPARATOR };
+        std::string                 m_headerUnderlineSeparator  { GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
+        std::string                 m_timestampFormat           { GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
+        std::string                 m_timestampHeader           { GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER };
+        std::string                 m_processIDHeader           { GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER };
+        std::string                 m_threadIDHeader            { GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER };
+        std::string                 m_fileNameHeader            { GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER };
+        std::string                 m_lineHeader                { GENERIC_LOGGER_DEFAULT_LINE_HEADER };
+        std::string                 m_functionHeader            { GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER };
+        std::string                 m_messageHeader             { GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER };
+        std::vector<MetaDataColumn> m_metaDataColumns           { GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS };
 
     public:
         class Stream
@@ -389,7 +505,7 @@ namespace Generic
             return instance;
         }
 
-        int pid()                       const   { return m_pid; }
+        int processID()                 const   { return m_processID; }
         bool isLogging()                const   { return m_isLogging.load(); }
         Level level()                   const   { return m_level.load(); }
         LevelFormat levelFormat()       const   { return m_levelFormat.load(); }
@@ -859,7 +975,7 @@ namespace Generic
                         break;
 
                     case MetaDataColumn::ProcessID:
-                        stream << std::setw(processIDLength()) << m_pid << m_separator;
+                        stream << std::setw(processIDLength()) << m_processID << m_separator;
                         break;
 
                     case MetaDataColumn::ThreadID:
