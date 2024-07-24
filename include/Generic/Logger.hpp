@@ -835,7 +835,8 @@ namespace Generic
             std::size_t numFiles{ 0 };
             for (std::size_t i{ 0 }; ; ++i)
             {
-                const auto thisPath{ parentPath / (stem + ((i == 0) ? "" : ("_" + std::to_string(i))) + extension) };
+                const auto thisStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
+                const auto thisPath{ parentPath / (thisStem + extension) };
 
                 if (!Generic::FileSystem::exists(thisPath))
                 {
@@ -853,11 +854,13 @@ namespace Generic
 
             for (auto i{ numFiles }; 0 < i; )
             {
-                const auto newPath{ parentPath / (stem + "_" + std::to_string(i) + extension) };
+                const auto newStem{ stem + "_" + std::to_string(i) };
+                const auto newPath{ parentPath / (newStem + extension) };
 
                 --i;
 
-                const auto oldPath{ parentPath / (stem + ((i == 0) ? "" : ("_" + std::to_string(i))) + extension) };
+                const auto oldStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
+                const auto oldPath{ parentPath / (oldStem + extension) };
 
                 Generic::FileSystem::rename(oldPath, newPath);
             }
