@@ -291,16 +291,20 @@ namespace Generic
 
             ~Stream()
             {
-                if (m_logger && m_logger->shouldLog(m_logLevel))
+                try
                 {
-                    m_logger->addLogToBuffer(
-                        m_logFileName,
-                        m_logLevel,
-                        m_sourceFilePath,
-                        m_sourceLine,
-                        m_sourceFunction,
-                        m_stream.str());
+                    if (m_logger && m_logger->shouldLog(m_logLevel))
+                    {
+                        m_logger->addLogToBuffer(
+                            m_logFileName,
+                            m_logLevel,
+                            m_sourceFilePath,
+                            m_sourceLine,
+                            m_sourceFunction,
+                            m_stream.str());
+                    }
                 }
+                catch (...) {}
             }
 
             Stream& operator<<(const bool b)
