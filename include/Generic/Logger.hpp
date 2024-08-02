@@ -160,44 +160,16 @@
 
 #if GENERIC_LOGGER_HIDE_SOURCE_INFO
 #define GENERIC_LOG_FORMAT(file, level, ...) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__); \
-        } \
-    } \
-    while (false)
+    Generic::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
 
 #define GENERIC_LOG_STREAM(file, level, message) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::Stream(file, level, "", 0, "") << message; \
-        } \
-    } \
-    while (false)
+    Generic::Logger::getInstance().stream(file, level, "", 0, "") << message
 #else
 #define GENERIC_LOG_FORMAT(file, level, ...) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__); \
-        } \
-    } \
-    while (false)
+    Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #define GENERIC_LOG_STREAM(file, level, message) \
-    do \
-    { \
-        if (Generic::Logger::getInstance().shouldLog(level)) \
-        { \
-            Generic::Logger::Stream(file, level, __FILE__, __LINE__, __func__) << message; \
-        } \
-    } \
-    while (false)
+    Generic::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
 #endif
 
 #define GENERIC_LOG_FORMAT_NONE(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::None, __VA_ARGS__)
@@ -291,6 +263,60 @@ namespace Generic
             ~Log() {}
         };
 
+        class Stream
+        {
+            Logger* const       m_logger;
+            const std::string   m_logFileName;
+            const Level         m_logLevel;
+            const char* const   m_sourceFilePath;
+            const int           m_sourceLine;
+            const char* const   m_sourceFunction;
+            std::stringstream   m_stream;
+
+        public:
+            Stream(
+                Logger* const       logger,
+                const std::string   logFileName,
+                const Level         logLevel,
+                const char* const   sourceFilePath,
+                const int           sourceLine,
+                const char* const   sourceFunction) :
+                m_logger        { logger },
+                m_logFileName   { logFileName },
+                m_logLevel      { logLevel },
+                m_sourceFilePath{ sourceFilePath },
+                m_sourceLine    { sourceLine },
+                m_sourceFunction{ sourceFunction },
+                m_stream        {} {}
+
+            ~Stream()
+            {
+                if (m_logger && m_logger->shouldLog(m_logLevel))
+                {
+                    m_logger->addLogToBuffer(
+                        m_logFileName,
+                        m_logLevel,
+                        m_sourceFilePath,
+                        m_sourceLine,
+                        m_sourceFunction,
+                        m_stream.str());
+                }
+            }
+
+            Stream& operator<<(const bool b)
+            {
+                m_stream << std::boolalpha << b;
+                return *this;
+            }
+
+            template<class T>
+            Stream& operator<<(const T& value)
+            {
+                m_stream << value;
+                return *this;
+            }
+        };
+
         typedef std::list<Log> LogBuffer;
 
         struct LogFile
@@ -349,54 +375,6 @@ namespace Generic
         std::vector<MetaDataColumn> m_metaDataColumns           { GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS };
 
     public:
-        class Stream
-        {
-            const std::string   m_logFileName;
-            const Level         m_logLevel;
-            const char* const   m_sourceFilePath;
-            const int           m_sourceLine;
-            const char* const   m_sourceFunction;
-            std::stringstream   m_stream;
-
-        public:
-            Stream(
-                const std::string   logFileName,
-                const Level         logLevel,
-                const char* const   sourceFilePath,
-                const int           sourceLine,
-                const char* const   sourceFunction) :
-                m_logFileName   { logFileName },
-                m_logLevel      { logLevel },
-                m_sourceFilePath{ sourceFilePath },
-                m_sourceLine    { sourceLine },
-                m_sourceFunction{ sourceFunction },
-                m_stream        {} {}
-
-            ~Stream()
-            {
-                getInstance().write(
-                    m_logFileName,
-                    m_logLevel,
-                    m_sourceFilePath,
-                    m_sourceLine,
-                    m_sourceFunction,
-                    m_stream.str());
-            }
-
-            Stream& operator<<(const bool b)
-            {
-                m_stream << std::boolalpha << b;
-                return *this;
-            }
-
-            template<class T>
-            Stream& operator<<(const T& value)
-            {
-                m_stream << value;
-                return *this;
-            }
-        };
-
         static inline std::string getLocalTimestamp(const char* const format)
         {
             const auto nowTime{ std::chrono::system_clock::now() };
@@ -704,7 +682,105 @@ namespace Generic
             return (isLogging() && logLevel <= level());
         }
 
+        void writef(
+            const std::string&  logFileName,
+            const Level         logLevel,
+            const char* const   sourceFilePath,
+            const int           sourceLine,
+            const char* const   sourceFunction,
+            const char* const   format,
+            ...)
+        {
+            if (shouldLog(logLevel))
+            {
+                // Message character limit is 8192
+                va_list args;
+                va_start(args, format);
+                char buffer[8192]{};
+
+                try
+                {
+                    // Create message from format and args
+                    if (vsnprintf(buffer, (sizeof(buffer) / sizeof(buffer[0])), format, args) < 0)
+                    {
+                        buffer[0] = '\0';
+                    }
+                }
+                catch (...) { buffer[0] = '\0'; }
+
+                va_end(args);
+
+                // Write message, or use format if message creation failed
+                addLogToBuffer(
+                    logFileName,
+                    logLevel,
+                    sourceFilePath,
+                    sourceLine,
+                    sourceFunction,
+                    (buffer[0] == '\0') ? format : buffer);
+            }
+        }
+
         void write(
+            const std::string&  logFileName,
+            const Level         logLevel,
+            const char* const   sourceFilePath,
+            const int           sourceLine,
+            const char* const   sourceFunction,
+            const std::string&  message)
+        {
+            if (shouldLog(logLevel))
+            {
+                addLogToBuffer(logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction, message);
+            }
+        }
+
+        Stream stream(
+            const std::string&  logFileName,
+            const Level         logLevel,
+            const char* const   sourceFilePath,
+            const int           sourceLine,
+            const char* const   sourceFunction)
+        {
+            return Stream{ this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
+        }
+
+        Logger(const Logger&) = delete;
+
+        void operator=(const Logger&) = delete;
+
+    private:
+        Logger()
+        {
+            m_loggingThread = std::thread(&Logger::startLogging, this);
+        }
+
+        ~Logger()
+        {
+            m_isLogging.store(false);
+            m_loggingThreadCondition.notify_all();
+
+            if (m_loggingThread.joinable())
+            {
+                m_loggingThread.join();
+            }
+
+            // Write all buffers to their files
+            for (auto& logFilePair : m_logFiles)
+            {
+                auto& fileName      { logFilePair.first };
+                auto& buffer        { logFilePair.second.buffer };
+                auto& filePath      { logFilePair.second.filePath };
+                auto& dirsCreated   { logFilePair.second.dirsCreated };
+
+                if (!buffer.empty())
+                {
+                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
+                }
+            }
+        }
+
+        void addLogToBuffer(
             const std::string&  logFileName,
             const Level         logLevel,
             const char* const   sourceFilePath,
@@ -751,77 +827,6 @@ namespace Generic
             {
                 // Queue is full, discard log
                 ++m_numDiscardedLogs;
-            }
-        }
-
-        void writef(
-            const std::string&  logFileName,
-            const Level         logLevel,
-            const char* const   sourceFilePath,
-            const int           sourceLine,
-            const char* const   sourceFunction,
-            const char* const   format,
-            ...)
-        {
-            // Message character limit is 8192
-            va_list args;
-            va_start(args, format);
-            char buffer[8192]{};
-
-            try
-            {
-                // Create message from format and args
-                if (vsnprintf(buffer, (sizeof(buffer) / sizeof(buffer[0])), format, args) < 0)
-                {
-                    buffer[0] = '\0';
-                }
-            }
-            catch (...) { buffer[0] = '\0'; }
-
-            va_end(args);
-
-            // Write message, or use format if message creation failed
-            write(
-                logFileName,
-                logLevel,
-                sourceFilePath,
-                sourceLine,
-                sourceFunction,
-                (buffer[0] == '\0') ? format : buffer);
-        }
-
-        Logger(const Logger&) = delete;
-
-        void operator=(const Logger&) = delete;
-
-    private:
-        Logger()
-        {
-            m_loggingThread = std::thread(&Logger::startLogging, this);
-        }
-
-        ~Logger()
-        {
-            m_isLogging.store(false);
-            m_loggingThreadCondition.notify_all();
-
-            if (m_loggingThread.joinable())
-            {
-                m_loggingThread.join();
-            }
-
-            // Write all buffers to their files
-            for (auto& logFilePair : m_logFiles)
-            {
-                auto& fileName      { logFilePair.first };
-                auto& buffer        { logFilePair.second.buffer };
-                auto& filePath      { logFilePair.second.filePath };
-                auto& dirsCreated   { logFilePair.second.dirsCreated };
-
-                if (!buffer.empty())
-                {
-                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
-                }
             }
         }
 
