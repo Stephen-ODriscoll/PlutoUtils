@@ -34,6 +34,10 @@
 #define GENERIC_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
 
+#ifndef GENERIC_LOGGER_NO_SINGLETON
+#define GENERIC_LOGGER_NO_SINGLETON 0   // Define as 1 or 0
+#endif
+
 // Configurable with macros or setters
 #ifndef GENERIC_LOGGER_DEFAULT_LEVEL
 #define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
@@ -378,7 +382,50 @@ namespace Generic
         std::string                 m_messageHeader             { GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER };
         std::vector<MetaDataColumn> m_metaDataColumns           { GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS };
 
+#if GENERIC_LOGGER_NO_SINGLETON
     public:
+#endif
+        Logger()
+        {
+            m_loggingThread = std::thread(&Logger::startLogging, this);
+        }
+
+        ~Logger()
+        {
+            m_isLogging.store(false);
+            m_loggingThreadCondition.notify_all();
+
+            if (m_loggingThread.joinable())
+            {
+                m_loggingThread.join();
+            }
+
+            // Write all buffers to their files
+            for (auto& logFilePair : m_logFiles)
+            {
+                auto& fileName      { logFilePair.first };
+                auto& buffer        { logFilePair.second.buffer };
+                auto& filePath      { logFilePair.second.filePath };
+                auto& dirsCreated   { logFilePair.second.dirsCreated };
+
+                if (!buffer.empty())
+                {
+                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
+                }
+            }
+        }
+
+    public:
+        Logger(const Logger&) = delete;
+
+        void operator=(const Logger&) = delete;
+
+        static Logger& getInstance()
+        {
+            static Logger instance{};
+            return instance;
+        }
+
         static inline std::string getLocalTimestamp(const char* const format)
         {
             const auto nowTime{ std::chrono::system_clock::now() };
@@ -479,12 +526,6 @@ namespace Generic
 
                 default: return "Bad Format";
             }
-        }
-
-        static Logger& getInstance()
-        {
-            static Logger instance{};
-            return instance;
         }
 
         int processID()                 const   { return m_processID; }
@@ -749,41 +790,7 @@ namespace Generic
             return Stream{ this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
         }
 
-        Logger(const Logger&) = delete;
-
-        void operator=(const Logger&) = delete;
-
     private:
-        Logger()
-        {
-            m_loggingThread = std::thread(&Logger::startLogging, this);
-        }
-
-        ~Logger()
-        {
-            m_isLogging.store(false);
-            m_loggingThreadCondition.notify_all();
-
-            if (m_loggingThread.joinable())
-            {
-                m_loggingThread.join();
-            }
-
-            // Write all buffers to their files
-            for (auto& logFilePair : m_logFiles)
-            {
-                auto& fileName      { logFilePair.first };
-                auto& buffer        { logFilePair.second.buffer };
-                auto& filePath      { logFilePair.second.filePath };
-                auto& dirsCreated   { logFilePair.second.dirsCreated };
-
-                if (!buffer.empty())
-                {
-                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
-                }
-            }
-        }
-
         void addLogToBuffer(
             const std::string&  logFileName,
             const Level         logLevel,
