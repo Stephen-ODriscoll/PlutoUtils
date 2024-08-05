@@ -18,6 +18,7 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
 endif()
 
+add_subdirectory(examples)
 add_subdirectory(googletest)
 add_subdirectory(include)
 add_subdirectory(tests)
