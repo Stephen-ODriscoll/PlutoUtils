@@ -22,8 +22,8 @@
 int main(int argc, char* argv[])
 {
     Generic::Logger::getInstance()
-        .timestampFormat("%H:%M:%S.%.9S")
-        .timestampLength(18)
+        .timestampFormat("%H:%M:%S.%.3S")
+        .timestampLength(12)
         .bufferMaxSize(1000)
         .bufferFlushSize(100)
         .fileRotationSize(1024) // 1 KB
