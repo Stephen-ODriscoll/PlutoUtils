@@ -213,6 +213,9 @@
 #if __has_include(<hazard_pointer>)
 #include <hazard_pointer>
 #endif
+#if __has_include(<inplace_vector>)
+#include <inplace_vector>
+#endif
 #if __has_include(<linalg>)
 #include <linalg>
 #endif
