@@ -243,23 +243,23 @@ namespace Generic
             std::string     timestamp;
             std::thread::id threadID;
             Level           level;
-            std::string     sourceFileName;
+            const char*     sourceFilePath;
             int             sourceLine;
-            std::string     sourceFunction;
+            const char*     sourceFunction;
             std::string     message;
 
             Log(
                 const std::string&      timestamp,
                 const std::thread::id&  threadID,
                 const Level             level,
-                const std::string&      sourceFileName,
+                const char*             sourceFilePath,
                 const int               sourceLine,
-                const std::string&      sourceFunction,
+                const char*             sourceFunction,
                 const std::string&      message) :
                 timestamp       { timestamp },
                 threadID        { threadID },
                 level           { level },
-                sourceFileName  { sourceFileName },
+                sourceFilePath  { sourceFilePath },
                 sourceLine      { sourceLine },
                 sourceFunction  { sourceFunction },
                 message         { message } {}
@@ -803,8 +803,6 @@ namespace Generic
 
             const auto threadID{ std::this_thread::get_id() };
 
-            const auto sourceFileName{ getFileName(sourceFilePath) };
-
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
             auto it{ m_logFiles.find(logFileName) };
@@ -822,7 +820,7 @@ namespace Generic
                     timestamp,
                     threadID,
                     logLevel,
-                    sourceFileName,
+                    sourceFilePath,
                     sourceLine,
                     sourceFunction,
                     message);
@@ -1008,8 +1006,9 @@ namespace Generic
                     case MetaDataColumn::FileName:
                     {
                         const auto fileNameLength{ this->fileNameLength() };
-                        const auto fileName{ log.sourceFileName.substr(0, fileNameLength) };
-                        stream << std::setw(fileNameLength) << fileName << m_separator;
+
+                        stream << std::setw(fileNameLength)
+                            << std::string(getFileName(log.sourceFilePath), 0, fileNameLength) << m_separator;
                         break;
                     }
 
@@ -1020,8 +1019,9 @@ namespace Generic
                     case MetaDataColumn::Function:
                     {
                         const auto functionLength{ this->functionLength() };
-                        const auto function{ log.sourceFunction.substr(0, functionLength) };
-                        stream << std::setw(functionLength) << function << m_separator;
+
+                        stream << std::setw(functionLength)
+                            << std::string(log.sourceFunction, 0, functionLength) << m_separator;
                         break;
                     }
                 }
