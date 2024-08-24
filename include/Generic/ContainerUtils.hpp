@@ -39,12 +39,12 @@ namespace Generic
     }
 
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = Generic::IsEqual>
-    inline auto find(
+    inline auto search(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
     {
-        return Generic::find(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+        return Generic::search(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = Generic::IsEqual>

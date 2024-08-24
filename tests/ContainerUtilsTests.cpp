@@ -116,25 +116,25 @@ TEST_F(ContainerUtilsTests, TestEndsWithReturnsFalse)
     ASSERT_FALSE(Generic::endsWith(three, zeroToThree));
 }
 
-TEST_F(ContainerUtilsTests, TestFindReturnsPosition)
+TEST_F(ContainerUtilsTests, TestSearchReturnsPosition)
 {
-    ASSERT_EQ(Generic::find(empty, empty), empty.begin());
-    ASSERT_EQ(Generic::find(zeroToFourTwice, empty), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::search(empty, empty), empty.begin());
+    ASSERT_EQ(Generic::search(zeroToFourTwice, empty), zeroToFourTwice.begin());
 
-    ASSERT_EQ(Generic::find(zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::find(zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::find(zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(Generic::find(zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(Generic::find(zeroToFourTwice, zero), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::find(zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(Generic::search(zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::search(zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::search(zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(Generic::search(zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(Generic::search(zeroToFourTwice, zero), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::search(zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(Generic::find(fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(Generic::find(fourZeroOne, four), fourZeroOne.begin());
+    ASSERT_EQ(Generic::search(fourZeroOne, zero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(Generic::search(fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(ContainerUtilsTests, TestFindReturnsEnd)
+TEST_F(ContainerUtilsTests, TestSearchReturnsEnd)
 {
-    ASSERT_EQ(Generic::find(zeroToFourTwice, five), zeroToFourTwice.end());
+    ASSERT_EQ(Generic::search(zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
 TEST_F(ContainerUtilsTests, TestContainsReturnsTrue)

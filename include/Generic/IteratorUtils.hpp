@@ -99,7 +99,7 @@ namespace Generic
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
-    inline IteratorLeftT find(
+    inline IteratorLeftT search(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -110,14 +110,14 @@ namespace Generic
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
-    inline IteratorLeftT find(
+    inline IteratorLeftT search(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
         const IteratorRightT    beginR,
         const std::size_t       sizeR,
         PredicateT              predicate = {})
     {
-        return Generic::find(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
+        return Generic::search(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
@@ -129,7 +129,7 @@ namespace Generic
         PredicateT              predicate = {})
     {
         return (beginR == endR) ||
-            (Generic::find(beginL, endL, beginR, endR, predicate) != endL);
+            (Generic::search(beginL, endL, beginR, endR, predicate) != endL);
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = Generic::IsEqual>
@@ -147,6 +147,6 @@ namespace Generic
 
         const auto endL{ std::next(beginL, sizeL) };
 
-        return (Generic::find(beginL, endL, beginR, std::next(beginR, sizeR), predicate) != endL);
+        return (Generic::search(beginL, endL, beginR, std::next(beginR, sizeR), predicate) != endL);
     }
 }

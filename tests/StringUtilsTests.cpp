@@ -1140,100 +1140,100 @@ TEST_F(StringUtilsTests, TestElemStringEndsWithIgnoreCase)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(StringUtilsTests, TestElemArrayFindIgnoreCase)
+TEST_F(StringUtilsTests, TestElemArraySearchIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "a", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "b", 1); // end
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcdef", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdeg", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcdeg", 6); // end
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcde", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "bcdef", 1);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "bcde", 1);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "aBcDeF", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
 }
 
-TEST_F(StringUtilsTests, TestElemStringFindIgnoreCase)
+TEST_F(StringUtilsTests, TestElemStringSearchIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "a", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "a", "b", 1); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcdef", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdefg", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcdefg", 6); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "abcde", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "bcdef", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "abcdef", "bcde", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "aBcDeF", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::searchIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
 }
 
 TEST_F(StringUtilsTests, TestElemArrayContainsIgnoreCase)

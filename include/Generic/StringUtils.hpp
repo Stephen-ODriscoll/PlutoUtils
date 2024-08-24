@@ -287,23 +287,23 @@ namespace Generic
         return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
     template<class ElemT>
-    inline const ElemT* const findIgnoreCase(
+    inline const ElemT* const searchIgnoreCase(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Generic::search(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
-    inline auto findIgnoreCase(
+    inline auto searchIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::find(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Generic::search(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
