@@ -38,17 +38,49 @@ namespace Generic
         return Generic::endsWith(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
+    template<class ContainerT, class ElemT>
+    inline auto findElem(
+        const ContainerT&   container,
+        const ElemT&        elem)
+    {
+        return Generic::find(std::begin(container), std::end(container), elem);
+    }
+
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = Generic::IsEqual>
-    inline auto search(
+    inline auto findSequence(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
     {
-        return Generic::search(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+        return Generic::find(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline auto findIf(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        return Generic::findIf(std::begin(container), std::end(container), predicate);
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline auto findIfNot(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        return Generic::findIfNot(std::begin(container), std::end(container), predicate);
+    }
+
+    template<class ContainerT, class ElemT>
+    inline bool containsElem(
+        const ContainerT&   container,
+        const ElemT&        elem)
+    {
+        return Generic::contains(std::begin(container), std::end(container), elem);
     }
 
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = Generic::IsEqual>
-    inline bool contains(
+    inline bool containsSequence(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})

@@ -286,24 +286,43 @@ namespace Generic
     {
         return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
+
+    template<class ElemT, class PredicateT = Generic::IsEqual>
+    inline auto find(
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
+        PredicateT                      predicate = {})
+    {
+        return Generic::findSequence(left, right, predicate);
+    }
+
     template<class ElemT>
-    inline const ElemT* const searchIgnoreCase(
+    inline const ElemT* const findIgnoreCase(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = Generic::getDefaultLocale())
     {
-        return Generic::search(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
-    inline auto searchIgnoreCase(
+    inline auto findIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::search(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Generic::findSequence(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+    }
+
+    template<class ElemT, class PredicateT = Generic::IsEqual>
+    inline bool contains(
+        const std::basic_string<ElemT>& left,
+        const std::basic_string<ElemT>& right,
+        PredicateT                      predicate = {})
+    {
+        return Generic::containsSequence(left, right, predicate);
     }
 
     template<class ElemT>
@@ -323,7 +342,7 @@ namespace Generic
         const std::basic_string<ElemT>& right,
         const std::locale&              locale = Generic::getDefaultLocale())
     {
-        return Generic::contains(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Generic::containsSequence(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>

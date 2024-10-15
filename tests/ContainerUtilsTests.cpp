@@ -116,44 +116,128 @@ TEST_F(ContainerUtilsTests, TestEndsWithReturnsFalse)
     ASSERT_FALSE(Generic::endsWith(three, zeroToThree));
 }
 
-TEST_F(ContainerUtilsTests, TestSearchReturnsPosition)
+TEST_F(ContainerUtilsTests, TestFindElemReturnsPosition)
 {
-    ASSERT_EQ(Generic::search(empty, empty), empty.begin());
-    ASSERT_EQ(Generic::search(zeroToFourTwice, empty), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 0), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 2), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 3), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 4), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(Generic::search(zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::search(zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::search(zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(Generic::search(zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(Generic::search(zeroToFourTwice, zero), zeroToFourTwice.begin());
-    ASSERT_EQ(Generic::search(zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
-
-    ASSERT_EQ(Generic::search(fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(Generic::search(fourZeroOne, four), fourZeroOne.begin());
+    ASSERT_EQ(Generic::findElem(fourZeroOne, 4), fourZeroOne.begin());
+    ASSERT_EQ(Generic::findElem(fourZeroOne, 0), fourZeroOne.begin() + 1);
+    ASSERT_EQ(Generic::findElem(fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(ContainerUtilsTests, TestSearchReturnsEnd)
+TEST_F(ContainerUtilsTests, TestFindElemReturnsEnd)
 {
-    ASSERT_EQ(Generic::search(zeroToFourTwice, five), zeroToFourTwice.end());
+    ASSERT_EQ(Generic::findElem(empty, 0), empty.end());
+    ASSERT_EQ(Generic::findElem(zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-TEST_F(ContainerUtilsTests, TestContainsReturnsTrue)
+TEST_F(ContainerUtilsTests, TestFindSequenceReturnsPosition)
 {
-    ASSERT_TRUE(Generic::contains(empty, empty));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, empty));
+    ASSERT_EQ(Generic::findSequence(empty, empty), empty.begin());
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, empty), zeroToFourTwice.begin());
 
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, zeroToFourTwice));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, zeroToFourTwice2));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, fourZeroOne));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, oneToThree));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, zero));
-    ASSERT_TRUE(Generic::contains(zeroToFourTwice, four));
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, zero), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
 
-    ASSERT_TRUE(Generic::contains(fourZeroOne, zero));
-    ASSERT_TRUE(Generic::contains(fourZeroOne, four));
+    ASSERT_EQ(Generic::findSequence(fourZeroOne, zero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(Generic::findSequence(fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(ContainerUtilsTests, TestContainsReturnsFalse)
+TEST_F(ContainerUtilsTests, TestFindSequenceReturnsEnd)
 {
-    ASSERT_FALSE(Generic::contains(zeroToFourTwice, five));
+    ASSERT_EQ(Generic::findSequence(zeroToFourTwice, five), zeroToFourTwice.end());
+}
+
+TEST_F(ContainerUtilsTests, TestFindIfReturnsPosition)
+{
+    auto equalsZero { [](int i) { return i == 0; } };
+    auto equalsOne  { [](int i) { return i == 1; } };
+    auto equalsTwo  { [](int i) { return i == 2; } };
+    auto equalsThree{ [](int i) { return i == 3; } };
+    auto equalsFour { [](int i) { return i == 4; } };
+
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsZero), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 4);
+
+    ASSERT_EQ(Generic::findIf(fourZeroOne, equalsFour), fourZeroOne.begin());
+    ASSERT_EQ(Generic::findIf(fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(Generic::findIf(fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
+}
+
+TEST_F(ContainerUtilsTests, TestFindIfReturnsEnd)
+{
+    auto equalsZero{ [](int i) { return i == 0; } };
+    auto equalsFive{ [](int i) { return i == 5; } };
+
+    ASSERT_EQ(Generic::findIf(empty, equalsZero), empty.end());
+    ASSERT_EQ(Generic::findIf(zeroToFourTwice, equalsFive), zeroToFourTwice.end());
+}
+
+TEST_F(ContainerUtilsTests, TestFindIfNotReturnsPosition)
+{
+    auto equalsZero { [](int i) { return i == 0; } };
+    auto equalsOne  { [](int i) { return i == 1; } };
+    auto equalsTwo  { [](int i) { return i == 2; } };
+    auto equalsThree{ [](int i) { return i == 3; } };
+    auto equalsFour { [](int i) { return i == 4; } };
+
+    ASSERT_EQ(Generic::findIfNot(zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(Generic::findIfNot(zeroToFourTwice, equalsOne), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findIfNot(zeroToFourTwice, equalsTwo), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findIfNot(zeroToFourTwice, equalsThree), zeroToFourTwice.begin());
+    ASSERT_EQ(Generic::findIfNot(zeroToFourTwice, equalsFour), zeroToFourTwice.begin());
+
+    ASSERT_EQ(Generic::findIfNot(fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
+    ASSERT_EQ(Generic::findIfNot(fourZeroOne, equalsZero), fourZeroOne.begin());
+    ASSERT_EQ(Generic::findIfNot(fourZeroOne, equalsOne), fourZeroOne.begin());
+}
+
+TEST_F(ContainerUtilsTests, TestContainsElemReturnsTrue)
+{
+    ASSERT_TRUE(Generic::containsElem(zeroToFourTwice, 0));
+    ASSERT_TRUE(Generic::containsElem(zeroToFourTwice, 1));
+    ASSERT_TRUE(Generic::containsElem(zeroToFourTwice, 2));
+    ASSERT_TRUE(Generic::containsElem(zeroToFourTwice, 3));
+    ASSERT_TRUE(Generic::containsElem(zeroToFourTwice, 4));
+
+    ASSERT_TRUE(Generic::containsElem(fourZeroOne, 4));
+    ASSERT_TRUE(Generic::containsElem(fourZeroOne, 0));
+    ASSERT_TRUE(Generic::containsElem(fourZeroOne, 1));
+}
+
+TEST_F(ContainerUtilsTests, TestContainsElemReturnsFalse)
+{
+    ASSERT_FALSE(Generic::containsElem(zeroToFourTwice, 5));
+}
+
+TEST_F(ContainerUtilsTests, TestContainsSequenceReturnsTrue)
+{
+    ASSERT_TRUE(Generic::containsSequence(empty, empty));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, empty));
+
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, zeroToFourTwice));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, zeroToFourTwice2));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, fourZeroOne));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, oneToThree));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, zero));
+    ASSERT_TRUE(Generic::containsSequence(zeroToFourTwice, four));
+
+    ASSERT_TRUE(Generic::containsSequence(fourZeroOne, zero));
+    ASSERT_TRUE(Generic::containsSequence(fourZeroOne, four));
+}
+
+TEST_F(ContainerUtilsTests, TestContainsSequenceReturnsFalse)
+{
+    ASSERT_FALSE(Generic::containsSequence(zeroToFourTwice, five));
 }
