@@ -11,7 +11,7 @@
 
 #include "Locale.hpp"
 
-namespace Pluto
+namespace pluto
 {
     typedef std::equal_to<>         IsEqual;
     typedef std::not_equal_to<>     IsNotEqual;
@@ -26,7 +26,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsEqualIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -40,7 +40,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsNotEqualIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -54,7 +54,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsLessIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -68,7 +68,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsGreaterIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -82,7 +82,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsLessEqualIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -96,7 +96,7 @@ namespace Pluto
         const std::ctype<ElemT>& facet;
 
         IsGreaterEqualIgnoreCase(const std::locale& locale) :
-            facet{ Pluto::getFacet<ElemT>(locale) } {}
+            facet{ pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {

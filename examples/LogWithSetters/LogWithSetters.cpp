@@ -21,7 +21,7 @@
 
 int main(int argc, char* argv[])
 {
-    Pluto::Logger::getInstance()
+    pluto::Logger::getInstance()
         .timestampFormat("%H:%M:%S.%.3S")
         .timestampLength(12)
         .bufferMaxSize(1000)
@@ -31,14 +31,14 @@ int main(int argc, char* argv[])
         .headerUnderlineFill('=')
         .separator("  ")
         .headerUnderlineSeparator("  ")
-        .level(Pluto::Logger::Level::Info)
-        .levelFormat(Pluto::Logger::LevelFormat::Short)
+        .level(pluto::Logger::Level::Info)
+        .levelFormat(pluto::Logger::LevelFormat::Short)
         .metaDataColumns(
-            Pluto::Logger::MetaDataColumn::Timestamp,
-            Pluto::Logger::MetaDataColumn::ThreadID,
-            Pluto::Logger::MetaDataColumn::Level,
-            Pluto::Logger::MetaDataColumn::FileName,
-            Pluto::Logger::MetaDataColumn::Line);
+            pluto::Logger::MetaDataColumn::Timestamp,
+            pluto::Logger::MetaDataColumn::ThreadID,
+            pluto::Logger::MetaDataColumn::Level,
+            pluto::Logger::MetaDataColumn::FileName,
+            pluto::Logger::MetaDataColumn::Line);
 
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)

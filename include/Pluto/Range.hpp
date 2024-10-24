@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace Pluto
+namespace pluto
 {
     template<class T>
     struct Range

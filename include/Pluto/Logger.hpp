@@ -40,11 +40,11 @@
 
 // Configurable with macros or setters
 #ifndef PLUTO_LOGGER_DEFAULT_LEVEL
-#define PLUTO_LOGGER_DEFAULT_LEVEL Pluto::Logger::Level::Verbose
+#define PLUTO_LOGGER_DEFAULT_LEVEL pluto::Logger::Level::Verbose
 #endif
 
 #ifndef PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT
-#define PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT Pluto::Logger::LevelFormat::Full
+#define PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT pluto::Logger::LevelFormat::Full
 #endif
 
 #ifndef PLUTO_LOGGER_DEFAULT_CREATE_DIRS
@@ -164,41 +164,41 @@
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    Pluto::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
+    pluto::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    Pluto::Logger::getInstance().stream(file, level, "", 0, "") << message
+    pluto::Logger::getInstance().stream(file, level, "", 0, "") << message
 #else
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    Pluto::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
+    pluto::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    Pluto::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
+    pluto::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
 #endif
 
-#define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::None, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_FATAL(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Fatal, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_CRITICAL(file, ...)    PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Critical, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_ERROR(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Error, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_WARNING(file, ...)     PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Warning, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_NOTICE(file, ...)      PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Notice, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_INFO(file, ...)        PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Info, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_DEBUG(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Debug, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_TRACE(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Trace, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_VERBOSE(file, ...)     PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Verbose, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, pluto::Logger::Level::None, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_FATAL(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Fatal, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_CRITICAL(file, ...)    PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Critical, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_ERROR(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Error, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_WARNING(file, ...)     PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Warning, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NOTICE(file, ...)      PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Notice, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_INFO(file, ...)        PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Info, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_DEBUG(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Debug, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_TRACE(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Trace, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_VERBOSE(file, ...)     PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Verbose, __VA_ARGS__)
 
-#define PLUTO_LOG_STREAM_NONE(file, message)        PLUTO_LOG_STREAM(file, Pluto::Logger::Level::None, message)
-#define PLUTO_LOG_STREAM_FATAL(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Fatal, message)
-#define PLUTO_LOG_STREAM_CRITICAL(file, message)    PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Critical, message)
-#define PLUTO_LOG_STREAM_ERROR(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Error, message)
-#define PLUTO_LOG_STREAM_WARNING(file, message)     PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Warning, message)
-#define PLUTO_LOG_STREAM_NOTICE(file, message)      PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Notice, message)
-#define PLUTO_LOG_STREAM_INFO(file, message)        PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Info, message)
-#define PLUTO_LOG_STREAM_DEBUG(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Debug, message)
-#define PLUTO_LOG_STREAM_TRACE(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Trace, message)
-#define PLUTO_LOG_STREAM_VERBOSE(file, message)     PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Verbose, message)
+#define PLUTO_LOG_STREAM_NONE(file, message)        PLUTO_LOG_STREAM(file, pluto::Logger::Level::None, message)
+#define PLUTO_LOG_STREAM_FATAL(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Fatal, message)
+#define PLUTO_LOG_STREAM_CRITICAL(file, message)    PLUTO_LOG_STREAM(file, pluto::Logger::Level::Critical, message)
+#define PLUTO_LOG_STREAM_ERROR(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Error, message)
+#define PLUTO_LOG_STREAM_WARNING(file, message)     PLUTO_LOG_STREAM(file, pluto::Logger::Level::Warning, message)
+#define PLUTO_LOG_STREAM_NOTICE(file, message)      PLUTO_LOG_STREAM(file, pluto::Logger::Level::Notice, message)
+#define PLUTO_LOG_STREAM_INFO(file, message)        PLUTO_LOG_STREAM(file, pluto::Logger::Level::Info, message)
+#define PLUTO_LOG_STREAM_DEBUG(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Debug, message)
+#define PLUTO_LOG_STREAM_TRACE(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Trace, message)
+#define PLUTO_LOG_STREAM_VERBOSE(file, message)     PLUTO_LOG_STREAM(file, pluto::Logger::Level::Verbose, message)
 
-namespace Pluto
+namespace pluto
 {
     class Logger
     {
@@ -330,7 +330,7 @@ namespace Pluto
         struct LogFile
         {
             LogBuffer                   buffer;
-            Pluto::FileSystem::path     filePath;
+            pluto::FileSystem::path     filePath;
             bool                        dirsCreated;
 
             LogFile() :
@@ -466,7 +466,7 @@ namespace Pluto
 
         static inline std::string getFileName(const char* const filePath)
         {
-            return Pluto::FileSystem::path{ filePath }.filename().string();
+            return pluto::FileSystem::path{ filePath }.filename().string();
         }
 
         static inline std::string levelToString(const Level level, const LevelFormat levelFormat)
@@ -839,7 +839,7 @@ namespace Pluto
             }
         }
 
-        void rotateFile(const Pluto::FileSystem::path& filePath) const
+        void rotateFile(const pluto::FileSystem::path& filePath) const
         {
             const auto stem             { filePath.stem().string() };
             const auto extension        { filePath.extension().string() };
@@ -852,7 +852,7 @@ namespace Pluto
                 const auto thisStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto thisPath{ parentPath / (thisStem + extension) };
 
-                if (!Pluto::FileSystem::exists(thisPath))
+                if (!pluto::FileSystem::exists(thisPath))
                 {
                     break;
                 }
@@ -863,7 +863,7 @@ namespace Pluto
                     continue;
                 }
 
-                Pluto::FileSystem::remove(thisPath);
+                pluto::FileSystem::remove(thisPath);
             }
 
             for (auto i{ numFiles }; 0 < i; )
@@ -876,17 +876,17 @@ namespace Pluto
                 const auto oldStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto oldPath{ parentPath / (oldStem + extension) };
 
-                Pluto::FileSystem::rename(oldPath, newPath);
+                pluto::FileSystem::rename(oldPath, newPath);
             }
         }
 
-        void openFileStream(std::ofstream& fileStream, const Pluto::FileSystem::path& filePath) const
+        void openFileStream(std::ofstream& fileStream, const pluto::FileSystem::path& filePath) const
         {
             fileStream.open(filePath, (std::ios_base::ate | std::ios_base::app));
 
             if (!fileStream.is_open() || !fileStream.good())
             {
-                throw Pluto::FileSystem::filesystem_error{ "Logger failed to open file",
+                throw pluto::FileSystem::filesystem_error{ "Logger failed to open file",
                     std::make_error_code(std::errc::io_error) };
             }
         }
@@ -1034,7 +1034,7 @@ namespace Pluto
             const LogBuffer::iterator   begin,
             const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
-            Pluto::FileSystem::path&    filePath,
+            pluto::FileSystem::path&    filePath,
             bool&                       dirsCreated) const
         {
             auto result{ true };
@@ -1044,13 +1044,13 @@ namespace Pluto
                 // Get file path if empty
                 if (filePath.empty())
                 {
-                    filePath = Pluto::FileSystem::absolute(fileName);
+                    filePath = pluto::FileSystem::absolute(fileName);
                 }
 
                 // Create path to file if needed
                 if (createDirs() && !dirsCreated)
                 {
-                    Pluto::FileSystem::create_directories(filePath.parent_path());
+                    pluto::FileSystem::create_directories(filePath.parent_path());
                     dirsCreated = true;
                 }
 
@@ -1088,7 +1088,7 @@ namespace Pluto
                     }
                 }
             }
-            catch (const Pluto::FileSystem::filesystem_error&)
+            catch (const pluto::FileSystem::filesystem_error&)
             {
                 result = false;
             }

@@ -12,7 +12,7 @@
 
 #include "LRUCache.hpp"
 
-namespace Pluto
+namespace pluto
 {
     template<class KeyT, class ValueT>
     class SafeLRUCache
@@ -24,13 +24,13 @@ namespace Pluto
 #endif
 
         mutable SharedMutexType         m_mutex{};
-        Pluto::LRUCache<KeyT, ValueT>   m_lruCache;
+        pluto::LRUCache<KeyT, ValueT>   m_lruCache;
 
     public:
-        typedef typename Pluto::LRUCache<KeyT, ValueT>::KeyType KeyType;
-        typedef typename Pluto::LRUCache<KeyT, ValueT>::ValueType ValueType;
-        typedef typename Pluto::LRUCache<KeyT, ValueT>::ListType ListType;
-        typedef typename Pluto::LRUCache<KeyT, ValueT>::MapType MapType;
+        typedef typename pluto::LRUCache<KeyT, ValueT>::KeyType KeyType;
+        typedef typename pluto::LRUCache<KeyT, ValueT>::ValueType ValueType;
+        typedef typename pluto::LRUCache<KeyT, ValueT>::ListType ListType;
+        typedef typename pluto::LRUCache<KeyT, ValueT>::MapType MapType;
 
         SafeLRUCache(const std::size_t capacity) :
             m_lruCache{ capacity } {}

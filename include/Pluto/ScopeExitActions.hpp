@@ -10,7 +10,7 @@
 #include <stack>
 #include <functional>
 
-namespace Pluto
+namespace pluto
 {
     class ScopeExitActions
     {

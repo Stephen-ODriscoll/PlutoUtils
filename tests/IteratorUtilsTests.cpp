@@ -47,248 +47,248 @@ protected:
 
 TEST_F(IteratorUtilsTests, TestEqualsUseEndReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::equals, empty, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::equals, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::equals, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::equals, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::equals, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::equals, zeroToFour, zeroToFour2));
 }
 
 TEST_F(IteratorUtilsTests, TestEqualsUseEndReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToFour, zeroToThree));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToFour, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, fiveToNine, zeroToThree));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, fiveToNine, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, fiveToNine, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToThree, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToThree, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, zeroToThree, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToThree, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToThree, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToThree, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, oneToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::equals, oneToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::equals, oneToFour, zeroToThree));
 }
 
 TEST_F(IteratorUtilsTests, TestEqualsUseSizeReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::equals, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::equals, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::equals, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::equals, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, zeroToFour2));
 }
 
 TEST_F(IteratorUtilsTests, TestEqualsUseSizeReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToFour, zeroToThree));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, fiveToNine, zeroToThree));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, fiveToNine, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, fiveToNine, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToThree, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToThree, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, zeroToThree, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToThree, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToThree, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToThree, oneToFour));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, oneToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::equals, oneToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, oneToFour, zeroToThree));
 }
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseEndReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::beginsWith, empty, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::beginsWith, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, zeroToThree));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, zero));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, zeroToThree));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, zero));
 }
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseEndReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, oneToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, zeroToFour, one));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, zeroToFour, one));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, fiveToNine, oneToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, fiveToNine, one));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, fiveToNine, one));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, oneToFour, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, one, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, one, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::beginsWith, one, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, one, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, one, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::beginsWith, one, oneToFour));
 }
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseSizeReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::beginsWith, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::beginsWith, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, zeroToThree));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, zero));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, zeroToThree));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, zero));
 }
 
 TEST_F(IteratorUtilsTests, TestBeginsWithUseSizeReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, oneToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, zeroToFour, one));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, zeroToFour, one));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, fiveToNine, oneToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, fiveToNine, one));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, fiveToNine, one));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, oneToFour, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, one, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, one, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::beginsWith, one, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, one, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, one, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::beginsWith, one, oneToFour));
 }
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseEndReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::endsWith, empty, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::endsWith, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, oneToFour));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, four));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::endsWith, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::endsWith, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::endsWith, zeroToFour, oneToFour));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::endsWith, zeroToFour, four));
 }
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseEndReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, zeroToThree));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, zeroToFour, three));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, zeroToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, zeroToFour, three));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, fiveToNine, zeroToThree));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, fiveToNine, three));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, fiveToNine, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, fiveToNine, three));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, zeroToThree, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, zeroToThree, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, zeroToThree, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, zeroToThree, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, three, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, three, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::endsWith, three, zeroToThree));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, three, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, three, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::endsWith, three, zeroToThree));
 }
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseSizeReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::endsWith, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::endsWith, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, oneToFour));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, four));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, oneToFour));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, four));
 }
 
 TEST_F(IteratorUtilsTests, TestEndsWithUseSizeReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, zeroToThree));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToFour, three));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, zeroToFour, three));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, fiveToNine, zeroToThree));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, fiveToNine, three));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, fiveToNine, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, fiveToNine, three));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToThree, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, zeroToThree, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, zeroToThree, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, zeroToThree, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, three, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, three, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::endsWith, three, zeroToThree));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, three, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, three, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::endsWith, three, zeroToThree));
 }
 
 TEST_F(IteratorUtilsTests, TestFindElemUseEndReturnsPosition)
 {
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 2), zeroToFourTwice.begin() + 2);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 3), zeroToFourTwice.begin() + 3);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 4), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 2), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 3), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 4), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, fourZeroOne, 4), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, fourZeroOne, 0), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, fourZeroOne, 4), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, fourZeroOne, 0), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
 TEST_F(IteratorUtilsTests, TestFindElemUseEndReturnsEnd)
 {
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, empty, 0), empty.end());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, empty, 0), empty.end());
+    ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindElemUseSizeReturnsPosition)
 {
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 2), zeroToFourTwice.begin() + 2);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 3), zeroToFourTwice.begin() + 3);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 4), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 2), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 3), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 4), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, fourZeroOne, 4), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, fourZeroOne, 0), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, fourZeroOne, 4), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, fourZeroOne, 0), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
 TEST_F(IteratorUtilsTests, TestFindElemUseSizeReturnsEnd)
 {
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, empty, 0), empty.end());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, empty, 0), empty.end());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindSequenceUseEndReturnsPosition)
 {
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, empty, empty), empty.begin());
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, empty, empty), empty.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
 
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, zero), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, zero), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, fourZeroOne, four), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, fourZeroOne, zero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, fourZeroOne, four), fourZeroOne.begin());
 }
 
 TEST_F(IteratorUtilsTests, TestFindSequenceUseEndReturnsEnd)
 {
-    ASSERT_EQ(TEST_USE_END_1(Pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindSequenceUseSizeReturnsPosition)
 {
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, empty, empty), empty.begin());
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, empty, empty), empty.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
 
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, zero), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, zero), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, four), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, fourZeroOne, zero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, fourZeroOne, four), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, fourZeroOne, zero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, fourZeroOne, four), fourZeroOne.begin());
 }
 
 TEST_F(IteratorUtilsTests, TestFindSequenceUseSizeReturnsEnd)
 {
-    ASSERT_EQ(TEST_USE_SIZE_1(Pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfUseEndReturnsPosition)
@@ -299,15 +299,15 @@ TEST_F(IteratorUtilsTests, TestFindIfUseEndReturnsPosition)
     auto equalsThree{ [](int i) { return i == 3; } };
     auto equalsFour { [](int i) { return i == 4; } };
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsZero), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 2);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 3);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsZero), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, fourZeroOne, equalsFour), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, fourZeroOne, equalsFour), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfUseEndReturnsEnd)
@@ -315,8 +315,8 @@ TEST_F(IteratorUtilsTests, TestFindIfUseEndReturnsEnd)
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, empty, equalsZero), empty.end());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIf, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, empty, equalsZero), empty.end());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIf, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfUseSizeReturnsPosition)
@@ -327,15 +327,15 @@ TEST_F(IteratorUtilsTests, TestFindIfUseSizeReturnsPosition)
     auto equalsThree{ [](int i) { return i == 3; } };
     auto equalsFour { [](int i) { return i == 4; } };
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsZero), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 2);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 3);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsZero), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 2);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 3);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 4);
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, fourZeroOne, equalsFour), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, fourZeroOne, equalsFour), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfUseSizeReturnsEnd)
@@ -343,8 +343,8 @@ TEST_F(IteratorUtilsTests, TestFindIfUseSizeReturnsEnd)
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, empty, equalsZero), empty.end());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIf, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, empty, equalsZero), empty.end());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIf, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfNotUseEndReturnsPosition)
@@ -355,15 +355,15 @@ TEST_F(IteratorUtilsTests, TestFindIfNotUseEndReturnsPosition)
     auto equalsThree{ [](int i) { return i == 3; } };
     auto equalsFour { [](int i) { return i == 4; } };
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, zeroToFourTwice, equalsOne), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, zeroToFourTwice, equalsThree), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, zeroToFourTwice, equalsFour), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, zeroToFourTwice, equalsOne), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, zeroToFourTwice, equalsThree), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, zeroToFourTwice, equalsFour), zeroToFourTwice.begin());
 
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, fourZeroOne, equalsZero), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_END_2(Pluto::findIfNot, fourZeroOne, equalsOne), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, fourZeroOne, equalsZero), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_END_2(pluto::findIfNot, fourZeroOne, equalsOne), fourZeroOne.begin());
 }
 
 TEST_F(IteratorUtilsTests, TestFindIfNotUseSizeReturnsPosition)
@@ -374,90 +374,90 @@ TEST_F(IteratorUtilsTests, TestFindIfNotUseSizeReturnsPosition)
     auto equalsThree{ [](int i) { return i == 3; } };
     auto equalsFour { [](int i) { return i == 4; } };
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, zeroToFourTwice, equalsOne), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, zeroToFourTwice, equalsThree), zeroToFourTwice.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, zeroToFourTwice, equalsFour), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, zeroToFourTwice, equalsOne), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, zeroToFourTwice, equalsTwo), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, zeroToFourTwice, equalsThree), zeroToFourTwice.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, zeroToFourTwice, equalsFour), zeroToFourTwice.begin());
 
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, fourZeroOne, equalsZero), fourZeroOne.begin());
-    ASSERT_EQ(TEST_USE_SIZE_2(Pluto::findIfNot, fourZeroOne, equalsOne), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, fourZeroOne, equalsZero), fourZeroOne.begin());
+    ASSERT_EQ(TEST_USE_SIZE_2(pluto::findIfNot, fourZeroOne, equalsOne), fourZeroOne.begin());
 }
 
 TEST_F(IteratorUtilsTests, TestContainsElemUseEndReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 0));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 1));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 2));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 3));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 4));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 0));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 1));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 2));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 3));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 4));
 
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, fourZeroOne, 4));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, fourZeroOne, 0));
-    ASSERT_TRUE(TEST_USE_END_2(Pluto::contains, fourZeroOne, 1));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, fourZeroOne, 4));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, fourZeroOne, 0));
+    ASSERT_TRUE(TEST_USE_END_2(pluto::contains, fourZeroOne, 1));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsElemUseEndReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_END_2(Pluto::contains, zeroToFourTwice, 5));
+    ASSERT_FALSE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 5));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsElemUseSizeReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 0));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 1));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 2));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 3));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 4));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 0));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 1));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 2));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 3));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 4));
 
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, fourZeroOne, 4));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, fourZeroOne, 0));
-    ASSERT_TRUE(TEST_USE_SIZE_2(Pluto::contains, fourZeroOne, 1));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, fourZeroOne, 4));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, fourZeroOne, 0));
+    ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, fourZeroOne, 1));
 }
 TEST_F(IteratorUtilsTests, TestContainsElemUseSizeReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_2(Pluto::contains, zeroToFourTwice, 5));
+    ASSERT_FALSE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 5));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsSequenceUseEndReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, empty, empty));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, empty, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, empty));
 
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, zeroToFourTwice));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, zeroToFourTwice2));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, fourZeroOne));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, oneToThree));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, zero));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, four));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, zeroToFourTwice));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, zeroToFourTwice2));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, fourZeroOne));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, oneToThree));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, zero));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, four));
 
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, fourZeroOne, zero));
-    ASSERT_TRUE(TEST_USE_END_1(Pluto::contains, fourZeroOne, four));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, fourZeroOne, zero));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::contains, fourZeroOne, four));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsSequenceUseEndReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_END_1(Pluto::contains, zeroToFourTwice, five));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, five));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsSequenceUseSizeReturnsTrue)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, empty, empty));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, empty));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, zeroToFourTwice));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, zeroToFourTwice2));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, fourZeroOne));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, oneToThree));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, zero));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, four));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, zeroToFourTwice));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, zeroToFourTwice2));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, fourZeroOne));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, oneToThree));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, zero));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, four));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, fourZeroOne, zero));
-    ASSERT_TRUE(TEST_USE_SIZE_1(Pluto::contains, fourZeroOne, four));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, fourZeroOne, zero));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, fourZeroOne, four));
 }
 
 TEST_F(IteratorUtilsTests, TestContainsSequenceUseSizeReturnsFalse)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_1(Pluto::contains, zeroToFourTwice, five));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, five));
 }

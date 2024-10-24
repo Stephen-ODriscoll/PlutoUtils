@@ -42,9 +42,9 @@ protected:
 
     void TearDown() override
     {
-        if (Pluto::FileSystem::exists(LOG_FILE))
+        if (pluto::FileSystem::exists(LOG_FILE))
         {
-            Pluto::FileSystem::remove(LOG_FILE);
+            pluto::FileSystem::remove(LOG_FILE);
         }
     }
 };
@@ -86,7 +86,7 @@ std::string getLastLog()
 std::string getLastLogMessage()
 {
     auto lastLog    { getLastLog() };
-    auto separator  { Pluto::Logger::getInstance().separator() };
+    auto separator  { pluto::Logger::getInstance().separator() };
     auto index      { lastLog.rfind(separator) };
 
     return ((index == std::string::npos) ? lastLog : lastLog.substr(index + separator.size()));

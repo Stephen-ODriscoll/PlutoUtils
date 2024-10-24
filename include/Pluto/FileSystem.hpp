@@ -24,7 +24,7 @@
 #include <filesystem>
 #endif
 
-namespace Pluto
+namespace pluto
 {
 #if PLUTO_FILESYSTEM_IS_EXPERIMENTAL
     namespace FileSystem = std::experimental::filesystem;

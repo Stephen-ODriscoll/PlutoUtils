@@ -21,7 +21,7 @@ protected:
 // Basic sanity, timings are difficult to test
 TEST_F(StopwatchTests, TestSeconds)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -35,19 +35,19 @@ TEST_F(StopwatchTests, TestSeconds)
 
 TEST_F(StopwatchTests, TestCopyConstructor)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
     ASSERT_FALSE(stopwatch.isRunning());
 
-    Pluto::Stopwatch stopwatch2{ stopwatch };
+    pluto::Stopwatch stopwatch2{ stopwatch };
     ASSERT_EQ(stopwatch.time(), stopwatch2.time());
 }
 
 TEST_F(StopwatchTests, TestTimeCallDoesNotStop)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.time() };
@@ -64,7 +64,7 @@ TEST_F(StopwatchTests, TestTimeCallDoesNotStop)
 
 TEST_F(StopwatchTests, TestStopCallStaysStopped)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
@@ -81,7 +81,7 @@ TEST_F(StopwatchTests, TestStopCallStaysStopped)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallStaysStopped)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.stopAndTime() };
@@ -97,7 +97,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallStaysStopped)
 
 TEST_F(StopwatchTests, TestStopCallOnStoppedNoChange)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
@@ -115,7 +115,7 @@ TEST_F(StopwatchTests, TestStopCallOnStoppedNoChange)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallOnStoppedNoChange)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.stopAndTime() };
@@ -131,7 +131,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallOnStoppedNoChange)
 
 TEST_F(StopwatchTests, TestStartCallDoesNotRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -148,7 +148,7 @@ TEST_F(StopwatchTests, TestStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestRestartCallDoesRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -165,7 +165,7 @@ TEST_F(StopwatchTests, TestRestartCallDoesRestart)
 
 TEST_F(StopwatchTests, TestStopCallAndStartCallDoesNotRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -186,7 +186,7 @@ TEST_F(StopwatchTests, TestStopCallAndStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallAndStartCallDoesNotRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -205,7 +205,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallAndStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestStopCallAndRestartCallDoesRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -226,7 +226,7 @@ TEST_F(StopwatchTests, TestStopCallAndRestartCallDoesRestart)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallAndRestartCallDoesRestart)
 {
-    Pluto::Stopwatch stopwatch{ true };
+    pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));

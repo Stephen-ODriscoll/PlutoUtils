@@ -9,7 +9,7 @@
 
 #include <chrono>
 
-namespace Pluto
+namespace pluto
 {
     class Stopwatch
     {

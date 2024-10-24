@@ -10,7 +10,7 @@
 #include <map>
 #include <list>
 
-namespace Pluto
+namespace pluto
 {
     template<class KeyT, class ValueT>
     class LRUCache

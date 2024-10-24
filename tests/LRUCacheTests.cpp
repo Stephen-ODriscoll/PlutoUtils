@@ -14,7 +14,7 @@
 class LRUCacheTests : public testing::Test
 {
 public:
-    Pluto::LRUCache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
+    pluto::LRUCache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
 
 protected:
     LRUCacheTests() {}

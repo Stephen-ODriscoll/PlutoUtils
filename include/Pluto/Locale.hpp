@@ -14,7 +14,7 @@
 #define PLUTO_LOCALE_DEFAULT_LOCALE ""
 #endif
 
-namespace Pluto
+namespace pluto
 {
     inline const auto& getCLocale()
     {

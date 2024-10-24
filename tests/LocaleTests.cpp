@@ -18,20 +18,20 @@ protected:
 
 TEST_F(LocaleTests, TestGetCLocale)
 {
-    const auto& cLocale{ Pluto::getCLocale() };
+    const auto& cLocale{ pluto::getCLocale() };
 }
 
 TEST_F(LocaleTests, TestGetSystemLocale)
 {
-    const auto& systemLocale{ Pluto::getSystemLocale() };
+    const auto& systemLocale{ pluto::getSystemLocale() };
 }
 
 TEST_F(LocaleTests, TestGetDefaultLocale)
 {
-    const auto& defaultLocale{ Pluto::getDefaultLocale() };
+    const auto& defaultLocale{ pluto::getDefaultLocale() };
 }
 
 TEST_F(LocaleTests, TestGetFacet)
 {
-    const auto& facet{ Pluto::getFacet<char>(Pluto::getDefaultLocale()) };
+    const auto& facet{ pluto::getFacet<char>(pluto::getDefaultLocale()) };
 }

@@ -12,11 +12,11 @@
 class RangeTests : public testing::Test
 {
 public:
-    const Pluto::IntRange intRange1{ 0, 0 };
-    const Pluto::IntRange intRange2{ 0, 0 };
-    const Pluto::IntRange intRange3{ 1, 6 };
-    const Pluto::IntRange intRange4{ 2, 8 };
-    const Pluto::IntRange intRange5{ 6, 9 };
+    const pluto::IntRange intRange1{ 0, 0 };
+    const pluto::IntRange intRange2{ 0, 0 };
+    const pluto::IntRange intRange3{ 1, 6 };
+    const pluto::IntRange intRange4{ 2, 8 };
+    const pluto::IntRange intRange5{ 6, 9 };
 
 protected:
     RangeTests() {}
@@ -25,7 +25,7 @@ protected:
 
 TEST_F(RangeTests, TestRangeSanity)
 {
-    Pluto::IntRange intRange{ 1, 2 };
+    pluto::IntRange intRange{ 1, 2 };
 
     ASSERT_EQ(intRange.begin, 1);
     ASSERT_EQ(intRange.end, 2);
@@ -40,14 +40,14 @@ TEST_F(RangeTests, TestRangeSanity)
 
 TEST_F(RangeTests, TestRangeCopyConstructor)
 {
-    Pluto::IntRange intRange{ 1, 2 };
+    pluto::IntRange intRange{ 1, 2 };
 
     ASSERT_EQ(intRange.begin, 1);
     ASSERT_EQ(intRange.end, 2);
 
     ASSERT_EQ(intRange.size(), 1);
 
-    Pluto::IntRange intRange2{ intRange };
+    pluto::IntRange intRange2{ intRange };
 
     ASSERT_EQ(intRange2.begin, 1);
     ASSERT_EQ(intRange2.end, 2);
