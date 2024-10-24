@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/Compare.hpp"
+#include "Pluto/Compare.hpp"
 
 #include <gtest/gtest.h>
 
@@ -64,336 +64,336 @@ protected:
 
 TEST_F(CompareTests, TestIsEqual)
 {
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsEqual(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsEqual(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsEqual(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsEqual(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsEqual(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsEqual(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsEqual(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsEqual(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsEqual(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsEqual(), 'a', 'a');
 
-    ASSERT_TRUE(Generic::IsEqual()(1,       1));
-    ASSERT_TRUE(Generic::IsEqual()(1l,      1l));
-    ASSERT_TRUE(Generic::IsEqual()(1ll,     1ll));
-    ASSERT_TRUE(Generic::IsEqual()(1u,      1u));
-    ASSERT_TRUE(Generic::IsEqual()(1ul,     1ul));
-    ASSERT_TRUE(Generic::IsEqual()(1ull,    1ull));
-    ASSERT_TRUE(Generic::IsEqual()(1.0,     1.0));
-    ASSERT_TRUE(Generic::IsEqual()(1.0f,    1.0f));
+    ASSERT_TRUE(Pluto::IsEqual()(1,       1));
+    ASSERT_TRUE(Pluto::IsEqual()(1l,      1l));
+    ASSERT_TRUE(Pluto::IsEqual()(1ll,     1ll));
+    ASSERT_TRUE(Pluto::IsEqual()(1u,      1u));
+    ASSERT_TRUE(Pluto::IsEqual()(1ul,     1ul));
+    ASSERT_TRUE(Pluto::IsEqual()(1ull,    1ull));
+    ASSERT_TRUE(Pluto::IsEqual()(1.0,     1.0));
+    ASSERT_TRUE(Pluto::IsEqual()(1.0f,    1.0f));
 
-    ASSERT_FALSE(Generic::IsEqual()(1,      2));
-    ASSERT_FALSE(Generic::IsEqual()(1l,     2l));
-    ASSERT_FALSE(Generic::IsEqual()(1ll,    2ll));
-    ASSERT_FALSE(Generic::IsEqual()(1u,     2u));
-    ASSERT_FALSE(Generic::IsEqual()(1ul,    2ul));
-    ASSERT_FALSE(Generic::IsEqual()(1ull,   2ull));
-    ASSERT_FALSE(Generic::IsEqual()(1.0,    2.0));
-    ASSERT_FALSE(Generic::IsEqual()(1.0f,   2.0f));
+    ASSERT_FALSE(Pluto::IsEqual()(1,      2));
+    ASSERT_FALSE(Pluto::IsEqual()(1l,     2l));
+    ASSERT_FALSE(Pluto::IsEqual()(1ll,    2ll));
+    ASSERT_FALSE(Pluto::IsEqual()(1u,     2u));
+    ASSERT_FALSE(Pluto::IsEqual()(1ul,    2ul));
+    ASSERT_FALSE(Pluto::IsEqual()(1ull,   2ull));
+    ASSERT_FALSE(Pluto::IsEqual()(1.0,    2.0));
+    ASSERT_FALSE(Pluto::IsEqual()(1.0f,   2.0f));
 
-    ASSERT_FALSE(Generic::IsEqual()(2,      1));
-    ASSERT_FALSE(Generic::IsEqual()(2l,     1l));
-    ASSERT_FALSE(Generic::IsEqual()(2ll,    1ll));
-    ASSERT_FALSE(Generic::IsEqual()(2u,     1u));
-    ASSERT_FALSE(Generic::IsEqual()(2ul,    1ul));
-    ASSERT_FALSE(Generic::IsEqual()(2ull,   1ull));
-    ASSERT_FALSE(Generic::IsEqual()(2.0,    1.0));
-    ASSERT_FALSE(Generic::IsEqual()(2.0f,   1.0f));
+    ASSERT_FALSE(Pluto::IsEqual()(2,      1));
+    ASSERT_FALSE(Pluto::IsEqual()(2l,     1l));
+    ASSERT_FALSE(Pluto::IsEqual()(2ll,    1ll));
+    ASSERT_FALSE(Pluto::IsEqual()(2u,     1u));
+    ASSERT_FALSE(Pluto::IsEqual()(2ul,    1ul));
+    ASSERT_FALSE(Pluto::IsEqual()(2ull,   1ull));
+    ASSERT_FALSE(Pluto::IsEqual()(2.0,    1.0));
+    ASSERT_FALSE(Pluto::IsEqual()(2.0f,   1.0f));
 }
 
 TEST_F(CompareTests, TestIsNotEqual)
 {
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsNotEqual(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsNotEqual(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsNotEqual(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsNotEqual(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsNotEqual(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsNotEqual(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsNotEqual(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsNotEqual(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsNotEqual(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsNotEqual(), 'a', 'a');
 
-    ASSERT_FALSE(Generic::IsNotEqual()  (' ', ' '));
-    ASSERT_FALSE(Generic::IsNotEqual()  ('A', 'A'));
-    ASSERT_TRUE(Generic::IsNotEqual()   ('a', 'A'));
-    ASSERT_TRUE(Generic::IsNotEqual()   ('A', 'a'));
-    ASSERT_FALSE(Generic::IsNotEqual()  ('a', 'a'));
+    ASSERT_FALSE(Pluto::IsNotEqual()  (' ', ' '));
+    ASSERT_FALSE(Pluto::IsNotEqual()  ('A', 'A'));
+    ASSERT_TRUE(Pluto::IsNotEqual()   ('a', 'A'));
+    ASSERT_TRUE(Pluto::IsNotEqual()   ('A', 'a'));
+    ASSERT_FALSE(Pluto::IsNotEqual()  ('a', 'a'));
 
-    ASSERT_FALSE(Generic::IsNotEqual()(1,       1));
-    ASSERT_FALSE(Generic::IsNotEqual()(1l,      1l));
-    ASSERT_FALSE(Generic::IsNotEqual()(1ll,     1ll));
-    ASSERT_FALSE(Generic::IsNotEqual()(1u,      1u));
-    ASSERT_FALSE(Generic::IsNotEqual()(1ul,     1ul));
-    ASSERT_FALSE(Generic::IsNotEqual()(1ull,    1ull));
-    ASSERT_FALSE(Generic::IsNotEqual()(1.0,     1.0));
-    ASSERT_FALSE(Generic::IsNotEqual()(1.0f,    1.0f));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1,       1));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1l,      1l));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1ll,     1ll));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1u,      1u));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1ul,     1ul));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1ull,    1ull));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1.0,     1.0));
+    ASSERT_FALSE(Pluto::IsNotEqual()(1.0f,    1.0f));
 
-    ASSERT_TRUE(Generic::IsNotEqual()(1,    2));
-    ASSERT_TRUE(Generic::IsNotEqual()(1l,   2l));
-    ASSERT_TRUE(Generic::IsNotEqual()(1ll,  2ll));
-    ASSERT_TRUE(Generic::IsNotEqual()(1u,   2u));
-    ASSERT_TRUE(Generic::IsNotEqual()(1ul,  2ul));
-    ASSERT_TRUE(Generic::IsNotEqual()(1ull, 2ull));
-    ASSERT_TRUE(Generic::IsNotEqual()(1.0,  2.0));
-    ASSERT_TRUE(Generic::IsNotEqual()(1.0f, 2.0f));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1,    2));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1l,   2l));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1ll,  2ll));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1u,   2u));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1ul,  2ul));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1ull, 2ull));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1.0,  2.0));
+    ASSERT_TRUE(Pluto::IsNotEqual()(1.0f, 2.0f));
 
-    ASSERT_TRUE(Generic::IsNotEqual()(2,    1));
-    ASSERT_TRUE(Generic::IsNotEqual()(2l,   1l));
-    ASSERT_TRUE(Generic::IsNotEqual()(2ll,  1ll));
-    ASSERT_TRUE(Generic::IsNotEqual()(2u,   1u));
-    ASSERT_TRUE(Generic::IsNotEqual()(2ul,  1ul));
-    ASSERT_TRUE(Generic::IsNotEqual()(2ull, 1ull));
-    ASSERT_TRUE(Generic::IsNotEqual()(2.0,  1.0));
-    ASSERT_TRUE(Generic::IsNotEqual()(2.0f, 1.0f));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2,    1));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2l,   1l));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2ll,  1ll));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2u,   1u));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2ul,  1ul));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2ull, 1ull));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2.0,  1.0));
+    ASSERT_TRUE(Pluto::IsNotEqual()(2.0f, 1.0f));
 }
 
 TEST_F(CompareTests, TestIsLess)
 {
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsLess(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsLess(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsLess(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsLess(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsLess(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsLess(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsLess(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsLess(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsLess(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsLess(), 'a', 'a');
 
-    ASSERT_FALSE(Generic::IsLess()(1,       1));
-    ASSERT_FALSE(Generic::IsLess()(1l,      1l));
-    ASSERT_FALSE(Generic::IsLess()(1ll,     1ll));
-    ASSERT_FALSE(Generic::IsLess()(1u,      1u));
-    ASSERT_FALSE(Generic::IsLess()(1ul,     1ul));
-    ASSERT_FALSE(Generic::IsLess()(1ull,    1ull));
-    ASSERT_FALSE(Generic::IsLess()(1.0,     1.0));
-    ASSERT_FALSE(Generic::IsLess()(1.0f,    1.0f));
+    ASSERT_FALSE(Pluto::IsLess()(1,       1));
+    ASSERT_FALSE(Pluto::IsLess()(1l,      1l));
+    ASSERT_FALSE(Pluto::IsLess()(1ll,     1ll));
+    ASSERT_FALSE(Pluto::IsLess()(1u,      1u));
+    ASSERT_FALSE(Pluto::IsLess()(1ul,     1ul));
+    ASSERT_FALSE(Pluto::IsLess()(1ull,    1ull));
+    ASSERT_FALSE(Pluto::IsLess()(1.0,     1.0));
+    ASSERT_FALSE(Pluto::IsLess()(1.0f,    1.0f));
 
-    ASSERT_TRUE(Generic::IsLess()(1,    2));
-    ASSERT_TRUE(Generic::IsLess()(1l,   2l));
-    ASSERT_TRUE(Generic::IsLess()(1ll,  2ll));
-    ASSERT_TRUE(Generic::IsLess()(1u,   2u));
-    ASSERT_TRUE(Generic::IsLess()(1ul,  2ul));
-    ASSERT_TRUE(Generic::IsLess()(1ull, 2ull));
-    ASSERT_TRUE(Generic::IsLess()(1.0,  2.0));
-    ASSERT_TRUE(Generic::IsLess()(1.0f, 2.0f));
+    ASSERT_TRUE(Pluto::IsLess()(1,    2));
+    ASSERT_TRUE(Pluto::IsLess()(1l,   2l));
+    ASSERT_TRUE(Pluto::IsLess()(1ll,  2ll));
+    ASSERT_TRUE(Pluto::IsLess()(1u,   2u));
+    ASSERT_TRUE(Pluto::IsLess()(1ul,  2ul));
+    ASSERT_TRUE(Pluto::IsLess()(1ull, 2ull));
+    ASSERT_TRUE(Pluto::IsLess()(1.0,  2.0));
+    ASSERT_TRUE(Pluto::IsLess()(1.0f, 2.0f));
 
-    ASSERT_FALSE(Generic::IsLess()(2,       1));
-    ASSERT_FALSE(Generic::IsLess()(2l,      1l));
-    ASSERT_FALSE(Generic::IsLess()(2ll,     1ll));
-    ASSERT_FALSE(Generic::IsLess()(2u,      1u));
-    ASSERT_FALSE(Generic::IsLess()(2ul,     1ul));
-    ASSERT_FALSE(Generic::IsLess()(2ull,    1ull));
-    ASSERT_FALSE(Generic::IsLess()(2.0,     1.0));
-    ASSERT_FALSE(Generic::IsLess()(2.0f,    1.0f));
+    ASSERT_FALSE(Pluto::IsLess()(2,       1));
+    ASSERT_FALSE(Pluto::IsLess()(2l,      1l));
+    ASSERT_FALSE(Pluto::IsLess()(2ll,     1ll));
+    ASSERT_FALSE(Pluto::IsLess()(2u,      1u));
+    ASSERT_FALSE(Pluto::IsLess()(2ul,     1ul));
+    ASSERT_FALSE(Pluto::IsLess()(2ull,    1ull));
+    ASSERT_FALSE(Pluto::IsLess()(2.0,     1.0));
+    ASSERT_FALSE(Pluto::IsLess()(2.0f,    1.0f));
 }
 
 TEST_F(CompareTests, TestIsGreater)
 {
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsGreater(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsGreater(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsGreater(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsGreater(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsGreater(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsGreater(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsGreater(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsGreater(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsGreater(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsGreater(), 'a', 'a');
 
-    ASSERT_FALSE(Generic::IsGreater()(1,    1));
-    ASSERT_FALSE(Generic::IsGreater()(1l,   1l));
-    ASSERT_FALSE(Generic::IsGreater()(1ll,  1ll));
-    ASSERT_FALSE(Generic::IsGreater()(1u,   1u));
-    ASSERT_FALSE(Generic::IsGreater()(1ul,  1ul));
-    ASSERT_FALSE(Generic::IsGreater()(1ull, 1ull));
-    ASSERT_FALSE(Generic::IsGreater()(1.0,  1.0));
-    ASSERT_FALSE(Generic::IsGreater()(1.0f, 1.0f));
+    ASSERT_FALSE(Pluto::IsGreater()(1,    1));
+    ASSERT_FALSE(Pluto::IsGreater()(1l,   1l));
+    ASSERT_FALSE(Pluto::IsGreater()(1ll,  1ll));
+    ASSERT_FALSE(Pluto::IsGreater()(1u,   1u));
+    ASSERT_FALSE(Pluto::IsGreater()(1ul,  1ul));
+    ASSERT_FALSE(Pluto::IsGreater()(1ull, 1ull));
+    ASSERT_FALSE(Pluto::IsGreater()(1.0,  1.0));
+    ASSERT_FALSE(Pluto::IsGreater()(1.0f, 1.0f));
 
-    ASSERT_FALSE(Generic::IsGreater()(1,    2));
-    ASSERT_FALSE(Generic::IsGreater()(1l,   2l));
-    ASSERT_FALSE(Generic::IsGreater()(1ll,  2ll));
-    ASSERT_FALSE(Generic::IsGreater()(1u,   2u));
-    ASSERT_FALSE(Generic::IsGreater()(1ul,  2ul));
-    ASSERT_FALSE(Generic::IsGreater()(1ull, 2ull));
-    ASSERT_FALSE(Generic::IsGreater()(1.0,  2.0));
-    ASSERT_FALSE(Generic::IsGreater()(1.0f, 2.0f));
+    ASSERT_FALSE(Pluto::IsGreater()(1,    2));
+    ASSERT_FALSE(Pluto::IsGreater()(1l,   2l));
+    ASSERT_FALSE(Pluto::IsGreater()(1ll,  2ll));
+    ASSERT_FALSE(Pluto::IsGreater()(1u,   2u));
+    ASSERT_FALSE(Pluto::IsGreater()(1ul,  2ul));
+    ASSERT_FALSE(Pluto::IsGreater()(1ull, 2ull));
+    ASSERT_FALSE(Pluto::IsGreater()(1.0,  2.0));
+    ASSERT_FALSE(Pluto::IsGreater()(1.0f, 2.0f));
 
-    ASSERT_TRUE(Generic::IsGreater()(2,     1));
-    ASSERT_TRUE(Generic::IsGreater()(2l,    1l));
-    ASSERT_TRUE(Generic::IsGreater()(2ll,   1ll));
-    ASSERT_TRUE(Generic::IsGreater()(2u,    1u));
-    ASSERT_TRUE(Generic::IsGreater()(2ul,   1ul));
-    ASSERT_TRUE(Generic::IsGreater()(2ull,  1ull));
-    ASSERT_TRUE(Generic::IsGreater()(2.0,   1.0));
-    ASSERT_TRUE(Generic::IsGreater()(2.0f,  1.0f));
+    ASSERT_TRUE(Pluto::IsGreater()(2,     1));
+    ASSERT_TRUE(Pluto::IsGreater()(2l,    1l));
+    ASSERT_TRUE(Pluto::IsGreater()(2ll,   1ll));
+    ASSERT_TRUE(Pluto::IsGreater()(2u,    1u));
+    ASSERT_TRUE(Pluto::IsGreater()(2ul,   1ul));
+    ASSERT_TRUE(Pluto::IsGreater()(2ull,  1ull));
+    ASSERT_TRUE(Pluto::IsGreater()(2.0,   1.0));
+    ASSERT_TRUE(Pluto::IsGreater()(2.0f,  1.0f));
 }
 
 TEST_F(CompareTests, TestIsLessEqual)
 {
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsLessEqual(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsLessEqual(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsLessEqual(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsLessEqual(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsLessEqual(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsLessEqual(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsLessEqual(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsLessEqual(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsLessEqual(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsLessEqual(), 'a', 'a');
 
-    ASSERT_TRUE(Generic::IsLessEqual()(1,       1));
-    ASSERT_TRUE(Generic::IsLessEqual()(1l,      1l));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ll,     1ll));
-    ASSERT_TRUE(Generic::IsLessEqual()(1u,      1u));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ul,     1ul));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ull,    1ull));
-    ASSERT_TRUE(Generic::IsLessEqual()(1.0,     1.0));
-    ASSERT_TRUE(Generic::IsLessEqual()(1.0f,    1.0f));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1,       1));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1l,      1l));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ll,     1ll));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1u,      1u));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ul,     1ul));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ull,    1ull));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1.0,     1.0));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1.0f,    1.0f));
 
-    ASSERT_TRUE(Generic::IsLessEqual()(1,       2));
-    ASSERT_TRUE(Generic::IsLessEqual()(1l,      2l));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ll,     2ll));
-    ASSERT_TRUE(Generic::IsLessEqual()(1u,      2u));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ul,     2ul));
-    ASSERT_TRUE(Generic::IsLessEqual()(1ull,    2ull));
-    ASSERT_TRUE(Generic::IsLessEqual()(1.0,     2.0));
-    ASSERT_TRUE(Generic::IsLessEqual()(1.0f,    2.0f));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1,       2));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1l,      2l));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ll,     2ll));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1u,      2u));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ul,     2ul));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1ull,    2ull));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1.0,     2.0));
+    ASSERT_TRUE(Pluto::IsLessEqual()(1.0f,    2.0f));
 
-    ASSERT_FALSE(Generic::IsLessEqual()(2,      1));
-    ASSERT_FALSE(Generic::IsLessEqual()(2l,     1l));
-    ASSERT_FALSE(Generic::IsLessEqual()(2ll,    1ll));
-    ASSERT_FALSE(Generic::IsLessEqual()(2u,     1u));
-    ASSERT_FALSE(Generic::IsLessEqual()(2ul,    1ul));
-    ASSERT_FALSE(Generic::IsLessEqual()(2ull,   1ull));
-    ASSERT_FALSE(Generic::IsLessEqual()(2.0,    1.0));
-    ASSERT_FALSE(Generic::IsLessEqual()(2.0f,   1.0f));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2,      1));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2l,     1l));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2ll,    1ll));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2u,     1u));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2ul,    1ul));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2ull,   1ull));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2.0,    1.0));
+    ASSERT_FALSE(Pluto::IsLessEqual()(2.0f,   1.0f));
 }
 
 TEST_F(CompareTests, TestIsGreaterEqual)
 {
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsGreaterEqual(), ' ', ' ');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsGreaterEqual(), 'A', 'A');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsGreaterEqual(), 'a', 'A');
-    TEST_ALL_ELEM(ASSERT_FALSE, Generic::IsGreaterEqual(), 'A', 'a');
-    TEST_ALL_ELEM(ASSERT_TRUE,  Generic::IsGreaterEqual(), 'a', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsGreaterEqual(), ' ', ' ');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsGreaterEqual(), 'A', 'A');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsGreaterEqual(), 'a', 'A');
+    TEST_ALL_ELEM(ASSERT_FALSE, Pluto::IsGreaterEqual(), 'A', 'a');
+    TEST_ALL_ELEM(ASSERT_TRUE,  Pluto::IsGreaterEqual(), 'a', 'a');
 
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1,    1));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1l,   1l));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1ll,  1ll));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1u,   1u));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1ul,  1ul));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1ull, 1ull));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1.0,  1.0));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(1.0f, 1.0f));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1,    1));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1l,   1l));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1ll,  1ll));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1u,   1u));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1ul,  1ul));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1ull, 1ull));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1.0,  1.0));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(1.0f, 1.0f));
 
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1,       2));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1l,      2l));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1ll,     2ll));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1u,      2u));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1ul,     2ul));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1ull,    2ull));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1.0,     2.0));
-    ASSERT_FALSE(Generic::IsGreaterEqual()(1.0f,    2.0f));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1,       2));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1l,      2l));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1ll,     2ll));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1u,      2u));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1ul,     2ul));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1ull,    2ull));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1.0,     2.0));
+    ASSERT_FALSE(Pluto::IsGreaterEqual()(1.0f,    2.0f));
 
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2,    1));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2l,   1l));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2ll,  1ll));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2u,   1u));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2ul,  1ul));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2ull, 1ull));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2.0,  1.0));
-    ASSERT_TRUE(Generic::IsGreaterEqual()(2.0f, 1.0f));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2,    1));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2l,   1l));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2ll,  1ll));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2u,   1u));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2ul,  1ul));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2ull, 1ull));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2.0,  1.0));
+    ASSERT_TRUE(Pluto::IsGreaterEqual()(2.0f, 1.0f));
 }
 
 TEST_F(CompareTests, TestIsEqualIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }
 
 TEST_F(CompareTests, TestIsNotEqualIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsNotEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsNotEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }
 
 TEST_F(CompareTests, TestIsLessIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }
 
 TEST_F(CompareTests, TestIsGreaterIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }
 
 TEST_F(CompareTests, TestIsLessEqualIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsLessEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsLessEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }
 
 TEST_F(CompareTests, TestIsGreaterEqualIgnoreCase)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Generic::IsGreaterEqualIgnoreCase, Generic::getDefaultLocale(), 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, Pluto::IsGreaterEqualIgnoreCase, Pluto::getDefaultLocale(), 'b', 'a');
 }

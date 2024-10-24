@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/StringUtils.hpp"
+#include "Pluto/StringUtils.hpp"
 
 #include <gtest/gtest.h>
 
@@ -548,158 +548,158 @@ protected:
 
 TEST_F(StringUtilsTests, TestElemToLower)
 {
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, ' ', ' ');
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'a', 'a');
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toLower, 'A', 'a');
-    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toLower, 'a', 'A');
-    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toLower, 'A', 'A');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toLower, ' ', ' ');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toLower, 'a', 'a');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toLower, 'A', 'a');
+    TEST_ALL_ELEM_2(ASSERT_NE, Pluto::toLower, 'a', 'A');
+    TEST_ALL_ELEM_2(ASSERT_NE, Pluto::toLower, 'A', 'A');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayToLower)
 {
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "a", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toLower, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toLower, "A", "A");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "", "");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "", "");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toLower, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toLower, "ABCDEF", "ABCDEF");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toLower, "aBcDeF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toLower, "abcdef", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toLower, "aBcDeF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toLower, "abcdef", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringToLower)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, " ", " ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "A", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "a", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, " ", " ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "A", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toLower, "a", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toLower, "A", "A");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "", "");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "abcdef", "abcdef");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "", "");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toLower, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toLower, "ABCDEF", "ABCDEF");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toLower, "aBcDeF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toLower, "abcdef", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toLower, "aBcDeF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toLower, "abcdef", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemToUpper)
 {
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, ' ', ' ');
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'A', 'A');
-    TEST_ALL_ELEM_2(ASSERT_EQ, Generic::toUpper, 'a', 'A');
-    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toUpper, 'A', 'a');
-    TEST_ALL_ELEM_2(ASSERT_NE, Generic::toUpper, 'a', 'a');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toUpper, ' ', ' ');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toUpper, 'A', 'A');
+    TEST_ALL_ELEM_2(ASSERT_EQ, Pluto::toUpper, 'a', 'A');
+    TEST_ALL_ELEM_2(ASSERT_NE, Pluto::toUpper, 'A', 'a');
+    TEST_ALL_ELEM_2(ASSERT_NE, Pluto::toUpper, 'a', 'a');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayToUpper)
 {
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toUpper, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toUpper, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "", "");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "", "");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toUpper, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toUpper, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Generic::toUpper, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, Pluto::toUpper, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, Pluto::toUpper, "ABCDEF", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringToUpper)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, " ", " ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "A", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "a", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "A", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, " ", " ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "a", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toUpper, "A", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toUpper, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "", "");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "", "");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toUpper, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toUpper, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::toUpper, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Generic::toUpper, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::toUpper, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_NE, Pluto::toUpper, "ABCDEF", "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemIsLower)
 {
-    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isLower, ' ');
-    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isLower, 'a');
-    TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isLower, 'A');
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Pluto::isLower, ' ');
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Pluto::isLower, 'a');
+    TEST_ALL_ELEM_1(ASSERT_FALSE, Pluto::isLower, 'A');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsLower)
 {
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, " ");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "a");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "A");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isLower, " ");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isLower, "a");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isLower, "A");
 
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isLower, "");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isLower, "abcdef");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isLower, "ABCDEF");
 
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isLower, "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isLower, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringIsLower)
 {
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, " ");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "a");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "A");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isLower, " ");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isLower, "a");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isLower, "A");
 
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isLower, "abcdef");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isLower, "");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isLower, "abcdef");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isLower, "ABCDEF");
 
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isLower, "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isLower, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemIsUpper)
 {
-    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isUpper, ' ');
-    TEST_ALL_ELEM_1(ASSERT_TRUE, Generic::isUpper, 'A');
-    TEST_ALL_ELEM_1(ASSERT_FALSE, Generic::isUpper, 'a');
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Pluto::isUpper, ' ');
+    TEST_ALL_ELEM_1(ASSERT_TRUE, Pluto::isUpper, 'A');
+    TEST_ALL_ELEM_1(ASSERT_FALSE, Pluto::isUpper, 'a');
 }
 
 TEST_F(StringUtilsTests, TestElemArrayIsUpper)
 {
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, " ");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "A");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "a");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isUpper, " ");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isUpper, "A");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isUpper, "a");
 
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isUpper, "");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, Pluto::isUpper, "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isUpper, "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Generic::isUpper, "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, Pluto::isUpper, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestElemStringIsUpper)
 {
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, " ");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "A");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "a");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isUpper, " ");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isUpper, "A");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isUpper, "a");
 
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Generic::isUpper, "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "abcdef");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isUpper, "");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_TRUE, Pluto::isUpper, "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isUpper, "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Generic::isUpper, "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_1(ASSERT_FALSE, Pluto::isUpper, "aBcDeF");
 }
 
 TEST_F(StringUtilsTests, TestWideElemArrayToNarrow)
@@ -708,7 +708,7 @@ TEST_F(StringUtilsTests, TestWideElemArrayToNarrow)
     const auto narrow   { "abcdef" };
     const auto size     { wcslen(wide) };
 
-    ASSERT_EQ(Generic::toNarrow(wide, size), std::string(narrow));
+    ASSERT_EQ(Pluto::toNarrow(wide, size), std::string(narrow));
 }
 
 TEST_F(StringUtilsTests, TestWideStringToNarrow)
@@ -716,7 +716,7 @@ TEST_F(StringUtilsTests, TestWideStringToNarrow)
     const std::wstring wide { L"abcdef" };
     const std::string narrow{ "abcdef" };
 
-    ASSERT_EQ(Generic::toNarrow(wide), narrow);
+    ASSERT_EQ(Pluto::toNarrow(wide), narrow);
 }
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToNarrow)
@@ -724,28 +724,28 @@ TEST_F(StringUtilsTests, TestNarrowElemArrayToNarrow)
     const auto narrow   { "abcdef" };
     const auto size     { strlen(narrow) };
 
-    ASSERT_EQ(Generic::toNarrow(narrow, size), std::string(narrow));
+    ASSERT_EQ(Pluto::toNarrow(narrow, size), std::string(narrow));
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToNarrow)
 {
     const std::string narrow{ "abcdef" };
 
-    ASSERT_EQ(Generic::toNarrow(narrow), narrow);
+    ASSERT_EQ(Pluto::toNarrow(narrow), narrow);
 }
 
 TEST_F(StringUtilsTests, TestOtherToNarrow)
 {
     const std::string narrow{ "1" };
 
-    ASSERT_EQ(Generic::toNarrow(1),     narrow);
-    ASSERT_EQ(Generic::toNarrow(1l),    narrow);
-    ASSERT_EQ(Generic::toNarrow(1ll),   narrow);
-    ASSERT_EQ(Generic::toNarrow(1u),    narrow);
-    ASSERT_EQ(Generic::toNarrow(1ul),   narrow);
-    ASSERT_EQ(Generic::toNarrow(1ull),  narrow);
-    ASSERT_EQ(Generic::toNarrow(1.0),   narrow);
-    ASSERT_EQ(Generic::toNarrow(1.0f),  narrow);
+    ASSERT_EQ(Pluto::toNarrow(1),     narrow);
+    ASSERT_EQ(Pluto::toNarrow(1l),    narrow);
+    ASSERT_EQ(Pluto::toNarrow(1ll),   narrow);
+    ASSERT_EQ(Pluto::toNarrow(1u),    narrow);
+    ASSERT_EQ(Pluto::toNarrow(1ul),   narrow);
+    ASSERT_EQ(Pluto::toNarrow(1ull),  narrow);
+    ASSERT_EQ(Pluto::toNarrow(1.0),   narrow);
+    ASSERT_EQ(Pluto::toNarrow(1.0f),  narrow);
 }
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToWide)
@@ -754,7 +754,7 @@ TEST_F(StringUtilsTests, TestNarrowElemArrayToWide)
     const auto narrow   { "abcdef" };
     const auto size     { strlen(narrow) };
 
-    ASSERT_EQ(Generic::toWide(narrow, size), std::wstring(wide));
+    ASSERT_EQ(Pluto::toWide(narrow, size), std::wstring(wide));
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToWide)
@@ -762,7 +762,7 @@ TEST_F(StringUtilsTests, TestNarrowStringToWide)
     const std::wstring wide { L"abcdef" };
     const std::string narrow{ "abcdef" };
 
-    ASSERT_EQ(Generic::toWide(narrow), wide);
+    ASSERT_EQ(Pluto::toWide(narrow), wide);
 }
 
 TEST_F(StringUtilsTests, TestWideElemArrayToWide)
@@ -770,42 +770,42 @@ TEST_F(StringUtilsTests, TestWideElemArrayToWide)
     const auto wide{ L"abcdef" };
     const auto size{ wcslen(wide) };
 
-    ASSERT_EQ(Generic::toWide(wide, size), std::wstring(wide));
+    ASSERT_EQ(Pluto::toWide(wide, size), std::wstring(wide));
 }
 
 TEST_F(StringUtilsTests, TestWideStringToWide)
 {
     const std::wstring wide{ L"abcdef" };
 
-    ASSERT_EQ(Generic::toWide(wide), wide);
+    ASSERT_EQ(Pluto::toWide(wide), wide);
 }
 
 TEST_F(StringUtilsTests, TestOtherToWide)
 {
     const std::wstring wide{ L"1" };
 
-    ASSERT_EQ(Generic::toWide(1),       wide);
-    ASSERT_EQ(Generic::toWide(1l),      wide);
-    ASSERT_EQ(Generic::toWide(1ll),     wide);
-    ASSERT_EQ(Generic::toWide(1u),      wide);
-    ASSERT_EQ(Generic::toWide(1ul),     wide);
-    ASSERT_EQ(Generic::toWide(1ull),    wide);
-    ASSERT_EQ(Generic::toWide(1.0),     wide);
-    ASSERT_EQ(Generic::toWide(1.0f),    wide);
+    ASSERT_EQ(Pluto::toWide(1),       wide);
+    ASSERT_EQ(Pluto::toWide(1l),      wide);
+    ASSERT_EQ(Pluto::toWide(1ll),     wide);
+    ASSERT_EQ(Pluto::toWide(1u),      wide);
+    ASSERT_EQ(Pluto::toWide(1ul),     wide);
+    ASSERT_EQ(Pluto::toWide(1ull),    wide);
+    ASSERT_EQ(Pluto::toWide(1.0),     wide);
+    ASSERT_EQ(Pluto::toWide(1.0f),    wide);
 }
 
 TEST_F(StringUtilsTests, TestNarrowStringToOther)
 {
     const std::string narrow{ "1" };
 
-    ASSERT_EQ(Generic::narrowTo<int>(narrow),                   1);
-    ASSERT_EQ(Generic::narrowTo<long>(narrow),                  1l);
-    ASSERT_EQ(Generic::narrowTo<long long>(narrow),             1ll);
-    ASSERT_EQ(Generic::narrowTo<unsigned int>(narrow),          1u);
-    ASSERT_EQ(Generic::narrowTo<unsigned long>(narrow),         1ul);
-    ASSERT_EQ(Generic::narrowTo<unsigned long long>(narrow),    1ull);
-    ASSERT_EQ(Generic::narrowTo<double>(narrow),                1.0);
-    ASSERT_EQ(Generic::narrowTo<float>(narrow),                 1.0f);
+    ASSERT_EQ(Pluto::narrowTo<int>(narrow),                   1);
+    ASSERT_EQ(Pluto::narrowTo<long>(narrow),                  1l);
+    ASSERT_EQ(Pluto::narrowTo<long long>(narrow),             1ll);
+    ASSERT_EQ(Pluto::narrowTo<unsigned int>(narrow),          1u);
+    ASSERT_EQ(Pluto::narrowTo<unsigned long>(narrow),         1ul);
+    ASSERT_EQ(Pluto::narrowTo<unsigned long long>(narrow),    1ull);
+    ASSERT_EQ(Pluto::narrowTo<double>(narrow),                1.0);
+    ASSERT_EQ(Pluto::narrowTo<float>(narrow),                 1.0f);
 }
 
 TEST_F(StringUtilsTests, TestNarrowElemArrayToOther)
@@ -813,28 +813,28 @@ TEST_F(StringUtilsTests, TestNarrowElemArrayToOther)
     const auto narrow   { "1" };
     const auto size     { strlen(narrow) };
 
-    ASSERT_EQ(Generic::narrowTo<int>(narrow, size),                 1);
-    ASSERT_EQ(Generic::narrowTo<long>(narrow, size),                1l);
-    ASSERT_EQ(Generic::narrowTo<long long>(narrow, size),           1ll);
-    ASSERT_EQ(Generic::narrowTo<unsigned int>(narrow, size),        1u);
-    ASSERT_EQ(Generic::narrowTo<unsigned long>(narrow, size),       1ul);
-    ASSERT_EQ(Generic::narrowTo<unsigned long long>(narrow, size),  1ull);
-    ASSERT_EQ(Generic::narrowTo<double>(narrow, size),              1.0);
-    ASSERT_EQ(Generic::narrowTo<float>(narrow, size),               1.0f);
+    ASSERT_EQ(Pluto::narrowTo<int>(narrow, size),                 1);
+    ASSERT_EQ(Pluto::narrowTo<long>(narrow, size),                1l);
+    ASSERT_EQ(Pluto::narrowTo<long long>(narrow, size),           1ll);
+    ASSERT_EQ(Pluto::narrowTo<unsigned int>(narrow, size),        1u);
+    ASSERT_EQ(Pluto::narrowTo<unsigned long>(narrow, size),       1ul);
+    ASSERT_EQ(Pluto::narrowTo<unsigned long long>(narrow, size),  1ull);
+    ASSERT_EQ(Pluto::narrowTo<double>(narrow, size),              1.0);
+    ASSERT_EQ(Pluto::narrowTo<float>(narrow, size),               1.0f);
 }
 
 TEST_F(StringUtilsTests, TestWideStringToOther)
 {
     const std::wstring wide{ L"1" };
 
-    ASSERT_EQ(Generic::wideTo<int>(wide),                   1);
-    ASSERT_EQ(Generic::wideTo<long>(wide),                  1l);
-    ASSERT_EQ(Generic::wideTo<long long>(wide),             1ll);
-    ASSERT_EQ(Generic::wideTo<unsigned int>(wide),          1u);
-    ASSERT_EQ(Generic::wideTo<unsigned long>(wide),         1ul);
-    ASSERT_EQ(Generic::wideTo<unsigned long long>(wide),    1ull);
-    ASSERT_EQ(Generic::wideTo<double>(wide),                1.0);
-    ASSERT_EQ(Generic::wideTo<float>(wide),                 1.0f);
+    ASSERT_EQ(Pluto::wideTo<int>(wide),                   1);
+    ASSERT_EQ(Pluto::wideTo<long>(wide),                  1l);
+    ASSERT_EQ(Pluto::wideTo<long long>(wide),             1ll);
+    ASSERT_EQ(Pluto::wideTo<unsigned int>(wide),          1u);
+    ASSERT_EQ(Pluto::wideTo<unsigned long>(wide),         1ul);
+    ASSERT_EQ(Pluto::wideTo<unsigned long long>(wide),    1ull);
+    ASSERT_EQ(Pluto::wideTo<double>(wide),                1.0);
+    ASSERT_EQ(Pluto::wideTo<float>(wide),                 1.0f);
 }
 
 TEST_F(StringUtilsTests, TestWideElemArrayToOther)
@@ -842,734 +842,734 @@ TEST_F(StringUtilsTests, TestWideElemArrayToOther)
     const auto wide{ L"1" };
     const auto size{ wcslen(wide) };
 
-    ASSERT_EQ(Generic::wideTo<int>(wide, size),                 1);
-    ASSERT_EQ(Generic::wideTo<long>(wide, size),                1l);
-    ASSERT_EQ(Generic::wideTo<long long>(wide, size),           1ll);
-    ASSERT_EQ(Generic::wideTo<unsigned int>(wide, size),        1u);
-    ASSERT_EQ(Generic::wideTo<unsigned long>(wide, size),       1ul);
-    ASSERT_EQ(Generic::wideTo<unsigned long long>(wide, size),  1ull);
-    ASSERT_EQ(Generic::wideTo<double>(wide, size),              1.0);
-    ASSERT_EQ(Generic::wideTo<float>(wide, size),               1.0f);
+    ASSERT_EQ(Pluto::wideTo<int>(wide, size),                 1);
+    ASSERT_EQ(Pluto::wideTo<long>(wide, size),                1l);
+    ASSERT_EQ(Pluto::wideTo<long long>(wide, size),           1ll);
+    ASSERT_EQ(Pluto::wideTo<unsigned int>(wide, size),        1u);
+    ASSERT_EQ(Pluto::wideTo<unsigned long>(wide, size),       1ul);
+    ASSERT_EQ(Pluto::wideTo<unsigned long long>(wide, size),  1ull);
+    ASSERT_EQ(Pluto::wideTo<double>(wide, size),              1.0);
+    ASSERT_EQ(Pluto::wideTo<float>(wide, size),               1.0f);
 }
 
 TEST_F(StringUtilsTests, TestElemArrayEqualsIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, " ", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringEqualsIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, " ", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::equalsIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::equalsIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::equalsIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemArrayBeginsWithIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringBeginsWithIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, " ", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::beginsWithIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::beginsWithIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemArrayEndsWithIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringEndsWithIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, " ", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::endsWithIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringFind)
 {
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, " ", " ", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "A", "A", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "a", "A", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "A", "a", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "a", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, " ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "A", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "a", "A", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "A", "a", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "a", "a", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "A", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "a", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "A", "b", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "a", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "A", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "a", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "A", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "a", "b", 1); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, " ", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "ABCDEF", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "abcdef", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, " ", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "abcdef", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "abcdef", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "", " ", 0); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "abcdefg", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "", " ", 0); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "abcdefg", 6); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "ABCDE", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "ABCDE", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "abcde", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "ABCDE", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "abcde", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "abcde", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "BCDEF", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "BCDEF", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "bcdef", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "BCDEF", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "bcdef", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "bcdef", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "BCDE", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "BCDE", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "bcde", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "abcdef", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "BCDE", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "bcde", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "abcdef", "bcde", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "aBcDeF", "ABCDEF", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "aBcDeF", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "aBcDeF", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "aBcDeF", 6); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "aBcDeF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::find, "ABCDEF", "aBcDeg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::find, "ABCDEF", "aBcDeg", 6); // end
 }
 
 TEST_F(StringUtilsTests, TestElemArrayFindIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "a", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "b", 1); // end
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcdef", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdeg", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcdeg", 6); // end
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcde", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "bcdef", 1);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "bcde", 1);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
 
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
 }
 
 TEST_F(StringUtilsTests, TestElemStringFindIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", " ", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "A", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "A", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "a", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, " ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "A", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "a", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "a", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "B", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "A", "b", 1); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "a", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "B", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "A", "b", 1); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "a", "b", 1); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, " ", "", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdef", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, " ", "", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcdef", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "", " ", 0); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDEFG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcdefg", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "", " ", 0); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcdefg", 6); // end
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "ABCDE", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "ABCDE", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "abcde", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "abcde", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDEF", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDEF", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcdef", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "bcdef", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "BCDE", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "BCDE", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "bcde", 1);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "abcdef", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "abcdef", "bcde", 1);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "aBcDeF", 0);
 
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
-    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Generic::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_STRINGS_4(ASSERT_EQ, Pluto::findIgnoreCase, "ABCDEF", "aBcDeg", 6); // end
 }
 
 TEST_F(StringUtilsTests, TestElemStringContains)
 {
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, " ", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "A", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "a", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "a", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "A", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "A", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "a", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "A", "b");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "a", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "a", "b");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, " ", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "abcdef", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "abcdef", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::contains, "abcdef", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::contains, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "abcdef", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::contains, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::contains, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemArrayContainsIgnoreCase)
 {
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", "");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "", " ");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::endsWithIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::endsWithIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringContainsIgnoreCase)
 {
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "A");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "A", "a");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "a", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "a", "a");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "B");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "A", "b");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "a", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "a", "b");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, " ", "");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "", " ");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "abcdeg");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "abcdef", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "abcdef", "abcdeg");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "ABCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "abcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "abcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcdef");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "bcdef");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "BCDE");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "bcde");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "abcdef", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "abcdef", "bcde");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, Pluto::containsIgnoreCase, "ABCDEF", "aBcDeF");
 
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "aBcDeF", "ABCDEG");
-    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Generic::containsIgnoreCase, "ABCDEF", "aBcDeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, Pluto::containsIgnoreCase, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(StringUtilsTests, TestElemStringSplitAnyOf)
 {
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a", " ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "A", " ", 1, "A");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "A", " ", 1, "A");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "", " ", 0);
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "   ", " ", 0);
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "\t\n\v\f\r ", " ", 1, "\t\n\v\f\r");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "   ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "\t\n\v\f\r ", " ", 1, "\t\n\v\f\r");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, " a ", " ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, " a ", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "abcdefabcdef", "abc", 2, "def", "def");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::splitAnyOf, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "abcdefabcdef", "abc", 2, "def", "def");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::splitAnyOf, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
 }
 
 TEST_F(StringUtilsTests, TestElemStringSplit)
 {
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a", 1, "a");
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "A", 1, "A");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "a", 1, "a");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "A", 1, "A");
 
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "", 0,);
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "   ", 0,);
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "\t\n\v\f\r ", 0,);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "", 0,);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "   ", 0,);
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "\t\n\v\f\r ", 0,);
 
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, " a ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
-    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Generic::split, "a\tb\nc\vd\fe\rf", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, " a ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, Pluto::split, "a\tb\nc\vd\fe\rf", 6, "a", "b", "c", "d", "e", "f");
 }
 
 TEST_F(StringUtilsTests, TestElemStringSplitWithDelim)
 {
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a", " ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "A", " ", 1, "A");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "A", " ", 1, "A");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "", " ", 1, "");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "   ", " ", 4, "", "", "", "");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "\t\n\v\f\r ", " ", 2, "\t\n\v\f\r", "");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "", " ", 1, "");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "   ", " ", 4, "", "", "", "");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "\t\n\v\f\r ", " ", 2, "\t\n\v\f\r", "");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, " a ", " ", 3, "", "a", "");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, " a ", " ", 3, "", "a", "");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
 
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "abcdefabcdef", "abc", 3, "", "def", "def");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Generic::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "abcdefabcdef", "abc", 3, "", "def", "def");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, Pluto::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
 }
 
 TEST_F(StringUtilsTests, TestElemStringJoinIterators)
 {
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", "a", 1, "a");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", "A", 1, "A");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ",", "a", 1, "a");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ",", "A", 1, "A");
 
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", "", 1, "");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ",,", 3, "", "", "");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ",", ",,,,,", 6, "", "", "", "", "", "");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ",", "", 1, "");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ",", ",,", 3, "", "", "");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
 
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
 
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
 
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Generic::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_7(ASSERT_EQ, Pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
 TEST_F(StringUtilsTests, TestElemStringJoinContainer)
 {
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", "a", 1, "a");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", "A", 1, "A");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ",", "a", 1, "a");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ",", "A", 1, "A");
 
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", "", 1, "");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ",,", 3, "", "", "");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ",", ",,,,,", 6, "", "", "", "", "", "");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ",", "", 1, "");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ",", ",,", 3, "", "", "");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
 
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
 
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
 
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Generic::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, Pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
 TEST_F(StringUtilsTests, TestElemStringLtrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "A", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "\t\n\v\f\r", "");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, "\t\n\v\f\r", "");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " a ", "a ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " A ", "A ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, " a ", "a ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, " A ", "A ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, " a b c ", "a b c ");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::ltrim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, " a b c ", "a b c ");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::ltrim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
 TEST_F(StringUtilsTests, TestElemStringRtrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "A", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "\t\n\v\f\r", "");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, "\t\n\v\f\r", "");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " a ", " a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " A ", " A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, " a ", " a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, " A ", " A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, " a b c ", " a b c");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::rtrim, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, " a b c ", " a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::rtrim, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
 TEST_F(StringUtilsTests, TestElemStringTrim)
 {
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "a", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "A", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "\t\n\v\f\r", "");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, "a", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, "A", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, "\t\n\v\f\r", "");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " a ", "a");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " A ", "A");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "\t\n\v\f\ra\t\n\v\f\r", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, " a ", "a");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, " A ", "A");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, "\t\n\v\f\ra\t\n\v\f\r", "a");
 
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, " a b c ", "a b c");
-    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Generic::trim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, " a b c ", "a b c");
+    TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, Pluto::trim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }

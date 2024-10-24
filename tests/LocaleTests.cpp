@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/Locale.hpp"
+#include "Pluto/Locale.hpp"
 
 #include <gtest/gtest.h>
 
@@ -18,20 +18,20 @@ protected:
 
 TEST_F(LocaleTests, TestGetCLocale)
 {
-    const auto& cLocale{ Generic::getCLocale() };
+    const auto& cLocale{ Pluto::getCLocale() };
 }
 
 TEST_F(LocaleTests, TestGetSystemLocale)
 {
-    const auto& systemLocale{ Generic::getSystemLocale() };
+    const auto& systemLocale{ Pluto::getSystemLocale() };
 }
 
 TEST_F(LocaleTests, TestGetDefaultLocale)
 {
-    const auto& defaultLocale{ Generic::getDefaultLocale() };
+    const auto& defaultLocale{ Pluto::getDefaultLocale() };
 }
 
 TEST_F(LocaleTests, TestGetFacet)
 {
-    const auto& facet{ Generic::getFacet<char>(Generic::getDefaultLocale()) };
+    const auto& facet{ Pluto::getFacet<char>(Pluto::getDefaultLocale()) };
 }

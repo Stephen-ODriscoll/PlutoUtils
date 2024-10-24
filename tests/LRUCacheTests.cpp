@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/LRUCache.hpp"
+#include "Pluto/LRUCache.hpp"
 
 #include <gtest/gtest.h>
 
@@ -14,7 +14,7 @@
 class LRUCacheTests : public testing::Test
 {
 public:
-    Generic::LRUCache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
+    Pluto::LRUCache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
 
 protected:
     LRUCacheTests() {}

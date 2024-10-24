@@ -2,7 +2,7 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
 #pragma once
@@ -11,7 +11,7 @@
 
 #include "Locale.hpp"
 
-namespace Generic
+namespace Pluto
 {
     typedef std::equal_to<>         IsEqual;
     typedef std::not_equal_to<>     IsNotEqual;
@@ -26,7 +26,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -40,7 +40,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsNotEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -54,7 +54,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsLessIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -68,7 +68,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsGreaterIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -82,7 +82,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsLessEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -96,7 +96,7 @@ namespace Generic
         const std::ctype<ElemT>& facet;
 
         IsGreaterEqualIgnoreCase(const std::locale& locale) :
-            facet{ Generic::getFacet<ElemT>(locale) } {}
+            facet{ Pluto::getFacet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {

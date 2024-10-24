@@ -2,10 +2,10 @@
 # Copyright (c) 2024 Stephen O Driscoll
 #
 # Distributed under the MIT License (See accompanying file LICENSE)
-# Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+# Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
-project(GenericUtilsTests)
+project(PlutoUtilsTests)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:preprocessor")
@@ -19,7 +19,7 @@ add_executable(
     CompareTests.cpp
     ContainerUtilsTests.cpp
     FileSystemTests.cpp
-    GenericTests.cpp
+    PlutoTests.cpp
     IteratorUtilsTests.cpp
     LocaleTests.cpp
     LoggerTests.cpp

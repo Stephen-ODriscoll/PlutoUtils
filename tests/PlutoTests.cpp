@@ -5,13 +5,13 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Pluto/FileSystem.hpp"
+#include "Pluto.hpp"
 
 #include <gtest/gtest.h>
 
-class FileSystemTests : public testing::Test
+class PlutoTests : public testing::Test
 {
 protected:
-    FileSystemTests() {}
-    ~FileSystemTests() {}
+    PlutoTests() {}
+    ~PlutoTests() {}
 };

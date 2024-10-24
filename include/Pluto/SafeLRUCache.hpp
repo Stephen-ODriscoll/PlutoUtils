@@ -2,7 +2,7 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
 #pragma once
@@ -12,7 +12,7 @@
 
 #include "LRUCache.hpp"
 
-namespace Generic
+namespace Pluto
 {
     template<class KeyT, class ValueT>
     class SafeLRUCache
@@ -24,13 +24,13 @@ namespace Generic
 #endif
 
         mutable SharedMutexType         m_mutex{};
-        Generic::LRUCache<KeyT, ValueT> m_lruCache;
+        Pluto::LRUCache<KeyT, ValueT>   m_lruCache;
 
     public:
-        typedef typename Generic::LRUCache<KeyT, ValueT>::KeyType KeyType;
-        typedef typename Generic::LRUCache<KeyT, ValueT>::ValueType ValueType;
-        typedef typename Generic::LRUCache<KeyT, ValueT>::ListType ListType;
-        typedef typename Generic::LRUCache<KeyT, ValueT>::MapType MapType;
+        typedef typename Pluto::LRUCache<KeyT, ValueT>::KeyType KeyType;
+        typedef typename Pluto::LRUCache<KeyT, ValueT>::ValueType ValueType;
+        typedef typename Pluto::LRUCache<KeyT, ValueT>::ListType ListType;
+        typedef typename Pluto::LRUCache<KeyT, ValueT>::MapType MapType;
 
         SafeLRUCache(const std::size_t capacity) :
             m_lruCache{ capacity } {}

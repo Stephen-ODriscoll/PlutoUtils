@@ -2,7 +2,7 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
 #pragma once
@@ -17,73 +17,73 @@
 
 #include "ContainerUtils.hpp"
 
-namespace Generic
+namespace Pluto
 {
     template<class ElemT>
     inline ElemT toLower(
         const ElemT         elem,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::getFacet<ElemT>(locale).tolower(elem);
+        return Pluto::getFacet<ElemT>(locale).tolower(elem);
     }
 
     template<class ElemT>
     inline void toLower(
         ElemT* const        pElem,
         const std::size_t   size,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        Generic::getFacet<ElemT>(locale).tolower(pElem, (pElem + size));
+        Pluto::getFacet<ElemT>(locale).tolower(pElem, (pElem + size));
     }
 
     template<class ElemT>
     inline void toLower(
         std::basic_string<ElemT>&   str,
-        const std::locale&          locale = Generic::getDefaultLocale())
+        const std::locale&          locale = Pluto::getDefaultLocale())
     {
-        Generic::toLower(&str[0], str.size(), locale);
+        Pluto::toLower(&str[0], str.size(), locale);
     }
     
     template<class ElemT>
     inline ElemT toUpper(
         const ElemT         elem,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::getFacet<ElemT>(locale).toupper(elem);
+        return Pluto::getFacet<ElemT>(locale).toupper(elem);
     }
 
     template<class ElemT>
     inline void toUpper(
         ElemT* const        pElem,
         const std::size_t   size,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        Generic::getFacet<ElemT>(locale).toupper(pElem, (pElem + size));
+        Pluto::getFacet<ElemT>(locale).toupper(pElem, (pElem + size));
     }
 
     template<class ElemT>
     inline void toUpper(
         std::basic_string<ElemT>&   str,
-        const std::locale&          locale = Generic::getDefaultLocale())
+        const std::locale&          locale = Pluto::getDefaultLocale())
     {
-        Generic::toUpper(&str[0], str.size(), locale);
+        Pluto::toUpper(&str[0], str.size(), locale);
     }
 
     template<class ElemT>
     inline bool isLower(
         const ElemT         elem,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return !(Generic::getFacet<ElemT>(locale).is(std::ctype_base::upper, elem));
+        return !(Pluto::getFacet<ElemT>(locale).is(std::ctype_base::upper, elem));
     }
 
     template<class ElemT>
     inline bool isLower(
         const ElemT* const  pElem,
         const std::size_t   size,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+        const auto& facet{ Pluto::getFacet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -100,26 +100,26 @@ namespace Generic
     template<class ElemT>
     inline bool isLower(
         const std::basic_string<ElemT>& str,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::isLower(&str[0], str.size(), locale);
+        return Pluto::isLower(&str[0], str.size(), locale);
     }
 
     template<class ElemT>
     inline bool isUpper(
         const ElemT         elem,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return !(Generic::getFacet<ElemT>(locale).is(std::ctype_base::lower, elem));
+        return !(Pluto::getFacet<ElemT>(locale).is(std::ctype_base::lower, elem));
     }
 
     template<class ElemT>
     inline bool isUpper(
         const ElemT* const  pElem,
         const std::size_t   size,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+        const auto& facet{ Pluto::getFacet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -136,9 +136,9 @@ namespace Generic
     template<class ElemT>
     inline bool isUpper(
         const std::basic_string<ElemT>& str,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::isUpper(&str[0], str.size(), locale);
+        return Pluto::isUpper(&str[0], str.size(), locale);
     }
 
     inline std::string toNarrow(const wchar_t* const str, const std::size_t size)
@@ -149,7 +149,7 @@ namespace Generic
 
     inline std::string toNarrow(const std::wstring& str)
     {
-        return Generic::toNarrow(&str[0], str.size());
+        return Pluto::toNarrow(&str[0], str.size());
     }
 
     inline std::string toNarrow(const char* const str, const std::size_t size)
@@ -178,7 +178,7 @@ namespace Generic
 
     inline std::wstring toWide(const std::string& str)
     {
-        return Generic::toWide(&str[0], str.size());
+        return Pluto::toWide(&str[0], str.size());
     }
 
     inline std::wstring toWide(const wchar_t* const str, const std::size_t size)
@@ -210,7 +210,7 @@ namespace Generic
     template<class T>
     inline T narrowTo(const char* const str, const std::size_t size)
     {
-        return Generic::narrowTo<T>(std::string(str, size));
+        return Pluto::narrowTo<T>(std::string(str, size));
     }
 
     template<class T>
@@ -224,7 +224,7 @@ namespace Generic
     template<class T>
     inline T wideTo(const wchar_t* const str, const std::size_t size)
     {
-        return Generic::wideTo<T>(std::wstring(str, size));
+        return Pluto::wideTo<T>(std::wstring(str, size));
     }
 
     template<class ElemT>
@@ -233,18 +233,18 @@ namespace Generic
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::equals(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::equals(beginL, sizeL, beginR, sizeR, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
     inline bool equalsIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::equals(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::equals(left, right, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
@@ -253,18 +253,18 @@ namespace Generic
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::beginsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::beginsWith(beginL, sizeL, beginR, sizeR, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
     inline bool beginsWithIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::beginsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::beginsWith(left, right, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
@@ -273,27 +273,27 @@ namespace Generic
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::endsWith(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::endsWith(beginL, sizeL, beginR, sizeR, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
     inline bool endsWithIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::endsWith(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::endsWith(left, right, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class ElemT, class PredicateT = Generic::IsEqual>
+    template<class ElemT, class PredicateT = Pluto::IsEqual>
     inline auto find(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
         PredicateT                      predicate = {})
     {
-        return Generic::findSequence(left, right, predicate);
+        return Pluto::findSequence(left, right, predicate);
     }
 
     template<class ElemT>
@@ -302,27 +302,27 @@ namespace Generic
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::find(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::find(beginL, sizeL, beginR, sizeR, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
     inline auto findIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::findSequence(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::findSequence(left, right, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
-    template<class ElemT, class PredicateT = Generic::IsEqual>
+    template<class ElemT, class PredicateT = Pluto::IsEqual>
     inline bool contains(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
         PredicateT                      predicate = {})
     {
-        return Generic::containsSequence(left, right, predicate);
+        return Pluto::containsSequence(left, right, predicate);
     }
 
     template<class ElemT>
@@ -331,18 +331,18 @@ namespace Generic
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = Generic::getDefaultLocale())
+        const std::locale&  locale = Pluto::getDefaultLocale())
     {
-        return Generic::contains(beginL, sizeL, beginR, sizeR, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::contains(beginL, sizeL, beginR, sizeR, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
     inline bool containsIgnoreCase(
         const std::basic_string<ElemT>& left,
         const std::basic_string<ElemT>& right,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        return Generic::containsSequence(left, right, Generic::IsEqualIgnoreCase<ElemT>{ locale });
+        return Pluto::containsSequence(left, right, Pluto::IsEqualIgnoreCase<ElemT>{ locale });
     }
 
     template<class ElemT>
@@ -364,9 +364,9 @@ namespace Generic
     template<class ElemT>
     inline std::vector<std::basic_string<ElemT>> split(
         const std::basic_string<ElemT>& str,
-        const std::locale&              locale = Generic::getDefaultLocale())
+        const std::locale&              locale = Pluto::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+        const auto& facet{ Pluto::getFacet<ElemT>(locale) };
 
         std::size_t from{ 0 }, to;
         std::vector<std::basic_string<ElemT>> splits{};
@@ -406,7 +406,7 @@ namespace Generic
     {
         if (sep.empty())
         {
-            throw std::invalid_argument("Generic::split() got empty separator");
+            throw std::invalid_argument("Pluto::split() got empty separator");
         }
 
         std::size_t from{ 0 }, to;
@@ -446,15 +446,15 @@ namespace Generic
         const std::basic_string<ElemT>& sep,
         const ContainerT&               container)
     {
-        return Generic::join(sep, std::begin(container), std::end(container));
+        return Pluto::join(sep, std::begin(container), std::end(container));
     }
 
     template<class ElemT>
     inline void ltrim(
         std::basic_string<ElemT>&   str,
-        const std::locale&          locale = Generic::getDefaultLocale())
+        const std::locale&          locale = Pluto::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+        const auto& facet{ Pluto::getFacet<ElemT>(locale) };
 
         std::size_t from{ 0 };
         while (from < str.size() && facet.is(std::ctype_base::space, str[from]))
@@ -468,9 +468,9 @@ namespace Generic
     template<class ElemT>
     inline void rtrim(
         std::basic_string<ElemT>&   str,
-        const std::locale&          locale = Generic::getDefaultLocale())
+        const std::locale&          locale = Pluto::getDefaultLocale())
     {
-        const auto& facet{ Generic::getFacet<ElemT>(locale) };
+        const auto& facet{ Pluto::getFacet<ElemT>(locale) };
 
         std::size_t to{ str.size() };
         while (0 < to)
@@ -488,9 +488,9 @@ namespace Generic
     template<class ElemT>
     inline void trim(
         std::basic_string<ElemT>&   str,
-        const std::locale&          locale = Generic::getDefaultLocale())
+        const std::locale&          locale = Pluto::getDefaultLocale())
     {
-        Generic::ltrim(str, locale);
-        Generic::rtrim(str, locale);
+        Pluto::ltrim(str, locale);
+        Pluto::rtrim(str, locale);
     }
 }

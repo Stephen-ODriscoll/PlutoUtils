@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/Stopwatch.hpp"
+#include "Pluto/Stopwatch.hpp"
 
 #include <gtest/gtest.h>
 
@@ -21,7 +21,7 @@ protected:
 // Basic sanity, timings are difficult to test
 TEST_F(StopwatchTests, TestSeconds)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -35,19 +35,19 @@ TEST_F(StopwatchTests, TestSeconds)
 
 TEST_F(StopwatchTests, TestCopyConstructor)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
     ASSERT_FALSE(stopwatch.isRunning());
 
-    Generic::Stopwatch stopwatch2{ stopwatch };
+    Pluto::Stopwatch stopwatch2{ stopwatch };
     ASSERT_EQ(stopwatch.time(), stopwatch2.time());
 }
 
 TEST_F(StopwatchTests, TestTimeCallDoesNotStop)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.time() };
@@ -64,7 +64,7 @@ TEST_F(StopwatchTests, TestTimeCallDoesNotStop)
 
 TEST_F(StopwatchTests, TestStopCallStaysStopped)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
@@ -81,7 +81,7 @@ TEST_F(StopwatchTests, TestStopCallStaysStopped)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallStaysStopped)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.stopAndTime() };
@@ -97,7 +97,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallStaysStopped)
 
 TEST_F(StopwatchTests, TestStopCallOnStoppedNoChange)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     stopwatch.stop();
@@ -115,7 +115,7 @@ TEST_F(StopwatchTests, TestStopCallOnStoppedNoChange)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallOnStoppedNoChange)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     auto firstTime{ stopwatch.stopAndTime() };
@@ -131,7 +131,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallOnStoppedNoChange)
 
 TEST_F(StopwatchTests, TestStartCallDoesNotRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -148,7 +148,7 @@ TEST_F(StopwatchTests, TestStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestRestartCallDoesRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -165,7 +165,7 @@ TEST_F(StopwatchTests, TestRestartCallDoesRestart)
 
 TEST_F(StopwatchTests, TestStopCallAndStartCallDoesNotRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -186,7 +186,7 @@ TEST_F(StopwatchTests, TestStopCallAndStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallAndStartCallDoesNotRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -205,7 +205,7 @@ TEST_F(StopwatchTests, TestStopAndTimeCallAndStartCallDoesNotRestart)
 
 TEST_F(StopwatchTests, TestStopCallAndRestartCallDoesRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -226,7 +226,7 @@ TEST_F(StopwatchTests, TestStopCallAndRestartCallDoesRestart)
 
 TEST_F(StopwatchTests, TestStopAndTimeCallAndRestartCallDoesRestart)
 {
-    Generic::Stopwatch stopwatch{ true };
+    Pluto::Stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.isRunning());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));

@@ -2,12 +2,12 @@
 # Copyright (c) 2024 Stephen O Driscoll
 #
 # Distributed under the MIT License (See accompanying file LICENSE)
-# Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+# Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
 cmake_minimum_required(VERSION 3.15)
 
-project(GenericUtils)
+project(PlutoUtils)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")

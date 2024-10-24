@@ -2,7 +2,7 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
 #pragma once
@@ -10,11 +10,11 @@
 #include <locale>
 
 // Configurable with a macro
-#ifndef GENERIC_LOCALE_DEFAULT_LOCALE
-#define GENERIC_LOCALE_DEFAULT_LOCALE ""
+#ifndef PLUTO_LOCALE_DEFAULT_LOCALE
+#define PLUTO_LOCALE_DEFAULT_LOCALE ""
 #endif
 
-namespace Generic
+namespace Pluto
 {
     inline const auto& getCLocale()
     {
@@ -30,7 +30,7 @@ namespace Generic
 
     inline const auto& getDefaultLocale()
     {
-        static const std::locale defaultLocale{ GENERIC_LOCALE_DEFAULT_LOCALE };
+        static const std::locale defaultLocale{ PLUTO_LOCALE_DEFAULT_LOCALE };
         return defaultLocale;
     }
 

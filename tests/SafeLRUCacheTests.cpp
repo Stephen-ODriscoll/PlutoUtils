@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/SafeLRUCache.hpp"
+#include "Pluto/SafeLRUCache.hpp"
 
 #include <gtest/gtest.h>
 
@@ -14,7 +14,7 @@
 class SafeLRUCacheTests : public testing::Test
 {
 public:
-    Generic::SafeLRUCache<std::size_t, std::size_t> safeCache{ SAFE_CACHE_CAPACITY };
+    Pluto::SafeLRUCache<std::size_t, std::size_t> safeCache{ SAFE_CACHE_CAPACITY };
 
 protected:
     SafeLRUCacheTests() {}

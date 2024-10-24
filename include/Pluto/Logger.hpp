@@ -2,7 +2,7 @@
 * Copyright (c) 2024 Stephen O Driscoll
 * 
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
 #pragma once
@@ -30,128 +30,128 @@
 #include "FileSystem.hpp"
 
 // Configurable with macro
-#ifndef GENERIC_LOGGER_HIDE_SOURCE_INFO
-#define GENERIC_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
+#ifndef PLUTO_LOGGER_HIDE_SOURCE_INFO
+#define PLUTO_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
 
-#ifndef GENERIC_LOGGER_NO_SINGLETON
-#define GENERIC_LOGGER_NO_SINGLETON 0   // Define as 1 or 0
+#ifndef PLUTO_LOGGER_NO_SINGLETON
+#define PLUTO_LOGGER_NO_SINGLETON 0   // Define as 1 or 0
 #endif
 
 // Configurable with macros or setters
-#ifndef GENERIC_LOGGER_DEFAULT_LEVEL
-#define GENERIC_LOGGER_DEFAULT_LEVEL Generic::Logger::Level::Verbose
+#ifndef PLUTO_LOGGER_DEFAULT_LEVEL
+#define PLUTO_LOGGER_DEFAULT_LEVEL Pluto::Logger::Level::Verbose
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT
-#define GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT Generic::Logger::LevelFormat::Full
+#ifndef PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT
+#define PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT Pluto::Logger::LevelFormat::Full
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_CREATE_DIRS
-#define GENERIC_LOGGER_DEFAULT_CREATE_DIRS true
+#ifndef PLUTO_LOGGER_DEFAULT_CREATE_DIRS
+#define PLUTO_LOGGER_DEFAULT_CREATE_DIRS true
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER
-#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER true
+#ifndef PLUTO_LOGGER_DEFAULT_WRITE_HEADER
+#define PLUTO_LOGGER_DEFAULT_WRITE_HEADER true
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
-#define GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
+#ifndef PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
+#define PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
+#ifndef PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
+#define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE
-#define GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE 0    // 0 means unlimited
+#ifndef PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE
+#define PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE 0    // 0 means unlimited
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
-#define GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 1
+#ifndef PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
+#define PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 1
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE
-#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
+#ifndef PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE
+#define PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT
-#define GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT 1
+#ifndef PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT
+#define PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT 1
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH
-#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH 26
+#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH
+#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH 26
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH
-#define GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH 6
+#ifndef PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH
+#define PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH 6
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH
-#define GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH 6
+#ifndef PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH
+#define PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH 6
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH
-#define GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH 20
+#ifndef PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH
+#define PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH 20
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_LINE_LENGTH
-#define GENERIC_LOGGER_DEFAULT_LINE_LENGTH 6
+#ifndef PLUTO_LOGGER_DEFAULT_LINE_LENGTH
+#define PLUTO_LOGGER_DEFAULT_LINE_LENGTH 6
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH
-#define GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH 20
+#ifndef PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH
+#define PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH 20
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_SEPARATOR " | "
+#ifndef PLUTO_LOGGER_DEFAULT_SEPARATOR
+#define PLUTO_LOGGER_DEFAULT_SEPARATOR " | "
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
-#define GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
+#ifndef PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
+#define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT
-#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.6S"
+#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT
+#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.6S"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER
-#define GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER "Timestamp"
+#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER
+#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER "Timestamp"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER
-#define GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER "PID"
+#ifndef PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER
+#define PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER "PID"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER
-#define GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER "TID"
+#ifndef PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER
+#define PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER "TID"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER
-#define GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER "File Name"
+#ifndef PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER
+#define PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER "File Name"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_LINE_HEADER
-#define GENERIC_LOGGER_DEFAULT_LINE_HEADER "Line"
+#ifndef PLUTO_LOGGER_DEFAULT_LINE_HEADER
+#define PLUTO_LOGGER_DEFAULT_LINE_HEADER "Line"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER
-#define GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER "Function"
+#ifndef PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER
+#define PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER "Function"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER
-#define GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER "Message"
+#ifndef PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER
+#define PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER "Message"
 #endif
 
-#ifndef GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS
-#if GENERIC_LOGGER_HIDE_SOURCE_INFO
-#define GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS \
+#ifndef PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS
+#if PLUTO_LOGGER_HIDE_SOURCE_INFO
+#define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
     MetaDataColumn::Timestamp, \
     MetaDataColumn::ProcessID, \
     MetaDataColumn::ThreadID, \
     MetaDataColumn::Level
 #else
-#define GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS \
+#define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
     MetaDataColumn::Timestamp, \
     MetaDataColumn::ProcessID, \
     MetaDataColumn::ThreadID, \
@@ -162,43 +162,43 @@
 #endif
 #endif
 
-#if GENERIC_LOGGER_HIDE_SOURCE_INFO
-#define GENERIC_LOG_FORMAT(file, level, ...) \
-    Generic::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
+#if PLUTO_LOGGER_HIDE_SOURCE_INFO
+#define PLUTO_LOG_FORMAT(file, level, ...) \
+    Pluto::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
 
-#define GENERIC_LOG_STREAM(file, level, message) \
-    Generic::Logger::getInstance().stream(file, level, "", 0, "") << message
+#define PLUTO_LOG_STREAM(file, level, message) \
+    Pluto::Logger::getInstance().stream(file, level, "", 0, "") << message
 #else
-#define GENERIC_LOG_FORMAT(file, level, ...) \
-    Generic::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT(file, level, ...) \
+    Pluto::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
-#define GENERIC_LOG_STREAM(file, level, message) \
-    Generic::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
+#define PLUTO_LOG_STREAM(file, level, message) \
+    Pluto::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
 #endif
 
-#define GENERIC_LOG_FORMAT_NONE(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::None, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_FATAL(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Fatal, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_CRITICAL(file, ...)  GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Critical, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_ERROR(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Error, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_WARNING(file, ...)   GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Warning, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_NOTICE(file, ...)    GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Notice, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_INFO(file, ...)      GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Info, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_DEBUG(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Debug, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_TRACE(file, ...)     GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Trace, __VA_ARGS__)
-#define GENERIC_LOG_FORMAT_VERBOSE(file, ...)   GENERIC_LOG_FORMAT(file, Generic::Logger::Level::Verbose, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::None, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_FATAL(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Fatal, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_CRITICAL(file, ...)    PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Critical, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_ERROR(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Error, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_WARNING(file, ...)     PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Warning, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NOTICE(file, ...)      PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Notice, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_INFO(file, ...)        PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Info, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_DEBUG(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Debug, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_TRACE(file, ...)       PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Trace, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_VERBOSE(file, ...)     PLUTO_LOG_FORMAT(file, Pluto::Logger::Level::Verbose, __VA_ARGS__)
 
-#define GENERIC_LOG_STREAM_NONE(file, message)      GENERIC_LOG_STREAM(file, Generic::Logger::Level::None, message)
-#define GENERIC_LOG_STREAM_FATAL(file, message)     GENERIC_LOG_STREAM(file, Generic::Logger::Level::Fatal, message)
-#define GENERIC_LOG_STREAM_CRITICAL(file, message)  GENERIC_LOG_STREAM(file, Generic::Logger::Level::Critical, message)
-#define GENERIC_LOG_STREAM_ERROR(file, message)     GENERIC_LOG_STREAM(file, Generic::Logger::Level::Error, message)
-#define GENERIC_LOG_STREAM_WARNING(file, message)   GENERIC_LOG_STREAM(file, Generic::Logger::Level::Warning, message)
-#define GENERIC_LOG_STREAM_NOTICE(file, message)    GENERIC_LOG_STREAM(file, Generic::Logger::Level::Notice, message)
-#define GENERIC_LOG_STREAM_INFO(file, message)      GENERIC_LOG_STREAM(file, Generic::Logger::Level::Info, message)
-#define GENERIC_LOG_STREAM_DEBUG(file, message)     GENERIC_LOG_STREAM(file, Generic::Logger::Level::Debug, message)
-#define GENERIC_LOG_STREAM_TRACE(file, message)     GENERIC_LOG_STREAM(file, Generic::Logger::Level::Trace, message)
-#define GENERIC_LOG_STREAM_VERBOSE(file, message)   GENERIC_LOG_STREAM(file, Generic::Logger::Level::Verbose, message)
+#define PLUTO_LOG_STREAM_NONE(file, message)        PLUTO_LOG_STREAM(file, Pluto::Logger::Level::None, message)
+#define PLUTO_LOG_STREAM_FATAL(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Fatal, message)
+#define PLUTO_LOG_STREAM_CRITICAL(file, message)    PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Critical, message)
+#define PLUTO_LOG_STREAM_ERROR(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Error, message)
+#define PLUTO_LOG_STREAM_WARNING(file, message)     PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Warning, message)
+#define PLUTO_LOG_STREAM_NOTICE(file, message)      PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Notice, message)
+#define PLUTO_LOG_STREAM_INFO(file, message)        PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Info, message)
+#define PLUTO_LOG_STREAM_DEBUG(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Debug, message)
+#define PLUTO_LOG_STREAM_TRACE(file, message)       PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Trace, message)
+#define PLUTO_LOG_STREAM_VERBOSE(file, message)     PLUTO_LOG_STREAM(file, Pluto::Logger::Level::Verbose, message)
 
-namespace Generic
+namespace Pluto
 {
     class Logger
     {
@@ -330,7 +330,7 @@ namespace Generic
         struct LogFile
         {
             LogBuffer                   buffer;
-            Generic::FileSystem::path   filePath;
+            Pluto::FileSystem::path     filePath;
             bool                        dirsCreated;
 
             LogFile() :
@@ -351,38 +351,38 @@ namespace Generic
 #endif
 
         std::atomic_bool            m_isLogging             { true };
-        std::atomic<Level>          m_level                 { GENERIC_LOGGER_DEFAULT_LEVEL };
-        std::atomic<LevelFormat>    m_levelFormat           { GENERIC_LOGGER_DEFAULT_LEVEL_FORMAT };
-        std::atomic_bool            m_createDirs            { GENERIC_LOGGER_DEFAULT_CREATE_DIRS };
-        std::atomic_bool            m_writeHeader           { GENERIC_LOGGER_DEFAULT_WRITE_HEADER };
-        std::atomic_bool            m_writeHeaderUnderline  { GENERIC_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
-        std::atomic_char            m_headerUnderlineFill   { GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
-        std::atomic_size_t          m_bufferMaxSize         { GENERIC_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
-        std::atomic_size_t          m_bufferFlushSize       { GENERIC_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
-        std::atomic_size_t          m_fileRotationSize      { GENERIC_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
-        std::atomic_size_t          m_fileRotationLimit     { GENERIC_LOGGER_DEFAULT_FILE_ROTATION_LIMIT };
+        std::atomic<Level>          m_level                 { PLUTO_LOGGER_DEFAULT_LEVEL };
+        std::atomic<LevelFormat>    m_levelFormat           { PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT };
+        std::atomic_bool            m_createDirs            { PLUTO_LOGGER_DEFAULT_CREATE_DIRS };
+        std::atomic_bool            m_writeHeader           { PLUTO_LOGGER_DEFAULT_WRITE_HEADER };
+        std::atomic_bool            m_writeHeaderUnderline  { PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
+        std::atomic_char            m_headerUnderlineFill   { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
+        std::atomic_size_t          m_bufferMaxSize         { PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
+        std::atomic_size_t          m_bufferFlushSize       { PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
+        std::atomic_size_t          m_fileRotationSize      { PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
+        std::atomic_size_t          m_fileRotationLimit     { PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT };
         std::atomic_size_t          m_numDiscardedLogs      { 0 };
-        std::atomic_size_t          m_timestampLength       { GENERIC_LOGGER_DEFAULT_TIMESTAMP_LENGTH };
-        std::atomic_size_t          m_processIDLength       { GENERIC_LOGGER_DEFAULT_PROCESS_ID_LENGTH };
-        std::atomic_size_t          m_threadIDLength        { GENERIC_LOGGER_DEFAULT_THREAD_ID_LENGTH };
-        std::atomic_size_t          m_fileNameLength        { GENERIC_LOGGER_DEFAULT_FILE_NAME_LENGTH };
-        std::atomic_size_t          m_lineLength            { GENERIC_LOGGER_DEFAULT_LINE_LENGTH };
-        std::atomic_size_t          m_functionLength        { GENERIC_LOGGER_DEFAULT_FUNCTION_LENGTH };
+        std::atomic_size_t          m_timestampLength       { PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH };
+        std::atomic_size_t          m_processIDLength       { PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH };
+        std::atomic_size_t          m_threadIDLength        { PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH };
+        std::atomic_size_t          m_fileNameLength        { PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH };
+        std::atomic_size_t          m_lineLength            { PLUTO_LOGGER_DEFAULT_LINE_LENGTH };
+        std::atomic_size_t          m_functionLength        { PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH };
 
         mutable std::mutex          m_configMutex               {};
-        std::string                 m_separator                 { GENERIC_LOGGER_DEFAULT_SEPARATOR };
-        std::string                 m_headerUnderlineSeparator  { GENERIC_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
-        std::string                 m_timestampFormat           { GENERIC_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
-        std::string                 m_timestampHeader           { GENERIC_LOGGER_DEFAULT_TIMESTAMP_HEADER };
-        std::string                 m_processIDHeader           { GENERIC_LOGGER_DEFAULT_PROCESS_ID_HEADER };
-        std::string                 m_threadIDHeader            { GENERIC_LOGGER_DEFAULT_THREAD_ID_HEADER };
-        std::string                 m_fileNameHeader            { GENERIC_LOGGER_DEFAULT_FILE_NAME_HEADER };
-        std::string                 m_lineHeader                { GENERIC_LOGGER_DEFAULT_LINE_HEADER };
-        std::string                 m_functionHeader            { GENERIC_LOGGER_DEFAULT_FUNCTION_HEADER };
-        std::string                 m_messageHeader             { GENERIC_LOGGER_DEFAULT_MESSAGE_HEADER };
-        std::vector<MetaDataColumn> m_metaDataColumns           { GENERIC_LOGGER_DEFAULT_META_DATA_COLUMNS };
+        std::string                 m_separator                 { PLUTO_LOGGER_DEFAULT_SEPARATOR };
+        std::string                 m_headerUnderlineSeparator  { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
+        std::string                 m_timestampFormat           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
+        std::string                 m_timestampHeader           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER };
+        std::string                 m_processIDHeader           { PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER };
+        std::string                 m_threadIDHeader            { PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER };
+        std::string                 m_fileNameHeader            { PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER };
+        std::string                 m_lineHeader                { PLUTO_LOGGER_DEFAULT_LINE_HEADER };
+        std::string                 m_functionHeader            { PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER };
+        std::string                 m_messageHeader             { PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER };
+        std::vector<MetaDataColumn> m_metaDataColumns           { PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS };
 
-#if GENERIC_LOGGER_NO_SINGLETON
+#if PLUTO_LOGGER_NO_SINGLETON
     public:
 #endif
         Logger()
@@ -466,7 +466,7 @@ namespace Generic
 
         static inline std::string getFileName(const char* const filePath)
         {
-            return Generic::FileSystem::path{ filePath }.filename().string();
+            return Pluto::FileSystem::path{ filePath }.filename().string();
         }
 
         static inline std::string levelToString(const Level level, const LevelFormat levelFormat)
@@ -839,7 +839,7 @@ namespace Generic
             }
         }
 
-        void rotateFile(const Generic::FileSystem::path& filePath) const
+        void rotateFile(const Pluto::FileSystem::path& filePath) const
         {
             const auto stem             { filePath.stem().string() };
             const auto extension        { filePath.extension().string() };
@@ -852,7 +852,7 @@ namespace Generic
                 const auto thisStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto thisPath{ parentPath / (thisStem + extension) };
 
-                if (!Generic::FileSystem::exists(thisPath))
+                if (!Pluto::FileSystem::exists(thisPath))
                 {
                     break;
                 }
@@ -863,7 +863,7 @@ namespace Generic
                     continue;
                 }
 
-                Generic::FileSystem::remove(thisPath);
+                Pluto::FileSystem::remove(thisPath);
             }
 
             for (auto i{ numFiles }; 0 < i; )
@@ -876,17 +876,17 @@ namespace Generic
                 const auto oldStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto oldPath{ parentPath / (oldStem + extension) };
 
-                Generic::FileSystem::rename(oldPath, newPath);
+                Pluto::FileSystem::rename(oldPath, newPath);
             }
         }
 
-        void openFileStream(std::ofstream& fileStream, const Generic::FileSystem::path& filePath) const
+        void openFileStream(std::ofstream& fileStream, const Pluto::FileSystem::path& filePath) const
         {
             fileStream.open(filePath, (std::ios_base::ate | std::ios_base::app));
 
             if (!fileStream.is_open() || !fileStream.good())
             {
-                throw Generic::FileSystem::filesystem_error{ "Logger failed to open file",
+                throw Pluto::FileSystem::filesystem_error{ "Logger failed to open file",
                     std::make_error_code(std::errc::io_error) };
             }
         }
@@ -1034,7 +1034,7 @@ namespace Generic
             const LogBuffer::iterator   begin,
             const LogBuffer::iterator   secondToEnd,
             const std::string&          fileName,
-            Generic::FileSystem::path&  filePath,
+            Pluto::FileSystem::path&    filePath,
             bool&                       dirsCreated) const
         {
             auto result{ true };
@@ -1044,13 +1044,13 @@ namespace Generic
                 // Get file path if empty
                 if (filePath.empty())
                 {
-                    filePath = Generic::FileSystem::absolute(fileName);
+                    filePath = Pluto::FileSystem::absolute(fileName);
                 }
 
                 // Create path to file if needed
                 if (createDirs() && !dirsCreated)
                 {
-                    Generic::FileSystem::create_directories(filePath.parent_path());
+                    Pluto::FileSystem::create_directories(filePath.parent_path());
                     dirsCreated = true;
                 }
 
@@ -1088,7 +1088,7 @@ namespace Generic
                     }
                 }
             }
-            catch (const Generic::FileSystem::filesystem_error&)
+            catch (const Pluto::FileSystem::filesystem_error&)
             {
                 result = false;
             }

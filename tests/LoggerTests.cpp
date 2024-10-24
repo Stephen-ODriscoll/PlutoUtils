@@ -2,36 +2,36 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/Logger.hpp"
+#include "Pluto/Logger.hpp"
 
 #include <gtest/gtest.h>
 
 #define LOG_FILE "test.log"
 
-#define LOG_FORMAT(...)             GENERIC_LOG_FORMAT_NONE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_FATAL(...)       GENERIC_LOG_FORMAT_FATAL(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_CRITICAL(...)    GENERIC_LOG_FORMAT_CRITICAL(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_ERROR(...)       GENERIC_LOG_FORMAT_ERROR(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_WARNING(...)     GENERIC_LOG_FORMAT_WARNING(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_NOTICE(...)      GENERIC_LOG_FORMAT_NOTICE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_INFO(...)        GENERIC_LOG_FORMAT_INFO(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_DEBUG(...)       GENERIC_LOG_FORMAT_DEBUG(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_TRACE(...)       GENERIC_LOG_FORMAT_TRACE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_VERBOSE(...)     GENERIC_LOG_FORMAT_VERBOSE(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT(...)             PLUTO_LOG_FORMAT_NONE(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_FATAL(...)       PLUTO_LOG_FORMAT_FATAL(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_CRITICAL(...)    PLUTO_LOG_FORMAT_CRITICAL(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_ERROR(...)       PLUTO_LOG_FORMAT_ERROR(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_WARNING(...)     PLUTO_LOG_FORMAT_WARNING(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_NOTICE(...)      PLUTO_LOG_FORMAT_NOTICE(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_INFO(...)        PLUTO_LOG_FORMAT_INFO(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_DEBUG(...)       PLUTO_LOG_FORMAT_DEBUG(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_TRACE(...)       PLUTO_LOG_FORMAT_TRACE(LOG_FILE, __VA_ARGS__)
+#define LOG_FORMAT_VERBOSE(...)     PLUTO_LOG_FORMAT_VERBOSE(LOG_FILE, __VA_ARGS__)
 
-#define LOG_STREAM(message)             GENERIC_LOG_STREAM_NONE(LOG_FILE, message)
-#define LOG_STREAM_FATAL(message)       GENERIC_LOG_STREAM_FATAL(LOG_FILE, message)
-#define LOG_STREAM_CRITICAL(message)    GENERIC_LOG_STREAM_CRITICAL(LOG_FILE, message)
-#define LOG_STREAM_ERROR(message)       GENERIC_LOG_STREAM_ERROR(LOG_FILE, message)
-#define LOG_STREAM_WARNING(message)     GENERIC_LOG_STREAM_WARNING(LOG_FILE, message)
-#define LOG_STREAM_NOTICE(message)      GENERIC_LOG_STREAM_NOTICE(LOG_FILE, message)
-#define LOG_STREAM_INFO(message)        GENERIC_LOG_STREAM_INFO(LOG_FILE, message)
-#define LOG_STREAM_DEBUG(message)       GENERIC_LOG_STREAM_DEBUG(LOG_FILE, message)
-#define LOG_STREAM_TRACE(message)       GENERIC_LOG_STREAM_TRACE(LOG_FILE, message)
-#define LOG_STREAM_VERBOSE(message)     GENERIC_LOG_STREAM_VERBOSE(LOG_FILE, message)
+#define LOG_STREAM(message)             PLUTO_LOG_STREAM_NONE(LOG_FILE, message)
+#define LOG_STREAM_FATAL(message)       PLUTO_LOG_STREAM_FATAL(LOG_FILE, message)
+#define LOG_STREAM_CRITICAL(message)    PLUTO_LOG_STREAM_CRITICAL(LOG_FILE, message)
+#define LOG_STREAM_ERROR(message)       PLUTO_LOG_STREAM_ERROR(LOG_FILE, message)
+#define LOG_STREAM_WARNING(message)     PLUTO_LOG_STREAM_WARNING(LOG_FILE, message)
+#define LOG_STREAM_NOTICE(message)      PLUTO_LOG_STREAM_NOTICE(LOG_FILE, message)
+#define LOG_STREAM_INFO(message)        PLUTO_LOG_STREAM_INFO(LOG_FILE, message)
+#define LOG_STREAM_DEBUG(message)       PLUTO_LOG_STREAM_DEBUG(LOG_FILE, message)
+#define LOG_STREAM_TRACE(message)       PLUTO_LOG_STREAM_TRACE(LOG_FILE, message)
+#define LOG_STREAM_VERBOSE(message)     PLUTO_LOG_STREAM_VERBOSE(LOG_FILE, message)
 
 class LoggerTests : public testing::Test
 {
@@ -42,9 +42,9 @@ protected:
 
     void TearDown() override
     {
-        if (Generic::FileSystem::exists(LOG_FILE))
+        if (Pluto::FileSystem::exists(LOG_FILE))
         {
-            Generic::FileSystem::remove(LOG_FILE);
+            Pluto::FileSystem::remove(LOG_FILE);
         }
     }
 };
@@ -86,7 +86,7 @@ std::string getLastLog()
 std::string getLastLogMessage()
 {
     auto lastLog    { getLastLog() };
-    auto separator  { Generic::Logger::getInstance().separator() };
+    auto separator  { Pluto::Logger::getInstance().separator() };
     auto index      { lastLog.rfind(separator) };
 
     return ((index == std::string::npos) ? lastLog : lastLog.substr(index + separator.size()));

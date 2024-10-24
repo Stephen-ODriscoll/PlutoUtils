@@ -2,10 +2,10 @@
 * Copyright (c) 2024 Stephen O Driscoll
 *
 * Distributed under the MIT License (See accompanying file LICENSE)
-* Official repository: https://github.com/Stephen-ODriscoll/GenericUtils
+* Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "Generic/ScopeExitActions.hpp"
+#include "Pluto/ScopeExitActions.hpp"
 
 #include <gtest/gtest.h>
 
@@ -21,7 +21,7 @@ TEST_F(ScopeExitActionsTests, TestScopeExitActionsSanity)
     bool changed{ false };
 
     {
-        Generic::ScopeExitActions scopeExitActions
+        Pluto::ScopeExitActions scopeExitActions
         {
             [&changed]() { changed = true; }
         };
