@@ -39,12 +39,12 @@
 #endif
 
 // Configurable with macros or setters
-#ifndef PLUTO_LOGGER_DEFAULT_LEVEL
-#define PLUTO_LOGGER_DEFAULT_LEVEL pluto::Logger::Level::Verbose
+#ifndef PLUTO_LOGGER_DEFAULT_LOG_LEVEL
+#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL pluto::logger::level::verbose
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT
-#define PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT pluto::Logger::LevelFormat::Full
+#ifndef PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT
+#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT pluto::logger::level_format::full
 #endif
 
 #ifndef PLUTO_LOGGER_DEFAULT_CREATE_DIRS
@@ -146,142 +146,142 @@
 #ifndef PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
-    MetaDataColumn::Timestamp, \
-    MetaDataColumn::ProcessID, \
-    MetaDataColumn::ThreadID, \
-    MetaDataColumn::Level
+    meta_data::timestamp, \
+    meta_data::process_id, \
+    meta_data::thread_id, \
+    meta_data::level
 #else
 #define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
-    MetaDataColumn::Timestamp, \
-    MetaDataColumn::ProcessID, \
-    MetaDataColumn::ThreadID, \
-    MetaDataColumn::Level, \
-    MetaDataColumn::FileName, \
-    MetaDataColumn::Line, \
-    MetaDataColumn::Function
+    meta_data::timestamp, \
+    meta_data::process_id, \
+    meta_data::thread_id, \
+    meta_data::level, \
+    meta_data::file_name, \
+    meta_data::line, \
+    meta_data::function
 #endif
 #endif
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    pluto::Logger::getInstance().writef(file, level, "", 0, "", __VA_ARGS__)
+    pluto::logger::get_instance().writef(file, level, "", 0, "", __VA_ARGS__)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    pluto::Logger::getInstance().stream(file, level, "", 0, "") << message
+    pluto::logger::get_instance().stream(file, level, "", 0, "") << message
 #else
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    pluto::Logger::getInstance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
+    pluto::logger::get_instance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    pluto::Logger::getInstance().stream(file, level, __FILE__, __LINE__, __func__) << message
+    pluto::logger::get_instance().stream(file, level, __FILE__, __LINE__, __func__) << message
 #endif
 
-#define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, pluto::Logger::Level::None, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_FATAL(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Fatal, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_CRITICAL(file, ...)    PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Critical, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_ERROR(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Error, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_WARNING(file, ...)     PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Warning, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_NOTICE(file, ...)      PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Notice, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_INFO(file, ...)        PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Info, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_DEBUG(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Debug, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_TRACE(file, ...)       PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Trace, __VA_ARGS__)
-#define PLUTO_LOG_FORMAT_VERBOSE(file, ...)     PLUTO_LOG_FORMAT(file, pluto::Logger::Level::Verbose, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, pluto::logger::level::none, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_FATAL(file, ...)       PLUTO_LOG_FORMAT(file, pluto::logger::level::fatal, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_CRITICAL(file, ...)    PLUTO_LOG_FORMAT(file, pluto::logger::level::critical, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_ERROR(file, ...)       PLUTO_LOG_FORMAT(file, pluto::logger::level::error, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_WARNING(file, ...)     PLUTO_LOG_FORMAT(file, pluto::logger::level::warning, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_NOTICE(file, ...)      PLUTO_LOG_FORMAT(file, pluto::logger::level::notice, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_INFO(file, ...)        PLUTO_LOG_FORMAT(file, pluto::logger::level::info, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_DEBUG(file, ...)       PLUTO_LOG_FORMAT(file, pluto::logger::level::debug, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_TRACE(file, ...)       PLUTO_LOG_FORMAT(file, pluto::logger::level::trace, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT_VERBOSE(file, ...)     PLUTO_LOG_FORMAT(file, pluto::logger::level::verbose, __VA_ARGS__)
 
-#define PLUTO_LOG_STREAM_NONE(file, message)        PLUTO_LOG_STREAM(file, pluto::Logger::Level::None, message)
-#define PLUTO_LOG_STREAM_FATAL(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Fatal, message)
-#define PLUTO_LOG_STREAM_CRITICAL(file, message)    PLUTO_LOG_STREAM(file, pluto::Logger::Level::Critical, message)
-#define PLUTO_LOG_STREAM_ERROR(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Error, message)
-#define PLUTO_LOG_STREAM_WARNING(file, message)     PLUTO_LOG_STREAM(file, pluto::Logger::Level::Warning, message)
-#define PLUTO_LOG_STREAM_NOTICE(file, message)      PLUTO_LOG_STREAM(file, pluto::Logger::Level::Notice, message)
-#define PLUTO_LOG_STREAM_INFO(file, message)        PLUTO_LOG_STREAM(file, pluto::Logger::Level::Info, message)
-#define PLUTO_LOG_STREAM_DEBUG(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Debug, message)
-#define PLUTO_LOG_STREAM_TRACE(file, message)       PLUTO_LOG_STREAM(file, pluto::Logger::Level::Trace, message)
-#define PLUTO_LOG_STREAM_VERBOSE(file, message)     PLUTO_LOG_STREAM(file, pluto::Logger::Level::Verbose, message)
+#define PLUTO_LOG_STREAM_NONE(file, message)        PLUTO_LOG_STREAM(file, pluto::logger::level::none, message)
+#define PLUTO_LOG_STREAM_FATAL(file, message)       PLUTO_LOG_STREAM(file, pluto::logger::level::fatal, message)
+#define PLUTO_LOG_STREAM_CRITICAL(file, message)    PLUTO_LOG_STREAM(file, pluto::logger::level::critical, message)
+#define PLUTO_LOG_STREAM_ERROR(file, message)       PLUTO_LOG_STREAM(file, pluto::logger::level::error, message)
+#define PLUTO_LOG_STREAM_WARNING(file, message)     PLUTO_LOG_STREAM(file, pluto::logger::level::warning, message)
+#define PLUTO_LOG_STREAM_NOTICE(file, message)      PLUTO_LOG_STREAM(file, pluto::logger::level::notice, message)
+#define PLUTO_LOG_STREAM_INFO(file, message)        PLUTO_LOG_STREAM(file, pluto::logger::level::info, message)
+#define PLUTO_LOG_STREAM_DEBUG(file, message)       PLUTO_LOG_STREAM(file, pluto::logger::level::debug, message)
+#define PLUTO_LOG_STREAM_TRACE(file, message)       PLUTO_LOG_STREAM(file, pluto::logger::level::trace, message)
+#define PLUTO_LOG_STREAM_VERBOSE(file, message)     PLUTO_LOG_STREAM(file, pluto::logger::level::verbose, message)
 
 namespace pluto
 {
-    class Logger
+    class logger
     {
     public:
-        enum class Level : unsigned char
+        enum class level : unsigned char
         {
-            Off = 0,    // Disable logging.
-            None,       // No level specified. Always log if logging is enabled.
-            Fatal,      // Issues which break the application or a large portion of it.
-            Critical,   // Issues which cause high impact or loss of functionality.
-            Error,      // Issues which have a noticeable impact but do not affect functionality.
-            Warning,    // Issues which should not be noticed or have been mitigated.
-            Notice,     // Strange or significant behaviour that is not an issue by itself.
-            Info,       // Important updates for tracking activity.
-            Debug,      // Helpful updates for more in depth tracking.
-            Trace,      // Specialised step-by-step tracking updates.
-            Verbose,    // Very informative and noisy updates.
-            Header      // Reserved for header info.
+            off = 0,    // Disable logging.
+            none,       // No level specified. Always log if logging is enabled.
+            fatal,      // Issues which break the application or a large portion of it.
+            critical,   // Issues which cause high impact or loss of functionality.
+            error,      // Issues which have a noticeable impact but do not affect functionality.
+            warning,    // Issues which should not be noticed or have been mitigated.
+            notice,     // Strange or significant behaviour that is not an issue by itself.
+            info,       // Important updates for tracking activity.
+            debug,      // Helpful updates for more in depth tracking.
+            trace,      // Specialised step-by-step tracking updates.
+            verbose,    // Very informative and noisy updates.
+            header      // Reserved for header info.
         };
 
-        enum class LevelFormat : unsigned char
+        enum class level_format : unsigned char
         {
-            Full = 0,
-            Short,
-            Char
+            full = 0,
+            abbreviated,
+            single_char
         };
 
-        enum class MetaDataColumn : unsigned char
+        enum class meta_data : unsigned char
         {
-            Timestamp = 0,
-            ProcessID,
-            ThreadID,
-            Level,
-            FileName,
-            Line,
-            Function
+            timestamp = 0,
+            process_id,
+            thread_id,
+            level,
+            file_name,
+            line,
+            function
         };
 
     private:
-        struct Log
+        struct log
         {
             std::string     timestamp;
             std::thread::id threadID;
-            Level           level;
+            level           logLevel;
             const char*     sourceFilePath;
             int             sourceLine;
             const char*     sourceFunction;
             std::string     message;
 
-            Log(
+            log(
                 const std::string&      timestamp,
                 const std::thread::id&  threadID,
-                const Level             level,
+                const level             logLevel,
                 const char*             sourceFilePath,
                 const int               sourceLine,
                 const char*             sourceFunction,
                 const std::string&      message) :
                 timestamp       { timestamp },
                 threadID        { threadID },
-                level           { level },
+                logLevel        { logLevel },
                 sourceFilePath  { sourceFilePath },
                 sourceLine      { sourceLine },
                 sourceFunction  { sourceFunction },
                 message         { message } {}
 
-            ~Log() {}
+            ~log() {}
         };
 
-        class Stream
+        class streamer
         {
-            Logger* const       m_logger;
+            logger* const       m_logger;
             const std::string   m_logFileName;
-            const Level         m_logLevel;
+            const level         m_logLevel;
             const char* const   m_sourceFilePath;
             const int           m_sourceLine;
             const char* const   m_sourceFunction;
             std::stringstream   m_stream;
 
         public:
-            Stream(
-                Logger* const       logger,
+            streamer(
+                logger* const       logger,
                 const std::string   logFileName,
-                const Level         logLevel,
+                const level         logLevel,
                 const char* const   sourceFilePath,
                 const int           sourceLine,
                 const char* const   sourceFunction) :
@@ -293,13 +293,13 @@ namespace pluto
                 m_sourceFunction{ sourceFunction },
                 m_stream        {} {}
 
-            ~Stream()
+            ~streamer()
             {
                 try
                 {
-                    if (m_logger && m_logger->shouldLog(m_logLevel))
+                    if (m_logger && m_logger->should_log(m_logLevel))
                     {
-                        m_logger->addLogToBuffer(
+                        m_logger->add_log_to_buffer(
                             m_logFileName,
                             m_logLevel,
                             m_sourceFilePath,
@@ -311,29 +311,29 @@ namespace pluto
                 catch (...) {}
             }
 
-            Stream& operator<<(const bool b)
+            streamer& operator<<(const bool b)
             {
                 m_stream << std::boolalpha << b;
                 return *this;
             }
 
             template<class T>
-            Stream& operator<<(const T& value)
+            streamer& operator<<(const T& value)
             {
                 m_stream << value;
                 return *this;
             }
         };
 
-        typedef std::list<Log> LogBuffer;
+        typedef std::list<log> log_buffer;
 
-        struct LogFile
+        struct log_file
         {
-            LogBuffer                   buffer;
-            pluto::FileSystem::path     filePath;
+            log_buffer                  buffer;
+            pluto::filesystem::path     filePath;
             bool                        dirsCreated;
 
-            LogFile() :
+            log_file() :
                 buffer      {},
                 filePath    {},
                 dirsCreated { false } {}
@@ -342,7 +342,7 @@ namespace pluto
         mutable std::mutex              m_loggingMutex          {};
         std::thread                     m_loggingThread         {};
         std::condition_variable         m_loggingThreadCondition{};
-        std::map<std::string, LogFile>  m_logFiles              {};
+        std::map<std::string, log_file> m_logFiles              {};
 
 #ifdef _WIN32
         const int m_processID{ _getpid() };
@@ -351,8 +351,8 @@ namespace pluto
 #endif
 
         std::atomic_bool            m_isLogging             { true };
-        std::atomic<Level>          m_level                 { PLUTO_LOGGER_DEFAULT_LEVEL };
-        std::atomic<LevelFormat>    m_levelFormat           { PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT };
+        std::atomic<level>          m_logLevel              { PLUTO_LOGGER_DEFAULT_LOG_LEVEL };
+        std::atomic<level_format>   m_logLevelFormat        { PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT };
         std::atomic_bool            m_createDirs            { PLUTO_LOGGER_DEFAULT_CREATE_DIRS };
         std::atomic_bool            m_writeHeader           { PLUTO_LOGGER_DEFAULT_WRITE_HEADER };
         std::atomic_bool            m_writeHeaderUnderline  { PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
@@ -369,28 +369,28 @@ namespace pluto
         std::atomic_size_t          m_lineLength            { PLUTO_LOGGER_DEFAULT_LINE_LENGTH };
         std::atomic_size_t          m_functionLength        { PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH };
 
-        mutable std::mutex          m_configMutex               {};
-        std::string                 m_separator                 { PLUTO_LOGGER_DEFAULT_SEPARATOR };
-        std::string                 m_headerUnderlineSeparator  { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
-        std::string                 m_timestampFormat           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
-        std::string                 m_timestampHeader           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER };
-        std::string                 m_processIDHeader           { PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER };
-        std::string                 m_threadIDHeader            { PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER };
-        std::string                 m_fileNameHeader            { PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER };
-        std::string                 m_lineHeader                { PLUTO_LOGGER_DEFAULT_LINE_HEADER };
-        std::string                 m_functionHeader            { PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER };
-        std::string                 m_messageHeader             { PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER };
-        std::vector<MetaDataColumn> m_metaDataColumns           { PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS };
+        mutable std::mutex      m_configMutex               {};
+        std::string             m_separator                 { PLUTO_LOGGER_DEFAULT_SEPARATOR };
+        std::string             m_headerUnderlineSeparator  { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
+        std::string             m_timestampFormat           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
+        std::string             m_timestampHeader           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER };
+        std::string             m_processIDHeader           { PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER };
+        std::string             m_threadIDHeader            { PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER };
+        std::string             m_fileNameHeader            { PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER };
+        std::string             m_lineHeader                { PLUTO_LOGGER_DEFAULT_LINE_HEADER };
+        std::string             m_functionHeader            { PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER };
+        std::string             m_messageHeader             { PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER };
+        std::vector<meta_data>  m_metaDataColumns           { PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS };
 
 #if PLUTO_LOGGER_NO_SINGLETON
     public:
 #endif
-        Logger()
+        logger()
         {
-            m_loggingThread = std::thread(&Logger::startLogging, this);
+            m_loggingThread = std::thread(&logger::start_logging, this);
         }
 
-        ~Logger()
+        ~logger()
         {
             m_isLogging.store(false);
             m_loggingThreadCondition.notify_all();
@@ -410,23 +410,23 @@ namespace pluto
 
                 if (!buffer.empty())
                 {
-                    writeBufferToFile(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
+                    write_buffer_to_file(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
                 }
             }
         }
 
     public:
-        Logger(const Logger&) = delete;
+        logger(const logger&) = delete;
 
-        void operator=(const Logger&) = delete;
+        void operator=(const logger&) = delete;
 
-        static Logger& getInstance()
+        static logger& get_instance()
         {
-            static Logger instance{};
+            static logger instance{};
             return instance;
         }
 
-        static inline std::string getLocalTimestamp(const char* const format)
+        static inline std::string get_local_timestamp(const char* const format)
         {
             const auto nowTime{ std::chrono::system_clock::now() };
             const auto nowPosixTime{ std::chrono::system_clock::to_time_t(nowTime) };
@@ -464,63 +464,63 @@ namespace pluto
             return {};
         }
 
-        static inline std::string getFileName(const char* const filePath)
+        static inline std::string get_file_name(const char* const filePath)
         {
-            return pluto::FileSystem::path{ filePath }.filename().string();
+            return pluto::filesystem::path{ filePath }.filename().string();
         }
 
-        static inline std::string levelToString(const Level level, const LevelFormat levelFormat)
+        static inline std::string level_to_string(const level level, const level_format levelFormat)
         {
             switch (levelFormat)
             {
-                case LevelFormat::Full:
+                case level_format::full:
                     switch (level)
                     {
-                        case Level::None:       return "        ";
-                        case Level::Fatal:      return "Fatal   ";
-                        case Level::Critical:   return "Critical";
-                        case Level::Error:      return "Error   ";
-                        case Level::Warning:    return "Warning ";
-                        case Level::Notice:     return "Notice  ";
-                        case Level::Info:       return "Info    ";
-                        case Level::Debug:      return "Debug   ";
-                        case Level::Trace:      return "Trace   ";
-                        case Level::Verbose:    return "Verbose ";
-                        case Level::Header:     return "Level   ";
+                        case level::none:       return "        ";
+                        case level::fatal:      return "Fatal   ";
+                        case level::critical:   return "Critical";
+                        case level::error:      return "Error   ";
+                        case level::warning:    return "Warning ";
+                        case level::notice:     return "Notice  ";
+                        case level::info:       return "Info    ";
+                        case level::debug:      return "Debug   ";
+                        case level::trace:      return "Trace   ";
+                        case level::verbose:    return "Verbose ";
+                        case level::header:     return "Level   ";
                         default:                return "Unknown ";
                     }
 
-                case LevelFormat::Short:
+                case level_format::abbreviated:
                     switch (level)
                     {
-                        case Level::None:       return "   ";
-                        case Level::Fatal:      return "FTL";
-                        case Level::Critical:   return "CRT";
-                        case Level::Error:      return "ERR";
-                        case Level::Warning:    return "WRN";
-                        case Level::Notice:     return "NTC";
-                        case Level::Info:       return "INF";
-                        case Level::Debug:      return "DBG";
-                        case Level::Trace:      return "TRC";
-                        case Level::Verbose:    return "VRB";
-                        case Level::Header:     return "LVL";
+                        case level::none:       return "   ";
+                        case level::fatal:      return "FTL";
+                        case level::critical:   return "CRT";
+                        case level::error:      return "ERR";
+                        case level::warning:    return "WRN";
+                        case level::notice:     return "NTC";
+                        case level::info:       return "INF";
+                        case level::debug:      return "DBG";
+                        case level::trace:      return "TRC";
+                        case level::verbose:    return "VRB";
+                        case level::header:     return "LVL";
                         default:                return "UNK";
                     }
 
-                case LevelFormat::Char:
+                case level_format::single_char:
                     switch (level)
                     {
-                        case Level::None:       return " ";
-                        case Level::Fatal:      return "F";
-                        case Level::Critical:   return "C";
-                        case Level::Error:      return "E";
-                        case Level::Warning:    return "W";
-                        case Level::Notice:     return "N";
-                        case Level::Info:       return "I";
-                        case Level::Debug:      return "D";
-                        case Level::Trace:      return "T";
-                        case Level::Verbose:    return "V";
-                        case Level::Header:     return "L";
+                        case level::none:       return " ";
+                        case level::fatal:      return "F";
+                        case level::critical:   return "C";
+                        case level::error:      return "E";
+                        case level::warning:    return "W";
+                        case level::notice:     return "N";
+                        case level::info:       return "I";
+                        case level::debug:      return "D";
+                        case level::trace:      return "T";
+                        case level::verbose:    return "V";
+                        case level::header:     return "L";
                         default:                return "?";
                     }
 
@@ -528,25 +528,25 @@ namespace pluto
             }
         }
 
-        int processID()                 const   { return m_processID; }
-        bool isLogging()                const   { return m_isLogging.load(); }
-        Level level()                   const   { return m_level.load(); }
-        LevelFormat levelFormat()       const   { return m_levelFormat.load(); }
-        bool createDirs()               const   { return m_createDirs.load(); }
-        bool writeHeader()              const   { return m_writeHeader.load(); }
-        bool writeHeaderUnderline()     const   { return m_writeHeaderUnderline.load(); }
-        char headerUnderlineFill()      const   { return m_headerUnderlineFill.load(); }
-        std::size_t bufferMaxSize()     const   { return m_bufferMaxSize.load(); }
-        std::size_t bufferFlushSize()   const   { return m_bufferFlushSize.load(); }
-        std::size_t fileRotationSize()  const   { return m_fileRotationSize.load(); }
-        std::size_t fileRotationLimit() const   { return m_fileRotationLimit.load(); }
-        std::size_t numDiscardedLogs()  const   { return m_numDiscardedLogs.load(); }
-        std::size_t timestampLength()   const   { return m_timestampLength.load(); }
-        std::size_t processIDLength()   const   { return m_processIDLength.load(); }
-        std::size_t threadIDLength()    const   { return m_threadIDLength.load(); }
-        std::size_t fileNameLength()    const   { return m_fileNameLength.load(); }
-        std::size_t lineLength()        const   { return m_lineLength.load(); }
-        std::size_t functionLength()    const   { return m_functionLength.load(); }
+        int process_id()                    const   { return m_processID; }
+        bool is_logging()                   const   { return m_isLogging.load(); }
+        level log_level()                   const   { return m_logLevel.load(); }
+        level_format log_level_format()     const   { return m_logLevelFormat.load(); }
+        bool create_dirs()                  const   { return m_createDirs.load(); }
+        bool write_header()                 const   { return m_writeHeader.load(); }
+        bool write_header_underline()       const   { return m_writeHeaderUnderline.load(); }
+        char header_underline_fill()        const   { return m_headerUnderlineFill.load(); }
+        std::size_t buffer_max_size()       const   { return m_bufferMaxSize.load(); }
+        std::size_t buffer_flush_size()     const   { return m_bufferFlushSize.load(); }
+        std::size_t file_rotation_size()    const   { return m_fileRotationSize.load(); }
+        std::size_t file_rotation_limit()   const   { return m_fileRotationLimit.load(); }
+        std::size_t num_discarded_logs()    const   { return m_numDiscardedLogs.load(); }
+        std::size_t timestamp_length()      const   { return m_timestampLength.load(); }
+        std::size_t process_id_length()     const   { return m_processIDLength.load(); }
+        std::size_t thread_id_length()      const   { return m_threadIDLength.load(); }
+        std::size_t file_name_length()      const   { return m_fileNameLength.load(); }
+        std::size_t line_length()           const   { return m_lineLength.load(); }
+        std::size_t function_length()       const   { return m_functionLength.load(); }
 
         std::string separator() const
         {
@@ -554,162 +554,162 @@ namespace pluto
             return m_separator;
         }
 
-        std::string headerUnderlineSeparator() const
+        std::string header_underline_separator() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_headerUnderlineSeparator;
         }
 
-        std::string timestampFormat() const
+        std::string timestamp_format() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_timestampFormat;
         }
 
-        std::string timestampHeader() const
+        std::string timestamp_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_timestampHeader;
         }
 
-        std::string processIDHeader() const
+        std::string process_id_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_processIDHeader;
         }
 
-        std::string threadIDHeader() const
+        std::string thread_id_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_threadIDHeader;
         }
 
-        std::string fileNameHeader() const
+        std::string file_name_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_fileNameHeader;
         }
 
-        std::string lineHeader() const
+        std::string line_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_lineHeader;
         }
 
-        std::string functionHeader() const
+        std::string function_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_functionHeader;
         }
 
-        std::string messageHeader() const
+        std::string message_header() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_messageHeader;
         }
 
-        std::vector<MetaDataColumn> metaDataColumns() const
+        std::vector<meta_data> meta_data_columns() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_metaDataColumns;
         }
         
-        Logger& level(const Level l)                { m_level.store(l);                 return *this; }
-        Logger& levelFormat(const LevelFormat lf)   { m_levelFormat.store(lf);          return *this; }
-        Logger& createDirs(const bool b)            { m_createDirs.store(b);            return *this; }
-        Logger& writeHeader(const bool b)           { m_writeHeader.store(b);           return *this; }
-        Logger& writeHeaderUnderline(const bool b)  { m_writeHeaderUnderline.store(b);  return *this; }
-        Logger& headerUnderlineFill(const char c)   { m_headerUnderlineFill.store(c);   return *this; }
-        Logger& bufferMaxSize(const std::size_t s)  { m_bufferMaxSize.store(s);         return *this; }
+        logger& log_level(const level l)                { m_logLevel.store(l);              return *this; }
+        logger& log_level_format(const level_format lf) { m_logLevelFormat.store(lf);       return *this; }
+        logger& create_dirs(const bool b)               { m_createDirs.store(b);            return *this; }
+        logger& write_header(const bool b)              { m_writeHeader.store(b);           return *this; }
+        logger& write_header_underline(const bool b)    { m_writeHeaderUnderline.store(b);  return *this; }
+        logger& header_underline_fill(const char c)     { m_headerUnderlineFill.store(c);   return *this; }
+        logger& buffer_max_size(const std::size_t s)    { m_bufferMaxSize.store(s);         return *this; }
 
-        Logger& bufferFlushSize(const std::size_t s)
+        logger& buffer_flush_size(const std::size_t s)
         {
             m_bufferFlushSize.store(s);
             m_loggingThreadCondition.notify_one();  // wake the logging thread
             return *this;
         }
 
-        Logger& fileRotationSize(const std::size_t s)   { m_fileRotationSize.store(s);  return *this; }
-        Logger& fileRotationLimit(const std::size_t s)  { m_fileRotationLimit.store(s); return *this; }
-        Logger& resetNumDiscardedLogs()                 { m_numDiscardedLogs.store(0);  return *this; }
-        Logger& timestampLength(const std::size_t s)    { m_timestampLength.store(s);   return *this; }
-        Logger& processIDLength(const std::size_t s)    { m_processIDLength.store(s);   return *this; }
-        Logger& threadIDLength(const std::size_t s)     { m_threadIDLength.store(s);    return *this; }
-        Logger& fileNameLength(const std::size_t s)     { m_fileNameLength.store(s);    return *this; }
-        Logger& lineLength(const std::size_t s)         { m_lineLength.store(s);        return *this; }
-        Logger& functionLength(const std::size_t s)     { m_functionLength.store(s);    return *this; }
+        logger& file_rotation_size(const std::size_t s)     { m_fileRotationSize.store(s);  return *this; }
+        logger& file_rotation_limit(const std::size_t s)    { m_fileRotationLimit.store(s); return *this; }
+        logger& reset_num_discarded_logs()                  { m_numDiscardedLogs.store(0);  return *this; }
+        logger& timestamp_length(const std::size_t s)       { m_timestampLength.store(s);   return *this; }
+        logger& process_id_length(const std::size_t s)      { m_processIDLength.store(s);   return *this; }
+        logger& thread_id_length(const std::size_t s)       { m_threadIDLength.store(s);    return *this; }
+        logger& file_name_length(const std::size_t s)       { m_fileNameLength.store(s);    return *this; }
+        logger& line_length(const std::size_t s)            { m_lineLength.store(s);        return *this; }
+        logger& function_length(const std::size_t s)        { m_functionLength.store(s);    return *this; }
         
-        Logger& separator(const std::string& s)
+        logger& separator(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_separator = s;
             return *this;
         }
 
-        Logger& headerUnderlineSeparator(const std::string& s)
+        logger& header_underline_separator(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_headerUnderlineSeparator = s;
             return *this;
         }
 
-        Logger& timestampFormat(const std::string& s)
+        logger& timestamp_format(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_timestampFormat = s;
             return *this;
         }
 
-        Logger& timestampHeader(const std::string& s)
+        logger& timestamp_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_timestampHeader = s;
             return *this;
         }
 
-        Logger& processIDHeader(const std::string& s)
+        logger& process_id_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_processIDHeader = s;
             return *this;
         }
 
-        Logger& threadIDHeader(const std::string& s)
+        logger& thread_id_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_threadIDHeader = s;
             return *this;
         }
 
-        Logger& fileNameHeader(const std::string& s)
+        logger& file_name_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_fileNameHeader = s;
             return *this;
         }
 
-        Logger& lineHeader(const std::string& s)
+        logger& line_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_lineHeader = s;
             return *this;
         }
 
-        Logger& functionHeader(const std::string& s)
+        logger& function_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_functionHeader = s;
             return *this;
         }
 
-        Logger& messageHeader(const std::string& s)
+        logger& message_header(const std::string& s)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_messageHeader = s;
             return *this;
         }
 
-        Logger& metaDataColumns(const std::vector<MetaDataColumn>& v)
+        logger& meta_data_columns(const std::vector<meta_data>& v)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_metaDataColumns = v;
@@ -717,26 +717,26 @@ namespace pluto
         }
 
         template<typename ...Ts>
-        Logger& metaDataColumns(const Ts... ts)
+        logger& meta_data_columns(const Ts... ts)
         {
-            return metaDataColumns({ ts... });
+            return meta_data_columns({ ts... });
         }
 
-        bool shouldLog(const Level logLevel) const
+        bool should_log(const level logLevel) const
         {
-            return (isLogging() && logLevel <= level());
+            return (is_logging() && logLevel <= log_level());
         }
 
         void writef(
             const std::string&  logFileName,
-            const Level         logLevel,
+            const level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const char* const   sourceFunction,
             const char* const   format,
             ...)
         {
-            if (shouldLog(logLevel))
+            if (should_log(logLevel))
             {
                 // Message character limit is 8192
                 va_list args;
@@ -756,7 +756,7 @@ namespace pluto
                 va_end(args);
 
                 // Write message, or use format if message creation failed
-                addLogToBuffer(
+                add_log_to_buffer(
                     logFileName,
                     logLevel,
                     sourceFilePath,
@@ -768,38 +768,38 @@ namespace pluto
 
         void write(
             const std::string&  logFileName,
-            const Level         logLevel,
+            const level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const char* const   sourceFunction,
             const std::string&  message)
         {
-            if (shouldLog(logLevel))
+            if (should_log(logLevel))
             {
-                addLogToBuffer(logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction, message);
+                add_log_to_buffer(logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction, message);
             }
         }
 
-        Stream stream(
+        streamer stream(
             const std::string&  logFileName,
-            const Level         logLevel,
+            const level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const char* const   sourceFunction)
         {
-            return Stream{ this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
+            return streamer{ this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
         }
 
     private:
-        void addLogToBuffer(
+        void add_log_to_buffer(
             const std::string&  logFileName,
-            const Level         logLevel,
+            const level         logLevel,
             const char* const   sourceFilePath,
             const int           sourceLine,
             const char* const   sourceFunction,
             const std::string&  message)
         {
-            const auto timestamp{ getLocalTimestamp(timestampFormat().c_str()) };
+            const auto timestamp{ get_local_timestamp(timestamp_format().c_str()) };
 
             const auto threadID{ std::this_thread::get_id() };
 
@@ -808,11 +808,11 @@ namespace pluto
             auto it{ m_logFiles.find(logFileName) };
             if (it == m_logFiles.end())
             {
-                it = m_logFiles.emplace(logFileName, LogFile{}).first;
+                it = m_logFiles.emplace(logFileName, log_file{}).first;
             }
 
             auto& buffer        { it->second.buffer };
-            auto bufferMaxSize  { this->bufferMaxSize() };
+            auto bufferMaxSize  { this->buffer_max_size() };
 
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
@@ -825,7 +825,7 @@ namespace pluto
                     sourceFunction,
                     message);
 
-                if (bufferFlushSize() <= buffer.size())
+                if (buffer_flush_size() <= buffer.size())
                 {
                     // Unlock the mutex and wake the logging thread
                     lock.unlock();
@@ -839,12 +839,12 @@ namespace pluto
             }
         }
 
-        void rotateFile(const pluto::FileSystem::path& filePath) const
+        void rotate_file(const pluto::filesystem::path& filePath) const
         {
             const auto stem             { filePath.stem().string() };
             const auto extension        { filePath.extension().string() };
             const auto parentPath       { filePath.parent_path() };
-            const auto fileRotationLimit{ this->fileRotationLimit() };
+            const auto fileRotationLimit{ this->file_rotation_limit() };
 
             std::size_t numFiles{ 0 };
             for (std::size_t i{ 0 }; ; ++i)
@@ -852,7 +852,7 @@ namespace pluto
                 const auto thisStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto thisPath{ parentPath / (thisStem + extension) };
 
-                if (!pluto::FileSystem::exists(thisPath))
+                if (!pluto::filesystem::exists(thisPath))
                 {
                     break;
                 }
@@ -863,7 +863,7 @@ namespace pluto
                     continue;
                 }
 
-                pluto::FileSystem::remove(thisPath);
+                pluto::filesystem::remove(thisPath);
             }
 
             for (auto i{ numFiles }; 0 < i; )
@@ -876,26 +876,26 @@ namespace pluto
                 const auto oldStem{ stem + ((i == 0) ? "" : ("_" + std::to_string(i))) };
                 const auto oldPath{ parentPath / (oldStem + extension) };
 
-                pluto::FileSystem::rename(oldPath, newPath);
+                pluto::filesystem::rename(oldPath, newPath);
             }
         }
 
-        void openFileStream(std::ofstream& fileStream, const pluto::FileSystem::path& filePath) const
+        void open_file_stream(std::ofstream& fileStream, const pluto::filesystem::path& filePath) const
         {
             fileStream.open(filePath, (std::ios_base::ate | std::ios_base::app));
 
             if (!fileStream.is_open() || !fileStream.good())
             {
-                throw pluto::FileSystem::filesystem_error{ "Logger failed to open file",
+                throw pluto::filesystem::filesystem_error{ "Logger failed to open file",
                     std::make_error_code(std::errc::io_error) };
             }
         }
 
-        void writeHeaderToStream(std::ostream& stream) const
+        void write_header_to_stream(std::ostream& stream) const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
 
-            const auto levelHeader{ levelToString(Level::Header, levelFormat()) };
+            const auto levelHeader{ level_to_string(level::header, log_level_format()) };
 
             stream << std::left << std::setfill(' ');
 
@@ -903,72 +903,72 @@ namespace pluto
             {
                 switch (metaDataColumn)
                 {
-                    case MetaDataColumn::Timestamp:
-                        stream << std::setw(timestampLength()) << m_timestampHeader << m_separator;
+                    case meta_data::timestamp:
+                        stream << std::setw(timestamp_length()) << m_timestampHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::ProcessID:
-                        stream << std::setw(processIDLength()) << m_processIDHeader << m_separator;
+                    case meta_data::process_id:
+                        stream << std::setw(process_id_length()) << m_processIDHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::ThreadID:
-                        stream << std::setw(threadIDLength()) << m_threadIDHeader << m_separator;
+                    case meta_data::thread_id:
+                        stream << std::setw(thread_id_length()) << m_threadIDHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::Level:
+                    case meta_data::level:
                         stream << levelHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::FileName:
-                        stream << std::setw(fileNameLength()) << m_fileNameHeader << m_separator;
+                    case meta_data::file_name:
+                        stream << std::setw(file_name_length()) << m_fileNameHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::Line:
-                        stream << std::setw(lineLength()) << m_lineHeader << m_separator;
+                    case meta_data::line:
+                        stream << std::setw(line_length()) << m_lineHeader << m_separator;
                         break;
 
-                    case MetaDataColumn::Function:
-                        stream << std::setw(functionLength()) << m_functionHeader << m_separator;
+                    case meta_data::function:
+                        stream << std::setw(function_length()) << m_functionHeader << m_separator;
                         break;
                 }
             }
 
             stream << m_messageHeader << '\n';
 
-            if (writeHeaderUnderline())
+            if (write_header_underline())
             {
-                stream << std::left << std::setfill(headerUnderlineFill());
+                stream << std::left << std::setfill(header_underline_fill());
 
                 for (const auto metaDataColumn : m_metaDataColumns)
                 {
                     switch (metaDataColumn)
                     {
-                        case MetaDataColumn::Timestamp:
-                            stream << std::setw(timestampLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::timestamp:
+                            stream << std::setw(timestamp_length()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::ProcessID:
-                            stream << std::setw(processIDLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::process_id:
+                            stream << std::setw(process_id_length()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::ThreadID:
-                            stream << std::setw(threadIDLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::thread_id:
+                            stream << std::setw(thread_id_length()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::Level:
+                        case meta_data::level:
                             stream << std::setw(levelHeader.size()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::FileName:
-                            stream << std::setw(fileNameLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::file_name:
+                            stream << std::setw(file_name_length()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::Line:
-                            stream << std::setw(lineLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::line:
+                            stream << std::setw(line_length()) << "" << m_headerUnderlineSeparator;
                             break;
 
-                        case MetaDataColumn::Function:
-                            stream << std::setw(functionLength()) << "" << m_headerUnderlineSeparator;
+                        case meta_data::function:
+                            stream << std::setw(function_length()) << "" << m_headerUnderlineSeparator;
                             break;
                     }
                 }
@@ -977,7 +977,7 @@ namespace pluto
             }
         }
 
-        void writeLogToStream(std::ostream& stream, const Log& log) const
+        void write_log_to_stream(std::ostream& stream, const log& log) const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
 
@@ -987,38 +987,38 @@ namespace pluto
             {
                 switch (metaDataColumn)
                 {
-                    case MetaDataColumn::Timestamp:
-                        stream << std::setw(timestampLength()) << log.timestamp << m_separator;
+                    case meta_data::timestamp:
+                        stream << std::setw(timestamp_length()) << log.timestamp << m_separator;
                         break;
 
-                    case MetaDataColumn::ProcessID:
-                        stream << std::setw(processIDLength()) << m_processID << m_separator;
+                    case meta_data::process_id:
+                        stream << std::setw(process_id_length()) << m_processID << m_separator;
                         break;
 
-                    case MetaDataColumn::ThreadID:
-                        stream << std::setw(threadIDLength()) << log.threadID << m_separator;
+                    case meta_data::thread_id:
+                        stream << std::setw(thread_id_length()) << log.threadID << m_separator;
                         break;
 
-                    case MetaDataColumn::Level:
-                        stream << levelToString(log.level, levelFormat()) << m_separator;
+                    case meta_data::level:
+                        stream << level_to_string(log.logLevel, log_level_format()) << m_separator;
                         break;
 
-                    case MetaDataColumn::FileName:
+                    case meta_data::file_name:
                     {
-                        const auto fileNameLength{ this->fileNameLength() };
+                        const auto fileNameLength{ this->file_name_length() };
 
                         stream << std::setw(fileNameLength)
-                            << std::string(getFileName(log.sourceFilePath), 0, fileNameLength) << m_separator;
+                            << std::string(get_file_name(log.sourceFilePath), 0, fileNameLength) << m_separator;
                         break;
                     }
 
-                    case MetaDataColumn::Line:
-                        stream << std::setw(lineLength()) << log.sourceLine << m_separator;
+                    case meta_data::line:
+                        stream << std::setw(line_length()) << log.sourceLine << m_separator;
                         break;
 
-                    case MetaDataColumn::Function:
+                    case meta_data::function:
                     {
-                        const auto functionLength{ this->functionLength() };
+                        const auto functionLength{ this->function_length() };
 
                         stream << std::setw(functionLength)
                             << std::string(log.sourceFunction, 0, functionLength) << m_separator;
@@ -1030,11 +1030,11 @@ namespace pluto
             stream << log.message << '\n';
         }
 
-        bool writeBufferToFile(
-            const LogBuffer::iterator   begin,
-            const LogBuffer::iterator   secondToEnd,
+        bool write_buffer_to_file(
+            const log_buffer::iterator  begin,
+            const log_buffer::iterator  secondToEnd,
             const std::string&          fileName,
-            pluto::FileSystem::path&    filePath,
+            pluto::filesystem::path&    filePath,
             bool&                       dirsCreated) const
         {
             auto result{ true };
@@ -1044,22 +1044,22 @@ namespace pluto
                 // Get file path if empty
                 if (filePath.empty())
                 {
-                    filePath = pluto::FileSystem::absolute(fileName);
+                    filePath = pluto::filesystem::absolute(fileName);
                 }
 
                 // Create path to file if needed
-                if (createDirs() && !dirsCreated)
+                if (create_dirs() && !dirsCreated)
                 {
-                    pluto::FileSystem::create_directories(filePath.parent_path());
+                    pluto::filesystem::create_directories(filePath.parent_path());
                     dirsCreated = true;
                 }
 
-                const auto writeHeader{ this->writeHeader() };
-                const auto fileRotationSize{ this->fileRotationSize() };
+                const auto writeHeader{ this->write_header() };
+                const auto fileRotationSize{ this->file_rotation_size() };
 
                 std::size_t fileSize{ 0 };
                 std::ofstream fileStream{};
-                openFileStream(fileStream, filePath);
+                open_file_stream(fileStream, filePath);
 
                 for (auto it{ begin }; ; ++it)
                 {
@@ -1069,18 +1069,18 @@ namespace pluto
                     if (fileRotationSize != 0 && fileRotationSize <= fileSize)
                     {
                         fileStream.close();
-                        rotateFile(filePath);
-                        openFileStream(fileStream, filePath);
+                        rotate_file(filePath);
+                        open_file_stream(fileStream, filePath);
                         fileSize = static_cast<std::size_t>(fileStream.tellp());
                     }
 
                     // Write header if needed
                     if (writeHeader && fileSize == 0)
                     {
-                        writeHeaderToStream(fileStream);
+                        write_header_to_stream(fileStream);
                     }
 
-                    writeLogToStream(fileStream, *it);
+                    write_log_to_stream(fileStream, *it);
 
                     if (it == secondToEnd)
                     {
@@ -1088,7 +1088,7 @@ namespace pluto
                     }
                 }
             }
-            catch (const pluto::FileSystem::filesystem_error&)
+            catch (const pluto::filesystem::filesystem_error&)
             {
                 result = false;
             }
@@ -1096,7 +1096,7 @@ namespace pluto
             return result;
         }
 
-        void startLogging()
+        void start_logging()
         {
             bool shouldWait{ false };
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
@@ -1119,7 +1119,7 @@ namespace pluto
                         auto& filePath      { logFilePair.second.filePath };
                         auto& dirsCreated   { logFilePair.second.dirsCreated };
 
-                        if (!buffer.empty() && bufferFlushSize() <= buffer.size())
+                        if (!buffer.empty() && buffer_flush_size() <= buffer.size())
                         {
                             const auto begin        { buffer.begin() };
                             const auto secondToEnd  { --(buffer.end()) };
@@ -1132,7 +1132,7 @@ namespace pluto
                             // Since other threads can add logs, don't wait when done.
                             shouldWait = false;
 
-                            const auto result{ writeBufferToFile(
+                            const auto result{ write_buffer_to_file(
                                 begin, secondToEnd, fileName, filePath, dirsCreated) };
 
                             lock.lock();

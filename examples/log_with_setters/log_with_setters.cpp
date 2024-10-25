@@ -21,24 +21,24 @@
 
 int main(int argc, char* argv[])
 {
-    pluto::Logger::getInstance()
-        .timestampFormat("%H:%M:%S.%.3S")
-        .timestampLength(12)
-        .bufferMaxSize(1000)
-        .bufferFlushSize(100)
-        .fileRotationSize(1024) // 1 KB
-        .fileRotationLimit(5)
-        .headerUnderlineFill('=')
+    pluto::logger::get_instance()
+        .timestamp_format("%H:%M:%S.%.3S")
+        .timestamp_length(12)
+        .buffer_max_size(1000)
+        .buffer_flush_size(100)
+        .file_rotation_size(1024) // 1 KB
+        .file_rotation_limit(5)
+        .header_underline_fill('=')
         .separator("  ")
-        .headerUnderlineSeparator("  ")
-        .level(pluto::Logger::Level::Info)
-        .levelFormat(pluto::Logger::LevelFormat::Short)
-        .metaDataColumns(
-            pluto::Logger::MetaDataColumn::Timestamp,
-            pluto::Logger::MetaDataColumn::ThreadID,
-            pluto::Logger::MetaDataColumn::Level,
-            pluto::Logger::MetaDataColumn::FileName,
-            pluto::Logger::MetaDataColumn::Line);
+        .header_underline_separator("  ")
+        .log_level(pluto::logger::level::info)
+        .log_level_format(pluto::logger::level_format::abbreviated)
+        .meta_data_columns(
+            pluto::logger::meta_data::timestamp,
+            pluto::logger::meta_data::thread_id,
+            pluto::logger::meta_data::level,
+            pluto::logger::meta_data::file_name,
+            pluto::logger::meta_data::line);
 
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)

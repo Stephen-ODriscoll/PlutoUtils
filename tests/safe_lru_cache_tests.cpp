@@ -14,7 +14,7 @@
 class SafeLRUCacheTests : public testing::Test
 {
 public:
-    pluto::SafeLRUCache<std::size_t, std::size_t> safeCache{ SAFE_CACHE_CAPACITY };
+    pluto::safe_lru_cache<std::size_t, std::size_t> safeCache{ SAFE_CACHE_CAPACITY };
 
 protected:
     SafeLRUCacheTests() {}

@@ -14,14 +14,14 @@
 #define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '='
 #define PLUTO_LOGGER_DEFAULT_SEPARATOR "  "
 #define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "  "
-#define PLUTO_LOGGER_DEFAULT_LEVEL pluto::Logger::Level::Info
-#define PLUTO_LOGGER_DEFAULT_LEVEL_FORMAT pluto::Logger::LevelFormat::Short
+#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL pluto::logger::level::info
+#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT pluto::logger::level_format::abbreviated
 #define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
-    pluto::Logger::MetaDataColumn::Timestamp, \
-    pluto::Logger::MetaDataColumn::ThreadID, \
-    pluto::Logger::MetaDataColumn::Level, \
-    pluto::Logger::MetaDataColumn::FileName, \
-    pluto::Logger::MetaDataColumn::Line
+    pluto::logger::meta_data::timestamp, \
+    pluto::logger::meta_data::thread_id, \
+    pluto::logger::meta_data::level, \
+    pluto::logger::meta_data::file_name, \
+    pluto::logger::meta_data::line
 
 #include <pluto/logger.hpp>
 

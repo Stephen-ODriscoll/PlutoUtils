@@ -11,17 +11,17 @@
 
 #define LOG_FILE "logs/log_no_singleton.log"
 
-pluto::Logger g_logger{};
+pluto::logger g_logger{};
 
-#define LOG_FATAL(x)    g_logger.stream(LOG_FILE, pluto::Logger::Level::Fatal, __FILE__, __LINE__, __func__) << x
-#define LOG_CRITICAL(x) g_logger.stream(LOG_FILE, pluto::Logger::Level::Critical, __FILE__, __LINE__, __func__) << x
-#define LOG_ERROR(x)    g_logger.stream(LOG_FILE, pluto::Logger::Level::Error, __FILE__, __LINE__, __func__) << x
-#define LOG_WARNING(x)  g_logger.stream(LOG_FILE, pluto::Logger::Level::Warning, __FILE__, __LINE__, __func__) << x
-#define LOG_NOTICE(x)   g_logger.stream(LOG_FILE, pluto::Logger::Level::Notice, __FILE__, __LINE__, __func__) << x
-#define LOG_INFO(x)     g_logger.stream(LOG_FILE, pluto::Logger::Level::Info, __FILE__, __LINE__, __func__) << x
-#define LOG_DEBUG(x)    g_logger.stream(LOG_FILE, pluto::Logger::Level::Debug, __FILE__, __LINE__, __func__) << x
-#define LOG_TRACE(x)    g_logger.stream(LOG_FILE, pluto::Logger::Level::Trace, __FILE__, __LINE__, __func__) << x
-#define LOG_VERBOSE(x)  g_logger.stream(LOG_FILE, pluto::Logger::Level::Verbose, __FILE__, __LINE__, __func__) << x
+#define LOG_FATAL(x)    g_logger.stream(LOG_FILE, pluto::logger::level::fatal, __FILE__, __LINE__, __func__) << x
+#define LOG_CRITICAL(x) g_logger.stream(LOG_FILE, pluto::logger::level::critical, __FILE__, __LINE__, __func__) << x
+#define LOG_ERROR(x)    g_logger.stream(LOG_FILE, pluto::logger::level::error, __FILE__, __LINE__, __func__) << x
+#define LOG_WARNING(x)  g_logger.stream(LOG_FILE, pluto::logger::level::warning, __FILE__, __LINE__, __func__) << x
+#define LOG_NOTICE(x)   g_logger.stream(LOG_FILE, pluto::logger::level::notice, __FILE__, __LINE__, __func__) << x
+#define LOG_INFO(x)     g_logger.stream(LOG_FILE, pluto::logger::level::info, __FILE__, __LINE__, __func__) << x
+#define LOG_DEBUG(x)    g_logger.stream(LOG_FILE, pluto::logger::level::debug, __FILE__, __LINE__, __func__) << x
+#define LOG_TRACE(x)    g_logger.stream(LOG_FILE, pluto::logger::level::trace, __FILE__, __LINE__, __func__) << x
+#define LOG_VERBOSE(x)  g_logger.stream(LOG_FILE, pluto::logger::level::verbose, __FILE__, __LINE__, __func__) << x
 
 int main(int argc, char* argv[])
 {

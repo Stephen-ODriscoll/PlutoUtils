@@ -14,8 +14,8 @@
 
 namespace pluto
 {
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
-    inline bool equalsSameSize(
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline bool equals_same_size(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -24,7 +24,7 @@ namespace pluto
         return std::equal(beginL, endL, beginR, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline bool equals(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
@@ -33,10 +33,10 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return (std::distance(beginL, endL) == std::distance(beginR, endR)) &&
-            pluto::equalsSameSize(beginL, endL, beginR, predicate);
+            pluto::equals_same_size(beginL, endL, beginR, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline bool equals(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
@@ -45,11 +45,11 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return (sizeL == sizeR) &&
-            pluto::equalsSameSize(beginL, std::next(beginL, sizeL), beginR, predicate);
+            pluto::equals_same_size(beginL, std::next(beginL, sizeL), beginR, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
-    inline bool beginsWith(
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline bool begins_with(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -57,11 +57,11 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return (std::distance(beginR, endR) <= std::distance(beginL, endL)) &&
-            pluto::equalsSameSize(beginR, endR, beginL, predicate);
+            pluto::equals_same_size(beginR, endR, beginL, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
-    inline bool beginsWith(
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline bool begins_with(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
         const IteratorRightT    beginR,
@@ -69,11 +69,11 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return (sizeR <= sizeL) &&
-            pluto::equalsSameSize(beginR, std::next(beginR, sizeR), beginL, predicate);
+            pluto::equals_same_size(beginR, std::next(beginR, sizeR), beginL, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
-    inline bool endsWith(
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline bool ends_with(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -83,11 +83,11 @@ namespace pluto
         const auto sizeR{ std::distance(beginR, endR) };
 
         return (sizeR <= std::distance(beginL, endL)) &&
-            pluto::equalsSameSize(beginR, endR, std::prev(endL, sizeR), predicate);
+            pluto::equals_same_size(beginR, endR, std::prev(endL, sizeR), predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
-    inline bool endsWith(
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline bool ends_with(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
         const IteratorRightT    beginR,
@@ -95,7 +95,7 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return (sizeR <= sizeL) &&
-            pluto::equalsSameSize(beginR, std::next(beginR, sizeR), std::next(beginL, (sizeL - sizeR)), predicate);
+            pluto::equals_same_size(beginR, std::next(beginR, sizeR), std::next(beginL, (sizeL - sizeR)), predicate);
     }
 
     template<class IteratorT, class ElemT>
@@ -116,7 +116,7 @@ namespace pluto
         return pluto::find(begin, std::next(begin, size), elem);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline IteratorLeftT find(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
@@ -127,7 +127,7 @@ namespace pluto
         return std::search(beginL, endL, beginR, endR, predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline IteratorLeftT find(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
@@ -139,7 +139,7 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT findIf(
+    inline IteratorT find_if(
         const IteratorT begin,
         const IteratorT end,
         PredicateT      predicate)
@@ -148,16 +148,16 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT findIf(
+    inline IteratorT find_if(
         const IteratorT     begin,
         const std::size_t   size,
         PredicateT          predicate)
     {
-        return pluto::findIf(begin, std::next(begin, size), predicate);
+        return pluto::find_if(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT findIfNot(
+    inline IteratorT find_if_not(
         const IteratorT begin,
         const IteratorT end,
         PredicateT      predicate)
@@ -166,12 +166,12 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT findIfNot(
+    inline IteratorT find_if_not(
         const IteratorT     begin,
         const std::size_t   size,
         PredicateT          predicate)
     {
-        return pluto::findIfNot(begin, std::next(begin, size), predicate);
+        return pluto::find_if_not(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT, class ElemT>
@@ -194,7 +194,7 @@ namespace pluto
         return (pluto::find(begin, end, elem) != end);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline bool contains(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
@@ -206,7 +206,7 @@ namespace pluto
             (pluto::find(beginL, endL, beginR, endR, predicate) != endL);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::IsEqual>
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline bool contains(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,

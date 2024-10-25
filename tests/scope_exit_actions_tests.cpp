@@ -21,7 +21,7 @@ TEST_F(ScopeExitActionsTests, TestScopeExitActionsSanity)
     bool changed{ false };
 
     {
-        pluto::ScopeExitActions scopeExitActions
+        pluto::scope_exit_actions scopeExitActions
         {
             [&changed]() { changed = true; }
         };

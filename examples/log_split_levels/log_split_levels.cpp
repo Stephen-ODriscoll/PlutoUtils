@@ -19,13 +19,13 @@
 
 int main(int argc, char* argv[])
 {
-    pluto::Logger::getInstance().metaDataColumns(
-        pluto::Logger::MetaDataColumn::Timestamp,
-        pluto::Logger::MetaDataColumn::ProcessID,
-        pluto::Logger::MetaDataColumn::ThreadID,
-        pluto::Logger::MetaDataColumn::FileName,
-        pluto::Logger::MetaDataColumn::Line,
-        pluto::Logger::MetaDataColumn::Function);
+    pluto::logger::get_instance().meta_data_columns(
+        pluto::logger::meta_data::timestamp,
+        pluto::logger::meta_data::process_id,
+        pluto::logger::meta_data::thread_id,
+        pluto::logger::meta_data::file_name,
+        pluto::logger::meta_data::line,
+        pluto::logger::meta_data::function);
 
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)

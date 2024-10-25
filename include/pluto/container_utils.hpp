@@ -11,7 +11,7 @@
 
 namespace pluto
 {
-    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::IsEqual>
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
     inline bool equals(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
@@ -20,34 +20,34 @@ namespace pluto
         return pluto::equals(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
-    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::IsEqual>
-    inline bool beginsWith(
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
+    inline bool begins_with(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
     {
-        return pluto::beginsWith(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+        return pluto::begins_with(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
-    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::IsEqual>
-    inline bool endsWith(
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
+    inline bool ends_with(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
     {
-        return pluto::endsWith(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+        return pluto::ends_with(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
     template<class ContainerT, class ElemT>
-    inline auto findElem(
+    inline auto find_elem(
         const ContainerT&   container,
         const ElemT&        elem)
     {
         return pluto::find(std::begin(container), std::end(container), elem);
     }
 
-    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::IsEqual>
-    inline auto findSequence(
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
+    inline auto find_sequence(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
@@ -56,31 +56,31 @@ namespace pluto
     }
 
     template<class ContainerT, class PredicateT>
-    inline auto findIf(
+    inline auto find_if(
         const ContainerT&   container,
         PredicateT          predicate)
     {
-        return pluto::findIf(std::begin(container), std::end(container), predicate);
+        return pluto::find_if(std::begin(container), std::end(container), predicate);
     }
 
     template<class ContainerT, class PredicateT>
-    inline auto findIfNot(
+    inline auto find_if_not(
         const ContainerT&   container,
         PredicateT          predicate)
     {
-        return pluto::findIfNot(std::begin(container), std::end(container), predicate);
+        return pluto::find_if_not(std::begin(container), std::end(container), predicate);
     }
 
     template<class ContainerT, class ElemT>
-    inline bool containsElem(
+    inline bool contains_elem(
         const ContainerT&   container,
         const ElemT&        elem)
     {
         return pluto::contains(std::begin(container), std::end(container), elem);
     }
 
-    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::IsEqual>
-    inline bool containsSequence(
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
+    inline bool contains_sequence(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
