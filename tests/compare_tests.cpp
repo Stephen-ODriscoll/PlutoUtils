@@ -9,11 +9,11 @@
 
 #include <gtest/gtest.h>
 
-class CompareTests : public testing::Test
+class compare_tests : public testing::Test
 {
 protected:
-    CompareTests() {}
-    ~CompareTests() {}
+    compare_tests() {}
+    ~compare_tests() {}
 };
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
@@ -62,7 +62,7 @@ protected:
     } \
     while (false)
 
-TEST_F(CompareTests, TestIsEqual)
+TEST_F(compare_tests, test_is_equal)
 {
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_equal(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_equal(), 'A', 'A');
@@ -98,7 +98,7 @@ TEST_F(CompareTests, TestIsEqual)
     ASSERT_FALSE(pluto::is_equal()(2.0f,    1.0f));
 }
 
-TEST_F(CompareTests, TestIsNotEqual)
+TEST_F(compare_tests, test_is_not_equal)
 {
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_not_equal(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_not_equal(), 'A', 'A');
@@ -140,7 +140,7 @@ TEST_F(CompareTests, TestIsNotEqual)
     ASSERT_TRUE(pluto::is_not_equal()(2.0f, 1.0f));
 }
 
-TEST_F(CompareTests, TestIsLess)
+TEST_F(compare_tests, test_is_less)
 {
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_less(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_less(), 'A', 'A');
@@ -176,7 +176,7 @@ TEST_F(CompareTests, TestIsLess)
     ASSERT_FALSE(pluto::is_less()(2.0f, 1.0f));
 }
 
-TEST_F(CompareTests, TestIsGreater)
+TEST_F(compare_tests, test_is_greater)
 {
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_greater(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_FALSE, pluto::is_greater(), 'A', 'A');
@@ -212,7 +212,7 @@ TEST_F(CompareTests, TestIsGreater)
     ASSERT_TRUE(pluto::is_greater()(2.0f,   1.0f));
 }
 
-TEST_F(CompareTests, TestIsLessEqual)
+TEST_F(compare_tests, test_is_less_equal)
 {
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_less_equal(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_less_equal(), 'A', 'A');
@@ -248,7 +248,7 @@ TEST_F(CompareTests, TestIsLessEqual)
     ASSERT_FALSE(pluto::is_less_equal()(2.0f,   1.0f));
 }
 
-TEST_F(CompareTests, TestIsGreaterEqual)
+TEST_F(compare_tests, test_is_greater_equal)
 {
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_greater_equal(), ' ', ' ');
     TEST_ALL_ELEM(ASSERT_TRUE,  pluto::is_greater_equal(), 'A', 'A');
@@ -284,7 +284,7 @@ TEST_F(CompareTests, TestIsGreaterEqual)
     ASSERT_TRUE(pluto::is_greater_equal()(2.0f, 1.0f));
 }
 
-TEST_F(CompareTests, TestIsEqualIgnoreCase)
+TEST_F(compare_tests, test_is_equal_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, 'A', 'A');
@@ -303,7 +303,7 @@ TEST_F(CompareTests, TestIsEqualIgnoreCase)
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'b', 'a');
 }
 
-TEST_F(CompareTests, TestIsNotEqualIgnoreCase)
+TEST_F(compare_tests, test_is_not_equal_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, 'A', 'A');
@@ -322,7 +322,7 @@ TEST_F(CompareTests, TestIsNotEqualIgnoreCase)
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'b', 'a');
 }
 
-TEST_F(CompareTests, TestIsLessIgnoreCase)
+TEST_F(compare_tests, test_is_less_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'A', 'A');
@@ -341,7 +341,7 @@ TEST_F(CompareTests, TestIsLessIgnoreCase)
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'b', 'a');
 }
 
-TEST_F(CompareTests, TestIsGreaterIgnoreCase)
+TEST_F(compare_tests, test_is_greater_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'A', 'A');
@@ -360,7 +360,7 @@ TEST_F(CompareTests, TestIsGreaterIgnoreCase)
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_ignore_case, 'b', 'a');
 }
 
-TEST_F(CompareTests, TestIsLessEqualIgnoreCase)
+TEST_F(compare_tests, test_is_less_equal_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'A', 'A');
@@ -379,7 +379,7 @@ TEST_F(CompareTests, TestIsLessEqualIgnoreCase)
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_equal_ignore_case, 'b', 'a');
 }
 
-TEST_F(CompareTests, TestIsGreaterEqualIgnoreCase)
+TEST_F(compare_tests, test_is_greater_equal_ignore_case)
 {
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, ' ', ' ');
     TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'A', 'A');

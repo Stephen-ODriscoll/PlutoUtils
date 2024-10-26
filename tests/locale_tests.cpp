@@ -9,29 +9,29 @@
 
 #include <gtest/gtest.h>
 
-class LocaleTests : public testing::Test
+class locale_tests : public testing::Test
 {
 protected:
-    LocaleTests() {}
-    ~LocaleTests() {}
+    locale_tests() {}
+    ~locale_tests() {}
 };
 
-TEST_F(LocaleTests, TestGetCLocale)
+TEST_F(locale_tests, test_get_c_locale)
 {
     const auto& cLocale{ pluto::get_c_locale() };
 }
 
-TEST_F(LocaleTests, TestGetSystemLocale)
+TEST_F(locale_tests, test_get_system_locale)
 {
     const auto& systemLocale{ pluto::get_system_locale() };
 }
 
-TEST_F(LocaleTests, TestGetDefaultLocale)
+TEST_F(locale_tests, test_get_default_locale)
 {
     const auto& defaultLocale{ pluto::get_default_locale() };
 }
 
-TEST_F(LocaleTests, TestGetFacet)
+TEST_F(locale_tests, test_get_facet)
 {
     const auto& facet{ pluto::get_facet<char>(pluto::get_default_locale()) };
 }

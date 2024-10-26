@@ -9,9 +9,9 @@
 
 #include <gtest/gtest.h>
 
-class StandardTests : public testing::Test
+class standard_tests : public testing::Test
 {
 protected:
-    StandardTests() {}
-    ~StandardTests() {}
+    standard_tests() {}
+    ~standard_tests() {}
 };

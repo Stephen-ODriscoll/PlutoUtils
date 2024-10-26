@@ -11,14 +11,14 @@
 
 #define SAFE_CACHE_CAPACITY 100
 
-class SafeLRUCacheTests : public testing::Test
+class safe_lru_cache_tests : public testing::Test
 {
 public:
     pluto::safe_lru_cache<std::size_t, std::size_t> safeCache{ SAFE_CACHE_CAPACITY };
 
 protected:
-    SafeLRUCacheTests() {}
-    ~SafeLRUCacheTests() {}
+    safe_lru_cache_tests() {}
+    ~safe_lru_cache_tests() {}
 
     void TearDown() override
     {
@@ -26,7 +26,7 @@ protected:
     }
 };
 
-TEST_F(SafeLRUCacheTests, TestCacheSanity)
+TEST_F(safe_lru_cache_tests, test_cache_sanity)
 {
     std::size_t value{ 0 };
 
@@ -54,7 +54,7 @@ TEST_F(SafeLRUCacheTests, TestCacheSanity)
     ASSERT_FALSE(safeCache.get(1, value));
 }
 
-TEST_F(SafeLRUCacheTests, TestChangeCapacity)
+TEST_F(safe_lru_cache_tests, test_change_capacity)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -81,7 +81,7 @@ TEST_F(SafeLRUCacheTests, TestChangeCapacity)
     }
 }
 
-TEST_F(SafeLRUCacheTests, TestInsertAndGet)
+TEST_F(safe_lru_cache_tests, test_insert_and_get)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -97,7 +97,7 @@ TEST_F(SafeLRUCacheTests, TestInsertAndGet)
     }
 }
 
-TEST_F(SafeLRUCacheTests, TestInsertEvictsOldest)
+TEST_F(safe_lru_cache_tests, test_insert_evicts_oldest)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -112,7 +112,7 @@ TEST_F(SafeLRUCacheTests, TestInsertEvictsOldest)
     ASSERT_FALSE(safeCache.get(1, value));
 }
 
-TEST_F(SafeLRUCacheTests, TestInsertUpdatesExisting)
+TEST_F(safe_lru_cache_tests, test_insert_updates_existing)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -128,7 +128,7 @@ TEST_F(SafeLRUCacheTests, TestInsertUpdatesExisting)
     ASSERT_EQ(value, 2);
 }
 
-TEST_F(SafeLRUCacheTests, TestInsertMovesToFront)
+TEST_F(safe_lru_cache_tests, test_insert_moves_to_front)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -145,7 +145,7 @@ TEST_F(SafeLRUCacheTests, TestInsertMovesToFront)
     ASSERT_EQ(value, 1);
 }
 
-TEST_F(SafeLRUCacheTests, TestGetMovesToFront)
+TEST_F(safe_lru_cache_tests, test_get_moves_to_front)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {
@@ -163,7 +163,7 @@ TEST_F(SafeLRUCacheTests, TestGetMovesToFront)
     ASSERT_EQ(value, 1);
 }
 
-TEST_F(SafeLRUCacheTests, TestRemove)
+TEST_F(safe_lru_cache_tests, test_remove)
 {
     for (std::size_t i{ 1 }; i <= SAFE_CACHE_CAPACITY; ++i)
     {

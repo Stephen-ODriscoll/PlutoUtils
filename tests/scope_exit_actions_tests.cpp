@@ -9,14 +9,14 @@
 
 #include <gtest/gtest.h>
 
-class ScopeExitActionsTests : public testing::Test
+class scope_exit_actions_tests : public testing::Test
 {
 protected:
-    ScopeExitActionsTests() {}
-    ~ScopeExitActionsTests() {}
+    scope_exit_actions_tests() {}
+    ~scope_exit_actions_tests() {}
 };
 
-TEST_F(ScopeExitActionsTests, TestScopeExitActionsSanity)
+TEST_F(scope_exit_actions_tests, test_scope_exit_actions_sanity)
 {
     bool changed{ false };
 

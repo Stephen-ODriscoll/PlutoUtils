@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-class ContainerUtilsTests : public testing::Test
+class container_utils_tests : public testing::Test
 {
 public:
     const std::vector<int> empty            { };
@@ -29,11 +29,11 @@ public:
     const std::vector<int> zeroToFourTwice2 { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
 
 protected:
-    ContainerUtilsTests() {}
-    ~ContainerUtilsTests() {}
+    container_utils_tests() {}
+    ~container_utils_tests() {}
 };
 
-TEST_F(ContainerUtilsTests, TestEqualsReturnsTrue)
+TEST_F(container_utils_tests, test_equals_returns_true)
 {
     ASSERT_TRUE(pluto::equals(empty, empty));
 
@@ -41,7 +41,7 @@ TEST_F(ContainerUtilsTests, TestEqualsReturnsTrue)
     ASSERT_TRUE(pluto::equals(zeroToFour, zeroToFour2));
 }
 
-TEST_F(ContainerUtilsTests, TestEqualsReturnsFalse)
+TEST_F(container_utils_tests, test_equals_returns_false)
 {
     ASSERT_FALSE(pluto::equals(zeroToFour, fiveToNine));
     ASSERT_FALSE(pluto::equals(zeroToFour, zeroToThree));
@@ -60,7 +60,7 @@ TEST_F(ContainerUtilsTests, TestEqualsReturnsFalse)
     ASSERT_FALSE(pluto::equals(oneToFour, zeroToThree));
 }
 
-TEST_F(ContainerUtilsTests, TestBeginsWithReturnsTrue)
+TEST_F(container_utils_tests, test_begins_with_returns_true)
 {
     ASSERT_TRUE(pluto::begins_with(empty, empty));
 
@@ -70,7 +70,7 @@ TEST_F(ContainerUtilsTests, TestBeginsWithReturnsTrue)
     ASSERT_TRUE(pluto::begins_with(zeroToFour, zero));
 }
 
-TEST_F(ContainerUtilsTests, TestBeginsWithReturnsFalse)
+TEST_F(container_utils_tests, test_begins_with_returns_false)
 {
     ASSERT_FALSE(pluto::begins_with(zeroToFour, fiveToNine));
     ASSERT_FALSE(pluto::begins_with(zeroToFour, oneToFour));
@@ -88,7 +88,7 @@ TEST_F(ContainerUtilsTests, TestBeginsWithReturnsFalse)
     ASSERT_FALSE(pluto::begins_with(one, oneToFour));
 }
 
-TEST_F(ContainerUtilsTests, TestEndsWithReturnsTrue)
+TEST_F(container_utils_tests, test_ends_with_returns_true)
 {
     ASSERT_TRUE(pluto::ends_with(empty, empty));
 
@@ -98,7 +98,7 @@ TEST_F(ContainerUtilsTests, TestEndsWithReturnsTrue)
     ASSERT_TRUE(pluto::ends_with(zeroToFour, four));
 }
 
-TEST_F(ContainerUtilsTests, TestEndsWithReturnsFalse)
+TEST_F(container_utils_tests, test_ends_with_returns_false)
 {
     ASSERT_FALSE(pluto::ends_with(zeroToFour, fiveToNine));
     ASSERT_FALSE(pluto::ends_with(zeroToFour, zeroToThree));
@@ -116,7 +116,7 @@ TEST_F(ContainerUtilsTests, TestEndsWithReturnsFalse)
     ASSERT_FALSE(pluto::ends_with(three, zeroToThree));
 }
 
-TEST_F(ContainerUtilsTests, TestFindElemReturnsPosition)
+TEST_F(container_utils_tests, test_find_elem_returns_position)
 {
     ASSERT_EQ(pluto::find_elem(zeroToFourTwice, 0), zeroToFourTwice.begin());
     ASSERT_EQ(pluto::find_elem(zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
@@ -129,13 +129,13 @@ TEST_F(ContainerUtilsTests, TestFindElemReturnsPosition)
     ASSERT_EQ(pluto::find_elem(fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(ContainerUtilsTests, TestFindElemReturnsEnd)
+TEST_F(container_utils_tests, test_find_elem_returns_end)
 {
     ASSERT_EQ(pluto::find_elem(empty, 0), empty.end());
     ASSERT_EQ(pluto::find_elem(zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-TEST_F(ContainerUtilsTests, TestFindSequenceReturnsPosition)
+TEST_F(container_utils_tests, test_find_sequence_returns_position)
 {
     ASSERT_EQ(pluto::find_sequence(empty, empty), empty.begin());
     ASSERT_EQ(pluto::find_sequence(zeroToFourTwice, empty), zeroToFourTwice.begin());
@@ -151,12 +151,12 @@ TEST_F(ContainerUtilsTests, TestFindSequenceReturnsPosition)
     ASSERT_EQ(pluto::find_sequence(fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(ContainerUtilsTests, TestFindSequenceReturnsEnd)
+TEST_F(container_utils_tests, test_find_sequence_returns_end)
 {
     ASSERT_EQ(pluto::find_sequence(zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-TEST_F(ContainerUtilsTests, TestFindIfReturnsPosition)
+TEST_F(container_utils_tests, test_find_if_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -175,7 +175,7 @@ TEST_F(ContainerUtilsTests, TestFindIfReturnsPosition)
     ASSERT_EQ(pluto::find_if(fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
-TEST_F(ContainerUtilsTests, TestFindIfReturnsEnd)
+TEST_F(container_utils_tests, test_find_if_returns_end)
 {
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
@@ -184,7 +184,7 @@ TEST_F(ContainerUtilsTests, TestFindIfReturnsEnd)
     ASSERT_EQ(pluto::find_if(zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
-TEST_F(ContainerUtilsTests, TestFindIfNotReturnsPosition)
+TEST_F(container_utils_tests, test_find_if_not_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -203,7 +203,7 @@ TEST_F(ContainerUtilsTests, TestFindIfNotReturnsPosition)
     ASSERT_EQ(pluto::find_if_not(fourZeroOne, equalsOne), fourZeroOne.begin());
 }
 
-TEST_F(ContainerUtilsTests, TestContainsElemReturnsTrue)
+TEST_F(container_utils_tests, test_contains_elem_returns_true)
 {
     ASSERT_TRUE(pluto::contains_elem(zeroToFourTwice, 0));
     ASSERT_TRUE(pluto::contains_elem(zeroToFourTwice, 1));
@@ -216,12 +216,12 @@ TEST_F(ContainerUtilsTests, TestContainsElemReturnsTrue)
     ASSERT_TRUE(pluto::contains_elem(fourZeroOne, 1));
 }
 
-TEST_F(ContainerUtilsTests, TestContainsElemReturnsFalse)
+TEST_F(container_utils_tests, test_contains_elem_returns_false)
 {
     ASSERT_FALSE(pluto::contains_elem(zeroToFourTwice, 5));
 }
 
-TEST_F(ContainerUtilsTests, TestContainsSequenceReturnsTrue)
+TEST_F(container_utils_tests, test_contains_sequence_returns_true)
 {
     ASSERT_TRUE(pluto::contains_sequence(empty, empty));
     ASSERT_TRUE(pluto::contains_sequence(zeroToFourTwice, empty));
@@ -237,7 +237,7 @@ TEST_F(ContainerUtilsTests, TestContainsSequenceReturnsTrue)
     ASSERT_TRUE(pluto::contains_sequence(fourZeroOne, four));
 }
 
-TEST_F(ContainerUtilsTests, TestContainsSequenceReturnsFalse)
+TEST_F(container_utils_tests, test_contains_sequence_returns_false)
 {
     ASSERT_FALSE(pluto::contains_sequence(zeroToFourTwice, five));
 }

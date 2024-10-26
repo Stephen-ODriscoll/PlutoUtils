@@ -33,12 +33,12 @@
 #define LOG_STREAM_TRACE(message)       PLUTO_LOG_STREAM_TRACE(LOG_FILE, message)
 #define LOG_STREAM_VERBOSE(message)     PLUTO_LOG_STREAM_VERBOSE(LOG_FILE, message)
 
-class LoggerTests : public testing::Test
+class logger_tests : public testing::Test
 {
 protected:
-    LoggerTests() {}
+    logger_tests() {}
 
-    ~LoggerTests() {}
+    ~logger_tests() {}
 
     void TearDown() override
     {
@@ -49,7 +49,7 @@ protected:
     }
 };
 
-std::size_t countLogs()
+std::size_t count_logs()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
@@ -68,7 +68,7 @@ std::size_t countLogs()
     return logCount;
 }
 
-std::string getLastLog()
+std::string get_last_log()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
@@ -83,114 +83,114 @@ std::string getLastLog()
     return lastLog;
 }
 
-std::string getLastLogMessage()
+std::string get_last_log_message()
 {
-    auto lastLog    { getLastLog() };
+    auto lastLog    { get_last_log() };
     auto separator  { pluto::logger::get_instance().separator() };
     auto index      { lastLog.rfind(separator) };
 
     return ((index == std::string::npos) ? lastLog : lastLog.substr(index + separator.size()));
 }
 
-TEST_F(LoggerTests, TestLogFormatLevels)
+TEST_F(logger_tests, test_log_format_levels)
 {
     std::string message{};
 
     message = "log message";
     LOG_FORMAT(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Fatal log message";
     LOG_FORMAT_FATAL(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Critical log message";
     LOG_FORMAT_CRITICAL(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Error log message";
     LOG_FORMAT_ERROR(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Warning log message";
     LOG_FORMAT_WARNING(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Notice log message";
     LOG_FORMAT_NOTICE(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Info log message";
     LOG_FORMAT_INFO(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Debug log message";
     LOG_FORMAT_DEBUG(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Trace log message";
     LOG_FORMAT_TRACE(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Verbose log message";
     LOG_FORMAT_VERBOSE(message.c_str());
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 }
 
-TEST_F(LoggerTests, TestLogStreamLevels)
+TEST_F(logger_tests, test_log_stream_levels)
 {
     std::string message{};
 
     message = "log message";
     LOG_STREAM(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Fatal log message";
     LOG_STREAM_FATAL(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Error log message";
     LOG_STREAM_ERROR(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Warning log message";
     LOG_STREAM_WARNING(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Notice log message";
     LOG_STREAM_NOTICE(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Info log message";
     LOG_STREAM_INFO(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Debug log message";
     LOG_STREAM_DEBUG(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Trace log message";
     LOG_STREAM_TRACE(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 
     message = "Verbose log message";
     LOG_STREAM_VERBOSE(message);
-    ASSERT_EQ(message, getLastLogMessage());
+    ASSERT_EQ(message, get_last_log_message());
 }
 
-TEST_F(LoggerTests, TestLogFormatDoesFormatting)
+TEST_F(logger_tests, test_log_format_does_formatting)
 {
     LOG_FORMAT("log message: %s, %S", "Test", L"Test");
-    ASSERT_EQ("log message: Test, Test", getLastLogMessage());
+    ASSERT_EQ("log message: Test, Test", get_last_log_message());
 }
 
-TEST_F(LoggerTests, TestLogFormatBrokenStillLogs)
+TEST_F(logger_tests, test_log_format_broken_still_logs)
 {
     LOG_FORMAT("log message: %s, %S", "Test");
-    ASSERT_EQ("log message: %s, %S", getLastLogMessage());
+    ASSERT_EQ("log message: %s, %S", get_last_log_message());
 }
 
-TEST_F(LoggerTests, TestAllFormatLogsAreWritten)
+TEST_F(logger_tests, test_all_format_logs_are_written)
 {
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
@@ -207,10 +207,10 @@ TEST_F(LoggerTests, TestAllFormatLogsAreWritten)
         LOG_FORMAT_VERBOSE("log message %z of %z", i, numLogs);
     }
 
-    ASSERT_EQ(countLogs(), 1002);   // +2 for header
+    ASSERT_EQ(count_logs(), 1002);   // +2 for header
 }
 
-TEST_F(LoggerTests, TestAllStreamLogsAreWritten)
+TEST_F(logger_tests, test_all_stream_logs_are_written)
 {
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
@@ -227,5 +227,5 @@ TEST_F(LoggerTests, TestAllStreamLogsAreWritten)
         LOG_STREAM_VERBOSE("Log entry " << i << " of " << numLogs);
     }
 
-    ASSERT_EQ(countLogs(), 1002);   // +2 for header
+    ASSERT_EQ(count_logs(), 1002);   // +2 for header
 }

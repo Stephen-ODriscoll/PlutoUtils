@@ -9,9 +9,9 @@
 
 #include <gtest/gtest.h>
 
-class FileSystemTests : public testing::Test
+class filesystem_tests : public testing::Test
 {
 protected:
-    FileSystemTests() {}
-    ~FileSystemTests() {}
+    filesystem_tests() {}
+    ~filesystem_tests() {}
 };

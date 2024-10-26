@@ -9,9 +9,9 @@
 
 #include <gtest/gtest.h>
 
-class PlutoTests : public testing::Test
+class pluto_tests : public testing::Test
 {
 protected:
-    PlutoTests() {}
-    ~PlutoTests() {}
+    pluto_tests() {}
+    ~pluto_tests() {}
 };
