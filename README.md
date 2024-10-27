@@ -39,6 +39,10 @@ The only dependencies required to build the unit tests are CMake and Google Test
 ### Clang
 1. Untested, you can try the same way as GCC. I'll probably test this soon.
 
+### Possible Future Work
+* thread_pool.hpp
+* timer_task.hpp
+
 ## Documentation
 [compare.hpp](./docs/compare.md)
 
