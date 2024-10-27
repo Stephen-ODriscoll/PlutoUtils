@@ -6,6 +6,7 @@
 */
 
 #include <pluto.hpp>
+#include <pluto/standard.hpp>
 
 int main(int argc, char* argv[])
 {
