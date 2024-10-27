@@ -36,7 +36,7 @@
 #define TEST_CHAR8_ELEM_IGNORE_CASE(check, function, x, y) \
     do \
     { \
-        try { check(function<char8_t>{ pluto::get_default_locale() }(u8##x, u8##y)); } catch (const std::bad_cast&) {} \
+        try { check(function<char8_t>{}(u8##x, u8##y)); } catch (const std::bad_cast&) {} \
     } \
     while (false)
 #else
@@ -47,11 +47,11 @@
 #define TEST_ALL_ELEM_IGNORE_CASE(check, function, x, y) \
     do \
     { \
-        check(function<char>{ pluto::get_default_locale() }(x, y)); \
-        check(function<wchar_t>{ pluto::get_default_locale() }(L##x, L##y)); \
+        check(function<char>{}(x, y)); \
+        check(function<wchar_t>{}(L##x, L##y)); \
         TEST_CHAR8_ELEM_IGNORE_CASE(check, function, x, y); \
-        try { check(function<char16_t>{ pluto::get_default_locale() }(u##x, u##y)); } catch (const std::bad_cast&) {} \
-        try { check(function<char32_t>{ pluto::get_default_locale() }(U##x, U##y)); } catch (const std::bad_cast&) {} \
+        try { check(function<char16_t>{}(u##x, u##y)); } catch (const std::bad_cast&) {} \
+        try { check(function<char32_t>{}(U##x, U##y)); } catch (const std::bad_cast&) {} \
     } \
     while (false)
 
