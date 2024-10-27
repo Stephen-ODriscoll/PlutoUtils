@@ -346,22 +346,6 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split_any_of(
-        const std::basic_string<ElemT>& str,
-        const std::basic_string<ElemT>& sep)
-    {
-        std::size_t from, to{ 0 };
-        std::vector<std::basic_string<ElemT>> splits{};
-        while ((from = str.find_first_not_of(sep, to)) != str.npos)
-        {
-            to = str.find_first_of(sep, from);
-            splits.push_back(str.substr(from, (to - from)));
-        }
-
-        return splits;
-    }
-
-    template<class ElemT>
     inline std::vector<std::basic_string<ElemT>> split(
         const std::basic_string<ElemT>& str,
         const std::locale&              locale = pluto::get_default_locale())
@@ -418,6 +402,22 @@ namespace pluto
         }
 
         splits.push_back(str.substr(from));
+        return splits;
+    }
+
+    template<class ElemT>
+    inline std::vector<std::basic_string<ElemT>> split_any_of(
+        const std::basic_string<ElemT>& str,
+        const std::basic_string<ElemT>& sep)
+    {
+        std::size_t from, to{ 0 };
+        std::vector<std::basic_string<ElemT>> splits{};
+        while ((from = str.find_first_not_of(sep, to)) != str.npos)
+        {
+            to = str.find_first_of(sep, from);
+            splits.push_back(str.substr(from, (to - from)));
+        }
+
         return splits;
     }
 

@@ -1433,29 +1433,6 @@ TEST_F(string_utils_tests, test_elem_string_contains_ignore_case)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains_ignore_case, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_elem_string_split_any_of)
-{
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a", " ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A", " ", 1, "A");
-
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "", " ", 0);
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "   ", " ", 0);
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "\t\n\v\f\r ", " ", 1, "\t\n\v\f\r");
-
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, " a ", " ", 1, "a");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
-
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
-
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "abc", 2, "def", "def");
-    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
-}
-
 TEST_F(string_utils_tests, test_elem_string_split)
 {
     TEST_ALL_ELEM_STRINGS_5(ASSERT_EQ, pluto::split, "a", 1, "a");
@@ -1492,6 +1469,29 @@ TEST_F(string_utils_tests, test_elem_string_split_with_delim)
 
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "abcdefabcdef", "abc", 3, "", "def", "def");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
+}
+
+TEST_F(string_utils_tests, test_elem_string_split_any_of)
+{
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A", " ", 1, "A");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "   ", " ", 0);
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "\t\n\v\f\r ", " ", 1, "\t\n\v\f\r");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, " a ", " ", 1, "a");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a:b:c:d:e:f", ":", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a;b;c;d;e;f", ";", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a-b-c-d-e-f", "-", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a#b#c#d#e#f", "#", 6, "a", "b", "c", "d", "e", "f");
+
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "abc", 2, "def", "def");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
 }
 
 TEST_F(string_utils_tests, test_elem_string_join_iterators)
