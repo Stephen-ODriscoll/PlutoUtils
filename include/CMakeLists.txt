@@ -5,7 +5,7 @@
 # Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
-project(pluto_utils)
+project(pluto)
 
 add_library(
     ${PROJECT_NAME}

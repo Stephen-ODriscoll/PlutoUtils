@@ -5,7 +5,7 @@
 # Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
-project(pluto_utils_tests)
+project(pluto_tests)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:preprocessor")
