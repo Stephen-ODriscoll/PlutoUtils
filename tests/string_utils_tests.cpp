@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/string_utils.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/string_utils.hpp>
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #define TEST_CHAR8_ELEM_1(check, function, x) \

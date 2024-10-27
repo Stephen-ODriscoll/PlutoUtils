@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/scope_exit_actions.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/scope_exit_actions.hpp>
 
 class scope_exit_actions_tests : public testing::Test
 {

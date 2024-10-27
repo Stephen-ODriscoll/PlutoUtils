@@ -5,11 +5,11 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/stopwatch.hpp"
+#include <thread>
 
 #include <gtest/gtest.h>
 
-#include <thread>
+#include <pluto/stopwatch.hpp>
 
 class stopwatch_tests : public testing::Test
 {

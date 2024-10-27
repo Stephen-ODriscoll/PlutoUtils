@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/container_utils.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/container_utils.hpp>
 
 class container_utils_tests : public testing::Test
 {

@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/logger.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/logger.hpp>
 
 #define LOG_FILE "test.log"
 

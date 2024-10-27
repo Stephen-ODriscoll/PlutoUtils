@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/iterator_utils.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/iterator_utils.hpp>
 
 #define TEST_USE_END_1(predicate, container, other) \
     predicate(container.begin(), container.end(), other.begin(), other.end())

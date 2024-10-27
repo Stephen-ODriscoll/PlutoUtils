@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/locale.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/locale.hpp>
 
 class locale_tests : public testing::Test
 {

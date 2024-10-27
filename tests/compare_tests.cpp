@@ -5,16 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/compare.hpp"
-
 #include <gtest/gtest.h>
 
-class compare_tests : public testing::Test
-{
-protected:
-    compare_tests() {}
-    ~compare_tests() {}
-};
+#include <pluto/compare.hpp>
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #define TEST_CHAR8_ELEM(check, function, x, y) \
@@ -61,6 +54,13 @@ protected:
         try { check(function<char32_t>{ pluto::get_default_locale() }(U##x, U##y)); } catch (const std::bad_cast&) {} \
     } \
     while (false)
+
+class compare_tests : public testing::Test
+{
+protected:
+    compare_tests() {}
+    ~compare_tests() {}
+};
 
 TEST_F(compare_tests, test_is_equal)
 {

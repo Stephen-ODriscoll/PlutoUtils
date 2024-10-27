@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/range.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/range.hpp>
 
 class range_tests : public testing::Test
 {

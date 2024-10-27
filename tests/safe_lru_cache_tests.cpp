@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/safe_lru_cache.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/safe_lru_cache.hpp>
 
 #define SAFE_CACHE_CAPACITY 100
 

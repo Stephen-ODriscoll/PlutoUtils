@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto.hpp>
 
 class pluto_tests : public testing::Test
 {

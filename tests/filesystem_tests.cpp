@@ -5,9 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include "pluto/filesystem.hpp"
-
 #include <gtest/gtest.h>
+
+#include <pluto/filesystem.hpp>
 
 class filesystem_tests : public testing::Test
 {
