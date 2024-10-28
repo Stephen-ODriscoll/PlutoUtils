@@ -787,7 +787,7 @@ namespace pluto
             const int           sourceLine,
             const char* const   sourceFunction)
         {
-            return streamer{ this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
+            return { this, logFileName, logLevel, sourceFilePath, sourceLine, sourceFunction };
         }
 
     private:
