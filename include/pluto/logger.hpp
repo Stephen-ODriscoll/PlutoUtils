@@ -223,7 +223,7 @@ namespace pluto
         {
             full = 0,
             abbreviated,
-            single_char
+            character
         };
 
         enum class meta_data : unsigned char
@@ -507,7 +507,7 @@ namespace pluto
                         default:                return "UNK";
                     }
 
-                case level_format::single_char:
+                case level_format::character:
                     switch (level)
                     {
                         case level::none:       return " ";
