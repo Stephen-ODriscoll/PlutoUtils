@@ -60,32 +60,32 @@ TEST_F(container_utils_tests, test_equals_returns_false)
     ASSERT_FALSE(pluto::equals(oneToFour, zeroToThree));
 }
 
-TEST_F(container_utils_tests, test_begins_with_returns_true)
+TEST_F(container_utils_tests, test_starts_with_returns_true)
 {
-    ASSERT_TRUE(pluto::begins_with(empty, empty));
+    ASSERT_TRUE(pluto::starts_with(empty, empty));
 
-    ASSERT_TRUE(pluto::begins_with(zeroToFour, zeroToFour));
-    ASSERT_TRUE(pluto::begins_with(zeroToFour, zeroToFour2));
-    ASSERT_TRUE(pluto::begins_with(zeroToFour, zeroToThree));
-    ASSERT_TRUE(pluto::begins_with(zeroToFour, zero));
+    ASSERT_TRUE(pluto::starts_with(zeroToFour, zeroToFour));
+    ASSERT_TRUE(pluto::starts_with(zeroToFour, zeroToFour2));
+    ASSERT_TRUE(pluto::starts_with(zeroToFour, zeroToThree));
+    ASSERT_TRUE(pluto::starts_with(zeroToFour, zero));
 }
 
-TEST_F(container_utils_tests, test_begins_with_returns_false)
+TEST_F(container_utils_tests, test_starts_with_returns_false)
 {
-    ASSERT_FALSE(pluto::begins_with(zeroToFour, fiveToNine));
-    ASSERT_FALSE(pluto::begins_with(zeroToFour, oneToFour));
-    ASSERT_FALSE(pluto::begins_with(zeroToFour, one));
+    ASSERT_FALSE(pluto::starts_with(zeroToFour, fiveToNine));
+    ASSERT_FALSE(pluto::starts_with(zeroToFour, oneToFour));
+    ASSERT_FALSE(pluto::starts_with(zeroToFour, one));
 
-    ASSERT_FALSE(pluto::begins_with(fiveToNine, zeroToFour));
-    ASSERT_FALSE(pluto::begins_with(fiveToNine, oneToFour));
-    ASSERT_FALSE(pluto::begins_with(fiveToNine, one));
+    ASSERT_FALSE(pluto::starts_with(fiveToNine, zeroToFour));
+    ASSERT_FALSE(pluto::starts_with(fiveToNine, oneToFour));
+    ASSERT_FALSE(pluto::starts_with(fiveToNine, one));
 
-    ASSERT_FALSE(pluto::begins_with(oneToFour, zeroToFour));
-    ASSERT_FALSE(pluto::begins_with(oneToFour, fiveToNine));
+    ASSERT_FALSE(pluto::starts_with(oneToFour, zeroToFour));
+    ASSERT_FALSE(pluto::starts_with(oneToFour, fiveToNine));
 
-    ASSERT_FALSE(pluto::begins_with(one, zeroToFour));
-    ASSERT_FALSE(pluto::begins_with(one, fiveToNine));
-    ASSERT_FALSE(pluto::begins_with(one, oneToFour));
+    ASSERT_FALSE(pluto::starts_with(one, zeroToFour));
+    ASSERT_FALSE(pluto::starts_with(one, fiveToNine));
+    ASSERT_FALSE(pluto::starts_with(one, oneToFour));
 }
 
 TEST_F(container_utils_tests, test_ends_with_returns_true)

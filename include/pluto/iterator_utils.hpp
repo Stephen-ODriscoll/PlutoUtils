@@ -49,7 +49,7 @@ namespace pluto
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    inline bool begins_with(
+    inline bool starts_with(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -61,7 +61,7 @@ namespace pluto
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    inline bool begins_with(
+    inline bool starts_with(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
         const IteratorRightT    beginR,

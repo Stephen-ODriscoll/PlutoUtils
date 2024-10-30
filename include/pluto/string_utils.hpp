@@ -248,23 +248,23 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool begins_with_ignore_case(
+    inline bool starts_with_ignore_case(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::begins_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::starts_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool begins_with_ignore_case(
+    inline bool starts_with_ignore_case(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::begins_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::starts_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
     template<class ElemT>

@@ -99,60 +99,60 @@ TEST_F(iterator_utils_tests, test_equals_use_size_returns_false)
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, oneToFour, zeroToThree));
 }
 
-TEST_F(iterator_utils_tests, test_begins_with_use_end_returns_true)
+TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_true)
 {
-    ASSERT_TRUE(TEST_USE_END_1(pluto::begins_with, empty, empty));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_END_1(pluto::begins_with, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_END_1(pluto::begins_with, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_END_1(pluto::begins_with, zeroToFour, zeroToThree));
-    ASSERT_TRUE(TEST_USE_END_1(pluto::begins_with, zeroToFour, zero));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, zeroToFour, zeroToThree));
+    ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, zeroToFour, zero));
 }
 
-TEST_F(iterator_utils_tests, test_begins_with_use_end_returns_false)
+TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_false)
 {
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, zeroToFour, oneToFour));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, zeroToFour, one));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, zeroToFour, one));
 
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, fiveToNine, oneToFour));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, fiveToNine, one));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, fiveToNine, one));
 
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, oneToFour, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, one, zeroToFour));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, one, fiveToNine));
-    ASSERT_FALSE(TEST_USE_END_1(pluto::begins_with, one, oneToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, one, zeroToFour));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, one, fiveToNine));
+    ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, one, oneToFour));
 }
 
-TEST_F(iterator_utils_tests, test_begins_with_use_size_returns_true)
+TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_true)
 {
-    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::begins_with, empty, empty));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, empty, empty));
 
-    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, zeroToFour));
-    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, zeroToFour2));
-    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, zeroToThree));
-    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, zero));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, zeroToFour2));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, zeroToThree));
+    ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, zero));
 }
 
-TEST_F(iterator_utils_tests, test_begins_with_use_size_returns_false)
+TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_false)
 {
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, oneToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, zeroToFour, one));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, one));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, fiveToNine, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, fiveToNine, oneToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, fiveToNine, one));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, fiveToNine, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, fiveToNine, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, fiveToNine, one));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, oneToFour, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, oneToFour, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, oneToFour, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, oneToFour, fiveToNine));
 
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, one, zeroToFour));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, one, fiveToNine));
-    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::begins_with, one, oneToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, one, zeroToFour));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, one, fiveToNine));
+    ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, one, oneToFour));
 }
 
 TEST_F(iterator_utils_tests, test_ends_with_use_end_returns_true)

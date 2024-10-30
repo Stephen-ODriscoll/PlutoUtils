@@ -21,12 +21,12 @@ namespace pluto
     }
 
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
-    inline bool begins_with(
+    inline bool starts_with(
         const ContainerLeftT&   left,
         const ContainerRightT&  right,
         PredicateT              predicate = {})
     {
-        return pluto::begins_with(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+        return pluto::starts_with(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
