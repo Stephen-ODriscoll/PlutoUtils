@@ -36,10 +36,10 @@ namespace pluto
         pluto::get_facet<ElemT>(locale).tolower(pElem, (pElem + size));
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline void to_lower(
-        std::basic_string<ElemT>&   str,
-        const std::locale&          locale = pluto::get_default_locale())
+        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        const std::locale&                          locale = pluto::get_default_locale())
     {
         pluto::to_lower(&str[0], str.size(), locale);
     }
@@ -61,10 +61,10 @@ namespace pluto
         pluto::get_facet<ElemT>(locale).toupper(pElem, (pElem + size));
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline void to_upper(
-        std::basic_string<ElemT>&   str,
-        const std::locale&          locale = pluto::get_default_locale())
+        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        const std::locale&                          locale = pluto::get_default_locale())
     {
         pluto::to_upper(&str[0], str.size(), locale);
     }
@@ -97,10 +97,10 @@ namespace pluto
         return true;
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool is_lower(
-        const std::basic_string<ElemT>& str,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::is_lower(&str[0], str.size(), locale);
     }
@@ -133,10 +133,10 @@ namespace pluto
         return true;
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool is_upper(
-        const std::basic_string<ElemT>& str,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::is_upper(&str[0], str.size(), locale);
     }
@@ -238,11 +238,11 @@ namespace pluto
         return pluto::equals(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool equals_ignore_case(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::equals(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
@@ -258,11 +258,11 @@ namespace pluto
         return pluto::begins_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool begins_with_ignore_case(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::begins_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
@@ -278,20 +278,20 @@ namespace pluto
         return pluto::ends_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool ends_with_ignore_case(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::ends_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT, class PredicateT = pluto::is_equal>
+    template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     inline auto find(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        PredicateT                      predicate = {})
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        PredicateT                                          predicate = {})
     {
         return pluto::find_sequence(left, right, predicate);
     }
@@ -307,20 +307,20 @@ namespace pluto
         return pluto::find(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline auto find_ignore_case(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::find_sequence(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT, class PredicateT = pluto::is_equal>
+    template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     inline bool contains(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        PredicateT                      predicate = {})
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        PredicateT                                          predicate = {})
     {
         return pluto::contains_sequence(left, right, predicate);
     }
@@ -336,24 +336,24 @@ namespace pluto
         return pluto::contains(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline bool contains_ignore_case(
-        const std::basic_string<ElemT>& left,
-        const std::basic_string<ElemT>& right,
-        const std::locale&              locale = pluto::get_default_locale())
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         return pluto::contains_sequence(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
     }
 
-    template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split(
-        const std::basic_string<ElemT>& str,
-        const std::locale&              locale = pluto::get_default_locale())
+    template<class ElemT, class TraitsT, class AllocT>
+    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
+        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::locale&                                  locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
         std::size_t from{ 0 }, to;
-        std::vector<std::basic_string<ElemT>> splits{};
+        std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         while (from < str.size())
         {
             while (facet.is(std::ctype_base::space, str[from]))
@@ -383,10 +383,10 @@ namespace pluto
         return splits;
     }
 
-    template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split(
-        const std::basic_string<ElemT>& str,
-        const std::basic_string<ElemT>& sep)
+    template<class ElemT, class TraitsT, class AllocT>
+    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
+        const std::basic_string<ElemT, TraitsT, AllocT>& str,
+        const std::basic_string<ElemT, TraitsT, AllocT>& sep)
     {
         if (sep.empty())
         {
@@ -394,7 +394,7 @@ namespace pluto
         }
 
         std::size_t from{ 0 }, to;
-        std::vector<std::basic_string<ElemT>> splits{};
+        std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         while ((to = str.find(sep, from)) != str.npos)
         {
             splits.push_back(str.substr(from, (to - from)));
@@ -405,13 +405,13 @@ namespace pluto
         return splits;
     }
 
-    template<class ElemT>
-    inline std::vector<std::basic_string<ElemT>> split_any_of(
-        const std::basic_string<ElemT>& str,
-        const std::basic_string<ElemT>& sep)
+    template<class ElemT, class TraitsT, class AllocT>
+    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
+        const std::basic_string<ElemT, TraitsT, AllocT>& str,
+        const std::basic_string<ElemT, TraitsT, AllocT>& sep)
     {
         std::size_t from, to{ 0 };
-        std::vector<std::basic_string<ElemT>> splits{};
+        std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         while ((from = str.find_first_not_of(sep, to)) != str.npos)
         {
             to = str.find_first_of(sep, from);
@@ -421,13 +421,13 @@ namespace pluto
         return splits;
     }
 
-    template<class ElemT, class IteratorT>
-    inline std::basic_string<ElemT> join(
-        const std::basic_string<ElemT>& sep,
-        const IteratorT                 begin,
-        const IteratorT                 end)
+    template<class ElemT, class TraitsT, class AllocT, class IteratorT>
+    inline std::basic_string<ElemT, TraitsT, AllocT> join(
+        const std::basic_string<ElemT, TraitsT, AllocT>&    sep,
+        const IteratorT                                     begin,
+        const IteratorT                                     end)
     {
-        std::basic_string<ElemT> str{};
+        std::basic_string<ElemT, TraitsT, AllocT> str{};
         for (auto it{ begin }; it != end; ++it)
         {
             if (it != begin)
@@ -441,18 +441,18 @@ namespace pluto
         return str;
     }
 
-    template<class ElemT, class ContainerT>
-    inline std::basic_string<ElemT> join(
-        const std::basic_string<ElemT>& sep,
-        const ContainerT&               container)
+    template<class ElemT, class TraitsT, class AllocT, class ContainerT>
+    inline std::basic_string<ElemT, TraitsT, AllocT> join(
+        const std::basic_string<ElemT, TraitsT, AllocT>&    sep,
+        const ContainerT&                                   container)
     {
         return pluto::join(sep, std::begin(container), std::end(container));
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline void ltrim(
-        std::basic_string<ElemT>&   str,
-        const std::locale&          locale = pluto::get_default_locale())
+        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        const std::locale&                          locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
@@ -465,10 +465,10 @@ namespace pluto
         str.erase(0, from);
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline void rtrim(
-        std::basic_string<ElemT>&   str,
-        const std::locale&          locale = pluto::get_default_locale())
+        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        const std::locale&                          locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
@@ -485,10 +485,10 @@ namespace pluto
         str.erase(to);
     }
 
-    template<class ElemT>
+    template<class ElemT, class TraitsT, class AllocT>
     inline void trim(
-        std::basic_string<ElemT>&   str,
-        const std::locale&          locale = pluto::get_default_locale())
+        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        const std::locale&                          locale = pluto::get_default_locale())
     {
         pluto::ltrim(str, locale);
         pluto::rtrim(str, locale);
