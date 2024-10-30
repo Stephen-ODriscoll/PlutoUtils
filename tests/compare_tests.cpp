@@ -284,116 +284,116 @@ TEST_F(compare_tests, test_is_greater_equal)
     ASSERT_TRUE(pluto::is_greater_equal()(2.0f, 1.0f));
 }
 
-TEST_F(compare_tests, test_is_equal_ignore_case)
+TEST_F(compare_tests, test_is_iequal)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_equal_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iequal, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iequal, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iequal, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iequal, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iequal, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_equal_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iequal, 'b', 'a');
 }
 
-TEST_F(compare_tests, test_is_not_equal_ignore_case)
+TEST_F(compare_tests, test_is_not_iequal)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_equal_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_iequal, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_iequal, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_iequal, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_iequal, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_not_iequal, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_equal_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_not_iequal, 'b', 'a');
 }
 
-TEST_F(compare_tests, test_is_less_ignore_case)
+TEST_F(compare_tests, test_is_iless)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless, 'b', 'a');
 }
 
-TEST_F(compare_tests, test_is_greater_ignore_case)
+TEST_F(compare_tests, test_is_igreater)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater, 'b', 'a');
 }
 
-TEST_F(compare_tests, test_is_less_equal_ignore_case)
+TEST_F(compare_tests, test_is_iless_equal)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_less_equal_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_iless_equal, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_equal_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_equal_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_equal_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_less_equal_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless_equal, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless_equal, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless_equal, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_iless_equal, 'b', 'a');
 }
 
-TEST_F(compare_tests, test_is_greater_equal_ignore_case)
+TEST_F(compare_tests, test_is_igreater_equal)
 {
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, ' ', ' ');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'A', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'a', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'A', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'a', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, ' ', ' ');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'A', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'a', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'A', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'a', 'a');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_equal_ignore_case, 'A', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_equal_ignore_case, 'a', 'B');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_equal_ignore_case, 'A', 'b');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_greater_equal_ignore_case, 'a', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater_equal, 'A', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater_equal, 'a', 'B');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater_equal, 'A', 'b');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_FALSE, pluto::is_igreater_equal, 'a', 'b');
 
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'B', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'b', 'A');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'B', 'a');
-    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_greater_equal_ignore_case, 'b', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'B', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'b', 'A');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'B', 'a');
+    TEST_ALL_ELEM_IGNORE_CASE(ASSERT_TRUE, pluto::is_igreater_equal, 'b', 'a');
 }

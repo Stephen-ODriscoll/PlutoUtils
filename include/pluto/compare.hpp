@@ -21,11 +21,11 @@ namespace pluto
     typedef std::greater_equal<>    is_greater_equal;
 
     template<class ElemT>
-    struct is_equal_ignore_case
+    struct is_iequal
     {
         const std::ctype<ElemT>& facet;
 
-        is_equal_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_iequal(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
@@ -35,11 +35,11 @@ namespace pluto
     };
 
     template<class ElemT>
-    struct is_not_equal_ignore_case
+    struct is_not_iequal
     {
         const std::ctype<ElemT>& facet;
 
-        is_not_equal_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_not_iequal(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
@@ -49,11 +49,11 @@ namespace pluto
     };
 
     template<class ElemT>
-    struct is_less_ignore_case
+    struct is_iless
     {
         const std::ctype<ElemT>& facet;
 
-        is_less_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_iless(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
@@ -63,11 +63,11 @@ namespace pluto
     };
     
     template<class ElemT>
-    struct is_greater_ignore_case
+    struct is_igreater
     {
         const std::ctype<ElemT>& facet;
 
-        is_greater_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_igreater(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
@@ -77,11 +77,11 @@ namespace pluto
     };
 
     template<class ElemT>
-    struct is_less_equal_ignore_case
+    struct is_iless_equal
     {
         const std::ctype<ElemT>& facet;
 
-        is_less_equal_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_iless_equal(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
@@ -91,11 +91,11 @@ namespace pluto
     };
 
     template<class ElemT>
-    struct is_greater_equal_ignore_case
+    struct is_igreater_equal
     {
         const std::ctype<ElemT>& facet;
 
-        is_greater_equal_ignore_case(const std::locale& locale = pluto::get_default_locale()) :
+        is_igreater_equal(const std::locale& locale = pluto::get_default_locale()) :
             facet{ pluto::get_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const

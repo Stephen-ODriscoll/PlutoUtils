@@ -228,63 +228,63 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool equals_ignore_case(
+    inline bool iequals(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::equals(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::equals(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool equals_ignore_case(
+    inline bool iequals(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::equals(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::equals(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT>
-    inline bool starts_with_ignore_case(
+    inline bool istarts_with(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::starts_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::starts_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool starts_with_ignore_case(
+    inline bool istarts_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::starts_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::starts_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT>
-    inline bool ends_with_ignore_case(
+    inline bool iends_with(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::ends_with(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::ends_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool ends_with_ignore_case(
+    inline bool iends_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::ends_with(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::ends_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
@@ -297,23 +297,23 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline const ElemT* const find_ignore_case(
+    inline const ElemT* const ifind(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::find(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::find(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline auto find_ignore_case(
+    inline auto ifind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::find_sequence(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::find_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
@@ -326,23 +326,23 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool contains_ignore_case(
+    inline bool icontains(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::contains(beginL, sizeL, beginR, sizeR, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::contains(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool contains_ignore_case(
+    inline bool icontains(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::contains_sequence(left, right, pluto::is_equal_ignore_case<ElemT>{ locale });
+        return pluto::contains_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
