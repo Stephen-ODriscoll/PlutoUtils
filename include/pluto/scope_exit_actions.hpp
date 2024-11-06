@@ -41,6 +41,10 @@ namespace pluto
             }
         }
 
+        scope_exit_actions(const scope_exit_actions&) = delete;
+
+        scope_exit_actions& operator=(const scope_exit_actions&) = delete;
+
         void add(const std::function<void()>& action)
         {
             m_actions.push(action);
