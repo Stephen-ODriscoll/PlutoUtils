@@ -418,7 +418,7 @@ namespace pluto
     public:
         logger(const logger&) = delete;
 
-        void operator=(const logger&) = delete;
+        logger& operator=(const logger&) = delete;
 
         static logger& get_instance()
         {
