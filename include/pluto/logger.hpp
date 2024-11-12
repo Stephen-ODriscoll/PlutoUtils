@@ -39,119 +39,119 @@
 #endif
 
 // Configurable with macros or setters
-#ifndef PLUTO_LOGGER_DEFAULT_LOG_LEVEL
-#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL pluto::logger::level::verbose
+#ifndef PLUTO_LOGGER_INITIAL_LOG_LEVEL
+#define PLUTO_LOGGER_INITIAL_LOG_LEVEL pluto::logger::level::verbose
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT
-#define PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT pluto::logger::level_format::full
+#ifndef PLUTO_LOGGER_INITIAL_LOG_LEVEL_FORMAT
+#define PLUTO_LOGGER_INITIAL_LOG_LEVEL_FORMAT pluto::logger::level_format::full
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_CREATE_DIRS
-#define PLUTO_LOGGER_DEFAULT_CREATE_DIRS true
+#ifndef PLUTO_LOGGER_INITIAL_CREATE_DIRS
+#define PLUTO_LOGGER_INITIAL_CREATE_DIRS true
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_WRITE_HEADER
-#define PLUTO_LOGGER_DEFAULT_WRITE_HEADER true
+#ifndef PLUTO_LOGGER_INITIAL_WRITE_HEADER
+#define PLUTO_LOGGER_INITIAL_WRITE_HEADER true
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE
-#define PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE true
+#ifndef PLUTO_LOGGER_INITIAL_WRITE_HEADER_UNDERLINE
+#define PLUTO_LOGGER_INITIAL_WRITE_HEADER_UNDERLINE true
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL
-#define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL '-'
+#ifndef PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_FILL
+#define PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_FILL '-'
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE
-#define PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE 0    // 0 means unlimited
+#ifndef PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE
+#define PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE 0    // 0 means unlimited
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE
-#define PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE 1
+#ifndef PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE
+#define PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE 1
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE
-#define PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
+#ifndef PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE
+#define PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE 0 // 0 means no rotation (in bytes)
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT
-#define PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT 1
+#ifndef PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT
+#define PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT 1
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH
-#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH 26
+#ifndef PLUTO_LOGGER_INITIAL_TIMESTAMP_LENGTH
+#define PLUTO_LOGGER_INITIAL_TIMESTAMP_LENGTH 26
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH
-#define PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH 6
+#ifndef PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH
+#define PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH 6
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH
-#define PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH 6
+#ifndef PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH
+#define PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH 6
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH
-#define PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH 20
+#ifndef PLUTO_LOGGER_INITIAL_FILE_NAME_LENGTH
+#define PLUTO_LOGGER_INITIAL_FILE_NAME_LENGTH 20
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_LINE_LENGTH
-#define PLUTO_LOGGER_DEFAULT_LINE_LENGTH 6
+#ifndef PLUTO_LOGGER_INITIAL_LINE_LENGTH
+#define PLUTO_LOGGER_INITIAL_LINE_LENGTH 6
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH
-#define PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH 20
+#ifndef PLUTO_LOGGER_INITIAL_FUNCTION_LENGTH
+#define PLUTO_LOGGER_INITIAL_FUNCTION_LENGTH 20
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_SEPARATOR
-#define PLUTO_LOGGER_DEFAULT_SEPARATOR " | "
+#ifndef PLUTO_LOGGER_INITIAL_SEPARATOR
+#define PLUTO_LOGGER_INITIAL_SEPARATOR " | "
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR
-#define PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR "-+-"
+#ifndef PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_SEPARATOR
+#define PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_SEPARATOR "-+-"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT
-#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.6S"
+#ifndef PLUTO_LOGGER_INITIAL_TIMESTAMP_FORMAT
+#define PLUTO_LOGGER_INITIAL_TIMESTAMP_FORMAT "%Y-%m-%d %H:%M:%S.%.6S"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER
-#define PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER "Timestamp"
+#ifndef PLUTO_LOGGER_INITIAL_TIMESTAMP_HEADER
+#define PLUTO_LOGGER_INITIAL_TIMESTAMP_HEADER "Timestamp"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER
-#define PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER "PID"
+#ifndef PLUTO_LOGGER_INITIAL_PROCESS_ID_HEADER
+#define PLUTO_LOGGER_INITIAL_PROCESS_ID_HEADER "PID"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER
-#define PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER "TID"
+#ifndef PLUTO_LOGGER_INITIAL_THREAD_ID_HEADER
+#define PLUTO_LOGGER_INITIAL_THREAD_ID_HEADER "TID"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER
-#define PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER "File Name"
+#ifndef PLUTO_LOGGER_INITIAL_FILE_NAME_HEADER
+#define PLUTO_LOGGER_INITIAL_FILE_NAME_HEADER "File Name"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_LINE_HEADER
-#define PLUTO_LOGGER_DEFAULT_LINE_HEADER "Line"
+#ifndef PLUTO_LOGGER_INITIAL_LINE_HEADER
+#define PLUTO_LOGGER_INITIAL_LINE_HEADER "Line"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER
-#define PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER "Function"
+#ifndef PLUTO_LOGGER_INITIAL_FUNCTION_HEADER
+#define PLUTO_LOGGER_INITIAL_FUNCTION_HEADER "Function"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER
-#define PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER "Message"
+#ifndef PLUTO_LOGGER_INITIAL_MESSAGE_HEADER
+#define PLUTO_LOGGER_INITIAL_MESSAGE_HEADER "Message"
 #endif
 
-#ifndef PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS
+#ifndef PLUTO_LOGGER_INITIAL_META_DATA_COLUMNS
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
-#define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
+#define PLUTO_LOGGER_INITIAL_META_DATA_COLUMNS \
     meta_data::timestamp, \
     meta_data::process_id, \
     meta_data::thread_id, \
     meta_data::level
 #else
-#define PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS \
+#define PLUTO_LOGGER_INITIAL_META_DATA_COLUMNS \
     meta_data::timestamp, \
     meta_data::process_id, \
     meta_data::thread_id, \
@@ -351,36 +351,36 @@ namespace pluto
 #endif
 
         std::atomic_bool            m_isLogging             { true };
-        std::atomic<level>          m_logLevel              { PLUTO_LOGGER_DEFAULT_LOG_LEVEL };
-        std::atomic<level_format>   m_logLevelFormat        { PLUTO_LOGGER_DEFAULT_LOG_LEVEL_FORMAT };
-        std::atomic_bool            m_createDirs            { PLUTO_LOGGER_DEFAULT_CREATE_DIRS };
-        std::atomic_bool            m_writeHeader           { PLUTO_LOGGER_DEFAULT_WRITE_HEADER };
-        std::atomic_bool            m_writeHeaderUnderline  { PLUTO_LOGGER_DEFAULT_WRITE_HEADER_UNDERLINE };
-        std::atomic_char            m_headerUnderlineFill   { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_FILL };
-        std::atomic_size_t          m_bufferMaxSize         { PLUTO_LOGGER_DEFAULT_BUFFER_MAX_SIZE };
-        std::atomic_size_t          m_bufferFlushSize       { PLUTO_LOGGER_DEFAULT_BUFFER_FLUSH_SIZE };
-        std::atomic_size_t          m_fileRotationSize      { PLUTO_LOGGER_DEFAULT_FILE_ROTATION_SIZE };
-        std::atomic_size_t          m_fileRotationLimit     { PLUTO_LOGGER_DEFAULT_FILE_ROTATION_LIMIT };
+        std::atomic<level>          m_logLevel              { PLUTO_LOGGER_INITIAL_LOG_LEVEL };
+        std::atomic<level_format>   m_logLevelFormat        { PLUTO_LOGGER_INITIAL_LOG_LEVEL_FORMAT };
+        std::atomic_bool            m_createDirs            { PLUTO_LOGGER_INITIAL_CREATE_DIRS };
+        std::atomic_bool            m_writeHeader           { PLUTO_LOGGER_INITIAL_WRITE_HEADER };
+        std::atomic_bool            m_writeHeaderUnderline  { PLUTO_LOGGER_INITIAL_WRITE_HEADER_UNDERLINE };
+        std::atomic_char            m_headerUnderlineFill   { PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_FILL };
+        std::atomic_size_t          m_bufferMaxSize         { PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE };
+        std::atomic_size_t          m_bufferFlushSize       { PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE };
+        std::atomic_size_t          m_fileRotationSize      { PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE };
+        std::atomic_size_t          m_fileRotationLimit     { PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT };
         std::atomic_size_t          m_numDiscardedLogs      { 0 };
-        std::atomic_size_t          m_timestampLength       { PLUTO_LOGGER_DEFAULT_TIMESTAMP_LENGTH };
-        std::atomic_size_t          m_processIDLength       { PLUTO_LOGGER_DEFAULT_PROCESS_ID_LENGTH };
-        std::atomic_size_t          m_threadIDLength        { PLUTO_LOGGER_DEFAULT_THREAD_ID_LENGTH };
-        std::atomic_size_t          m_fileNameLength        { PLUTO_LOGGER_DEFAULT_FILE_NAME_LENGTH };
-        std::atomic_size_t          m_lineLength            { PLUTO_LOGGER_DEFAULT_LINE_LENGTH };
-        std::atomic_size_t          m_functionLength        { PLUTO_LOGGER_DEFAULT_FUNCTION_LENGTH };
+        std::atomic_size_t          m_timestampLength       { PLUTO_LOGGER_INITIAL_TIMESTAMP_LENGTH };
+        std::atomic_size_t          m_processIDLength       { PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH };
+        std::atomic_size_t          m_threadIDLength        { PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH };
+        std::atomic_size_t          m_fileNameLength        { PLUTO_LOGGER_INITIAL_FILE_NAME_LENGTH };
+        std::atomic_size_t          m_lineLength            { PLUTO_LOGGER_INITIAL_LINE_LENGTH };
+        std::atomic_size_t          m_functionLength        { PLUTO_LOGGER_INITIAL_FUNCTION_LENGTH };
 
         mutable std::mutex      m_configMutex               {};
-        std::string             m_separator                 { PLUTO_LOGGER_DEFAULT_SEPARATOR };
-        std::string             m_headerUnderlineSeparator  { PLUTO_LOGGER_DEFAULT_HEADER_UNDERLINE_SEPARATOR };
-        std::string             m_timestampFormat           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_FORMAT };
-        std::string             m_timestampHeader           { PLUTO_LOGGER_DEFAULT_TIMESTAMP_HEADER };
-        std::string             m_processIDHeader           { PLUTO_LOGGER_DEFAULT_PROCESS_ID_HEADER };
-        std::string             m_threadIDHeader            { PLUTO_LOGGER_DEFAULT_THREAD_ID_HEADER };
-        std::string             m_fileNameHeader            { PLUTO_LOGGER_DEFAULT_FILE_NAME_HEADER };
-        std::string             m_lineHeader                { PLUTO_LOGGER_DEFAULT_LINE_HEADER };
-        std::string             m_functionHeader            { PLUTO_LOGGER_DEFAULT_FUNCTION_HEADER };
-        std::string             m_messageHeader             { PLUTO_LOGGER_DEFAULT_MESSAGE_HEADER };
-        std::vector<meta_data>  m_metaDataColumns           { PLUTO_LOGGER_DEFAULT_META_DATA_COLUMNS };
+        std::string             m_separator                 { PLUTO_LOGGER_INITIAL_SEPARATOR };
+        std::string             m_headerUnderlineSeparator  { PLUTO_LOGGER_INITIAL_HEADER_UNDERLINE_SEPARATOR };
+        std::string             m_timestampFormat           { PLUTO_LOGGER_INITIAL_TIMESTAMP_FORMAT };
+        std::string             m_timestampHeader           { PLUTO_LOGGER_INITIAL_TIMESTAMP_HEADER };
+        std::string             m_processIDHeader           { PLUTO_LOGGER_INITIAL_PROCESS_ID_HEADER };
+        std::string             m_threadIDHeader            { PLUTO_LOGGER_INITIAL_THREAD_ID_HEADER };
+        std::string             m_fileNameHeader            { PLUTO_LOGGER_INITIAL_FILE_NAME_HEADER };
+        std::string             m_lineHeader                { PLUTO_LOGGER_INITIAL_LINE_HEADER };
+        std::string             m_functionHeader            { PLUTO_LOGGER_INITIAL_FUNCTION_HEADER };
+        std::string             m_messageHeader             { PLUTO_LOGGER_INITIAL_MESSAGE_HEADER };
+        std::vector<meta_data>  m_metaDataColumns           { PLUTO_LOGGER_INITIAL_META_DATA_COLUMNS };
 
 #if PLUTO_LOGGER_NO_SINGLETON
     public:
