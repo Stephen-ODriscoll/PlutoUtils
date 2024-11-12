@@ -275,7 +275,7 @@ namespace pluto
             const char* const   m_sourceFilePath;
             const int           m_sourceLine;
             const char* const   m_sourceFunction;
-            std::stringstream   m_stream;
+            std::ostringstream  m_stream;
 
         public:
             streamer(
