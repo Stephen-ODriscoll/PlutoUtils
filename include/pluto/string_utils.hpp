@@ -450,6 +450,25 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
+    inline void replace(
+        std::basic_string<ElemT, TraitsT, AllocT>&          str,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    find,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
+    {
+        std::size_t from{ 0 };
+        while ((from = str.find(find, from)) != str.npos)
+        {
+            str.replace(from, find.size(), replace);
+            from += replace.size();
+
+            if (find.empty())
+            {
+                ++from;
+            }
+        }
+    }
+
+    template<class ElemT, class TraitsT, class AllocT>
     inline void ltrim(
         std::basic_string<ElemT, TraitsT, AllocT>&  str,
         const std::locale&                          locale = pluto::get_default_locale())

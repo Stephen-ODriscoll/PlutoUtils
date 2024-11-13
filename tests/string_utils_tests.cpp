@@ -539,6 +539,55 @@
     } \
     while (false)
 
+#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#define TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a) \
+    do \
+    { \
+        try \
+        { \
+            std::u8string u8str{ u8##x }; \
+            function(u8str, std::u8string{ u8##y }, std::u8string{ u8##z }); \
+            check(u8str, std::u8string{ u8##a }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEM_STRINGS_9(check, function, x, y, z, a) \
+    do \
+    { \
+        std::string str{ x }; \
+        function(str, std::string{ y }, std::string{ z }); \
+        check(str, std::string{ a }); \
+        \
+        std::wstring wstr{ L##x }; \
+        function(wstr, std::wstring{ L##y }, std::wstring{ L##z }); \
+        check(wstr, std::wstring{ L##a }); \
+        \
+        TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a); \
+        \
+        try \
+        { \
+            std::u16string u16str{ u##x }; \
+            function(u16str, std::u16string{ u##y }, std::u16string{ u##z }); \
+            check(u16str, std::u16string{ u##a }); \
+        } \
+        catch (const std::bad_cast&) {} \
+        \
+        try \
+        { \
+            std::u32string u32str{ U##x }; \
+            function(u32str, std::u32string{ U##y }, std::u32string{ U##z }); \
+            check(u32str, std::u32string{ U##a }); \
+        } \
+        catch (const std::bad_cast&) {} \
+    } \
+    while (false)
+
 class string_utils_tests : public testing::Test
 {
 protected:
@@ -1530,6 +1579,31 @@ TEST_F(string_utils_tests, test_elem_string_join_container)
 
     TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
     TEST_ALL_ELEM_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
+}
+
+TEST_F(string_utils_tests, test_elem_string_replace)
+{
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, " ", "", "", " ");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a", " ", "b", "a");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "A", " ", "b", "A");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "aaa", "", "b", "bababab");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "", " ", "a", "");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "   ", " ", "a", "aaa");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "\t\n\v\f\r ", " ", "a", "\t\n\v\f\ra");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, " a ", " ", "b", "bab");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a b c d e f", " ", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "A B C D E F", " ", "_", "A_B_C_D_E_F");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a\tb\nc\vd\fe\rf", " ", "_", "a\tb\nc\vd\fe\rf");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a:b:c:d:e:f", ":", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a;b;c;d;e;f", ";", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a-b-c-d-e-f", "-", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "a#b#c#d#e#f", "#", "_", "a_b_c_d_e_f");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "abcdefabcdef", "abc", "def", "defdefdefdef");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "abcdefabcdef", "ace", "def", "abcdefabcdef");
 }
 
 TEST_F(string_utils_tests, test_elem_string_ltrim)
