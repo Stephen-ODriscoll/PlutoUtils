@@ -374,7 +374,7 @@ namespace pluto
                 ++to;
             }
 
-            splits.push_back(str.substr(from, (to - from)));
+            splits.emplace_back(str, from, (to - from));
             from = to;
             ++from;
         }
@@ -388,20 +388,28 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>& str,
         const std::basic_string<ElemT, TraitsT, AllocT>& sep)
     {
+        std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         if (sep.empty())
         {
-            throw std::invalid_argument("pluto::split() got empty separator");
-        }
+            splits.reserve(str.size());
 
-        std::size_t from{ 0 }, to;
-        std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while ((to = str.find(sep, from)) != str.npos)
+            for (std::size_t i{ 0 }; i < str.size(); ++i)
+            {
+                splits.emplace_back(str, i, 1);
+            }
+        }
+        else
         {
-            splits.push_back(str.substr(from, (to - from)));
-            from = (to + sep.size());
+            std::size_t from{ 0 }, to;
+            while ((to = str.find(sep, from)) != str.npos)
+            {
+                splits.emplace_back(str, from, (to - from));
+                from = (to + sep.size());
+            }
+
+            splits.emplace_back(str, from);
         }
 
-        splits.push_back(str.substr(from));
         return splits;
     }
 
@@ -415,7 +423,7 @@ namespace pluto
         while ((from = str.find_first_not_of(sep, to)) != str.npos)
         {
             to = str.find_first_of(sep, from);
-            splits.push_back(str.substr(from, (to - from)));
+            splits.emplace_back(str, from, (to - from));
         }
 
         return splits;

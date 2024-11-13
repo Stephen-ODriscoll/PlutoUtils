@@ -362,6 +362,9 @@
 #define VECTOR_HELPER_4(pre, x, ...)    pre##x, VECTOR_HELPER_3(pre, __VA_ARGS__)
 #define VECTOR_HELPER_5(pre, x, ...)    pre##x, VECTOR_HELPER_4(pre, __VA_ARGS__)
 #define VECTOR_HELPER_6(pre, x, ...)    pre##x, VECTOR_HELPER_5(pre, __VA_ARGS__)
+#define VECTOR_HELPER_7(pre, x, ...)    pre##x, VECTOR_HELPER_6(pre, __VA_ARGS__)
+#define VECTOR_HELPER_8(pre, x, ...)    pre##x, VECTOR_HELPER_7(pre, __VA_ARGS__)
+#define VECTOR_HELPER_9(pre, x, ...)    pre##x, VECTOR_HELPER_8(pre, __VA_ARGS__)
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
 #define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, ...) \
@@ -1499,6 +1502,7 @@ TEST_F(string_utils_tests, test_elem_string_split)
 
 TEST_F(string_utils_tests, test_elem_string_split_with_delim)
 {
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "a", "", 1, "a");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "a", " ", 1, "a");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "A", " ", 1, "A");
 
@@ -1507,6 +1511,7 @@ TEST_F(string_utils_tests, test_elem_string_split_with_delim)
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "\t\n\v\f\r ", " ", 2, "\t\n\v\f\r", "");
 
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, " a ", " ", 3, "", "a", "");
+    TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "abcdef", "", 6, "a", "b", "c", "d", "e", "f");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "a b c d e f", " ", 6, "a", "b", "c", "d", "e", "f");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "A B C D E F", " ", 6, "A", "B", "C", "D", "E", "F");
     TEST_ALL_ELEM_STRINGS_6(ASSERT_EQ, pluto::split, "a\tb\nc\vd\fe\rf", " ", 1, "a\tb\nc\vd\fe\rf");
