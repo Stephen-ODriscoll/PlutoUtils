@@ -1,7 +1,7 @@
 # Pluto Utils
 A C++ header only library of generic utilities.
 
-This project provides useful generic utilities that add to a modern C++ standard. These utilities are all things that I have found useful from my own experience with C++. Utilities will be added as and when I need them. Compiles on C++ 14, 17, 20 and 23. There are no dependencies required to use this library, just add the path to **/include** to your list of included directories. You can then include all utilities (except standard.hpp) with:
+This project provides useful utilities that add to a modern C++ standard and remove some of the peformance issue and restrictions of other utilities. These utilities are all things that I have found useful from my own experience with C++. Utilities will be added as and when I need them. Compiles on C++ 14, 17, 20 and 23. There are no dependencies required to use this library, just add the path to **/include** to your list of included directories. You can then include all utilities (except standard.hpp) with:
 ```
 #include <pluto.hpp>
 ```
@@ -57,6 +57,8 @@ The only dependencies required to build the unit tests are CMake and Google Test
 [logger.hpp](./docs/logger.md)
 
 [lru_cache.hpp](./docs/lru_cache.md)
+
+[pluto.hpp](./docs/pluto.md)
 
 [range.hpp](./docs/range.md)
 

@@ -17,6 +17,7 @@ add_library(
     locale.md
     logger.md
     lru_cache.md
+    pluto.md
     range.md
     safe_lru_cache.md
     scope_exit_actions.md
