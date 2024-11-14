@@ -41,7 +41,7 @@ The only dependencies required to build the unit tests are CMake and Google Test
 
 ### Possible Future Work
 * thread_pool.hpp
-* timer_task.hpp
+* timer.hpp
 
 ## Documentation
 [compare.hpp](./docs/compare.md)

@@ -47,22 +47,22 @@ Takes another **pluto::range**. Returns a **bool** representing whether this ran
 Takes another **pluto::range**. Returns a **bool** representing whether this range is greater than or equal to the other range. The beginning of the range is prioritised.
 
 ### int_range
-A range class that takes a begin and end of type int.
+A range class that takes a begin and end of type **int**.
 
 ### uint_range
-A range class that takes a begin and end of type unsigned int.
+A range class that takes a begin and end of type **unsigned int**.
 
 ### long_range
-A range class that takes a begin and end of type long.
+A range class that takes a begin and end of type **long**.
 
 ### ulong_range
-A range class that takes a begin and end of type unsigned long.
+A range class that takes a begin and end of type **unsigned long**.
 
 ### long_long_range
-A range class that takes a begin and end of type long long.
+A range class that takes a begin and end of type **long long**.
 
 ### ulong_long_range
-A range class that takes a begin and end of type unsigned long long.
+A range class that takes a begin and end of type **unsigned long long**.
 
 ### pvoid_range
-A range class that takes a begin and end of type void&ast.
+A range class that takes a begin and end of type **void&ast;**.

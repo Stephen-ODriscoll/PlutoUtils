@@ -10,6 +10,7 @@ project(docs)
 add_library(
     ${PROJECT_NAME}
     INTERFACE
+    ../README.md
     compare.md
     container_utils.md
     filesystem.md

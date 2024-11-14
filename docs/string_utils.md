@@ -93,12 +93,12 @@ Takes a left string, a right string, and an optional **std::locale**. Looks for 
 - If right does not exist in left, **false** is returned.
 
 #### split()
-1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc.
-2. Takes a split string and a separator string. Splits the split string where a substring equals the separator string.
+1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc. Returns a **std::vector** of strings.
+2. Takes a split string and a separator string. Splits the split string where a substring equals the separator string. Returns a **std::vector** of strings.
 - If a blank separator string is given, the split string is split into its individual characters.
 
 #### split_any_of()
-Takes a split string and a separator string. Splits the split string where an element equals any element in the separator string.
+Takes a split string and a separator string. Splits the split string where an element equals any element in the separator string. Returns a **std::vector** of strings.
 
 #### replace()
 Takes a modify string, a find string, and a replace string. Looks through the modify string for the find string and replaces it with the replace string.
