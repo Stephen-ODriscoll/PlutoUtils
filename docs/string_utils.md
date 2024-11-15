@@ -73,11 +73,11 @@ Takes a left string, a right string, and an optional **std::locale**. Looks for 
 
 #### ifind()
 1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left.
-- If found, an iterator for the start of right in left is returned.
-- If not found, left end is returned.
+    - If found, an iterator for the start of right in left is returned.
+    - If not found, left end is returned.
 2. Takes a left string, a right string, and an optional **std::locale**. Looks for occurence of right in left.
-- If found, an iterator for the start of right in left is returned.
-- If not found, left end is returned.
+    - If found, an iterator for the start of right in left is returned.
+    - If not found, left end is returned.
 
 #### contains()
 Takes a left string, a right string, and an optional **std::locale**. Looks for occurence of right in left.
@@ -86,16 +86,16 @@ Takes a left string, a right string, and an optional **std::locale**. Looks for 
 
 #### icontains()
 1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left.
-- If right exists in left, **true** is returned. If right is empty, then it always exists in left.
-- If right does not exist in left, **false** is returned.
+    - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
+    - If right does not exist in left, **false** is returned.
 2. Takes a left string, a right string, and an optional **std::locale**. Looks for occurence of right in left.
-- If right exists in left, **true** is returned. If right is empty, then it always exists in left.
-- If right does not exist in left, **false** is returned.
+    - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
+    - If right does not exist in left, **false** is returned.
 
 #### split()
 1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc. Returns a **std::vector** of strings.
 2. Takes a split string and a separator string. Splits the split string where a substring equals the separator string. Returns a **std::vector** of strings.
-- If a blank separator string is given, the split string is split into its individual characters.
+    - If a blank separator string is given, the split string is split into its individual characters.
 
 #### split_any_of()
 Takes a split string and a separator string. Splits the split string where an element equals any element in the separator string. Returns a **std::vector** of strings.

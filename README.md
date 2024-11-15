@@ -29,19 +29,19 @@ Or any subset of:
 The only dependencies required to build the unit tests are CMake and Google Test.
 
 ### MSVC
-1. Run Generate.bat (Creates **/build/PlutoUtils.sln**)
-2. Run BuildDebug.bat or BuildRelease.bat (Creates **/build/Debug/pluto_tests.exe** or **/build/Release/pluto_tests.exe**)
+1. Run generate.bat (Creates **/build/PlutoUtils.sln**)
+2. Run build_debug.bat or build_release.bat (Creates **/build/Debug/pluto_tests.exe** or **/build/Release/pluto_tests.exe**)
 
 ### GCC
 1. Run generate_debug.sh or generate_release.sh (Creates **/build/**)
-2. Run Build.sh (Creates **/build/Debug/pluto_tests** or **/build/Release/pluto_tests**)
+2. Run build.sh (Creates **/build/Debug/pluto_tests** or **/build/Release/pluto_tests**)
 
 ### Clang
 1. Untested, you can try the same way as GCC. I'll probably test this soon.
 
 ### Possible Future Work
-* thread_pool.hpp
-* timer.hpp
+- thread_pool.hpp
+- timer.hpp
 
 ## Documentation
 [compare.hpp](./docs/compare.md)

@@ -4,7 +4,7 @@
 ## locale.hpp
 
 #### PLUTO_LOCALE_DEFAULT_LOCALE
-Define this macro to be a **std::locale**. Sets the default locale. Defaults to "". "" means system locale.
+Define this macro to be a **std::locale**. Sets the default locale. Defaults to "" which means system locale.
 
 #### get_c_locale()
 Returns a reference to a local static **std::locale** for the c locale.
