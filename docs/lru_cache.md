@@ -8,7 +8,7 @@ Least Recently Used Cache. A class with a key-value based cache and a max capaci
 
 When a key is queried using get, or updated with insert, that key will move to the front of the least recently used list and live for longer in cache.
 
-Requires template arguments for key and value and an argument for initial max capacity.
+Requires template arguments for key and value and a **std::size_t** for initial max capacity.
 
 #### key_type
 The type of the key.
@@ -36,7 +36,7 @@ Returns a **bool** representing whether the cache is empty.
 Takes a key and returns a **bool** representing whether that key exists in the cache.
 
 #### insert()
-Takes a key and value, and inserts it into the cache. If the key already exists, it is updated with the new value and moved to the front of the least recently used list.
+Takes a key and a value and inserts it into the cache. If the key already exists, it is updated with the new value and moved to the front of the least recently used list.
 
 #### get()
 Takes a key and a modifyable reference to a value.
@@ -45,8 +45,8 @@ Takes a key and a modifyable reference to a value.
 
 #### remove()
 Takes a key.
-- If the key exists, the key-value pair is removed from cache and the function returns **true**.
-- If the key doesn't exixt, the function returns **false**.
+- If the key exists in cache, the key-value pair is removed, and the function returns **true**.
+- If the key doesn't exist in cache, the function returns **false**.
 
 #### clear()
 Clears the entire cache.

@@ -8,6 +8,8 @@ The case insensitive comparison operators have two optimisations worth mentionin
 
 Secondly, the functions that compare case insensitive equality do an initial equality check. If this check returns **true**, then there is equality and no conversion is necessary, otherwise they convert and compare again. The performance hit for a worst case scenario when comparing lowercase vs uppercase is negligible, and there is a major performance gain from a best case scenario when comparing both lowercase or both uppercase. I have found that this is much more practical for real world scenarios.
 
+Optional locales default to [pluto::get_default_locale](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/locale.md#get_default_locale).
+
 ### is_equal
 Alias of **std::equal_to<>**.
 

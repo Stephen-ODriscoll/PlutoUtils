@@ -110,94 +110,94 @@ Define this macro to be a **std::string**. Sets the initial function name header
 Define this macro to be a **std::string**. Sets the initial message header. See [message_header](#message_header). Defaults to "Message".
 
 ### PLUTO_LOGGER_INITIAL_META_DATA_COLUMNS
-Define this macro to be a **std::vector** of **pluto::logger::meta_data::x** where **x** are the initial meta data columns. See [meta_data](#meta_data). Defaults to a list of all meta data, or all meta data except file name, lime number and function name if **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1.
+Define this macro to be a **std::vector** of **pluto::logger::meta_data::x** where **x** are the initial meta data columns. See [meta_data](#meta_data). Defaults to a list of all meta data, or all meta data except file name, line number and function name if **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1.
 
 ### PLUTO_LOG_FORMAT
-Definition that takes file, level and any number of additional arguments and passes them to **writef** on the logger instance. See [writef](#writef).
+Definition that takes a file, a level and any number of additional arguments and passes them to **writef** on the logger instance. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM
-Definition that takes file, level and the remaining arguments as message and passes them to **stream** on the logger instance. See [stream](#stream).
+Definition that takes a file, a level and the remaining arguments as message and passes them to **stream** on the logger instance. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_NONE
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **none**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **none**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_FATAL
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **fatal**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **fatal**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_CRITICAL
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **critical**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **critical**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_ERROR
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **error**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **error**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_WARNING
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **warning**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **warning**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_NOTICE
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **notice**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **notice**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_INFO
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **info**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **info**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_DEBUG
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **debug**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **debug**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_TRACE
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **trace**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **trace**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_FORMAT_VERBOSE
-Definition that takes file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **verbose**. See [writef](#writef).
+Definition that takes a file and the remaining arguments as message and passes them to **writef** on the logger instance with log level **verbose**. See [writef](#writef).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_NONE
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **none**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **none**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_FATAL
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **fatal**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **fatal**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_CRITICAL
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **critical**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **critical**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_ERROR
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **error**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **error**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_WARNING
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **warning**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **warning**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_NOTICE
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **notice**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **notice**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_INFO
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **info**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **info**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_DEBUG
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **debug**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **debug**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_TRACE
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **trace**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **trace**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### PLUTO_LOG_STREAM_VERBOSE
-Definition that takes file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **verbose**. See [stream](#stream).
+Definition that takes a file and the remaining arguments as message and passes them to **stream** on the logger instance with log level **verbose**. See [stream](#stream).
 - If **PLUTO_LOGGER_HIDE_SOURCE_INFO** is 1, then file name, line number and function name will be hidden as "" or 0 and not written later. See [meta_data_columns](#meta_data_columns).
 
 ### logger
@@ -238,7 +238,7 @@ Returns a reference to a local static **pluto::logger** instance.
 
 #### get_local_timestamp()
 A static function. Takes a **char** array as a format. Returns a **std::string** containing the local timestamp.
-- The timstamp is inially gotten with **std::chrono::system_clock::now**.
+- The timestamp is initially gotten with **std::chrono::system_clock::now**.
 - The format is passed to **localtime_s** or **localtime_r**, but also provides the option "%0.**x**S" where **x** is in the range of 0-9. This represents the point second accuracy. 3 for millisecond, 6 for microsecond and 9 for full nanosecond accuracy.
 
 #### get_file_name()
@@ -251,7 +251,7 @@ Takes a **pluto::loger::level** and a **pluto::logger::level_format**. Returns a
 Returns an **int** representing the current process id.
 
 #### is_logging()
-Returns a **bool** representing whether the logger is currently logging.
+Returns a **bool** representing whether the logging thread is currently running.
 
 #### log_level()
 1. Returns a **pluto::logger::level** representing the current log level. See [level](#level) for more info.
@@ -288,7 +288,7 @@ The number of logs to store before waking the logging thread. 0 or 1 will wake t
 2. Takes a **std::size_t** and sets this to be the new log buffer flush size.
 
 #### file_rotation_size()
-The size of the file (in bytes) whereby the file will be rotated. Rotated means that the current file will have "_1" appended and any other file will have their number incremented. 0 means no rotation, log files will grow indefinitely.
+The size of the file (in bytes) whereby the file will be rotated. Rotated means that the current file will have "_1" appended and any other file will have their number incremented. 0 means no rotation and log files will grow indefinitely.
 1. Returns a **std::size_t** representing the current log file rotation size.
 2. Takes a **std::size_t** and sets this to be the new log file rotation size.
 
@@ -301,7 +301,7 @@ The limit to the number of older files that are stored. If that number is 5, the
 Returns a **std::size_t** representing the current number of discarded logs.
 - Logs will be discarded when the buffer is full and a new log cannot be added.
 - If this is a problem, then you can increase the size of the log buffer with [buffer_max_size](#buffer_max_size), or reduce the frequency of logging.
-- If you're logging to multiple files, you can try having 2 loggers, which means 2 logging threads. This can be done by defining **PLUTO_LOGGER_NO_SINGLETON** as 1 and creating 2 global loggers.
+- If you're logging to multiple files, you can try having multiple loggers, which means multiple logging threads. This can be done by defining **PLUTO_LOGGER_NO_SINGLETON** as 1 and creating a global logger for each file.
 
 #### reset_num_discarded_logs()
 Resets the number of discarded logs back to 0. See [num_discarded_logs](#num_discarded_logs).
@@ -397,6 +397,7 @@ Takes a **pluto::logger::level**. Returns whether logging is enabled and the lev
 #### writef()
 Takes a **std::string** for log file name, a **pluto::logger::level** for level, a pointer to a **char** for file path, an **int** for line number, a pointer to a **char** for function name, a pointer to a **char** for message format and any number of additional arguments for the format. See [level](#level) for more info.
 - Creates the log info and adds it to the log buffer.
+- The message format has a limit of 8192 characters.
 
 #### write()
 Takes a **std::string** for log file name, a **pluto::logger::level** for level, a pointer to a **char** for file path, an **int** for line number, a pointer to a **char** for function name and a **std::string** for message. See [level](#level) for more info.

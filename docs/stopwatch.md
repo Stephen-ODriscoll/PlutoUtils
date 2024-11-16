@@ -4,7 +4,7 @@
 ## stopwatch.hpp
 
 ### stopwatch
-A simple stopwatch class built on top of **std::chrono**. When created, the stopwatch won't automatically start unless you pass **true** to the constructor. Can be copied.
+A simple stopwatch class built on top of **std::chrono**. When created, the stopwatch won't automatically start unless you pass **true** to the constructor.
 
 #### clock
 The type of the clock. This will be an alias of **std::chrono::high_resolution_clock**.

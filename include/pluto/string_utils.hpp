@@ -7,7 +7,7 @@
 
 #pragma once
 
-// Note that std::codecvt_utf8 is deprecated but there is no alternative in the std library
+// Note: std::codecvt_utf8 is deprecated but there is no alternative in the std library
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 
 #include <vector>

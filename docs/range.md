@@ -4,13 +4,15 @@
 ## range.hpp
 
 ### range
-A class that takes a range from begin to end. Provides equality and overlapping checks. This may be a bit niche, but I've found it useful.
+A class that stores a range from begin to end. Provides equality and overlapping checks. This may be a bit niche, but I've found it useful.
+1. Takes a begin and end of a range. You can specify the template argument for begin and end, but this should be implicit.
+2. Takes another range for copying.
 
 #### begin
-A modifyable variable representing the beginning of the range.
+A public member variable representing the beginning of the range.
 
 #### end
-A modifyable variable representing the end of the range.
+A public member variable representing the end of the range.
 
 #### size()
 Returns a **std::size_t** representing the size of the range, i.e. the difference between begin and end.
