@@ -9,49 +9,77 @@
 
 #include <pluto/string_utils.hpp>
 
+#ifdef _WIN32
+#define TEST_WITH_EXTRA_ELEMS 1 // Tests char8_t, char16_t and char32_t as elems, elem arrays and strings
+#endif
+
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
-#define TEST_CHAR8_ELEM_1(check, function, x) \
+#define TEST_CHAR8_ELEMS_1(check, function, x) \
     do \
     { \
-        try { check(function(u8##x)); } catch (const std::bad_cast&) {} \
+        check(function(u8##x)); \
     } \
     while (false)
 #else
-#define TEST_CHAR8_ELEM_1(check, function, x) \
+#define TEST_CHAR8_ELEMS_1(check, function, x) \
     do {} while (false)
 #endif
 
-#define TEST_ALL_ELEM_1(check, function, x) \
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEMS_1(check, function, x) \
+    do \
+    { \
+        TEST_CHAR8_ELEMS_1(check, function, x); \
+        check(function(u##x)); \
+        check(function(U##x)); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEMS_1(check, function, x) \
+    do {} while (false)
+#endif
+
+#define TEST_ALL_ELEMS_1(check, function, x) \
     do \
     { \
         check(function(x)); \
         check(function(L##x)); \
-        TEST_CHAR8_ELEM_1(check, function, x); \
-        try { check(function(u##x)); } catch (const std::bad_cast&) {} \
-        try { check(function(U##x)); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEMS_1(check, function, x); \
     } \
     while (false)
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
-#define TEST_CHAR8_ELEM_2(check, function, x, y) \
+#define TEST_CHAR8_ELEMS_2(check, function, x, y) \
     do \
     { \
-        try { check(function(u8##x), u8##y); } catch (const std::bad_cast&) {} \
+        check(function(u8##x), u8##y); \
     } \
     while (false)
 #else
-#define TEST_CHAR8_ELEM_2(check, function, x, y) \
+#define TEST_CHAR8_ELEMS_2(check, function, x, y) \
     do {} while(false)
 #endif
 
-#define TEST_ALL_ELEM_2(check, function, x, y) \
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEMS_2(check, function, x, y) \
+    do \
+    { \
+        TEST_CHAR8_ELEMS_2(check, function, x, y); \
+        check(function(u##x), u##y); \
+        check(function(U##x), U##y); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEMS_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_ELEMS_2(check, function, x, y) \
     do \
     { \
         check(function(x), y); \
         check(function(L##x), L##y); \
-        TEST_CHAR8_ELEM_2(check, function, x, y); \
-        try { check(function(u##x), u##y); } catch (const std::bad_cast&) {} \
-        try { check(function(U##x), U##y); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEMS_2(check, function, x, y); \
     } \
     while (false)
 
@@ -60,11 +88,25 @@
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
     do \
     { \
-        try { check(function(u8##x, size)); } catch (const std::bad_cast&) {} \
+        check(function(u8##x, size)); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_ARRAYS_1(check, function, x) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_ARRAYS_1(check, function, x); \
+        check(function(u##x, size)); \
+        check(function(U##x, size)); \
+    } \
+    while(false)
+#else
+#define TEST_EXTRA_ELEM_ARRAYS_1(check, function, x) \
     do {} while(false)
 #endif
 
@@ -75,9 +117,7 @@
         \
         check(function(x, size)); \
         check(function(L##x, size)); \
-        TEST_CHAR8_ELEM_ARRAYS_1(check, function, x); \
-        try { check(function(u##x, size)); } catch (const std::bad_cast&) {} \
-        try { check(function(U##x, size)); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_ARRAYS_1(check, function, x); \
     } \
     while(false)
 
@@ -87,17 +127,37 @@
     { \
         auto char8Array{ new char8_t[size + 1] }; \
         memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
-        try \
-        { \
-            function(char8Array, size); \
-            check(std::u8string{ char8Array }, std::u8string{ u8##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        function(char8Array, size); \
+        check(std::u8string{ char8Array }, std::u8string{ u8##y }); \
         delete[] char8Array; \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_ARRAYS_2(check, function, x, y) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y); \
+        \
+        auto char16Array{ new char16_t[size + 1] }; \
+        memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
+        function(char16Array, size); \
+        check(std::u16string{ char16Array }, std::u16string{ u##y }); \
+        delete[] char16Array; \
+        \
+        auto char32Array{ new char32_t[size + 1] }; \
+        memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
+        function(char32Array, size); \
+        check(std::u32string{ char32Array }, std::u32string{ U##y }); \
+        delete[] char32Array; \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_ARRAYS_2(check, function, x, y) \
     do {} while(false)
 #endif
 
@@ -118,27 +178,7 @@
         check(std::wstring{ wcharArray }, std::wstring{ L##y }); \
         delete[] wcharArray; \
         \
-        TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y); \
-        \
-        auto char16Array{ new char16_t[size + 1] }; \
-        memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
-        try \
-        { \
-            function(char16Array, size); \
-            check(std::u16string{ char16Array }, std::u16string{ u##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        delete[] char16Array; \
-        \
-        auto char32Array{ new char32_t[size + 1] }; \
-        memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
-        try \
-        { \
-            function(char32Array, size); \
-            check(std::u32string{ char32Array }, std::u32string{ U##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        delete[] char32Array; \
+        TEST_EXTRA_ELEM_ARRAYS_2(check, function, x, y); \
     } \
     while (false)
 
@@ -146,11 +186,25 @@
 #define TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y) \
     do \
     { \
-        try { check(function(u8##x, xSize, u8##y, ySize)); } catch (const std::bad_cast&) {} \
+        check(function(u8##x, xSize, u8##y, ySize)); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_ARRAYS_3(check, function, x, y) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y); \
+        check(function(u##x, xSize, u##y, ySize)); \
+        check(function(U##x, xSize, U##y, ySize)); \
+    } \
+    while(false)
+#else
+#define TEST_EXTRA_ELEM_ARRAYS_3(check, function, x, y) \
     do {} while(false)
 #endif
 
@@ -162,9 +216,7 @@
         \
         check(function(x, xSize, y, ySize)); \
         check(function(L##x, xSize, L##y, ySize)); \
-        TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y); \
-        try { check(function(u##x, xSize, u##y, ySize)); } catch (const std::bad_cast&) {} \
-        try { check(function(U##x, xSize, U##y, ySize)); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_ARRAYS_3(check, function, x, y); \
     } \
     while(false)
 
@@ -172,16 +224,30 @@
 #define TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z) \
     do \
     { \
-        try \
-        { \
-            const auto u8str{ u8##x }; \
-            check(function(u8str, xSize, u8##y, ySize), u8str + z); \
-        } \
-        catch (const std::bad_cast&) {} \
+        const auto u8str{ u8##x }; \
+        check(function(u8str, xSize, u8##y, ySize), u8str + z); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_ARRAYS_4(check, function, x, y, z) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z); \
+        \
+        const auto u16str{ u##x }; \
+        check(function(u16str, xSize, u##y, ySize), u16str + z); \
+        \
+        const auto u32str{ U##x }; \
+        check(function(u32str, xSize, U##y, ySize), u32str + z); \
+    } \
+    while(false)
+#else
+#define TEST_EXTRA_ELEM_ARRAYS_4(check, function, x, y, z) \
     do {} while(false)
 #endif
 
@@ -197,21 +263,7 @@
         const auto wstr{ L##x }; \
         check(function(wstr, xSize, L##y, ySize), wstr + z); \
         \
-        TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z); \
-        \
-        try \
-        { \
-            const auto u16str{ u##x }; \
-            check(function(u16str, xSize, u##y, ySize), u16str + z); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            const auto u32str{ U##x }; \
-            check(function(u32str, xSize, U##y, ySize), u32str + z); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_ARRAYS_4(check, function, x, y, z); \
     } \
     while(false)
 
@@ -220,11 +272,25 @@
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
-        try { check(function(std::u8string{ u8##x })); } catch (const std::bad_cast&) {} \
+        check(function(std::u8string{ u8##x })); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_1(check, function, x) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
+        check(function(std::u16string{ u##x })); \
+        check(function(std::u32string{ U##x })); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_1(check, function, x) \
     do {} while(false)
 #endif
 
@@ -233,9 +299,7 @@
     { \
         check(function(std::string{ x })); \
         check(function(std::wstring{ L##x })); \
-        TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
-        try { check(function(std::u16string{ u##x })); } catch (const std::bad_cast&) {} \
-        try { check(function(std::u32string{ U##x })); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_1(check, function, x); \
     } \
     while (false)
 
@@ -244,16 +308,32 @@
     do \
     { \
         auto u8string{ std::u8string{ u8##x } }; \
-        try \
-        { \
-            function(u8string); \
-            check(u8string, std::u8string{ u8##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        function(u8string); \
+        check(u8string, std::u8string{ u8##y }); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_2(check, function, x, y) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
+        \
+        auto u16string{ std::u16string{ u##x } }; \
+        function(u16string); \
+        check(u16string, std::u16string{ u##y }); \
+        \
+        auto u32string{ std::u32string{ U##x } }; \
+        function(u32string); \
+        check(u32string, std::u32string{ U##y }); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_2(check, function, x, y) \
     do {} while(false)
 #endif
 
@@ -268,23 +348,7 @@
         function(wstring); \
         check(wstring, std::wstring{ L##y }); \
         \
-        TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
-        \
-        auto u16string{ std::u16string{ u##x } }; \
-        try \
-        { \
-            function(u16string); \
-            check(u16string, std::u16string{ u##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        auto u32string{ std::u32string{ U##x } }; \
-        try \
-        { \
-            function(u32string); \
-            check(u32string, std::u32string{ U##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_2(check, function, x, y); \
     } \
     while (false)
 
@@ -292,11 +356,25 @@
 #define TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y) \
     do \
     { \
-        try { check(function(std::u8string{ u8##x }, std::u8string{ u8##y })); } catch (const std::bad_cast&) {} \
+        check(function(std::u8string{ u8##x }, std::u8string{ u8##y })); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_3(check, function, x, y) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y); \
+        check(function(std::u16string{ u##x }, std::u16string{ u##y })); \
+        check(function(std::u32string{ U##x }, std::u32string{ U##y })); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_3(check, function, x, y) \
     do {} while(false)
 #endif
 
@@ -305,9 +383,7 @@
     { \
         check(function(std::string{ x }, std::string{ y })); \
         check(function(std::wstring{ L##x }, std::wstring{ L##y })); \
-        TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y); \
-        try { check(function(std::u16string{ u##x }, std::u16string{ u##y })); } catch (const std::bad_cast&) {} \
-        try { check(function(std::u32string{ U##x }, std::u32string{ U##y })); } catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_3(check, function, x, y); \
     } \
     while (false)
 
@@ -315,16 +391,30 @@
 #define TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z) \
     do \
     { \
-        try \
-        { \
-            std::u8string u8str{ u8##x }; \
-            check(function(u8str, std::u8string{ u8##y }), u8str.begin() + z); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::u8string u8str{ u8##x }; \
+        check(function(u8str, std::u8string{ u8##y }), u8str.begin() + z); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_4(check, function, x, y, z) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z); \
+        \
+        std::u16string u16str{ u##x }; \
+        check(function(u16str, std::u16string{ u##y }), u16str.begin() + z); \
+        \
+        std::u32string u32str{ U##x }; \
+        check(function(u32str, std::u32string{ U##y }), u32str.begin() + z); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_4(check, function, x, y, z) \
     do {} while(false)
 #endif
 
@@ -337,21 +427,7 @@
         std::wstring wstr{ L##x }; \
         check(function(wstr, std::wstring{ L##y }), wstr.begin() + z); \
         \
-        TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z); \
-        \
-        try \
-        { \
-            std::u16string u16str{ u##x }; \
-            check(function(u16str, std::u16string{ u##y }), u16str.begin() + z); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::u32string u32str{ U##x }; \
-            check(function(u32str, std::u32string{ U##y }), u32str.begin() + z); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_4(check, function, x, y, z); \
     } \
     while (false)
 
@@ -370,16 +446,30 @@
 #define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, ...) \
     do \
     { \
-        try \
-        { \
-            std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-            check(function(std::u8string{ u8##x }), u8splits); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
+        check(function(std::u8string{ u8##x }), u8splits); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, ...) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_5(check, function, x, size, ...) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, __VA_ARGS__); \
+        \
+        std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
+        check(function(std::u16string{ u##x }), u16splits); \
+        \
+        std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
+        check(function(std::u32string{ U##x }), u32splits); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_5(check, function, x, size, ...) \
     do {} while(false)
 #endif
 
@@ -392,21 +482,7 @@
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
         check(function(std::wstring{ L##x }), wsplits); \
         \
-        TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, __VA_ARGS__); \
-        \
-        try \
-        { \
-            std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-            check(function(std::u16string{ u##x }), u16splits); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-            check(function(std::u32string{ U##x }), u32splits); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_5(check, function, x, size, __VA_ARGS__); \
     } \
     while (false)
 
@@ -414,16 +490,30 @@
 #define TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, size, ...) \
     do \
     { \
-        try \
-        { \
-            std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-            check(function(std::u8string{ u8##x }, std::u8string{ u8##y }), u8splits); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
+        check(function(std::u8string{ u8##x }, std::u8string{ u8##y }), u8splits); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, size, ...) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_6(check, function, x, y, size, ...) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, size, __VA_ARGS__); \
+        \
+        std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
+        check(function(std::u16string{ u##x }, std::u16string{ u##y }), u16splits); \
+        \
+        std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
+        check(function(std::u32string{ U##x }, std::u32string{ U##y }), u32splits); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_6(check, function, x, y, size, ...) \
     do {} while(false)
 #endif
 
@@ -436,21 +526,7 @@
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
         check(function(std::wstring{ L##x }, std::wstring{ L##y }), wsplits); \
         \
-        TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, size, __VA_ARGS__); \
-        \
-        try \
-        { \
-            std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-            check(function(std::u16string{ u##x }, std::u16string{ u##y }), u16splits); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-            check(function(std::u32string{ U##x }, std::u32string{ U##y }), u32splits); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_6(check, function, x, y, size, __VA_ARGS__); \
     } \
     while (false)
 
@@ -458,16 +534,30 @@
 #define TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, ...) \
     do \
     { \
-        try \
-        { \
-            std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-            check(function(std::u8string{ u8##x }, u8splits.begin(), u8splits.end()), std::u8string{ u8##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
+        check(function(std::u8string{ u8##x }, u8splits.begin(), u8splits.end()), std::u8string{ u8##y }); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, ...) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_7(check, function, x, y, size, ...) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
+        \
+        std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
+        check(function(std::u16string{ u##x }, u16splits.begin(), u16splits.end()), std::u16string{ u##y }); \
+        \
+        std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
+        check(function(std::u32string{ U##x }, u32splits.begin(), u32splits.end()), std::u32string{ U##y }); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_7(check, function, x, y, size, ...) \
     do {} while(false)
 #endif
 
@@ -480,21 +570,7 @@
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
         check(function(std::wstring{ L##x }, wsplits.begin(), wsplits.end()), std::wstring{ L##y }); \
         \
-        TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
-        \
-        try \
-        { \
-            std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-            check(function(std::u16string{ u##x }, u16splits.begin(), u16splits.end()), std::u16string{ u##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-            check(function(std::u32string{ U##x }, u32splits.begin(), u32splits.end()), std::u32string{ U##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
     } \
     while (false)
 
@@ -502,16 +578,30 @@
 #define TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, ...) \
     do \
     { \
-        try \
-        { \
-            std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-            check(function(std::u8string{ u8##x }, u8splits), std::u8string{ u8##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
+        check(function(std::u8string{ u8##x }, u8splits), std::u8string{ u8##y }); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, ...) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_8(check, function, x, y, size, ...) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
+        \
+        std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
+        check(function(std::u16string{ u##x }, u16splits), std::u16string{ u##y }); \
+        \
+        std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
+        check(function(std::u32string{ U##x }, u32splits), std::u32string{ U##y }); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_8(check, function, x, y, size, ...) \
     do {} while(false)
 #endif
 
@@ -524,21 +614,7 @@
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
         check(function(std::wstring{ L##x }, wsplits), std::wstring{ L##y }); \
         \
-        TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
-        \
-        try \
-        { \
-            std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-            check(function(std::u16string{ u##x }, u16splits), std::u16string{ u##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-            check(function(std::u32string{ U##x }, u32splits), std::u32string{ U##y }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
     } \
     while (false)
 
@@ -546,17 +622,33 @@
 #define TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a) \
     do \
     { \
-        try \
-        { \
-            std::u8string u8str{ u8##x }; \
-            function(u8str, std::u8string{ u8##y }, std::u8string{ u8##z }); \
-            check(u8str, std::u8string{ u8##a }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        std::u8string u8str{ u8##x }; \
+        function(u8str, std::u8string{ u8##y }, std::u8string{ u8##z }); \
+        check(u8str, std::u8string{ u8##a }); \
     } \
     while (false)
 #else
 #define TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_ELEM_STRINGS_9(check, function, x, y, z, a) \
+    do \
+    { \
+        TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a); \
+        \
+        std::u16string u16str{ u##x }; \
+        function(u16str, std::u16string{ u##y }, std::u16string{ u##z }); \
+        check(u16str, std::u16string{ u##a }); \
+        \
+        std::u32string u32str{ U##x }; \
+        function(u32str, std::u32string{ U##y }, std::u32string{ U##z }); \
+        check(u32str, std::u32string{ U##a }); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_ELEM_STRINGS_9(check, function, x, y, z, a) \
     do {} while(false)
 #endif
 
@@ -571,23 +663,7 @@
         function(wstr, std::wstring{ L##y }, std::wstring{ L##z }); \
         check(wstr, std::wstring{ L##a }); \
         \
-        TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a); \
-        \
-        try \
-        { \
-            std::u16string u16str{ u##x }; \
-            function(u16str, std::u16string{ u##y }, std::u16string{ u##z }); \
-            check(u16str, std::u16string{ u##a }); \
-        } \
-        catch (const std::bad_cast&) {} \
-        \
-        try \
-        { \
-            std::u32string u32str{ U##x }; \
-            function(u32str, std::u32string{ U##y }, std::u32string{ U##z }); \
-            check(u32str, std::u32string{ U##a }); \
-        } \
-        catch (const std::bad_cast&) {} \
+        TEST_EXTRA_ELEM_STRINGS_9(check, function, x, y, z, a); \
     } \
     while (false)
 
@@ -600,11 +676,11 @@ protected:
 
 TEST_F(string_utils_tests, test_elem_to_lower)
 {
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_lower, ' ', ' ');
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_lower, 'a', 'a');
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_lower, 'A', 'a');
-    TEST_ALL_ELEM_2(ASSERT_NE, pluto::to_lower, 'a', 'A');
-    TEST_ALL_ELEM_2(ASSERT_NE, pluto::to_lower, 'A', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, ' ', ' ');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, 'a', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, 'A', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_lower, 'a', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_lower, 'A', 'A');
 }
 
 TEST_F(string_utils_tests, test_elem_array_to_lower)
@@ -645,11 +721,11 @@ TEST_F(string_utils_tests, test_elem_string_to_lower)
 
 TEST_F(string_utils_tests, test_elem_to_upper)
 {
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_upper, ' ', ' ');
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_upper, 'A', 'A');
-    TEST_ALL_ELEM_2(ASSERT_EQ, pluto::to_upper, 'a', 'A');
-    TEST_ALL_ELEM_2(ASSERT_NE, pluto::to_upper, 'A', 'a');
-    TEST_ALL_ELEM_2(ASSERT_NE, pluto::to_upper, 'a', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, ' ', ' ');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, 'A', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, 'a', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_upper, 'A', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_upper, 'a', 'a');
 }
 
 TEST_F(string_utils_tests, test_elem_array_to_upper)
@@ -690,9 +766,9 @@ TEST_F(string_utils_tests, test_elem_string_to_upper)
 
 TEST_F(string_utils_tests, test_elem_is_lower)
 {
-    TEST_ALL_ELEM_1(ASSERT_TRUE, pluto::is_lower, ' ');
-    TEST_ALL_ELEM_1(ASSERT_TRUE, pluto::is_lower, 'a');
-    TEST_ALL_ELEM_1(ASSERT_FALSE, pluto::is_lower, 'A');
+    TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_lower, ' ');
+    TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_lower, 'a');
+    TEST_ALL_ELEMS_1(ASSERT_FALSE, pluto::is_lower, 'A');
 }
 
 TEST_F(string_utils_tests, test_elem_array_is_lower)
@@ -723,9 +799,9 @@ TEST_F(string_utils_tests, test_elem_string_is_lower)
 
 TEST_F(string_utils_tests, test_elem_is_upper)
 {
-    TEST_ALL_ELEM_1(ASSERT_TRUE, pluto::is_upper, ' ');
-    TEST_ALL_ELEM_1(ASSERT_TRUE, pluto::is_upper, 'A');
-    TEST_ALL_ELEM_1(ASSERT_FALSE, pluto::is_upper, 'a');
+    TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_upper, ' ');
+    TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_upper, 'A');
+    TEST_ALL_ELEMS_1(ASSERT_FALSE, pluto::is_upper, 'a');
 }
 
 TEST_F(string_utils_tests, test_elem_array_is_upper)
