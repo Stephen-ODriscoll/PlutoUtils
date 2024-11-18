@@ -22,7 +22,7 @@
 #include <condition_variable>
 
 #ifdef _WIN32
-#include <process.h>
+#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
@@ -84,11 +84,11 @@
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH
-#define PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH 6
+#define PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH 7
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH
-#define PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH 6
+#define PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH 7
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_FILE_NAME_LENGTH
@@ -96,7 +96,7 @@
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_LINE_LENGTH
-#define PLUTO_LOGGER_INITIAL_LINE_LENGTH 6
+#define PLUTO_LOGGER_INITIAL_LINE_LENGTH 5
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_FUNCTION_LENGTH
@@ -240,22 +240,22 @@ namespace pluto
     private:
         struct log
         {
-            std::string     timestamp;
-            std::thread::id threadID;
-            level           logLevel;
-            const char*     sourceFilePath;
-            int             sourceLine;
-            const char*     sourceFunction;
-            std::string     message;
+            std::string timestamp;
+            std::size_t threadID;
+            level       logLevel;
+            const char* sourceFilePath;
+            int         sourceLine;
+            const char* sourceFunction;
+            std::string message;
 
             log(
-                const std::string&      timestamp,
-                const std::thread::id&  threadID,
-                const level             logLevel,
-                const char*             sourceFilePath,
-                const int               sourceLine,
-                const char*             sourceFunction,
-                const std::string&      message) :
+                const std::string&  timestamp,
+                const std::size_t   threadID,
+                const level         logLevel,
+                const char*         sourceFilePath,
+                const int           sourceLine,
+                const char*         sourceFunction,
+                const std::string&  message) :
                 timestamp       { timestamp },
                 threadID        { threadID },
                 logLevel        { logLevel },
@@ -801,7 +801,15 @@ namespace pluto
         {
             const auto timestamp{ get_local_timestamp(timestamp_format().c_str()) };
 
-            const auto threadID{ std::this_thread::get_id() };
+#ifdef _WIN32
+            const auto threadID{ static_cast<std::size_t>(GetCurrentThreadId()) };
+#elif defined(__APPLE__)
+            std::uint64_t appleThreadID{};
+            pthread_threadid_np(nullptr, &appleThreadID);
+            const auto threadID{ static_cast<std::size_t>(appleThreadID) };
+#else
+            const auto threadID{ static_cast<std::size_t>(gettid()) };
+#endif
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
