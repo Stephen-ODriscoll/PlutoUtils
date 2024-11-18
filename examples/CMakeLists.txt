@@ -7,7 +7,7 @@
 
 add_subdirectory(custom_app)
 add_subdirectory(log_default)
-add_subdirectory(log_extra_data)
+add_subdirectory(log_extra_column)
 add_subdirectory(log_hide_source_info)
 add_subdirectory(log_no_singleton)
 add_subdirectory(log_split_levels)

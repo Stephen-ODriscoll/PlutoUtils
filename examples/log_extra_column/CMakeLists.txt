@@ -5,14 +5,14 @@
 # Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
-project(log_extra_data)
+project(log_extra_column)
 
 include_directories(
     ../../include)
 
 add_executable(
     ${PROJECT_NAME}
-    log_extra_data.cpp)
+    log_extra_column.cpp)
 
 if((NOT MSVC) AND CMAKE_CXX_STANDARD EQUAL 14)
     target_link_libraries(
