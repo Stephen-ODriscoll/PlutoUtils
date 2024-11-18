@@ -820,7 +820,7 @@ namespace pluto
             }
 
             auto& buffer        { it->second.buffer };
-            auto bufferMaxSize  { this->buffer_max_size() };
+            auto bufferMaxSize  { buffer_max_size() };
 
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
@@ -852,7 +852,7 @@ namespace pluto
             const auto stem             { filePath.stem().string() };
             const auto extension        { filePath.extension().string() };
             const auto parentPath       { filePath.parent_path() };
-            const auto fileRotationLimit{ this->file_rotation_limit() };
+            const auto fileRotationLimit{ file_rotation_limit() };
 
             std::size_t numFiles{ 0 };
             for (std::size_t i{ 0 }; ; ++i)
@@ -1013,7 +1013,7 @@ namespace pluto
 
                     case meta_data::file_name:
                     {
-                        const auto fileNameLength{ this->file_name_length() };
+                        const auto fileNameLength{ file_name_length() };
 
                         stream << std::setw(fileNameLength)
                             << std::string(get_file_name(log.sourceFilePath), 0, fileNameLength) << m_separator;
@@ -1026,7 +1026,7 @@ namespace pluto
 
                     case meta_data::function:
                     {
-                        const auto functionLength{ this->function_length() };
+                        const auto functionLength{ function_length() };
 
                         stream << std::setw(functionLength)
                             << std::string(log.sourceFunction, 0, functionLength) << m_separator;
@@ -1062,8 +1062,8 @@ namespace pluto
                     dirsCreated = true;
                 }
 
-                const auto writeHeader{ this->write_header() };
-                const auto fileRotationSize{ this->file_rotation_size() };
+                const auto writeHeader{ write_header() };
+                const auto fileRotationSize{ file_rotation_size() };
 
                 std::size_t fileSize{ 0 };
                 std::ofstream fileStream{};
