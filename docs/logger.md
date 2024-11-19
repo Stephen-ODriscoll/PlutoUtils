@@ -12,17 +12,17 @@ I would recommend having your own file that imports this logger, configures it a
 
 Sample output:
 ```
-Timestamp                  | PID    | TID    | Level    | File Name            | Line   | Function             | Message
----------------------------+--------+--------+----------+----------------------+--------+----------------------+--------
-2024-11-12 20:16:37.170424 | 16280  | 8576   | Fatal    | log_default.cpp      | 27     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171189 | 16280  | 8576   | Critical | log_default.cpp      | 28     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171217 | 16280  | 8576   | Error    | log_default.cpp      | 29     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171248 | 16280  | 8576   | Warning  | log_default.cpp      | 30     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171291 | 16280  | 8576   | Notice   | log_default.cpp      | 31     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171317 | 16280  | 8576   | Info     | log_default.cpp      | 32     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171352 | 16280  | 8576   | Debug    | log_default.cpp      | 33     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171378 | 16280  | 8576   | Trace    | log_default.cpp      | 34     | main                 | Log entry 0 of 100
-2024-11-12 20:16:37.171403 | 16280  | 8576   | Verbose  | log_default.cpp      | 35     | main                 | Log entry 0 of 100
+Timestamp                  | PID     | TID     | Level    | File Name            | Line  | Function             | Message
+---------------------------+---------+---------+----------+----------------------+-------+----------------------+--------
+2024-11-19 18:11:41.583429 | 32832   | 26264   | Fatal    | log_default.cpp      | 27    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584194 | 32832   | 26264   | Critical | log_default.cpp      | 28    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584229 | 32832   | 26264   | Error    | log_default.cpp      | 29    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584254 | 32832   | 26264   | Warning  | log_default.cpp      | 30    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584279 | 32832   | 26264   | Notice   | log_default.cpp      | 31    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584304 | 32832   | 26264   | Info     | log_default.cpp      | 32    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584329 | 32832   | 26264   | Debug    | log_default.cpp      | 33    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584354 | 32832   | 26264   | Trace    | log_default.cpp      | 34    | main                 | Log entry 0 of 100
+2024-11-19 18:11:41.584379 | 32832   | 26264   | Verbose  | log_default.cpp      | 35    | main                 | Log entry 0 of 100
 ```
 
 ### PLUTO_LOGGER_HIDE_SOURCE_INFO
@@ -65,16 +65,16 @@ Define this macro to be a **std::size_t**. Sets the initial log file rotation li
 Define this macro to be a **std::size_t**. Sets the initial timestamp column length. See [timestamp_length](#timestamp_length). Defaults to 26.
 
 ### PLUTO_LOGGER_INITIAL_PROCESS_ID_LENGTH
-Define this macro to be a **std::size_t**. Sets the initial process ID column length. See [process_id_length](#process_id_length). Defaults to 6.
+Define this macro to be a **std::size_t**. Sets the initial process ID column length. See [process_id_length](#process_id_length). Defaults to 7.
 
 ### PLUTO_LOGGER_INITIAL_THREAD_ID_LENGTH
-Define this macro to be a **std::size_t**. Sets the initial thread ID column length. See [thread_id_length](#thread_id_length). Defaults to 6.
+Define this macro to be a **std::size_t**. Sets the initial thread ID column length. See [thread_id_length](#thread_id_length). Defaults to 7.
 
 ### PLUTO_LOGGER_INITIAL_FILE_NAME_LENGTH
 Define this macro to be a **std::size_t**. Sets the initial file name column length. See [file_name_length](#file_name_length). Defaults to 20.
 
 ### PLUTO_LOGGER_INITIAL_LINE_LENGTH
-Define this macro to be a **std::size_t**. Sets the initial line number column length. See [line_length](#line_length). Defaults to 6.
+Define this macro to be a **std::size_t**. Sets the initial line number column length. See [line_length](#line_length). Defaults to 5.
 
 ### PLUTO_LOGGER_INITIAL_FUNCTION_LENGTH
 Define this macro to be a **std::size_t**. Sets the initial function name column length. See [function_length](#function_length). Defaults to 20.
@@ -278,7 +278,7 @@ Returns a **bool** representing whether the logging thread is currently running.
 2. Takes a **char** and sets this to be the new header underline fill.
 
 #### buffer_max_size()
-The max number of logs to store and feed to the logging thread. 0 means no limit.
+The max number of logs to store and feed to the logging thread. Lowering the log buffer max size will not shrink the log buffer, as this could interfere with the logging thread. Instead, new logs will be discarded until there is room for them. 0 means no limit.
 1. Returns a **std::size_t** representing the current log buffer max size.
 2. Takes a **std::size_t** and sets this to be the new log buffer max size.
 
