@@ -842,7 +842,7 @@ namespace pluto
             }
             else
             {
-                // Queue is full, discard log
+                // Buffer is full, discard log
                 ++m_numDiscardedLogs;
             }
         }
@@ -894,7 +894,7 @@ namespace pluto
 
             if (!fileStream.is_open() || !fileStream.good())
             {
-                throw pluto::filesystem::filesystem_error{ "Logger failed to open file",
+                throw pluto::filesystem::filesystem_error{ "pluto::logger failed to open file",
                     std::make_error_code(std::errc::io_error) };
             }
         }
