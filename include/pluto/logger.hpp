@@ -403,13 +403,14 @@ namespace pluto
             // Write all buffers to their files
             for (auto& logFilePair : m_logFiles)
             {
-                auto& fileName      { logFilePair.first };
-                auto& buffer        { logFilePair.second.buffer };
-                auto& filePath      { logFilePair.second.filePath };
-                auto& dirsCreated   { logFilePair.second.dirsCreated };
+                auto& buffer{ logFilePair.second.buffer };
 
                 if (!buffer.empty())
                 {
+                    auto& fileName      { logFilePair.first };
+                    auto& filePath      { logFilePair.second.filePath };
+                    auto& dirsCreated   { logFilePair.second.dirsCreated };
+
                     write_buffer_to_file(buffer.begin(), buffer.end(), fileName, filePath, dirsCreated);
                 }
             }
@@ -1115,13 +1116,14 @@ namespace pluto
 
                     for (auto& logFilePair : m_logFiles)
                     {
-                        auto& fileName      { logFilePair.first };
-                        auto& buffer        { logFilePair.second.buffer };
-                        auto& filePath      { logFilePair.second.filePath };
-                        auto& dirsCreated   { logFilePair.second.dirsCreated };
+                        auto& buffer{ logFilePair.second.buffer };
 
                         if (!buffer.empty() && buffer_flush_size() <= buffer.size())
                         {
+                            auto& fileName      { logFilePair.first };
+                            auto& filePath      { logFilePair.second.filePath };
+                            auto& dirsCreated   { logFilePair.second.dirsCreated };
+
                             const auto begin{ buffer.begin() };
                             const auto end  { buffer.end() };
 
