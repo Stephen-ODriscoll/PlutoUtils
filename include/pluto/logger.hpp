@@ -410,7 +410,7 @@ namespace pluto
 
                 if (!buffer.empty())
                 {
-                    write_buffer_to_file(buffer.begin(), --(buffer.end()), fileName, filePath, dirsCreated);
+                    write_buffer_to_file(buffer.begin(), buffer.end(), fileName, filePath, dirsCreated);
                 }
             }
         }
@@ -824,7 +824,7 @@ namespace pluto
 
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
-                buffer.emplace_back(
+                buffer.emplace_front(
                     timestamp,
                     threadID,
                     logLevel,
@@ -1038,14 +1038,14 @@ namespace pluto
             stream << log.message << '\n';
         }
 
-        bool write_buffer_to_file(
+        log_buffer::iterator write_buffer_to_file(
             const log_buffer::iterator  begin,
-            const log_buffer::iterator  secondToEnd,
+            const log_buffer::iterator  end,
             const std::string&          fileName,
             pluto::filesystem::path&    filePath,
             bool&                       dirsCreated) const
         {
-            auto result{ true };
+            auto itWritten{ end };
 
             try
             {
@@ -1069,7 +1069,7 @@ namespace pluto
                 std::ofstream fileStream{};
                 open_file_stream(fileStream, filePath);
 
-                for (auto it{ begin }; ; ++it)
+                while (itWritten != begin)
                 {
                     fileSize = static_cast<std::size_t>(fileStream.tellp());
 
@@ -1088,20 +1088,13 @@ namespace pluto
                         write_header_to_stream(fileStream);
                     }
 
-                    write_log_to_stream(fileStream, *it);
-
-                    if (it == secondToEnd)
-                    {
-                        break;
-                    }
+                    --itWritten;
+                    write_log_to_stream(fileStream, *itWritten);
                 }
             }
-            catch (const pluto::filesystem::filesystem_error&)
-            {
-                result = false;
-            }
+            catch (const pluto::filesystem::filesystem_error&) {}
 
-            return result;
+            return itWritten;
         }
 
         void start_logging()
@@ -1129,27 +1122,30 @@ namespace pluto
 
                         if (!buffer.empty() && buffer_flush_size() <= buffer.size())
                         {
-                            const auto begin        { buffer.begin() };
-                            const auto secondToEnd  { --(buffer.end()) };
+                            const auto begin{ buffer.begin() };
+                            const auto end  { buffer.end() };
 
                             // Doesn't require synchronization.
                             // Since this thread stays within the range gotten when locked
-                            // and other threads only add after second to end, unlocking is fine.
+                            // and other threads only add before begin, unlocking is fine.
+                            //
+                            // Note:
+                            // Other threads add to the front of the log buffer and this
+                            // thread writes logs from back to front. This is done because
+                            // when you add logs to the back, the end node is pushed out,
+                            // which means you can't take an end iterator and unlock.
+                            // This way is cleaner.
                             lock.unlock();
 
                             // Since other threads can add logs, don't wait when done.
                             shouldWait = false;
 
-                            const auto result{ write_buffer_to_file(
-                                begin, secondToEnd, fileName, filePath, dirsCreated) };
+                            const auto itWritten{ write_buffer_to_file(begin, end, fileName, filePath, dirsCreated) };
 
                             lock.lock();
 
                             // Erase the logs after re-locking.
-                            if (result)
-                            {
-                                buffer.erase(begin, std::next(secondToEnd));
-                            }
+                            buffer.erase(itWritten, end);
                         }
                     }
                 }
