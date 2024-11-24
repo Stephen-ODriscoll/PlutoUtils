@@ -109,10 +109,10 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 2. Takes a join string and a container. Returns a string created by appending all elements in the container with the join string between them.
 
 #### ltrim()
-Takes a string and an optional **std::locale**. Removes all leading "space" characters.
+Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
 
 #### rtrim()
-Takes a string and an optional **std::locale**. Removes all trailing "space" characters.
+Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes new lines, tabs, spaces, etc.
 
 #### trim()
-Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters.
+Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.
