@@ -535,7 +535,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(std::u8string{ u8##x }, u8splits.begin(), u8splits.end()), std::u8string{ u8##y }); \
+        check(function(u8splits.begin(), u8splits.end(), std::u8string{ u8##x }), std::u8string{ u8##y }); \
     } \
     while (false)
 #else
@@ -550,10 +550,10 @@
         TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(std::u16string{ u##x }, u16splits.begin(), u16splits.end()), std::u16string{ u##y }); \
+        check(function(u16splits.begin(), u16splits.end(), std::u16string{ u##x }), std::u16string{ u##y }); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(std::u32string{ U##x }, u32splits.begin(), u32splits.end()), std::u32string{ U##y }); \
+        check(function(u32splits.begin(), u32splits.end(), std::u32string{ U##x }), std::u32string{ U##y }); \
     } \
     while (false)
 #else
@@ -565,10 +565,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(std::string{ x }, splits.begin(), splits.end()), std::string{ y }); \
+        check(function(splits.begin(), splits.end(), std::string{ x }), std::string{ y }); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(std::wstring{ L##x }, wsplits.begin(), wsplits.end()), std::wstring{ L##y }); \
+        check(function(wsplits.begin(), wsplits.end(), std::wstring{ L##x }), std::wstring{ L##y }); \
         \
         TEST_EXTRA_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
     } \
@@ -579,7 +579,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(std::u8string{ u8##x }, u8splits), std::u8string{ u8##y }); \
+        check(function(u8splits, std::u8string{ u8##x }), std::u8string{ u8##y }); \
     } \
     while (false)
 #else
@@ -594,10 +594,10 @@
         TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(std::u16string{ u##x }, u16splits), std::u16string{ u##y }); \
+        check(function(u16splits, std::u16string{ u##x }), std::u16string{ u##y }); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(std::u32string{ U##x }, u32splits), std::u32string{ U##y }); \
+        check(function(u32splits, std::u32string{ U##x }), std::u32string{ U##y }); \
     } \
     while (false)
 #else
@@ -609,10 +609,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(std::string{ x }, splits), std::string{ y }); \
+        check(function(splits, std::string{ x }), std::string{ y }); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(std::wstring{ L##x }, wsplits), std::wstring{ L##y }); \
+        check(function(wsplits, std::wstring{ L##x }), std::wstring{ L##y }); \
         \
         TEST_EXTRA_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
     } \

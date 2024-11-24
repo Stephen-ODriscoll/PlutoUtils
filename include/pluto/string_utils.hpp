@@ -431,9 +431,9 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT, class IteratorT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
-        const std::basic_string<ElemT, TraitsT, AllocT>&    sep,
         const IteratorT                                     begin,
-        const IteratorT                                     end)
+        const IteratorT                                     end,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    sep)
     {
         std::basic_string<ElemT, TraitsT, AllocT> str{};
         for (auto it{ begin }; it != end; ++it)
@@ -451,10 +451,10 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT, class ContainerT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
-        const std::basic_string<ElemT, TraitsT, AllocT>&    sep,
-        const ContainerT&                                   container)
+        const ContainerT&                                   container,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    sep)
     {
-        return pluto::join(sep, std::begin(container), std::end(container));
+        return pluto::join(std::begin(container), std::end(container), sep);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
