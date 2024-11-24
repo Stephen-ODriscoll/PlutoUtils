@@ -105,8 +105,8 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 - If a blank find string is given, the replace string is inserted at the start, between every character and at the end of the modify string.
 
 #### join()
-1. Takes a join string and iterators for left begin and left end. Returns a string created by appending all elements from begin to end, with the join string between them.
-2. Takes a join string and a container. Returns a string created by appending all elements in the container with the join string between them.
+1. Takes iterators for left begin, left end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
+2. Takes a container and a join string. Returns a string created by appending all elements in the container with the join string between them.
 
 #### ltrim()
 Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
