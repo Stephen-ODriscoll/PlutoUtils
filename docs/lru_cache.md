@@ -27,13 +27,16 @@ Returns a **std::size_t** representing the number of records in the cache.
 
 #### capacity()
 1. Returns a **std::size_t** representing the max capacity of the cache.
-2. Takes a **std::size_t** new max capacity for the cache. If this new max capacity is less than the existing one, it will evict until the size equals the new capacity.
+2. Takes a **std::size_t** new max capacity for the cache. If this new max capacity is less than the existing one, it will evict until the size equals the new capacity. If this new max capacity is 0, then [clear](#clear) is called.
 
 #### empty()
 Returns a **bool** representing whether the cache is empty.
 
 #### contains()
 Takes a key and returns a **bool** representing whether that key exists in the cache.
+
+#### clear()
+Clears the entire cache.
 
 #### insert()
 Takes a key and a value and inserts it into the cache. If the key already exists, it is updated with the new value and moved to the front of the least recently used list.
@@ -47,6 +50,3 @@ Takes a key and a modifyable reference to a value.
 Takes a key.
 - If the key exists in cache, the key-value pair is removed, and the function returns **true**.
 - If the key doesn't exist in cache, the function returns **false**.
-
-#### clear()
-Clears the entire cache.

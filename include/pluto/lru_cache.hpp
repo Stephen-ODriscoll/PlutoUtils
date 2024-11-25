@@ -37,14 +37,27 @@ namespace pluto
         bool empty()                        const   { return m_map.empty(); }
         bool contains(const key_type& key)  const   { return (m_map.find(key) != m_map.end()); }
 
+        void clear()
+        {
+            m_map.clear();
+            m_list.clear();
+        }
+
         void capacity(const std::size_t newCapacity)
         {
             m_capacity = newCapacity;
 
-            // While cache is above capacity, evict the least recently used item
-            while (m_capacity < size())
+            if (m_capacity == 0)
             {
-                evict_lru();
+                clear();
+            }
+            else
+            {
+                // While cache is above capacity, evict the least recently used item
+                while (m_capacity < size())
+                {
+                    evict_lru();
+                }
             }
         }
 
@@ -97,12 +110,6 @@ namespace pluto
             m_list.erase(itMap->second.second);
             m_map.erase(itMap);
             return true;
-        }
-
-        void clear()
-        {
-            m_map.clear();
-            m_list.clear();
         }
 
     private:

@@ -61,6 +61,12 @@ namespace pluto
             return m_lruCache.contains(key);
         }
 
+        void clear()
+        {
+            const std::unique_lock<shared_mutex_type> writer{ m_mutex };
+            m_lruCache.clear();
+        }
+
         void capacity(const std::size_t newCapacity)
         {
             const std::unique_lock<shared_mutex_type> writer{ m_mutex };
@@ -83,12 +89,6 @@ namespace pluto
         {
             const std::unique_lock<shared_mutex_type> writer{ m_mutex };
             return m_lruCache.remove(key);
-        }
-
-        void clear()
-        {
-            const std::unique_lock<shared_mutex_type> writer{ m_mutex };
-            m_lruCache.clear();
         }
     };
 }
