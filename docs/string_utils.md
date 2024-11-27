@@ -104,6 +104,10 @@ Takes a split string and a separator string. Splits the split string where an el
 Takes a modify string, a find string and a replace string. Looks through the modify string for the find string and replaces it with the replace string.
 - If a blank find string is given, the replace string is inserted at the start, between every character and at the end of the modify string.
 
+#### replace_any_of()
+Takes a modify string, a find string and a replace string. Looks through the modify string for any element in the find string and replaces it with the replace string.
+- If a blank find string is given, then there will be no change to the modify string.
+
 #### join()
 1. Takes iterators for left begin, left end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
 2. Takes a container and a join string. Returns a string created by appending all elements in the container with the join string between them.

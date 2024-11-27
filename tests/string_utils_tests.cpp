@@ -1687,6 +1687,34 @@ TEST_F(string_utils_tests, test_elem_string_replace)
     TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace, "abcdefabcdef", "ace", "def", "abcdefabcdef");
 }
 
+TEST_F(string_utils_tests, test_elem_string_replace_any_of)
+{
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, " ", "", "", " ");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a", " ", "b", "a");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "A", " ", "b", "A");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "aaa", "", "b", "aaa");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "", " ", "a", "");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "   ", " ", "a", "aaa");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "\t\n\v\f\r ", " ", "a", "\t\n\v\f\ra");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, " a ", " ", "b", "bab");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a b c d e f", " ", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "A B C D E F", " ", "_", "A_B_C_D_E_F");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a b c d e f", "abcdef", "x", "x x x x x x");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "A B C D E F", "ABCDEF", "X", "X X X X X X");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a\tb\nc\vd\fe\rf", " ", "_", "a\tb\nc\vd\fe\rf");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a:b:c:d:e:f", ":;-#", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a;b;c;d;e;f", ":;-#", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a-b-c-d-e-f", ":;-#", "_", "a_b_c_d_e_f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a#b#c#d#e#f", ":;-#", "_", "a_b_c_d_e_f");
+
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "abc", "a", "aaadefaaadef");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "abc", "12", "121212def121212def");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "12", "12b12d12f12b12d12f");
+}
+
 TEST_F(string_utils_tests, test_elem_string_ltrim)
 {
     TEST_ALL_ELEM_STRINGS_2(ASSERT_EQ, pluto::ltrim, "a", "a");
