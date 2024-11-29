@@ -94,8 +94,10 @@ Takes a left string, a right string and an optional **std::locale**. Looks for o
 
 #### split()
 1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc. Returns a **std::vector** of strings.
+    - When 2 "space" characters occur consecutively, nothing will be added to the returned strings. Only non-empty strings are added.
 2. Takes a split string and a separator string. Splits the split string where a substring equals the separator string. Returns a **std::vector** of strings.
     - If a blank separator string is given, the split string is split into its individual characters.
+    - When 2 separators occur consecutively, a blank string will be added to the returned strings.
 
 #### split_any_of()
 Takes a split string and a separator string. Splits the split string where an element equals any element in the separator string. Returns a **std::vector** of strings.
