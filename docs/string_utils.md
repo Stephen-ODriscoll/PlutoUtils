@@ -12,6 +12,9 @@ Case insensitive checks avail of the performance benefits talked about in [compa
 
 Optional locales default to [pluto::get_default_locale](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/locale.md#get_default_locale).
 
+#### PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+Define this macro as 1 to enable overload for unicode strings, or 0 to disable it. This applies to **std::u8string**, **std::u16string** and **std::u32string**. Defaults to 1 on Windows and 0 everywhere else.
+
 #### to_lower()
 1. Takes an element and an optional **std::locale**. Returns the lowercase letter for the element.
 2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Transforms all elements in the array to lowercase.

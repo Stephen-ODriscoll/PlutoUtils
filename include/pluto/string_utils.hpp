@@ -17,6 +17,14 @@
 
 #include "container_utils.hpp"
 
+#ifndef PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#ifdef _WIN32
+#define PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE 1
+#else
+#define PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE 0
+#endif
+#endif
+
 namespace pluto
 {
     template<class ElemT>
@@ -119,6 +127,7 @@ namespace pluto
         return pluto::is_lower<>(str, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool is_lower(
         const std::u8string&    str,
@@ -141,6 +150,7 @@ namespace pluto
     {
         return pluto::is_lower<>(str, locale);
     }
+#endif
 
     template<class ElemT>
     inline bool is_upper(
@@ -192,6 +202,7 @@ namespace pluto
         return pluto::is_upper<>(str, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool is_upper(
         const std::u8string&    str,
@@ -214,6 +225,7 @@ namespace pluto
     {
         return pluto::is_upper<>(str, locale);
     }
+#endif
 
     inline std::string to_narrow(const wchar_t* const str, const std::size_t size)
     {
@@ -319,6 +331,7 @@ namespace pluto
         return pluto::equals<std::wstring>(left, right, predicate);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
     inline auto equals(
@@ -347,6 +360,7 @@ namespace pluto
     {
         return pluto::equals<std::u32string>(left, right, predicate);
     }
+#endif
 
     template<class ElemT>
     inline bool iequals(
@@ -384,6 +398,7 @@ namespace pluto
         return pluto::iequals<>(left, right, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool iequals(
         const std::u8string&    left,
@@ -409,6 +424,7 @@ namespace pluto
     {
         return pluto::iequals<>(left, right, locale);
     }
+#endif
 
     template<class PredicateT = pluto::is_equal>
     inline auto starts_with(
@@ -428,6 +444,7 @@ namespace pluto
         return pluto::starts_with<std::wstring>(left, right, predicate);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
     inline auto starts_with(
@@ -456,6 +473,7 @@ namespace pluto
     {
         return pluto::starts_with<std::u32string>(left, right, predicate);
     }
+#endif
 
     template<class ElemT>
     inline bool istarts_with(
@@ -493,6 +511,7 @@ namespace pluto
         return pluto::istarts_with<>(left, right, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool istarts_with(
         const std::u8string&    left,
@@ -518,6 +537,7 @@ namespace pluto
     {
         return pluto::istarts_with<>(left, right, locale);
     }
+#endif
 
     template<class PredicateT = pluto::is_equal>
     inline auto ends_with(
@@ -537,6 +557,7 @@ namespace pluto
         return pluto::ends_with<std::wstring>(left, right, predicate);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
     inline auto ends_with(
@@ -565,6 +586,7 @@ namespace pluto
     {
         return pluto::ends_with<std::u32string>(left, right, predicate);
     }
+#endif
 
     template<class ElemT>
     inline bool iends_with(
@@ -602,6 +624,7 @@ namespace pluto
         return pluto::iends_with<>(left, right, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool iends_with(
         const std::u8string&    left,
@@ -627,6 +650,7 @@ namespace pluto
     {
         return pluto::iends_with<>(left, right, locale);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     inline auto find(
@@ -655,6 +679,7 @@ namespace pluto
         return pluto::find<std::wstring::value_type>(left, right, predicate);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
     inline auto find(
@@ -683,6 +708,7 @@ namespace pluto
     {
         return pluto::find<std::u32string::value_type>(left, right, predicate);
     }
+#endif
 
     template<class ElemT>
     inline const ElemT* const ifind(
@@ -720,6 +746,7 @@ namespace pluto
         return pluto::ifind<>(left, right, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline auto ifind(
         const std::u8string&    left,
@@ -745,6 +772,7 @@ namespace pluto
     {
         return pluto::ifind<>(left, right, locale);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     inline bool contains(
@@ -773,6 +801,7 @@ namespace pluto
         return pluto::contains<std::wstring::value_type>(left, right, predicate);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
     inline bool contains(
@@ -801,6 +830,7 @@ namespace pluto
     {
         return pluto::contains<std::u32string::value_type>(left, right, predicate);
     }
+#endif
 
     template<class ElemT>
     inline bool icontains(
@@ -838,6 +868,7 @@ namespace pluto
         return pluto::icontains<>(left, right, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool icontains(
         const std::u8string&    left,
@@ -863,6 +894,7 @@ namespace pluto
     {
         return pluto::icontains<>(left, right, locale);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
@@ -916,6 +948,7 @@ namespace pluto
         return pluto::split<>(str, locale);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split(
         const std::u8string&    str,
@@ -938,6 +971,7 @@ namespace pluto
     {
         return pluto::split<>(str, locale);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
@@ -983,6 +1017,7 @@ namespace pluto
         return pluto::split<>(str, separator);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split(
         const std::u8string& str,
@@ -1005,6 +1040,7 @@ namespace pluto
     {
         return pluto::split<>(str, separator);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
@@ -1036,6 +1072,7 @@ namespace pluto
         return pluto::split_any_of<>(str, separator);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split_any_of(
         const std::u8string& str,
@@ -1058,6 +1095,7 @@ namespace pluto
     {
         return pluto::split_any_of<>(str, separator);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT, class IteratorT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
@@ -1097,6 +1135,7 @@ namespace pluto
         return pluto::join<std::wstring::value_type>(begin, end, separator);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class IteratorT>
     inline std::u8string join(
@@ -1125,6 +1164,7 @@ namespace pluto
     {
         return pluto::join<std::u32string::value_type>(begin, end, separator);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT, class ContainerT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
@@ -1150,6 +1190,7 @@ namespace pluto
         return pluto::join<std::wstring::value_type>(container, separator);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class ContainerT>
     inline std::u8string join(
@@ -1175,6 +1216,7 @@ namespace pluto
     {
         return pluto::join<std::u32string::value_type>(container, separator);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void replace(
@@ -1211,6 +1253,7 @@ namespace pluto
         pluto::replace<>(str, find, replace);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline void replace(
         std::u8string&          str,
@@ -1236,6 +1279,7 @@ namespace pluto
     {
         pluto::replace<>(str, find, replace);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void replace_any_of(
@@ -1267,6 +1311,7 @@ namespace pluto
         pluto::replace_any_of<>(str, find, replace);
     }
 
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline void replace_any_of(
         std::u8string&          str,
@@ -1292,6 +1337,7 @@ namespace pluto
     {
         pluto::replace_any_of<>(str, find, replace);
     }
+#endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void ltrim(
