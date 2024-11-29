@@ -272,7 +272,7 @@
 #define TEST_CHAR8_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
-        check(function(std::u8string{ u8##x })); \
+        check(function({ u8##x })); \
     } \
     while (false)
 #else
@@ -285,8 +285,8 @@
     do \
     { \
         TEST_CHAR8_ELEM_STRINGS_1(check, function, x); \
-        check(function(std::u16string{ u##x })); \
-        check(function(std::u32string{ U##x })); \
+        check(function({ u##x })); \
+        check(function({ U##x })); \
     } \
     while (false)
 #else
@@ -297,8 +297,8 @@
 #define TEST_ALL_ELEM_STRINGS_1(check, function, x) \
     do \
     { \
-        check(function(std::string{ x })); \
-        check(function(std::wstring{ L##x })); \
+        check(function({ x })); \
+        check(function({ L##x })); \
         TEST_EXTRA_ELEM_STRINGS_1(check, function, x); \
     } \
     while (false)
@@ -307,9 +307,9 @@
 #define TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y) \
     do \
     { \
-        auto u8string{ std::u8string{ u8##x } }; \
-        function(u8string); \
-        check(u8string, std::u8string{ u8##y }); \
+        std::u8string u8str{ u8##x }; \
+        function(u8str); \
+        check(u8str, u8##y); \
     } \
     while (false)
 #else
@@ -323,13 +323,13 @@
     { \
         TEST_CHAR8_ELEM_STRINGS_2(check, function, x, y); \
         \
-        auto u16string{ std::u16string{ u##x } }; \
-        function(u16string); \
-        check(u16string, std::u16string{ u##y }); \
+        std::u16string u16str{ u##x }; \
+        function(u16str); \
+        check(u16str, u##y); \
         \
-        auto u32string{ std::u32string{ U##x } }; \
-        function(u32string); \
-        check(u32string, std::u32string{ U##y }); \
+        std::u32string u32str{ U##x }; \
+        function(u32str); \
+        check(u32str, U##y); \
     } \
     while (false)
 #else
@@ -340,13 +340,13 @@
 #define TEST_ALL_ELEM_STRINGS_2(check, function, x, y) \
     do \
     { \
-        auto string{ std::string{ x } }; \
-        function(string); \
-        check(string, std::string{ y }); \
+        std::string str{ x }; \
+        function(str); \
+        check(str, y); \
         \
-        auto wstring{ std::wstring{ L##x } }; \
-        function(wstring); \
-        check(wstring, std::wstring{ L##y }); \
+        std::wstring wstr{ L##x }; \
+        function(wstr); \
+        check(wstr, L##y); \
         \
         TEST_EXTRA_ELEM_STRINGS_2(check, function, x, y); \
     } \
@@ -356,7 +356,7 @@
 #define TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y) \
     do \
     { \
-        check(function(std::u8string{ u8##x }, std::u8string{ u8##y })); \
+        check(function({ u8##x }, u8##y)); \
     } \
     while (false)
 #else
@@ -369,8 +369,8 @@
     do \
     { \
         TEST_CHAR8_ELEM_STRINGS_3(check, function, x, y); \
-        check(function(std::u16string{ u##x }, std::u16string{ u##y })); \
-        check(function(std::u32string{ U##x }, std::u32string{ U##y })); \
+        check(function({ u##x }, u##y)); \
+        check(function({ U##x }, U##y)); \
     } \
     while (false)
 #else
@@ -381,8 +381,8 @@
 #define TEST_ALL_ELEM_STRINGS_3(check, function, x, y) \
     do \
     { \
-        check(function(std::string{ x }, std::string{ y })); \
-        check(function(std::wstring{ L##x }, std::wstring{ L##y })); \
+        check(function({ x }, y)); \
+        check(function({ L##x }, L##y)); \
         TEST_EXTRA_ELEM_STRINGS_3(check, function, x, y); \
     } \
     while (false)
@@ -392,7 +392,7 @@
     do \
     { \
         std::u8string u8str{ u8##x }; \
-        check(function(u8str, std::u8string{ u8##y }), u8str.begin() + z); \
+        check(function(u8str, u8##y), u8str.begin() + z); \
     } \
     while (false)
 #else
@@ -407,10 +407,10 @@
         TEST_CHAR8_ELEM_STRINGS_4(check, function, x, y, z); \
         \
         std::u16string u16str{ u##x }; \
-        check(function(u16str, std::u16string{ u##y }), u16str.begin() + z); \
+        check(function(u16str, u##y), u16str.begin() + z); \
         \
         std::u32string u32str{ U##x }; \
-        check(function(u32str, std::u32string{ U##y }), u32str.begin() + z); \
+        check(function(u32str, U##y), u32str.begin() + z); \
     } \
     while (false)
 #else
@@ -422,10 +422,10 @@
     do \
     { \
         std::string str{ x }; \
-        check(function(str, std::string{ y }), str.begin() + z); \
+        check(function(str, y), str.begin() + z); \
         \
         std::wstring wstr{ L##x }; \
-        check(function(wstr, std::wstring{ L##y }), wstr.begin() + z); \
+        check(function(wstr, L##y), wstr.begin() + z); \
         \
         TEST_EXTRA_ELEM_STRINGS_4(check, function, x, y, z); \
     } \
@@ -447,7 +447,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(std::u8string{ u8##x }), u8splits); \
+        check(function(u8##x), u8splits); \
     } \
     while (false)
 #else
@@ -462,10 +462,10 @@
         TEST_CHAR8_ELEM_STRINGS_5(check, function, x, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(std::u16string{ u##x }), u16splits); \
+        check(function(u##x), u16splits); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(std::u32string{ U##x }), u32splits); \
+        check(function(U##x), u32splits); \
     } \
     while (false)
 #else
@@ -477,10 +477,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(std::string{ x }), splits); \
+        check(function(x), splits); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(std::wstring{ L##x }), wsplits); \
+        check(function(L##x), wsplits); \
         \
         TEST_EXTRA_ELEM_STRINGS_5(check, function, x, size, __VA_ARGS__); \
     } \
@@ -491,7 +491,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(std::u8string{ u8##x }, std::u8string{ u8##y }), u8splits); \
+        check(function(u8##x, u8##y), u8splits); \
     } \
     while (false)
 #else
@@ -506,10 +506,10 @@
         TEST_CHAR8_ELEM_STRINGS_6(check, function, x, y, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(std::u16string{ u##x }, std::u16string{ u##y }), u16splits); \
+        check(function(u##x, u##y), u16splits); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(std::u32string{ U##x }, std::u32string{ U##y }), u32splits); \
+        check(function(U##x, U##y), u32splits); \
     } \
     while (false)
 #else
@@ -521,10 +521,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(std::string{ x }, std::string{ y }), splits); \
+        check(function(x, y), splits); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(std::wstring{ L##x }, std::wstring{ L##y }), wsplits); \
+        check(function(L##x, L##y), wsplits); \
         \
         TEST_EXTRA_ELEM_STRINGS_6(check, function, x, y, size, __VA_ARGS__); \
     } \
@@ -535,7 +535,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(u8splits.begin(), u8splits.end(), std::u8string{ u8##x }), std::u8string{ u8##y }); \
+        check(function(u8splits.begin(), u8splits.end(), u8##x), u8##y); \
     } \
     while (false)
 #else
@@ -550,10 +550,10 @@
         TEST_CHAR8_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(u16splits.begin(), u16splits.end(), std::u16string{ u##x }), std::u16string{ u##y }); \
+        check(function(u16splits.begin(), u16splits.end(), u##x), u##y); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(u32splits.begin(), u32splits.end(), std::u32string{ U##x }), std::u32string{ U##y }); \
+        check(function(u32splits.begin(), u32splits.end(), U##x), U##y); \
     } \
     while (false)
 #else
@@ -565,10 +565,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(splits.begin(), splits.end(), std::string{ x }), std::string{ y }); \
+        check(function(splits.begin(), splits.end(), x), y); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(wsplits.begin(), wsplits.end(), std::wstring{ L##x }), std::wstring{ L##y }); \
+        check(function(wsplits.begin(), wsplits.end(), L##x), L##y); \
         \
         TEST_EXTRA_ELEM_STRINGS_7(check, function, x, y, size, __VA_ARGS__); \
     } \
@@ -579,7 +579,7 @@
     do \
     { \
         std::vector<std::u8string> u8splits{ VECTOR_HELPER_##size(u8, __VA_ARGS__) }; \
-        check(function(u8splits, std::u8string{ u8##x }), std::u8string{ u8##y }); \
+        check(function(u8splits, u8##x), u8##y); \
     } \
     while (false)
 #else
@@ -594,10 +594,10 @@
         TEST_CHAR8_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
         \
         std::vector<std::u16string> u16splits{ VECTOR_HELPER_##size(u, __VA_ARGS__) }; \
-        check(function(u16splits, std::u16string{ u##x }), std::u16string{ u##y }); \
+        check(function(u16splits, u##x), u##y); \
         \
         std::vector<std::u32string> u32splits{ VECTOR_HELPER_##size(U, __VA_ARGS__) }; \
-        check(function(u32splits, std::u32string{ U##x }), std::u32string{ U##y }); \
+        check(function(u32splits, U##x), U##y); \
     } \
     while (false)
 #else
@@ -609,10 +609,10 @@
     do \
     { \
         std::vector<std::string> splits{ VECTOR_HELPER_##size(, __VA_ARGS__) }; \
-        check(function(splits, std::string{ x }), std::string{ y }); \
+        check(function(splits, x), y); \
         \
         std::vector<std::wstring> wsplits{ VECTOR_HELPER_##size(L, __VA_ARGS__) }; \
-        check(function(wsplits, std::wstring{ L##x }), std::wstring{ L##y }); \
+        check(function(wsplits, L##x), L##y); \
         \
         TEST_EXTRA_ELEM_STRINGS_8(check, function, x, y, size, __VA_ARGS__); \
     } \
@@ -623,8 +623,8 @@
     do \
     { \
         std::u8string u8str{ u8##x }; \
-        function(u8str, std::u8string{ u8##y }, std::u8string{ u8##z }); \
-        check(u8str, std::u8string{ u8##a }); \
+        function(u8str, u8##y, u8##z); \
+        check(u8str, u8##a); \
     } \
     while (false)
 #else
@@ -639,12 +639,12 @@
         TEST_CHAR8_ELEM_STRINGS_9(check, function, x, y, z, a); \
         \
         std::u16string u16str{ u##x }; \
-        function(u16str, std::u16string{ u##y }, std::u16string{ u##z }); \
-        check(u16str, std::u16string{ u##a }); \
+        function(u16str, u##y, u##z); \
+        check(u16str, u##a); \
         \
         std::u32string u32str{ U##x }; \
-        function(u32str, std::u32string{ U##y }, std::u32string{ U##z }); \
-        check(u32str, std::u32string{ U##a }); \
+        function(u32str, U##y, U##z); \
+        check(u32str, U##a); \
     } \
     while (false)
 #else
@@ -656,12 +656,12 @@
     do \
     { \
         std::string str{ x }; \
-        function(str, std::string{ y }, std::string{ z }); \
-        check(str, std::string{ a }); \
+        function(str, y, z); \
+        check(str, a); \
         \
         std::wstring wstr{ L##x }; \
-        function(wstr, std::wstring{ L##y }, std::wstring{ L##z }); \
-        check(wstr, std::wstring{ L##a }); \
+        function(wstr, L##y, L##z); \
+        check(wstr, L##a); \
         \
         TEST_EXTRA_ELEM_STRINGS_9(check, function, x, y, z, a); \
     } \
@@ -980,6 +980,54 @@ TEST_F(string_utils_tests, test_wide_elem_array_to_other)
     ASSERT_EQ(pluto::wide_to<float>(wide, size),                1.0f);
 }
 
+TEST_F(string_utils_tests, test_elem_string_equals)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::equals, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "aBcDeg");
+}
+
 TEST_F(string_utils_tests, test_elem_array_iequals)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::iequals, " ", " ");
@@ -1076,6 +1124,54 @@ TEST_F(string_utils_tests, test_elem_string_iequals)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::iequals, "ABCDEF", "aBcDeg");
 }
 
+TEST_F(string_utils_tests, test_elem_string_starts_with)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "aBcDeg");
+}
+
 TEST_F(string_utils_tests, test_elem_array_istarts_with)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::istarts_with, " ", " ");
@@ -1170,6 +1266,54 @@ TEST_F(string_utils_tests, test_elem_string_istarts_with)
 
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::istarts_with, "aBcDeF", "ABCDEG");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::istarts_with, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(string_utils_tests, test_elem_string_ends_with)
+{
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, " ", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "A", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "a", "A");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "A", "a");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "a", "a");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "A", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "a", "B");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "A", "b");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "a", "b");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, " ", "");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "", " ");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "BCDE");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(string_utils_tests, test_elem_array_iends_with)
@@ -1417,7 +1561,6 @@ TEST_F(string_utils_tests, test_elem_string_contains)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, " ", " ");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "A", "A");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "a", "a");
-
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "a", "A");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "A", "a");
 
@@ -1430,7 +1573,6 @@ TEST_F(string_utils_tests, test_elem_string_contains)
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, " ", "");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "ABCDEF");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "abcdef", "abcdef");
-
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "abcdef", "ABCDEF");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "abcdef");
 
@@ -1442,19 +1584,16 @@ TEST_F(string_utils_tests, test_elem_string_contains)
 
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "ABCDE");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "abcdef", "abcde");
-
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "abcdef", "ABCDE");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "abcde");
 
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "BCDEF");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "abcdef", "bcdef");
-
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "abcdef", "BCDEF");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "bcdef");
 
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "BCDE");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_TRUE, pluto::contains, "abcdef", "bcde");
-
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "abcdef", "BCDE");
     TEST_ALL_ELEM_STRINGS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "bcde");
 
