@@ -1711,8 +1711,8 @@ TEST_F(string_utils_tests, test_elem_string_replace_any_of)
     TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a#b#c#d#e#f", ":;-#", "_", "a_b_c_d_e_f");
 
     TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "abc", "a", "aaadefaaadef");
-    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "abc", "12", "121212def121212def");
-    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "12", "12b12d12f12b12d12f");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "abc", "ab", "abababdefabababdef");
+    TEST_ALL_ELEM_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "ab", "abbabdabfabbabdabf");
 }
 
 TEST_F(string_utils_tests, test_elem_string_ltrim)
