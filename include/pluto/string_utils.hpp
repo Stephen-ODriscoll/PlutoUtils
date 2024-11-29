@@ -942,10 +942,10 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
         const std::basic_string<ElemT, TraitsT, AllocT>& str,
-        const std::basic_string<ElemT, TraitsT, AllocT>& sep)
+        const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        if (sep.empty())
+        if (separator.empty())
         {
             splits.reserve(str.size());
 
@@ -957,10 +957,10 @@ namespace pluto
         else
         {
             std::size_t from{ 0 }, to;
-            while ((to = str.find(sep, from)) != str.npos)
+            while ((to = str.find(separator, from)) != str.npos)
             {
                 splits.emplace_back(str, from, (to - from));
-                from = (to + sep.size());
+                from = (to + separator.size());
             }
 
             splits.emplace_back(str, from);
@@ -971,51 +971,51 @@ namespace pluto
 
     inline std::vector<std::string> split(
         const std::string& str,
-        const std::string& sep)
+        const std::string& separator)
     {
-        return pluto::split<>(str, sep);
+        return pluto::split<>(str, separator);
     }
 
     inline std::vector<std::wstring> split(
         const std::wstring& str,
-        const std::wstring& sep)
+        const std::wstring& separator)
     {
-        return pluto::split<>(str, sep);
+        return pluto::split<>(str, separator);
     }
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split(
         const std::u8string& str,
-        const std::u8string& sep)
+        const std::u8string& separator)
     {
-        return pluto::split<>(str, sep);
+        return pluto::split<>(str, separator);
     }
 #endif
 
     inline std::vector<std::u16string> split(
         const std::u16string& str,
-        const std::u16string& sep)
+        const std::u16string& separator)
     {
-        return pluto::split<>(str, sep);
+        return pluto::split<>(str, separator);
     }
 
     inline std::vector<std::u32string> split(
         const std::u32string& str,
-        const std::u32string& sep)
+        const std::u32string& separator)
     {
-        return pluto::split<>(str, sep);
+        return pluto::split<>(str, separator);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
         const std::basic_string<ElemT, TraitsT, AllocT>& str,
-        const std::basic_string<ElemT, TraitsT, AllocT>& sep)
+        const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
         std::size_t from, to{ 0 };
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while ((from = str.find_first_not_of(sep, to)) != str.npos)
+        while ((from = str.find_first_not_of(separator, to)) != str.npos)
         {
-            to = str.find_first_of(sep, from);
+            to = str.find_first_of(separator, from);
             splits.emplace_back(str, from, (to - from));
         }
 
@@ -1024,53 +1024,53 @@ namespace pluto
 
     inline std::vector<std::string> split_any_of(
         const std::string& str,
-        const std::string& sep)
+        const std::string& separator)
     {
-        return pluto::split_any_of<>(str, sep);
+        return pluto::split_any_of<>(str, separator);
     }
 
     inline std::vector<std::wstring> split_any_of(
         const std::wstring& str,
-        const std::wstring& sep)
+        const std::wstring& separator)
     {
-        return pluto::split_any_of<>(str, sep);
+        return pluto::split_any_of<>(str, separator);
     }
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split_any_of(
         const std::u8string& str,
-        const std::u8string& sep)
+        const std::u8string& separator)
     {
-        return pluto::split_any_of<>(str, sep);
+        return pluto::split_any_of<>(str, separator);
     }
 #endif
 
     inline std::vector<std::u16string> split_any_of(
         const std::u16string& str,
-        const std::u16string& sep)
+        const std::u16string& separator)
     {
-        return pluto::split_any_of<>(str, sep);
+        return pluto::split_any_of<>(str, separator);
     }
 
     inline std::vector<std::u32string> split_any_of(
         const std::u32string& str,
-        const std::u32string& sep)
+        const std::u32string& separator)
     {
-        return pluto::split_any_of<>(str, sep);
+        return pluto::split_any_of<>(str, separator);
     }
 
     template<class ElemT, class TraitsT, class AllocT, class IteratorT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
         const IteratorT                                     begin,
         const IteratorT                                     end,
-        const std::basic_string<ElemT, TraitsT, AllocT>&    sep)
+        const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
     {
         std::basic_string<ElemT, TraitsT, AllocT> str{};
         for (auto it{ begin }; it != end; ++it)
         {
             if (it != begin)
             {
-                str.append(sep);
+                str.append(separator);
             }
 
             str.append(*it);
@@ -1083,18 +1083,18 @@ namespace pluto
     inline std::string join(
         const IteratorT     begin,
         const IteratorT     end,
-        const std::string&  sep)
+        const std::string&  separator)
     {
-        return pluto::join<std::string::value_type>(begin, end, sep);
+        return pluto::join<std::string::value_type>(begin, end, separator);
     }
 
     template<class IteratorT>
     inline std::wstring join(
         const IteratorT     begin,
         const IteratorT     end,
-        const std::wstring& sep)
+        const std::wstring& separator)
     {
-        return pluto::join<std::wstring::value_type>(begin, end, sep);
+        return pluto::join<std::wstring::value_type>(begin, end, separator);
     }
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
@@ -1102,9 +1102,9 @@ namespace pluto
     inline std::u8string join(
         const IteratorT         begin,
         const IteratorT         end,
-        const std::u8string&    sep)
+        const std::u8string&    separator)
     {
-        return pluto::join<std::u8string::value_type>(begin, end, sep);
+        return pluto::join<std::u8string::value_type>(begin, end, separator);
     }
 #endif
 
@@ -1112,68 +1112,68 @@ namespace pluto
     inline std::u16string join(
         const IteratorT         begin,
         const IteratorT         end,
-        const std::u16string&   sep)
+        const std::u16string&   separator)
     {
-        return pluto::join<std::u16string::value_type>(begin, end, sep);
+        return pluto::join<std::u16string::value_type>(begin, end, separator);
     }
 
     template<class IteratorT>
     inline std::u32string join(
         const IteratorT         begin,
         const IteratorT         end,
-        const std::u32string&   sep)
+        const std::u32string&   separator)
     {
-        return pluto::join<std::u32string::value_type>(begin, end, sep);
+        return pluto::join<std::u32string::value_type>(begin, end, separator);
     }
 
     template<class ElemT, class TraitsT, class AllocT, class ContainerT>
     inline std::basic_string<ElemT, TraitsT, AllocT> join(
         const ContainerT&                                   container,
-        const std::basic_string<ElemT, TraitsT, AllocT>&    sep)
+        const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
     {
-        return pluto::join(std::begin(container), std::end(container), sep);
+        return pluto::join(std::begin(container), std::end(container), separator);
     }
 
     template<class ContainerT>
     inline std::string join(
         const ContainerT&   container,
-        const std::string&  sep)
+        const std::string&  separator)
     {
-        return pluto::join<std::string::value_type>(container, sep);
+        return pluto::join<std::string::value_type>(container, separator);
     }
 
     template<class ContainerT>
     inline std::wstring join(
         const ContainerT&   container,
-        const std::wstring& sep)
+        const std::wstring& separator)
     {
-        return pluto::join<std::wstring::value_type>(container, sep);
+        return pluto::join<std::wstring::value_type>(container, separator);
     }
 
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class ContainerT>
     inline std::u8string join(
         const ContainerT&       container,
-        const std::u8string&    sep)
+        const std::u8string&    separator)
     {
-        return pluto::join<std::u8string::value_type>(container, sep);
+        return pluto::join<std::u8string::value_type>(container, separator);
     }
 #endif
 
     template<class ContainerT>
     inline std::u16string join(
         const ContainerT&       container,
-        const std::u16string&   sep)
+        const std::u16string&   separator)
     {
-        return pluto::join<std::u16string::value_type>(container, sep);
+        return pluto::join<std::u16string::value_type>(container, separator);
     }
 
     template<class ContainerT>
     inline std::u32string join(
         const ContainerT&       container,
-        const std::u32string&   sep)
+        const std::u32string&   separator)
     {
-        return pluto::join<std::u32string::value_type>(container, sep);
+        return pluto::join<std::u32string::value_type>(container, separator);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
