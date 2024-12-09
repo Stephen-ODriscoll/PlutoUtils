@@ -1133,7 +1133,7 @@ namespace pluto
                             //
                             // Note:
                             // Other threads add to the front of the log buffer and this
-                            // thread writes logs from back to front. This is done because
+                            // thread reads logs from back to front. This is done because
                             // when you add logs to the back, the end node is pushed out,
                             // which means you can't take an end iterator and unlock.
                             // This way is cleaner.
