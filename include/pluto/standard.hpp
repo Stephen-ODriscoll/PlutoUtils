@@ -222,6 +222,9 @@
 #if __has_include(<rcu>)
 #include <rcu>
 #endif
+#if __has_include(<simd>)
+#include <simd>
+#endif
 #if __has_include(<text_encoding>)
 #include <text_encoding>
 #endif
