@@ -465,6 +465,19 @@ namespace pluto
             return {};
         }
 
+        static inline std::size_t get_thread_id()
+        {
+#ifdef _WIN32
+            return static_cast<std::size_t>(GetCurrentThreadId());
+#elif defined(__APPLE__)
+            std::uint64_t appleThreadID{};
+            pthread_threadid_np(nullptr, &appleThreadID);
+            return static_cast<std::size_t>(appleThreadID);
+#else
+            return static_cast<std::size_t>(gettid());
+#endif
+        }
+
         static inline std::string get_file_name(const char* const filePath)
         {
             return pluto::filesystem::path{ filePath }.filename().string();
@@ -802,15 +815,7 @@ namespace pluto
         {
             const auto timestamp{ get_local_timestamp(timestamp_format().c_str()) };
 
-#ifdef _WIN32
-            const auto threadID{ static_cast<std::size_t>(GetCurrentThreadId()) };
-#elif defined(__APPLE__)
-            std::uint64_t appleThreadID{};
-            pthread_threadid_np(nullptr, &appleThreadID);
-            const auto threadID{ static_cast<std::size_t>(appleThreadID) };
-#else
-            const auto threadID{ static_cast<std::size_t>(gettid()) };
-#endif
+            const auto threadID{ get_thread_id() };
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
