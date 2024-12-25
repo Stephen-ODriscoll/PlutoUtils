@@ -99,7 +99,7 @@ namespace pluto
     }
 
     template<class IteratorT, class ElemT>
-    inline IteratorT find(
+    inline auto find(
         const IteratorT begin,
         const IteratorT end,
         const ElemT     elem)
@@ -108,7 +108,7 @@ namespace pluto
     }
 
     template<class IteratorT, class ElemT>
-    inline IteratorT find(
+    inline auto find(
         const IteratorT     begin,
         const std::size_t   size,
         const ElemT         elem)
@@ -117,7 +117,7 @@ namespace pluto
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    inline IteratorLeftT find(
+    inline auto find(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
         const IteratorRightT    beginR,
@@ -128,7 +128,7 @@ namespace pluto
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    inline IteratorLeftT find(
+    inline auto find(
         const IteratorLeftT     beginL,
         const std::size_t       sizeL,
         const IteratorRightT    beginR,
@@ -139,7 +139,7 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT find_if(
+    inline auto find_if(
         const IteratorT begin,
         const IteratorT end,
         PredicateT      predicate)
@@ -148,7 +148,7 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT find_if(
+    inline auto find_if(
         const IteratorT     begin,
         const std::size_t   size,
         PredicateT          predicate)
@@ -157,7 +157,7 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT find_if_not(
+    inline auto find_if_not(
         const IteratorT begin,
         const IteratorT end,
         PredicateT      predicate)
@@ -166,7 +166,7 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    inline IteratorT find_if_not(
+    inline auto find_if_not(
         const IteratorT     begin,
         const std::size_t   size,
         PredicateT          predicate)

@@ -314,7 +314,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto equals(
+    inline bool equals(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -323,7 +323,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto equals(
+    inline bool equals(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -334,7 +334,7 @@ namespace pluto
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
-    inline auto equals(
+    inline bool equals(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -344,7 +344,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto equals(
+    inline bool equals(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -353,7 +353,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto equals(
+    inline bool equals(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -427,7 +427,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto starts_with(
+    inline bool starts_with(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -436,7 +436,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto starts_with(
+    inline bool starts_with(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -447,7 +447,7 @@ namespace pluto
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
-    inline auto starts_with(
+    inline bool starts_with(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -457,7 +457,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto starts_with(
+    inline bool starts_with(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -466,7 +466,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto starts_with(
+    inline bool starts_with(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -540,7 +540,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto ends_with(
+    inline bool ends_with(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -549,7 +549,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto ends_with(
+    inline bool ends_with(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -560,7 +560,7 @@ namespace pluto
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     template<class PredicateT = pluto::is_equal>
-    inline auto ends_with(
+    inline bool ends_with(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -570,7 +570,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto ends_with(
+    inline bool ends_with(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -579,7 +579,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto ends_with(
+    inline bool ends_with(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -711,7 +711,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline const ElemT* const ifind(
+    inline auto ifind(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
