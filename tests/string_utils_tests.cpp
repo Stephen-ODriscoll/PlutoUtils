@@ -113,7 +113,7 @@
 #define TEST_ALL_ELEM_ARRAYS_1(check, function, x) \
     do \
     { \
-        const auto size{ strlen(x) }; \
+        const auto size{ std::strlen(x) }; \
         \
         check(function(x, size)); \
         check(function(L##x, size)); \
@@ -164,7 +164,7 @@
 #define TEST_ALL_ELEM_ARRAYS_2(check, function, x, y) \
     do \
     { \
-        const auto size{ strlen(x) }; \
+        const auto size{ std::strlen(x) }; \
         \
         auto charArray{ new char[size + 1] }; \
         memcpy(charArray, x, ((size + 1) * sizeof(char))); \
@@ -211,8 +211,8 @@
 #define TEST_ALL_ELEM_ARRAYS_3(check, function, x, y) \
     do \
     { \
-        const auto xSize{ strlen(x) }; \
-        const auto ySize{ strlen(y) }; \
+        const auto xSize{ std::strlen(x) }; \
+        const auto ySize{ std::strlen(y) }; \
         \
         check(function(x, xSize, y, ySize)); \
         check(function(L##x, xSize, L##y, ySize)); \
@@ -254,8 +254,8 @@
 #define TEST_ALL_ELEM_ARRAYS_4(check, function, x, y, z) \
     do \
     { \
-        const auto xSize{ strlen(x) }; \
-        const auto ySize{ strlen(y) }; \
+        const auto xSize{ std::strlen(x) }; \
+        const auto ySize{ std::strlen(y) }; \
         \
         const auto str{ x }; \
         check(function(str, xSize, y, ySize), str + z); \
@@ -834,7 +834,7 @@ TEST_F(string_utils_tests, test_to_narrow_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
-    const auto size     { wcslen(pWChar) };
+    const auto size     { std::wcslen(pWChar) };
 
     ASSERT_EQ(pluto::to_narrow(pWChar, size), std::string(pChar));
 }
@@ -850,7 +850,7 @@ TEST_F(string_utils_tests, test_to_narrow_use_wstring)
 TEST_F(string_utils_tests, test_to_narrow_use_char_array)
 {
     const auto pChar{ "abcdef" };
-    const auto size { strlen(pChar) };
+    const auto size { std::strlen(pChar) };
 
     ASSERT_EQ(pluto::to_narrow(pChar, size), std::string(pChar));
 }
@@ -880,7 +880,7 @@ TEST_F(string_utils_tests, test_to_wide_use_char_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
-    const auto size     { strlen(pChar) };
+    const auto size     { std::strlen(pChar) };
 
     ASSERT_EQ(pluto::to_wide(pChar, size), std::wstring(pWChar));
 }
@@ -896,7 +896,7 @@ TEST_F(string_utils_tests, test_to_wide_use_string)
 TEST_F(string_utils_tests, test_to_wide_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
-    const auto size     { wcslen(pWChar) };
+    const auto size     { std::wcslen(pWChar) };
 
     ASSERT_EQ(pluto::to_wide(pWChar, size), std::wstring(pWChar));
 }
@@ -939,7 +939,7 @@ TEST_F(string_utils_tests, test_narrow_to_other_use_string)
 TEST_F(string_utils_tests, test_narrow_to_other_use_char_array)
 {
     const auto pChar{ "1" };
-    const auto size { strlen(pChar) };
+    const auto size { std::strlen(pChar) };
 
     ASSERT_EQ(pluto::narrow_to<int>(pChar, size),                   1);
     ASSERT_EQ(pluto::narrow_to<long>(pChar, size),                  1l);
@@ -968,7 +968,7 @@ TEST_F(string_utils_tests, test_wide_to_other_use_wstring)
 TEST_F(string_utils_tests, test_wide_to_other_use_wchar_array)
 {
     const auto pWChar   { L"1" };
-    const auto size     { wcslen(pWChar) };
+    const auto size     { std::wcslen(pWChar) };
 
     ASSERT_EQ(pluto::wide_to<int>(pWChar, size),                1);
     ASSERT_EQ(pluto::wide_to<long>(pWChar, size),               1l);
