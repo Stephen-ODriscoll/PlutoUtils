@@ -248,8 +248,8 @@ namespace pluto
         return str;
     }
 
-    template<class T>
-    inline std::string to_narrow(const T& value)
+    template<class ValueT>
+    inline std::string to_narrow(const ValueT& value)
     {
         std::ostringstream ss{};
         ss << value;
@@ -277,40 +277,40 @@ namespace pluto
         return wstr;
     }
 
-    template<class T>
-    inline std::wstring to_wide(const T& value)
+    template<class ValueT>
+    inline std::wstring to_wide(const ValueT& value)
     {
         std::wostringstream ss{};
         ss << value;
         return ss.str();
     }
 
-    template<class T>
-    inline T narrow_to(const std::string& str)
+    template<class ValueT>
+    inline ValueT narrow_to(const std::string& str)
     {
-        T value;
+        ValueT value;
         std::istringstream(str) >> value;
         return value;
     }
 
-    template<class T>
-    inline T narrow_to(const char* const pChar, const std::size_t size)
+    template<class ValueT>
+    inline ValueT narrow_to(const char* const pChar, const std::size_t size)
     {
-        return pluto::narrow_to<T>(std::string(pChar, size));
+        return pluto::narrow_to<ValueT>(std::string(pChar, size));
     }
 
-    template<class T>
-    inline T wide_to(const std::wstring& wstr)
+    template<class ValueT>
+    inline ValueT wide_to(const std::wstring& wstr)
     {
-        T value;
+        ValueT value;
         std::wistringstream(wstr) >> value;
         return value;
     }
 
-    template<class T>
-    inline T wide_to(const wchar_t* const pWChar, const std::size_t size)
+    template<class ValueT>
+    inline ValueT wide_to(const wchar_t* const pWChar, const std::size_t size)
     {
-        return pluto::wide_to<T>(std::wstring(pWChar, size));
+        return pluto::wide_to<ValueT>(std::wstring(pWChar, size));
     }
 
     template<class PredicateT = pluto::is_equal>

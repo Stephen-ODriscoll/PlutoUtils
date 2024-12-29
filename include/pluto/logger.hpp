@@ -317,8 +317,8 @@ namespace pluto
                 return *this;
             }
 
-            template<class T>
-            streamer& operator<<(const T& value)
+            template<class ValueT>
+            streamer& operator<<(const ValueT& value)
             {
                 m_stream << value;
                 return *this;
