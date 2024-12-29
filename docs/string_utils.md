@@ -117,11 +117,11 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 1. Takes iterators for left begin, left end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
 2. Takes a container and a join string. Returns a string created by appending all elements in the container with the join string between them.
 
-#### ltrim()
+#### lstrip()
 Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
 
-#### rtrim()
+#### rstrip()
 Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes new lines, tabs, spaces, etc.
 
-#### trim()
+#### strip()
 Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.

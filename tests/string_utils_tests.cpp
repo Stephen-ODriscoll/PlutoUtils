@@ -1854,44 +1854,44 @@ TEST_F(string_utils_tests, test_replace_any_of_use_strings)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "ab", "abbabdabfabbabdabf");
 }
 
-TEST_F(string_utils_tests, test_ltrim_use_strings)
+TEST_F(string_utils_tests, test_lstrip_use_strings)
 {
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, "a", "a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, "A", "A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, "\t\n\v\f\r", "");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "a", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "A", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\r", "");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, " a ", "a ");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, " A ", "A ");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, " a ", "a ");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, " A ", "A ");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\ra\t\n\v\f\r", "a\t\n\v\f\r");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, " a b c ", "a b c ");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::ltrim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, " a b c ", "a b c ");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
-TEST_F(string_utils_tests, test_rtrim_use_strings)
+TEST_F(string_utils_tests, test_rstrip_use_strings)
 {
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, "a", "a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, "A", "A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, "\t\n\v\f\r", "");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "a", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "A", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\r", "");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, " a ", " a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, " A ", " A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, " a ", " a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, " A ", " A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\ra\t\n\v\f\r", "\t\n\v\f\ra");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, " a b c ", " a b c");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rtrim, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, " a b c ", " a b c");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
-TEST_F(string_utils_tests, test_trim_use_strings)
+TEST_F(string_utils_tests, test_strip_use_strings)
 {
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, "a", "a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, "A", "A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, "\t\n\v\f\r", "");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "a", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "A", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\r", "");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, " a ", "a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, " A ", "A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, "\t\n\v\f\ra\t\n\v\f\r", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, " a ", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, " A ", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra\t\n\v\f\r", "a");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, " a b c ", "a b c");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::trim, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, " a b c ", "a b c");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }

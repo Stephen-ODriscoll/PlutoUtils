@@ -1340,7 +1340,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void ltrim(
+    inline void lstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
@@ -1356,7 +1356,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void rtrim(
+    inline void rstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
@@ -1376,11 +1376,11 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void trim(
+    inline void strip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::ltrim(string, locale);
-        pluto::rtrim(string, locale);
+        pluto::lstrip(string, locale);
+        pluto::rstrip(string, locale);
     }
 }
