@@ -674,94 +674,94 @@ protected:
     ~string_utils_tests() {}
 };
 
-TEST_F(string_utils_tests, test_to_lower_use_elems)
+TEST_F(string_utils_tests, test_lower_use_elems)
 {
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, ' ', ' ');
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, 'a', 'a');
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_lower, 'A', 'a');
-    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_lower, 'a', 'A');
-    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_lower, 'A', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::lower, ' ', ' ');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::lower, 'a', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::lower, 'A', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::lower, 'a', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::lower, 'A', 'A');
 }
 
-TEST_F(string_utils_tests, test_to_lower_use_elem_arrays)
+TEST_F(string_utils_tests, test_lower_use_elem_arrays)
 {
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "a", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_lower, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_lower, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "A", "A");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "", "");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "abcdef", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_lower, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_lower, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "", "");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "ABCDEF", "ABCDEF");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_lower, "aBcDeF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_lower, "abcdef", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "aBcDeF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "abcdef", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_to_lower_use_strings)
+TEST_F(string_utils_tests, test_lower_use_strings)
 {
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, " ", " ");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "a", "a");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "A", "a");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_lower, "a", "A");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_lower, "A", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, " ", " ");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "a", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "A", "a");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "a", "A");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "A", "A");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "", "");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "abcdef", "abcdef");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "ABCDEF", "abcdef");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_lower, "abcdef", "ABCDEF");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_lower, "ABCDEF", "ABCDEF");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "", "");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "abcdef", "abcdef");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "ABCDEF", "abcdef");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "abcdef", "ABCDEF");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "ABCDEF", "ABCDEF");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_lower, "aBcDeF", "abcdef");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_lower, "abcdef", "aBcDeF");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "aBcDeF", "abcdef");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "abcdef", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_to_upper_use_elems)
+TEST_F(string_utils_tests, test_upper_use_elems)
 {
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, ' ', ' ');
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, 'A', 'A');
-    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::to_upper, 'a', 'A');
-    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_upper, 'A', 'a');
-    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::to_upper, 'a', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::upper, ' ', ' ');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::upper, 'A', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::upper, 'a', 'A');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::upper, 'A', 'a');
+    TEST_ALL_ELEMS_2(ASSERT_NE, pluto::upper, 'a', 'a');
 }
 
-TEST_F(string_utils_tests, test_to_upper_use_elem_arrays)
+TEST_F(string_utils_tests, test_upper_use_elem_arrays)
 {
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, " ", " ");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "A", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "a", "A");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_upper, "A", "a");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_upper, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "a", "a");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "", "");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "ABCDEF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "abcdef", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_upper, "ABCDEF", "abcdef");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_upper, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "", "");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "abcdef", "abcdef");
 
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::to_upper, "aBcDeF", "ABCDEF");
-    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::to_upper, "ABCDEF", "aBcDeF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "ABCDEF", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_to_upper_use_strings)
+TEST_F(string_utils_tests, test_upper_use_strings)
 {
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, " ", " ");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "A", "A");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "a", "A");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_upper, "A", "a");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_upper, "a", "a");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, " ", " ");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "A", "A");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "a", "A");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "A", "a");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "a", "a");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "", "");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "ABCDEF", "ABCDEF");
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "abcdef", "ABCDEF");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_upper, "ABCDEF", "abcdef");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_upper, "abcdef", "abcdef");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "", "");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "ABCDEF", "ABCDEF");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "abcdef", "ABCDEF");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "ABCDEF", "abcdef");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "abcdef", "abcdef");
 
-    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::to_upper, "aBcDeF", "ABCDEF");
-    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::to_upper, "ABCDEF", "aBcDeF");
+    TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "aBcDeF", "ABCDEF");
+    TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "ABCDEF", "aBcDeF");
 }
 
 TEST_F(string_utils_tests, test_is_lower_use_elems)

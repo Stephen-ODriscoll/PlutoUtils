@@ -15,12 +15,12 @@ Optional locales default to [pluto::get_default_locale](https://github.com/Steph
 #### PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 Define this macro as 1 to enable overload for unicode strings, or 0 to disable it. This applies to **std::u8string**, **std::u16string** and **std::u32string**. Defaults to 1 on Windows and 0 everywhere else.
 
-#### to_lower()
+#### lower()
 1. Takes an element and an optional **std::locale**. Returns the lowercase letter for the element.
 2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Transforms all elements in the array to lowercase.
 3. Takes a string and an optional **std::locale**. Transforms all elements in the string to lowercase.
 
-#### to_upper()
+#### upper()
 1. Takes an element and an optional **std::locale**. Returns the uppercase letter for the element.
 2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Transforms all elements in the array to uppercase.
 3. Takes a string and an optional **std::locale**. Transforms all elements in the string to uppercase.

@@ -28,7 +28,7 @@
 namespace pluto
 {
     template<class ElemT>
-    inline ElemT to_lower(
+    inline ElemT lower(
         const ElemT         elem,
         const std::locale&  locale = pluto::get_default_locale())
     {
@@ -36,7 +36,7 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline void to_lower(
+    inline void lower(
         ElemT* const        pElem,
         const std::size_t   size,
         const std::locale&  locale = pluto::get_default_locale())
@@ -45,15 +45,15 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void to_lower(
+    inline void lower(
         std::basic_string<ElemT, TraitsT, AllocT>&  str,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::to_lower(&str[0], str.size(), locale);
+        pluto::lower(&str[0], str.size(), locale);
     }
     
     template<class ElemT>
-    inline ElemT to_upper(
+    inline ElemT upper(
         const ElemT         elem,
         const std::locale&  locale = pluto::get_default_locale())
     {
@@ -61,7 +61,7 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline void to_upper(
+    inline void upper(
         ElemT* const        pElem,
         const std::size_t   size,
         const std::locale&  locale = pluto::get_default_locale())
@@ -70,11 +70,11 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void to_upper(
+    inline void upper(
         std::basic_string<ElemT, TraitsT, AllocT>&  str,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::to_upper(&str[0], str.size(), locale);
+        pluto::upper(&str[0], str.size(), locale);
     }
 
     template<class ElemT>
