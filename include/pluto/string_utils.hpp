@@ -1103,18 +1103,18 @@ namespace pluto
         const IteratorT                                     end,
         const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
     {
-        std::basic_string<ElemT, TraitsT, AllocT> str{};
+        std::basic_string<ElemT, TraitsT, AllocT> string{};
         for (auto it{ begin }; it != end; ++it)
         {
             if (it != begin)
             {
-                str.append(separator);
+                string.append(separator);
             }
 
-            str.append(*it);
+            string.append(*it);
         }
 
-        return str;
+        return string;
     }
 
     template<class IteratorT>
