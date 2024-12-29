@@ -35,25 +35,25 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Returns a **bool** representing whether all elements in the array are uppercase.
 3. Takes a string and an optional **std::locale**. Returns a **bool** representing whether all elements in the string are uppercase.
 
-#### to_narrow()
+#### str()
 1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns the corresponding **std::string**.
 2. Takes a **std::wstring**. Returns the corresponding **std::string**.
 3. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created with the array.
 4. Takes a **std::string**. Returns a copy of that **std::string**.
 5. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument with a string stream.
 
-#### to_wide()
+#### wstr()
 1. Takes a pointer to the start of a **char** array and the array size. Returns the corresponding **std::wstring**.
 2. Takes a **std::string**. Returns the corresponding **std::wstring**.
 3. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created with the array.
 4. Takes a **std::wstring**. Returns a copy of that **std::wstring**.
 5. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument with a wide string stream.
 
-#### narrow_to()
+#### str_to()
 1. Requires a template argument that can be anything. Takes a **std::string**. Converts the string to the template argument type with a string stream. Returns the result of the conversion.
 2. Requires a template argument that can be anything. Takes a pointer to the start of a **char** array and the array size. Converts the string to the template argument type with a string stream. Returns the result of the conversion.
 
-#### wide_to()
+#### wstr_to()
 1. Requires a template argument that can be anything. Takes a **std::wstring**. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
 2. Requires a template argument that can be anything. Takes a pointer to the start of a **wchar_t** array and the array size. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
 

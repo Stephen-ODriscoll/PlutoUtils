@@ -830,154 +830,154 @@ TEST_F(string_utils_tests, test_is_upper_use_strings)
     TEST_ALL_STRINGS_1(ASSERT_FALSE, pluto::is_upper, "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_to_narrow_use_wchar_array)
+TEST_F(string_utils_tests, test_str_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
     const auto size     { std::wcslen(pWChar) };
 
-    ASSERT_EQ(pluto::to_narrow(pWChar, size), std::string(pChar));
+    ASSERT_EQ(pluto::str(pWChar, size), std::string(pChar));
 }
 
-TEST_F(string_utils_tests, test_to_narrow_use_wstring)
+TEST_F(string_utils_tests, test_str_use_wstring)
 {
     const std::wstring wstr { L"abcdef" };
     const std::string str   { "abcdef" };
 
-    ASSERT_EQ(pluto::to_narrow(wstr), str);
+    ASSERT_EQ(pluto::str(wstr), str);
 }
 
-TEST_F(string_utils_tests, test_to_narrow_use_char_array)
+TEST_F(string_utils_tests, test_str_use_char_array)
 {
     const auto pChar{ "abcdef" };
     const auto size { std::strlen(pChar) };
 
-    ASSERT_EQ(pluto::to_narrow(pChar, size), std::string(pChar));
+    ASSERT_EQ(pluto::str(pChar, size), std::string(pChar));
 }
 
-TEST_F(string_utils_tests, test_to_narrow_use_string)
+TEST_F(string_utils_tests, test_str_use_string)
 {
     const std::string str{ "abcdef" };
 
-    ASSERT_EQ(pluto::to_narrow(str), str);
+    ASSERT_EQ(pluto::str(str), str);
 }
 
-TEST_F(string_utils_tests, test_to_narrow_use_other)
+TEST_F(string_utils_tests, test_str_use_other)
 {
     const std::string str{ "1" };
 
-    ASSERT_EQ(pluto::to_narrow(1),      str);
-    ASSERT_EQ(pluto::to_narrow(1l),     str);
-    ASSERT_EQ(pluto::to_narrow(1ll),    str);
-    ASSERT_EQ(pluto::to_narrow(1u),     str);
-    ASSERT_EQ(pluto::to_narrow(1ul),    str);
-    ASSERT_EQ(pluto::to_narrow(1ull),   str);
-    ASSERT_EQ(pluto::to_narrow(1.0),    str);
-    ASSERT_EQ(pluto::to_narrow(1.0f),   str);
+    ASSERT_EQ(pluto::str(1),    str);
+    ASSERT_EQ(pluto::str(1l),   str);
+    ASSERT_EQ(pluto::str(1ll),  str);
+    ASSERT_EQ(pluto::str(1u),   str);
+    ASSERT_EQ(pluto::str(1ul),  str);
+    ASSERT_EQ(pluto::str(1ull), str);
+    ASSERT_EQ(pluto::str(1.0),  str);
+    ASSERT_EQ(pluto::str(1.0f), str);
 }
 
-TEST_F(string_utils_tests, test_to_wide_use_char_array)
+TEST_F(string_utils_tests, test_wstr_use_char_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
     const auto size     { std::strlen(pChar) };
 
-    ASSERT_EQ(pluto::to_wide(pChar, size), std::wstring(pWChar));
+    ASSERT_EQ(pluto::wstr(pChar, size), std::wstring(pWChar));
 }
 
-TEST_F(string_utils_tests, test_to_wide_use_string)
+TEST_F(string_utils_tests, test_wstr_use_string)
 {
     const std::wstring wstr { L"abcdef" };
     const std::string str   { "abcdef" };
 
-    ASSERT_EQ(pluto::to_wide(str), wstr);
+    ASSERT_EQ(pluto::wstr(str), wstr);
 }
 
-TEST_F(string_utils_tests, test_to_wide_use_wchar_array)
+TEST_F(string_utils_tests, test_wstr_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto size     { std::wcslen(pWChar) };
 
-    ASSERT_EQ(pluto::to_wide(pWChar, size), std::wstring(pWChar));
+    ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring(pWChar));
 }
 
-TEST_F(string_utils_tests, test_to_wide_use_wstring)
+TEST_F(string_utils_tests, test_wstr_use_wstring)
 {
     const std::wstring wstr{ L"abcdef" };
 
-    ASSERT_EQ(pluto::to_wide(wstr), wstr);
+    ASSERT_EQ(pluto::wstr(wstr), wstr);
 }
 
-TEST_F(string_utils_tests, test_to_wide_use_other)
+TEST_F(string_utils_tests, test_wstr_use_other)
 {
     const std::wstring wstr{ L"1" };
 
-    ASSERT_EQ(pluto::to_wide(1),    wstr);
-    ASSERT_EQ(pluto::to_wide(1l),   wstr);
-    ASSERT_EQ(pluto::to_wide(1ll),  wstr);
-    ASSERT_EQ(pluto::to_wide(1u),   wstr);
-    ASSERT_EQ(pluto::to_wide(1ul),  wstr);
-    ASSERT_EQ(pluto::to_wide(1ull), wstr);
-    ASSERT_EQ(pluto::to_wide(1.0),  wstr);
-    ASSERT_EQ(pluto::to_wide(1.0f), wstr);
+    ASSERT_EQ(pluto::wstr(1),       wstr);
+    ASSERT_EQ(pluto::wstr(1l),      wstr);
+    ASSERT_EQ(pluto::wstr(1ll),     wstr);
+    ASSERT_EQ(pluto::wstr(1u),      wstr);
+    ASSERT_EQ(pluto::wstr(1ul),     wstr);
+    ASSERT_EQ(pluto::wstr(1ull),    wstr);
+    ASSERT_EQ(pluto::wstr(1.0),     wstr);
+    ASSERT_EQ(pluto::wstr(1.0f),    wstr);
 }
 
-TEST_F(string_utils_tests, test_narrow_to_other_use_string)
+TEST_F(string_utils_tests, test_str_to_other_use_string)
 {
     const std::string str{ "1" };
 
-    ASSERT_EQ(pluto::narrow_to<int>(str),                   1);
-    ASSERT_EQ(pluto::narrow_to<long>(str),                  1l);
-    ASSERT_EQ(pluto::narrow_to<long long>(str),             1ll);
-    ASSERT_EQ(pluto::narrow_to<unsigned int>(str),          1u);
-    ASSERT_EQ(pluto::narrow_to<unsigned long>(str),         1ul);
-    ASSERT_EQ(pluto::narrow_to<unsigned long long>(str),    1ull);
-    ASSERT_EQ(pluto::narrow_to<double>(str),                1.0);
-    ASSERT_EQ(pluto::narrow_to<float>(str),                 1.0f);
+    ASSERT_EQ(pluto::str_to<int>(str),                  1);
+    ASSERT_EQ(pluto::str_to<long>(str),                 1l);
+    ASSERT_EQ(pluto::str_to<long long>(str),            1ll);
+    ASSERT_EQ(pluto::str_to<unsigned int>(str),         1u);
+    ASSERT_EQ(pluto::str_to<unsigned long>(str),        1ul);
+    ASSERT_EQ(pluto::str_to<unsigned long long>(str),   1ull);
+    ASSERT_EQ(pluto::str_to<double>(str),               1.0);
+    ASSERT_EQ(pluto::str_to<float>(str),                1.0f);
 }
 
-TEST_F(string_utils_tests, test_narrow_to_other_use_char_array)
+TEST_F(string_utils_tests, test_str_to_other_use_char_array)
 {
     const auto pChar{ "1" };
     const auto size { std::strlen(pChar) };
 
-    ASSERT_EQ(pluto::narrow_to<int>(pChar, size),                   1);
-    ASSERT_EQ(pluto::narrow_to<long>(pChar, size),                  1l);
-    ASSERT_EQ(pluto::narrow_to<long long>(pChar, size),             1ll);
-    ASSERT_EQ(pluto::narrow_to<unsigned int>(pChar, size),          1u);
-    ASSERT_EQ(pluto::narrow_to<unsigned long>(pChar, size),         1ul);
-    ASSERT_EQ(pluto::narrow_to<unsigned long long>(pChar, size),    1ull);
-    ASSERT_EQ(pluto::narrow_to<double>(pChar, size),                1.0);
-    ASSERT_EQ(pluto::narrow_to<float>(pChar, size),                 1.0f);
+    ASSERT_EQ(pluto::str_to<int>(pChar, size),                  1);
+    ASSERT_EQ(pluto::str_to<long>(pChar, size),                 1l);
+    ASSERT_EQ(pluto::str_to<long long>(pChar, size),            1ll);
+    ASSERT_EQ(pluto::str_to<unsigned int>(pChar, size),         1u);
+    ASSERT_EQ(pluto::str_to<unsigned long>(pChar, size),        1ul);
+    ASSERT_EQ(pluto::str_to<unsigned long long>(pChar, size),   1ull);
+    ASSERT_EQ(pluto::str_to<double>(pChar, size),               1.0);
+    ASSERT_EQ(pluto::str_to<float>(pChar, size),                1.0f);
 }
 
-TEST_F(string_utils_tests, test_wide_to_other_use_wstring)
+TEST_F(string_utils_tests, test_wstr_to_other_use_wstring)
 {
     const std::wstring wstr{ L"1" };
 
-    ASSERT_EQ(pluto::wide_to<int>(wstr),                1);
-    ASSERT_EQ(pluto::wide_to<long>(wstr),               1l);
-    ASSERT_EQ(pluto::wide_to<long long>(wstr),          1ll);
-    ASSERT_EQ(pluto::wide_to<unsigned int>(wstr),       1u);
-    ASSERT_EQ(pluto::wide_to<unsigned long>(wstr),      1ul);
-    ASSERT_EQ(pluto::wide_to<unsigned long long>(wstr), 1ull);
-    ASSERT_EQ(pluto::wide_to<double>(wstr),             1.0);
-    ASSERT_EQ(pluto::wide_to<float>(wstr),              1.0f);
+    ASSERT_EQ(pluto::wstr_to<int>(wstr),                1);
+    ASSERT_EQ(pluto::wstr_to<long>(wstr),               1l);
+    ASSERT_EQ(pluto::wstr_to<long long>(wstr),          1ll);
+    ASSERT_EQ(pluto::wstr_to<unsigned int>(wstr),       1u);
+    ASSERT_EQ(pluto::wstr_to<unsigned long>(wstr),      1ul);
+    ASSERT_EQ(pluto::wstr_to<unsigned long long>(wstr), 1ull);
+    ASSERT_EQ(pluto::wstr_to<double>(wstr),             1.0);
+    ASSERT_EQ(pluto::wstr_to<float>(wstr),              1.0f);
 }
 
-TEST_F(string_utils_tests, test_wide_to_other_use_wchar_array)
+TEST_F(string_utils_tests, test_wstr_to_other_use_wchar_array)
 {
     const auto pWChar   { L"1" };
     const auto size     { std::wcslen(pWChar) };
 
-    ASSERT_EQ(pluto::wide_to<int>(pWChar, size),                1);
-    ASSERT_EQ(pluto::wide_to<long>(pWChar, size),               1l);
-    ASSERT_EQ(pluto::wide_to<long long>(pWChar, size),          1ll);
-    ASSERT_EQ(pluto::wide_to<unsigned int>(pWChar, size),       1u);
-    ASSERT_EQ(pluto::wide_to<unsigned long>(pWChar, size),      1ul);
-    ASSERT_EQ(pluto::wide_to<unsigned long long>(pWChar, size), 1ull);
-    ASSERT_EQ(pluto::wide_to<double>(pWChar, size),             1.0);
-    ASSERT_EQ(pluto::wide_to<float>(pWChar, size),              1.0f);
+    ASSERT_EQ(pluto::wstr_to<int>(pWChar, size),                1);
+    ASSERT_EQ(pluto::wstr_to<long>(pWChar, size),               1l);
+    ASSERT_EQ(pluto::wstr_to<long long>(pWChar, size),          1ll);
+    ASSERT_EQ(pluto::wstr_to<unsigned int>(pWChar, size),       1u);
+    ASSERT_EQ(pluto::wstr_to<unsigned long>(pWChar, size),      1ul);
+    ASSERT_EQ(pluto::wstr_to<unsigned long long>(pWChar, size), 1ull);
+    ASSERT_EQ(pluto::wstr_to<double>(pWChar, size),             1.0);
+    ASSERT_EQ(pluto::wstr_to<float>(pWChar, size),              1.0f);
 }
 
 TEST_F(string_utils_tests, test_equals_use_strings)
