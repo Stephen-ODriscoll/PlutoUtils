@@ -1380,7 +1380,7 @@ namespace pluto
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::lstrip(string, locale);
         pluto::rstrip(string, locale);
+        pluto::lstrip(string, locale);
     }
 }
