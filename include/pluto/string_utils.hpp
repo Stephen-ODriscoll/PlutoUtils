@@ -46,10 +46,10 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void lower(
-        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::lower(&str[0], str.size(), locale);
+        pluto::lower(&string[0], string.size(), locale);
     }
     
     template<class ElemT>
@@ -71,10 +71,10 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void upper(
-        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::upper(&str[0], str.size(), locale);
+        pluto::upper(&string[0], string.size(), locale);
     }
 
     template<class ElemT>
@@ -107,10 +107,10 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline bool is_lower(
-        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::is_lower(&str[0], str.size(), locale);
+        return pluto::is_lower(&string[0], string.size(), locale);
     }
 
     inline bool is_lower(
@@ -121,34 +121,34 @@ namespace pluto
     }
 
     inline bool is_lower(
-        const std::wstring& str,
+        const std::wstring& wstr,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::is_lower<>(str, locale);
+        return pluto::is_lower<>(wstr, locale);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool is_lower(
-        const std::u8string&    str,
+        const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_lower<>(str, locale);
+        return pluto::is_lower<>(u8str, locale);
     }
 #endif
 
     inline bool is_lower(
-        const std::u16string&   str,
+        const std::u16string&   u16str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_lower<>(str, locale);
+        return pluto::is_lower<>(u16str, locale);
     }
 
     inline bool is_lower(
-        const std::u32string&   str,
+        const std::u32string&   u32str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_lower<>(str, locale);
+        return pluto::is_lower<>(u32str, locale);
     }
 #endif
 
@@ -182,10 +182,10 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline bool is_upper(
-        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
-        return pluto::is_upper(&str[0], str.size(), locale);
+        return pluto::is_upper(&string[0], string.size(), locale);
     }
 
     inline bool is_upper(
@@ -196,51 +196,51 @@ namespace pluto
     }
 
     inline bool is_upper(
-        const std::wstring& str,
+        const std::wstring& wstr,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::is_upper<>(str, locale);
+        return pluto::is_upper<>(wstr, locale);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline bool is_upper(
-        const std::u8string&    str,
+        const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_upper<>(str, locale);
+        return pluto::is_upper<>(u8str, locale);
     }
 #endif
 
     inline bool is_upper(
-        const std::u16string&   str,
+        const std::u16string&   u16str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_upper<>(str, locale);
+        return pluto::is_upper<>(u16str, locale);
     }
 
     inline bool is_upper(
-        const std::u32string&   str,
+        const std::u32string&   u32str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::is_upper<>(str, locale);
+        return pluto::is_upper<>(u32str, locale);
     }
 #endif
 
-    inline std::string to_narrow(const wchar_t* const str, const std::size_t size)
+    inline std::string to_narrow(const wchar_t* const pWChar, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
-        return converter.to_bytes(str, (str + size));
+        return converter.to_bytes(pWChar, (pWChar + size));
     }
 
-    inline std::string to_narrow(const std::wstring& str)
+    inline std::string to_narrow(const std::wstring& wstr)
     {
-        return pluto::to_narrow(&str[0], str.size());
+        return pluto::to_narrow(&wstr[0], wstr.size());
     }
 
-    inline std::string to_narrow(const char* const str, const std::size_t size)
+    inline std::string to_narrow(const char* const pChar, const std::size_t size)
     {
-        return std::string(str, size);
+        return std::string(pChar, size);
     }
 
     inline std::string to_narrow(const std::string& str)
@@ -256,10 +256,10 @@ namespace pluto
         return ss.str();
     }
 
-    inline std::wstring to_wide(const char* const str, const std::size_t size)
+    inline std::wstring to_wide(const char* const pChar, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
-        return converter.from_bytes(str, (str + size));
+        return converter.from_bytes(pChar, (pChar + size));
     }
 
     inline std::wstring to_wide(const std::string& str)
@@ -267,14 +267,14 @@ namespace pluto
         return pluto::to_wide(&str[0], str.size());
     }
 
-    inline std::wstring to_wide(const wchar_t* const str, const std::size_t size)
+    inline std::wstring to_wide(const wchar_t* const pWChar, const std::size_t size)
     {
-        return std::wstring(str, size);
+        return std::wstring(pWChar, size);
     }
 
-    inline std::wstring to_wide(const std::wstring& str)
+    inline std::wstring to_wide(const std::wstring& wstr)
     {
-        return str;
+        return wstr;
     }
 
     template<class T>
@@ -294,23 +294,23 @@ namespace pluto
     }
 
     template<class T>
-    inline T narrow_to(const char* const str, const std::size_t size)
+    inline T narrow_to(const char* const pChar, const std::size_t size)
     {
-        return pluto::narrow_to<T>(std::string(str, size));
+        return pluto::narrow_to<T>(std::string(pChar, size));
     }
 
     template<class T>
-    inline T wide_to(const std::wstring& str)
+    inline T wide_to(const std::wstring& wstr)
     {
         T value;
-        std::wistringstream(str) >> value;
+        std::wistringstream(wstr) >> value;
         return value;
     }
 
     template<class T>
-    inline T wide_to(const wchar_t* const str, const std::size_t size)
+    inline T wide_to(const wchar_t* const pWChar, const std::size_t size)
     {
-        return pluto::wide_to<T>(std::wstring(str, size));
+        return pluto::wide_to<T>(std::wstring(pWChar, size));
     }
 
     template<class PredicateT = pluto::is_equal>
@@ -898,20 +898,20 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
-        const std::basic_string<ElemT, TraitsT, AllocT>&    str,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
         std::size_t from{ 0 }, to;
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while (from < str.size())
+        while (from < string.size())
         {
-            while (facet.is(std::ctype_base::space, str[from]))
+            while (facet.is(std::ctype_base::space, string[from]))
             {
                 ++from;
 
-                if (!(from < str.size()))
+                if (!(from < string.size()))
                 {
                     goto done;
                 }
@@ -920,12 +920,12 @@ namespace pluto
             to = from;
             ++to;
 
-            while (to < str.size() && !facet.is(std::ctype_base::space, str[to]))
+            while (to < string.size() && !facet.is(std::ctype_base::space, string[to]))
             {
                 ++to;
             }
 
-            splits.emplace_back(str, from, (to - from));
+            splits.emplace_back(string, from, (to - from));
             from = to;
             ++from;
         }
@@ -942,62 +942,62 @@ namespace pluto
     }
 
     inline std::vector<std::wstring> split(
-        const std::wstring& str,
+        const std::wstring& wstr,
         const std::locale&  locale = pluto::get_default_locale())
     {
-        return pluto::split<>(str, locale);
+        return pluto::split<>(wstr, locale);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split(
-        const std::u8string&    str,
+        const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::split<>(str, locale);
+        return pluto::split<>(u8str, locale);
     }
 #endif
 
     inline std::vector<std::u16string> split(
-        const std::u16string&   str,
+        const std::u16string&   u16str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::split<>(str, locale);
+        return pluto::split<>(u16str, locale);
     }
 
     inline std::vector<std::u32string> split(
-        const std::u32string&   str,
+        const std::u32string&   u32str,
         const std::locale&      locale = pluto::get_default_locale())
     {
-        return pluto::split<>(str, locale);
+        return pluto::split<>(u32str, locale);
     }
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
-        const std::basic_string<ElemT, TraitsT, AllocT>& str,
+        const std::basic_string<ElemT, TraitsT, AllocT>& string,
         const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         if (separator.empty())
         {
-            splits.reserve(str.size());
+            splits.reserve(string.size());
 
-            for (std::size_t i{ 0 }; i < str.size(); ++i)
+            for (std::size_t i{ 0 }; i < string.size(); ++i)
             {
-                splits.emplace_back(str, i, 1);
+                splits.emplace_back(string, i, 1);
             }
         }
         else
         {
             std::size_t from{ 0 }, to;
-            while ((to = str.find(separator, from)) != str.npos)
+            while ((to = string.find(separator, from)) != string.npos)
             {
-                splits.emplace_back(str, from, (to - from));
+                splits.emplace_back(string, from, (to - from));
                 from = (to + separator.size());
             }
 
-            splits.emplace_back(str, from);
+            splits.emplace_back(string, from);
         }
 
         return splits;
@@ -1011,48 +1011,48 @@ namespace pluto
     }
 
     inline std::vector<std::wstring> split(
-        const std::wstring& str,
+        const std::wstring& wstr,
         const std::wstring& separator)
     {
-        return pluto::split<>(str, separator);
+        return pluto::split<>(wstr, separator);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split(
-        const std::u8string& str,
+        const std::u8string& u8str,
         const std::u8string& separator)
     {
-        return pluto::split<>(str, separator);
+        return pluto::split<>(u8str, separator);
     }
 #endif
 
     inline std::vector<std::u16string> split(
-        const std::u16string& str,
+        const std::u16string& u16str,
         const std::u16string& separator)
     {
-        return pluto::split<>(str, separator);
+        return pluto::split<>(u16str, separator);
     }
 
     inline std::vector<std::u32string> split(
-        const std::u32string& str,
+        const std::u32string& u32str,
         const std::u32string& separator)
     {
-        return pluto::split<>(str, separator);
+        return pluto::split<>(u32str, separator);
     }
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
-        const std::basic_string<ElemT, TraitsT, AllocT>& str,
+        const std::basic_string<ElemT, TraitsT, AllocT>& string,
         const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
         std::size_t from, to{ 0 };
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while ((from = str.find_first_not_of(separator, to)) != str.npos)
+        while ((from = string.find_first_not_of(separator, to)) != string.npos)
         {
-            to = str.find_first_of(separator, from);
-            splits.emplace_back(str, from, (to - from));
+            to = string.find_first_of(separator, from);
+            splits.emplace_back(string, from, (to - from));
         }
 
         return splits;
@@ -1066,34 +1066,34 @@ namespace pluto
     }
 
     inline std::vector<std::wstring> split_any_of(
-        const std::wstring& str,
+        const std::wstring& wstr,
         const std::wstring& separator)
     {
-        return pluto::split_any_of<>(str, separator);
+        return pluto::split_any_of<>(wstr, separator);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline std::vector<std::u8string> split_any_of(
-        const std::u8string& str,
+        const std::u8string& u8str,
         const std::u8string& separator)
     {
-        return pluto::split_any_of<>(str, separator);
+        return pluto::split_any_of<>(u8str, separator);
     }
 #endif
 
     inline std::vector<std::u16string> split_any_of(
-        const std::u16string& str,
+        const std::u16string& u16str,
         const std::u16string& separator)
     {
-        return pluto::split_any_of<>(str, separator);
+        return pluto::split_any_of<>(u16str, separator);
     }
 
     inline std::vector<std::u32string> split_any_of(
-        const std::u32string& str,
+        const std::u32string& u32str,
         const std::u32string& separator)
     {
-        return pluto::split_any_of<>(str, separator);
+        return pluto::split_any_of<>(u32str, separator);
     }
 #endif
 
@@ -1220,14 +1220,14 @@ namespace pluto
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void replace(
-        std::basic_string<ElemT, TraitsT, AllocT>&          str,
+        std::basic_string<ElemT, TraitsT, AllocT>&          string,
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
     {
         std::size_t from{ 0 };
-        while ((from = str.find(find, from)) != str.npos)
+        while ((from = string.find(find, from)) != string.npos)
         {
-            str.replace(from, find.size(), replace);
+            string.replace(from, find.size(), replace);
             from += replace.size();
 
             if (find.empty())
@@ -1246,51 +1246,51 @@ namespace pluto
     }
 
     inline void replace(
-        std::wstring&       str,
+        std::wstring&       wstr,
         const std::wstring& find,
         const std::wstring& replace)
     {
-        pluto::replace<>(str, find, replace);
+        pluto::replace<>(wstr, find, replace);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline void replace(
-        std::u8string&          str,
+        std::u8string&          u8str,
         const std::u8string&    find,
         const std::u8string&    replace)
     {
-        pluto::replace<>(str, find, replace);
+        pluto::replace<>(u8str, find, replace);
     }
 #endif
 
     inline void replace(
-        std::u16string&         str,
+        std::u16string&         u16str,
         const std::u16string&   find,
         const std::u16string&   replace)
     {
-        pluto::replace<>(str, find, replace);
+        pluto::replace<>(u16str, find, replace);
     }
 
     inline void replace(
-        std::u32string&         str,
+        std::u32string&         u32str,
         const std::u32string&   find,
         const std::u32string&   replace)
     {
-        pluto::replace<>(str, find, replace);
+        pluto::replace<>(u32str, find, replace);
     }
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void replace_any_of(
-        std::basic_string<ElemT, TraitsT, AllocT>&          str,
+        std::basic_string<ElemT, TraitsT, AllocT>&          string,
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
     {
         std::size_t from{ 0 };
-        while ((from = str.find_first_of(find, from)) != str.npos)
+        while ((from = string.find_first_of(find, from)) != string.npos)
         {
-            str.replace(from, 1, replace);
+            string.replace(from, 1, replace);
             from += replace.size();
         }
     }
@@ -1304,83 +1304,83 @@ namespace pluto
     }
 
     inline void replace_any_of(
-        std::wstring&       str,
+        std::wstring&       wstr,
         const std::wstring& find,
         const std::wstring& replace)
     {
-        pluto::replace_any_of<>(str, find, replace);
+        pluto::replace_any_of<>(wstr, find, replace);
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
 #if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
     inline void replace_any_of(
-        std::u8string&          str,
+        std::u8string&          u8str,
         const std::u8string&    find,
         const std::u8string&    replace)
     {
-        pluto::replace_any_of<>(str, find, replace);
+        pluto::replace_any_of<>(u8str, find, replace);
     }
 #endif
 
     inline void replace_any_of(
-        std::u16string&         str,
+        std::u16string&         u16str,
         const std::u16string&   find,
         const std::u16string&   replace)
     {
-        pluto::replace_any_of<>(str, find, replace);
+        pluto::replace_any_of<>(u16str, find, replace);
     }
 
     inline void replace_any_of(
-        std::u32string&         str,
+        std::u32string&         u32str,
         const std::u32string&   find,
         const std::u32string&   replace)
     {
-        pluto::replace_any_of<>(str, find, replace);
+        pluto::replace_any_of<>(u32str, find, replace);
     }
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void ltrim(
-        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
         std::size_t from{ 0 };
-        while (from < str.size() && facet.is(std::ctype_base::space, str[from]))
+        while (from < string.size() && facet.is(std::ctype_base::space, string[from]))
         {
             ++from;
         }
 
-        str.erase(0, from);
+        string.erase(0, from);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void rtrim(
-        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
-        std::size_t to{ str.size() };
+        std::size_t to{ string.size() };
         while (0 < to)
         {
-            if (!facet.is(std::ctype_base::space, str[--to]))
+            if (!facet.is(std::ctype_base::space, string[--to]))
             {
                 ++to;
                 break;
             }
         }
 
-        str.erase(to);
+        string.erase(to);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void trim(
-        std::basic_string<ElemT, TraitsT, AllocT>&  str,
+        std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::get_default_locale())
     {
-        pluto::ltrim(str, locale);
-        pluto::rtrim(str, locale);
+        pluto::ltrim(string, locale);
+        pluto::rtrim(string, locale);
     }
 }
