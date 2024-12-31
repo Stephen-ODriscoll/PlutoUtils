@@ -1765,6 +1765,10 @@ TEST_F(string_utils_tests, test_split_any_of_use_strings)
 
 TEST_F(string_utils_tests, test_join_iterators_use_strings)
 {
+    std::vector<std::string> container{ "a", "b", "c", "d", "e", "f" };
+
+    ASSERT_EQ(pluto::join(std::begin(container), std::end(container)), std::string("abcdef"));
+
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
 
@@ -1784,6 +1788,10 @@ TEST_F(string_utils_tests, test_join_iterators_use_strings)
 
 TEST_F(string_utils_tests, test_join_container_use_strings)
 {
+    std::vector<std::string> container{ "a", "b", "c", "d", "e", "f" };
+
+    ASSERT_EQ(pluto::join(container), std::string("abcdef"));
+
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
 

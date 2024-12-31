@@ -1121,7 +1121,7 @@ namespace pluto
     inline std::string join(
         const IteratorT     begin,
         const IteratorT     end,
-        const std::string&  separator)
+        const std::string&  separator = {})
     {
         return pluto::join<std::string::value_type>(begin, end, separator);
     }
@@ -1171,13 +1171,13 @@ namespace pluto
         const ContainerT&                                   container,
         const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
     {
-        return pluto::join(std::begin(container), std::end(container), separator);
+        return pluto::join<>(std::begin(container), std::end(container), separator);
     }
 
     template<class ContainerT>
     inline std::string join(
         const ContainerT&   container,
-        const std::string&  separator)
+        const std::string&  separator = {})
     {
         return pluto::join<std::string::value_type>(container, separator);
     }

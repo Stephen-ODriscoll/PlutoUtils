@@ -114,8 +114,10 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 - If a blank find string is given, then there will be no change to the modify string.
 
 #### join()
-1. Takes iterators for left begin, left end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
-2. Takes a container and a join string. Returns a string created by appending all elements in the container with the join string between them.
+1. Takes iterators for left begin, left end and an optional join string. Returns a string created by appending all elements from begin to end, with the join string between them.
+- If called with no join string, an empty std::string is used.
+2. Takes a container and an optional join string. Returns a string created by appending all elements in the container with the join string between them.
+- If called with no join string, an empty std::string is used.
 
 #### lstrip()
 Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
