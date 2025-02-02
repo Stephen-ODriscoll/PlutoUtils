@@ -30,7 +30,8 @@ add_executable(
     scope_exit_actions_tests.cpp
     standard_tests.cpp
     stopwatch_tests.cpp
-    string_utils_tests.cpp)
+    string_utils_tests.cpp
+    value_utils_tests.cpp)
 
 target_link_libraries(
     ${PROJECT_NAME}

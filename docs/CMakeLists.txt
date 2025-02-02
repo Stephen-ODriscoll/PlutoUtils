@@ -24,4 +24,5 @@ add_library(
     scope_exit_actions.md
     standard.md
     stopwatch.md
-    string_utils.md)
+    string_utils.md
+    value_utils.md)

@@ -23,4 +23,5 @@ add_library(
     pluto/scope_exit_actions.hpp
     pluto/standard.hpp
     pluto/stopwatch.hpp
-    pluto/string_utils.hpp)
+    pluto/string_utils.hpp
+    pluto/value_utils.hpp)
