@@ -87,4 +87,67 @@ namespace pluto
     {
         return pluto::contains(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
+
+    template<class ContainerT, class PredicateT = pluto::is_less>
+    inline ContainerT& sort(
+        ContainerT& container,
+        PredicateT  predicate = {})
+    {
+        pluto::sort(std::begin(container), std::end(container), predicate);
+        return container;
+    }
+
+    template<class ContainerT>
+    inline ContainerT& reverse(ContainerT& container)
+    {
+        pluto::reverse(std::begin(container), std::end(container));
+        return container;
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline ContainerT& filter(
+        ContainerT& container,
+        PredicateT  predicate)
+    {
+        const auto end{ std::end(container) };
+        container.erase(pluto::filter(std::begin(container), end, predicate), end);
+        return container;
+    }
+
+    template<class ContainerT, class FunctionT>
+    inline ContainerT& for_each(
+        ContainerT& container,
+        FunctionT   function)
+    {
+        pluto::for_each(std::begin(container), std::end(container), function);
+        return container;
+    }
+
+    template<class ContainerFromT, class ContainerToT, class FunctionT>
+    inline ContainerToT& map(
+        const ContainerFromT&   from,
+        ContainerToT&           to,
+        FunctionT               function)
+    {
+        pluto::map(std::begin(from), std::end(from), std::inserter(to, std::end(to)), function);
+        return to;
+    }
+
+    template<class ContainerToT, class ContainerFromT, class FunctionT>
+    inline ContainerToT map(
+        const ContainerFromT&   from,
+        FunctionT               function)
+    {
+        ContainerToT to{};
+        return pluto::map<>(from, to, function);
+    }
+
+    template<template<class...> class ContainerT, class... FromTs, class FunctionT>
+    inline auto map(
+        const ContainerT<FromTs...>&    from,
+        FunctionT                       function)
+    {
+        typedef decltype(function(*std::begin(from))) ToT;
+        return pluto::map<ContainerT<ToT>, ContainerT<FromTs...>, FunctionT>(from, function);
+    }
 }

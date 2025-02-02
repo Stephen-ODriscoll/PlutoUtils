@@ -223,4 +223,94 @@ namespace pluto
 
         return (pluto::find(beginL, endL, beginR, std::next(beginR, sizeR), predicate) != endL);
     }
+
+    template<class IteratorT, class PredicateT = pluto::is_less>
+    inline void sort(
+        const IteratorT begin,
+        const IteratorT end,
+        PredicateT      predicate = {})
+    {
+        std::sort(begin, end, predicate);
+    }
+
+    template<class IteratorT, class PredicateT = pluto::is_less>
+    inline void sort(
+        const IteratorT     begin,
+        const std::size_t   size,
+        PredicateT          predicate = {})
+    {
+        std::sort(begin, std::next(begin, size), predicate);
+    }
+
+    template<class IteratorT>
+    inline void reverse(
+        const IteratorT begin,
+        const IteratorT end)
+    {
+        std::reverse(begin, end);
+    }
+
+    template<class IteratorT>
+    inline void reverse(
+        const IteratorT     begin,
+        const std::size_t   size)
+    {
+        std::reverse(begin, std::next(begin, size));
+    }
+
+    template<class IteratorT, class PredicateT>
+    inline auto filter(
+        const IteratorT begin,
+        const IteratorT end,
+        PredicateT      predicate)
+    {
+        return std::remove_if(begin, end, [predicate](const auto& elem) { return !(predicate(elem)); });
+    }
+
+    template<class IteratorT, class PredicateT>
+    inline auto filter(
+        const IteratorT     begin,
+        const std::size_t   size,
+        PredicateT          predicate)
+    {
+        return pluto::filter(begin, std::next(begin, size), predicate);
+    }
+
+    template<class IteratorT, class FunctionT>
+    inline auto for_each(
+        const IteratorT begin,
+        const IteratorT end,
+        FunctionT       function)
+    {
+        return std::for_each(begin, end, function);
+    }
+
+    template<class IteratorT, class FunctionT>
+    inline auto for_each(
+        const IteratorT     begin,
+        const std::size_t   size,
+        FunctionT           function)
+    {
+        return std::for_each(begin, std::next(begin, size), function);
+    }
+
+    template<class IteratorFromT, class IteratorToT, class FunctionT>
+    inline auto map(
+        const IteratorFromT beginF,
+        const IteratorFromT endF,
+        const IteratorToT   beginT,
+        FunctionT           function)
+    {
+        return std::transform(beginF, endF, beginT, function);
+    }
+
+    template<class IteratorFromT, class IteratorToT, class FunctionT>
+    inline auto map(
+        const IteratorFromT beginF,
+        const std::size_t   sizeF,
+        const IteratorToT   beginT,
+        FunctionT           function)
+    {
+        return pluto::map(beginF, std::next(beginF, sizeF), beginT, function);
+    }
 }

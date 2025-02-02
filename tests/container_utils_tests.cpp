@@ -5,6 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
+#include <set>
+#include <vector>
+
 #include <gtest/gtest.h>
 
 #include <pluto/container_utils.hpp>
@@ -20,6 +23,7 @@ public:
     const std::vector<int> five             { 5 };
     const std::vector<int> oneToThree       { 1, 2, 3 };
     const std::vector<int> fourZeroOne      { 4, 0, 1 };
+    const std::vector<int> zeroZeroZero     { 0, 0, 0 };
     const std::vector<int> zeroToThree      { 0, 1, 2, 3 };
     const std::vector<int> oneToFour        { 1, 2, 3, 4 };
     const std::vector<int> zeroToFour       { 0, 1, 2, 3, 4 };
@@ -27,6 +31,12 @@ public:
     const std::vector<int> fiveToNine       { 5, 6, 7, 8, 9 };
     const std::vector<int> zeroToFourTwice  { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
     const std::vector<int> zeroToFourTwice2 { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
+
+    const std::vector<int> mappedVector     { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::vector<int> unmappedVector   { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::set<int> unmappedSet { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 protected:
     container_utils_tests() {}
@@ -240,4 +250,62 @@ TEST_F(container_utils_tests, test_contains_sequence_returns_true)
 TEST_F(container_utils_tests, test_contains_sequence_returns_false)
 {
     ASSERT_FALSE(pluto::contains_sequence(zeroToFourTwice, five));
+}
+
+TEST_F(container_utils_tests, test_sort)
+{
+    std::vector<int> sorted     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    std::vector<int> unsorted   { 5, 4, 6, 3, 7, 2, 8, 1, 9, 0 };
+
+    ASSERT_EQ(pluto::sort(unsorted), sorted);
+}
+
+TEST_F(container_utils_tests, test_reverse)
+{
+    std::vector<int> reversed   { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+    std::vector<int> unreversed { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    ASSERT_EQ(pluto::reverse(unreversed), reversed);
+}
+
+TEST_F(container_utils_tests, test_filter)
+{
+    std::vector<int> filtered   { 0, 2, 4, 6, 8 };
+    std::vector<int> unfiltered { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    ASSERT_EQ(pluto::filter(unfiltered, [](int x) { return ((x % 2) == 0); }), filtered);
+}
+
+TEST_F(container_utils_tests, test_for_each)
+{
+    std::vector<int> changed    { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    std::vector<int> unchanged  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    ASSERT_EQ(pluto::for_each(unchanged, [](int& x) { x *= 10; }), changed);
+}
+
+TEST_F(container_utils_tests, test_map_auto_container)
+{
+    ASSERT_EQ(pluto::map(unmappedVector, [](int x) { return x * 10; }), mappedVector);
+    ASSERT_EQ(pluto::map(unmappedSet, [](int x) { return x * 10; }), mappedSet);
+}
+
+TEST_F(container_utils_tests, test_map_template_container)
+{
+    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedVector, [](int x) { return x * 10; }), mappedVector);
+    ASSERT_EQ(pluto::map<std::set<int>>(unmappedSet, [](int x) { return x * 10; }), mappedSet);
+
+    ASSERT_EQ(pluto::map<std::set<int>>(unmappedVector, [](int x) { return x * 10; }), mappedSet);
+    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedSet, [](int x) { return x * 10; }), mappedVector);
+}
+
+TEST_F(container_utils_tests, test_map_with_container)
+{
+    std::vector<int> resultVector{};
+    pluto::map(unmappedVector, resultVector, [](int x) { return x * 10; });
+    ASSERT_EQ(resultVector, mappedVector);
+
+    std::set<int> resultSet{};
+    pluto::map(unmappedSet, resultSet, [](int x) { return x * 10; });
+    ASSERT_EQ(resultSet, mappedSet);
 }

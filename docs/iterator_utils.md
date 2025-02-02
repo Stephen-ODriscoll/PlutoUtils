@@ -58,3 +58,25 @@ Takes iterators for left begin, left end, right begin and an optional predicate.
 4. Takes an iterator for left begin, the size of left, an iterator for right begin, the size of right and an optional predicate. Looks for occurence of right in left.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
+
+#### sort()
+1. Takes iterators for begin, end and an optional predicate. Sorts elements.
+2. Takes an iterator for begin, a size and an optional predicate. Sorts elements.
+
+#### reverse()
+1. Takes iterators for begin and end. Reverses elements.
+2. Takes an iterator for begin and a size. Reverses elements.
+
+#### filter()
+1. Takes iterators for begin, end and a predicate. Removes all elements where the predicate returns **false**. Returns an iterator to the new end.
+2. Takes an iterator for begin, a size and a predicate. Removes all elements where the predicate returns **false**. Returns an iterator to the new end.
+
+#### for_each()
+1. Takes iterators for begin, end and a function. Calls the function on every element. Returns the same function.
+2. Takes an iterator for begin, a size and a function. Calls the function on every element. Returns the same function.
+
+#### map()
+1. Takes iterators for from begin, from end, to begin and a function. Calls the function on every element to map it. Returns the new end of to.
+    - To begin must have enough space allocated for all elements being stored, or use inserters.
+2. Takes an iterator for from begin, the size of from, an iterator for to begin and a function. Calls the function on every element to map it. Returns the new end of to.
+    - To begin must have enough space allocated for all elements being stored, or use inserters.

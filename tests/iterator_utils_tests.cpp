@@ -461,3 +461,135 @@ TEST_F(iterator_utils_tests, test_contains_sequence_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, five));
 }
+
+TEST_F(iterator_utils_tests, test_sort_use_end)
+{
+    std::vector<int> sorted     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    std::vector<int> unsorted   { 5, 4, 6, 3, 7, 2, 8, 1, 9, 0 };
+
+    pluto::sort(unsorted.begin(), unsorted.end());
+    ASSERT_EQ(unsorted, sorted);
+}
+
+TEST_F(iterator_utils_tests, test_sort_use_size)
+{
+    std::vector<int> sorted     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    std::vector<int> unsorted   { 5, 4, 6, 3, 7, 2, 8, 1, 9, 0 };
+
+    pluto::sort(unsorted.begin(), unsorted.size());
+    ASSERT_EQ(unsorted, sorted);
+}
+
+TEST_F(iterator_utils_tests, test_reverse_use_end)
+{
+    std::vector<int> reversed   { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+    std::vector<int> unreversed { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    pluto::reverse(unreversed.begin(), unreversed.end());
+    ASSERT_EQ(unreversed, reversed);
+}
+
+TEST_F(iterator_utils_tests, test_reverse_use_size)
+{
+    std::vector<int> reversed   { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+    std::vector<int> unreversed { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    pluto::reverse(unreversed.begin(), unreversed.size());
+    ASSERT_EQ(unreversed, reversed);
+}
+
+TEST_F(iterator_utils_tests, test_filter_use_end)
+{
+    std::vector<int> filtered   { 0, 2, 4, 6, 8 };
+    std::vector<int> unfiltered { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    auto end{ unfiltered.end() };
+    unfiltered.erase(pluto::filter(unfiltered.begin(), end, [](int x) { return ((x % 2) == 0); }), end);
+    ASSERT_EQ(unfiltered, filtered);
+}
+
+TEST_F(iterator_utils_tests, test_filter_use_size)
+{
+    std::vector<int> filtered   { 0, 2, 4, 6, 8 };
+    std::vector<int> unfiltered { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    auto end{ unfiltered.end() };
+    unfiltered.erase(pluto::filter(unfiltered.begin(), unfiltered.size(), [](int x) { return ((x % 2) == 0); }), end);
+    ASSERT_EQ(unfiltered, filtered);
+}
+
+TEST_F(iterator_utils_tests, test_for_each_use_end)
+{
+    std::vector<int> changed    { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    std::vector<int> unchanged  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    pluto::for_each(unchanged.begin(), unchanged.end(), [](int& x) { x *= 10; });
+    ASSERT_EQ(unchanged, changed);
+}
+
+TEST_F(iterator_utils_tests, test_for_each_use_size)
+{
+    std::vector<int> changed    { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    std::vector<int> unchanged  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    pluto::for_each(unchanged.begin(), unchanged.size(), [](int& x) { x *= 10; });
+    ASSERT_EQ(unchanged, changed);
+}
+
+TEST_F(iterator_utils_tests, test_map_use_end)
+{
+    const std::vector<int> mappedVector   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::vector<int> unmappedVector { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::set<int> unmappedSet { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    std::vector<int> resultVector{};
+    resultVector.resize(unmappedVector.size());
+    pluto::map(unmappedVector.begin(), unmappedVector.end(), resultVector.begin(), [](int x) { return x * 10; });
+    ASSERT_EQ(resultVector, mappedVector);
+
+    std::set<int> resultSet{};
+    auto inserter{ std::inserter(resultSet, resultSet.end()) };
+    pluto::map(unmappedSet.begin(), unmappedSet.end(), inserter, [](int x) { return x * 10; });
+    ASSERT_EQ(resultSet, mappedSet);
+
+    resultSet.clear();
+    inserter = std::inserter(resultSet, resultSet.end());
+    pluto::map(unmappedVector.begin(), unmappedVector.end(), inserter, [](int x) { return x * 10; });
+    ASSERT_EQ(resultSet, mappedSet);
+
+    resultVector.clear();
+    resultVector.resize(unmappedSet.size());
+    pluto::map(unmappedSet.begin(), unmappedSet.end(), resultVector.begin(), [](int x) { return x * 10; });
+    ASSERT_EQ(resultVector, mappedVector);
+}
+
+TEST_F(iterator_utils_tests, test_map_use_size)
+{
+    const std::vector<int> mappedVector   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::vector<int> unmappedVector { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+    const std::set<int> unmappedSet { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    std::vector<int> resultVector{};
+    resultVector.resize(unmappedVector.size());
+    pluto::map(unmappedVector.begin(), unmappedVector.size(), resultVector.begin(), [](int x) { return x * 10; });
+    ASSERT_EQ(resultVector, mappedVector);
+
+    std::set<int> resultSet{};
+    auto inserter{ std::inserter(resultSet, resultSet.end()) };
+    pluto::map(unmappedSet.begin(), unmappedSet.size(), inserter, [](int x) { return x * 10; });
+    ASSERT_EQ(resultSet, mappedSet);
+
+    resultSet.clear();
+    inserter = std::inserter(resultSet, resultSet.end());
+    pluto::map(unmappedVector.begin(), unmappedVector.size(), inserter, [](int x) { return x * 10; });
+    ASSERT_EQ(resultSet, mappedSet);
+
+    resultVector.clear();
+    resultVector.resize(unmappedSet.size());
+    pluto::map(unmappedSet.begin(), unmappedSet.size(), resultVector.begin(), [](int x) { return x * 10; });
+    ASSERT_EQ(resultVector, mappedVector);
+}
