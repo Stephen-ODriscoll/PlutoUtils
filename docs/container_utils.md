@@ -14,9 +14,9 @@ Takes containers for left, right and an optional predicate. Returns a **bool** r
 Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left ends with right.
 
 #### find_elem()
-Takes a container for left and an element. Looks for the element in left.
-- If found, an iterator for the location of the element in left is returned.
-- If not found, left end is returned.
+Takes a container and an element. Looks for the element.
+- If found, an iterator for the location of the element is returned.
+- If not found, an iterator for end is returned.
 
 #### find_sequence()
 Takes containers for left, right and an optional predicate. Looks for occurence of right in left.
@@ -24,17 +24,17 @@ Takes containers for left, right and an optional predicate. Looks for occurence 
 - If not found, left end is returned.
 
 #### find_if()
-Takes a container for left and a predicate. Looks for where the predicate returns **true** in left.
-- If found, an iterator for the location the predicate returned **true** in left is returned.
-- If not found, left end is returned.
+Takes a container and a predicate. Looks for where the predicate returns **true**.
+- If found, an iterator for the location the predicate returned **true** is returned.
+- If not found, an iterator for end is returned.
 
 #### find_if_not()
-Takes a container for left and a predicate. Looks for where the predicate returns **false** in left.
-- If found, an iterator for the location the predicate returned **false** in left is returned.
-- If not found, left end is returned.
+Takes a container and a predicate. Looks for where the predicate returns **false**.
+- If found, an iterator for the location the predicate returned **false** is returned.
+- If not found, an iterator for end is returned.
 
 #### contains_elem()
-Takes a container for left and an element. Looks for the element in left. Returns a **bool** representing whether the element exists in left.
+Takes a container and an element. Looks for the element. Returns a **bool** representing whether the element exists.
 
 #### contains_sequence()
 Takes containers for left, right and an optional predicate. Looks for occurence of right in left.

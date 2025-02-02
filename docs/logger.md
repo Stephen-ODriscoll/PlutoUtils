@@ -2,6 +2,8 @@
 [Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/main/README.md#documentation)
 
 ## logger.hpp
+This logger is tread safe.
+
 This logger enforces column based logging. This means no annoying misalignment of data when you're trying to match columns. I feel very strongly that this is how logging should be done, so this logger enforces it.
 
 This logger can be configured with macros or with setters. The only 2 options that are macro only are **PLUTO_LOGGER_HIDE_SOURCE_INFO** and **PLUTO_LOGGER_NO_SINGLETON**.

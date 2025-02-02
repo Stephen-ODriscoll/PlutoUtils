@@ -24,8 +24,8 @@ Takes a value. Returns the copy of this value using the copy constructor.
 #### pow()
 1. Takes **float**s for left and right. Returns a **float** for left to the power of right using **std::pow**.
 2. Takes **double**s for left and right. Returns a **double** for left to the power of right using **std::pow**.
-3. Takes **long double**s for left and right. Returns **long double** for left to the power of right using **std::pow**.
-4. Takes values for left and right. Converts left and right to **double**. Returns **double** for left to the power of right using **std::pow**.
+3. Takes **long double**s for left and right. Returns a **long double** for left to the power of right using **std::pow**.
+4. Takes values for left and right. Converts left and right to **double**. Returns a **double** for left to the power of right using **std::pow**.
 
 #### round()
 Takes a value. Returns this value rounded to the nearest whole number using **std::round**.

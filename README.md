@@ -21,9 +21,12 @@ Or any subset of:
 #include <pluto/standard.hpp>
 #include <pluto/stopwatch.hpp>
 #include <pluto/string_utils.hpp>
+#include <pluto/value_utils.hpp>
 ```
 
 *Note: standard.hpp includes the whole C++ standard. It is not included when you include pluto.hpp*
+
+This project also provides implementations of several Python built in functions. Including str(), split(), replace(), join(), lstrip(), rstrip(), strip(), bin(), hex(), oct(), filter(), map(), slice(), len(), all(), any(), sum(), min(), max(), abs(), pow() and round().
 
 ## Building Unit Tests
 The only dependencies required to build the unit tests are CMake and Google Test.
@@ -72,3 +75,5 @@ The only dependencies required to build the unit tests are CMake and Google Test
 [standard.hpp](./docs/standard.md)
 
 [string_utils.hpp](./docs/string_utils.md)
+
+[value_utils.hpp](./docs/value_utils.md)
