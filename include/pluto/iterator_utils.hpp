@@ -239,7 +239,7 @@ namespace pluto
         const std::size_t   size,
         PredicateT          predicate = {})
     {
-        std::sort(begin, std::next(begin, size), predicate);
+        pluto::sort(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT>
@@ -255,7 +255,7 @@ namespace pluto
         const IteratorT     begin,
         const std::size_t   size)
     {
-        std::reverse(begin, std::next(begin, size));
+        pluto::reverse(begin, std::next(begin, size));
     }
 
     template<class IteratorT, class PredicateT>
@@ -291,7 +291,7 @@ namespace pluto
         const std::size_t   size,
         FunctionT           function)
     {
-        return std::for_each(begin, std::next(begin, size), function);
+        return pluto::for_each(begin, std::next(begin, size), function);
     }
 
     template<class IteratorSourceT, class IteratorDestinationT, class FunctionT>
