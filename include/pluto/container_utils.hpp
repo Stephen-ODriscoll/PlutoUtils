@@ -150,4 +150,120 @@ namespace pluto
         typedef decltype(function(*std::begin(from))) ToT;
         return pluto::map<ContainerT<ToT>, ContainerT<FromTs...>, FunctionT>(from, function);
     }
+
+    template<class ContainerT>
+    inline ContainerT slice(
+        const ContainerT&   container,
+        long long           from,
+        long long           to)
+    {
+        const auto size{ static_cast<long long>(std::size(container)) };
+
+        if (from < 0)   { from += size; }
+        if (to < 0)     { to += size; }
+
+        if (from < 0)   { from = 0; }
+        if (size < to)  { to = size; }
+        if (to <= from) { return {}; }
+
+        auto fromIt { std::begin(container) };
+        auto toIt   { fromIt };
+
+        std::advance(fromIt, from);
+        std::advance(toIt, to);
+        return { fromIt, toIt };
+    }
+
+    template<class ContainerT>
+    inline ContainerT slice(
+        const ContainerT&   container,
+        const long long     to)
+    {
+        return pluto::slice(container, 0, to);
+    }
+
+    template<class ContainerT>
+    inline auto len(const ContainerT& container)
+    {
+        return std::size(container);
+    }
+
+    template<class ContainerT, class PredicateT = pluto::is_true>
+    inline bool all(
+        const ContainerT&   container,
+        PredicateT          predicate = {})
+    {
+        for (const auto& elem : container)
+        {
+            if (!predicate(elem))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    template<class ContainerT, class PredicateT = pluto::is_true>
+    inline bool any(
+        const ContainerT&   container,
+        PredicateT          predicate = {})
+    {
+        for (const auto& elem : container)
+        {
+            if (predicate(elem))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    template<class ContainerT, class ValueT>
+    inline std::size_t count(
+        const ContainerT&   container,
+        const ValueT&       value)
+    {
+        std::size_t result{ 0 };
+        for (const auto& elem : container)
+        {
+            if (elem == value)
+            {
+                ++result;
+            }
+        }
+
+        return result;
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline std::size_t count_if(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        std::size_t result{ 0 };
+        for (const auto& elem : container)
+        {
+            if (predicate(elem))
+            {
+                ++result;
+            }
+        }
+
+        return result;
+    }
+
+    template<class ContainerT, class ValueT = ContainerT::value_type>
+    inline ValueT sum(
+        const ContainerT&   container,
+        ValueT              value = {})
+    {
+        for (const auto& elem : container)
+        {
+            value += elem;
+        }
+
+        return value;
+    }
 }

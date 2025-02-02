@@ -309,3 +309,133 @@ TEST_F(container_utils_tests, test_map_with_container)
     pluto::map(unmappedSet, resultSet, [](int x) { return x * 10; });
     ASSERT_EQ(resultSet, mappedSet);
 }
+
+TEST_F(container_utils_tests, test_slice)
+{
+    const std::vector<int> unslicedVector   { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    const std::set<int> unslicedSet         { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    std::vector<int> resultVector{};
+    ASSERT_EQ(pluto::slice(unslicedVector, 0, 0), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 1, 0), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 1, 1), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -1, 0), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -1, -1), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -100, 0), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 10, 100), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 100, 100), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 100, -100), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -100, -100), resultVector);
+
+    resultVector = { 1, 2, 3, 4, 5 };
+    ASSERT_EQ(pluto::slice(unslicedVector, 1, 6), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, 1, -4), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -9, 6), resultVector);
+    ASSERT_EQ(pluto::slice(unslicedVector, -9, -4), resultVector);
+}
+
+TEST_F(container_utils_tests, test_len)
+{
+    int array[10]{};
+    ASSERT_EQ(pluto::len(array), 10);
+
+    std::vector<int> vector{};
+    for (std::size_t i{ 0 }; i < 100;)
+    {
+        vector.push_back(i);
+        ASSERT_EQ(pluto::len(vector), ++i);
+    }
+}
+
+TEST_F(container_utils_tests, test_all)
+{
+    ASSERT_TRUE(pluto::all(empty));
+    ASSERT_TRUE(pluto::all(one));
+    ASSERT_TRUE(pluto::all(three));
+    ASSERT_TRUE(pluto::all(four));
+    ASSERT_TRUE(pluto::all(five));
+    ASSERT_TRUE(pluto::all(oneToThree));
+    ASSERT_TRUE(pluto::all(oneToFour));
+    ASSERT_TRUE(pluto::all(fiveToNine));
+
+    ASSERT_FALSE(pluto::all(zero));
+    ASSERT_FALSE(pluto::all(fourZeroOne));
+    ASSERT_FALSE(pluto::all(zeroZeroZero));
+    ASSERT_FALSE(pluto::all(zeroToThree));
+    ASSERT_FALSE(pluto::all(zeroToFour));
+    ASSERT_FALSE(pluto::all(zeroToFourTwice));
+}
+
+TEST_F(container_utils_tests, test_any)
+{
+    ASSERT_TRUE(pluto::any(one));
+    ASSERT_TRUE(pluto::any(three));
+    ASSERT_TRUE(pluto::any(four));
+    ASSERT_TRUE(pluto::any(five));
+    ASSERT_TRUE(pluto::any(oneToThree));
+    ASSERT_TRUE(pluto::any(fourZeroOne));
+    ASSERT_TRUE(pluto::any(zeroToThree));
+    ASSERT_TRUE(pluto::any(oneToFour));
+    ASSERT_TRUE(pluto::any(zeroToFour));
+    ASSERT_TRUE(pluto::any(fiveToNine));
+    ASSERT_TRUE(pluto::any(zeroToFourTwice));
+
+    ASSERT_FALSE(pluto::any(empty));
+    ASSERT_FALSE(pluto::any(zero));
+    ASSERT_FALSE(pluto::any(zeroZeroZero));
+}
+
+TEST_F(container_utils_tests, test_count)
+{
+    ASSERT_EQ(pluto::count(empty, 0), 0);
+    ASSERT_EQ(pluto::count(zero, 0), 1);
+    ASSERT_EQ(pluto::count(one, 1), 1);
+    ASSERT_EQ(pluto::count(oneToThree, 1), 1);
+    ASSERT_EQ(pluto::count(fourZeroOne, 0), 1);
+    ASSERT_EQ(pluto::count(zeroZeroZero, 0), 3);
+    ASSERT_EQ(pluto::count(zeroToFour, 1), 1);
+    ASSERT_EQ(pluto::count(fiveToNine, 1), 0);
+    ASSERT_EQ(pluto::count(zeroToFourTwice, 1), 2);
+}
+
+TEST_F(container_utils_tests, test_count_if)
+{
+    ASSERT_EQ(pluto::count_if(empty, [](int x) { return (x == 0); }), 0);
+    ASSERT_EQ(pluto::count_if(zero, [](int x) { return (x == 0); }), 1);
+    ASSERT_EQ(pluto::count_if(one, [](int x) { return (x == 1); }), 1);
+    ASSERT_EQ(pluto::count_if(oneToThree, [](int x) { return (x == 1); }), 1);
+    ASSERT_EQ(pluto::count_if(fourZeroOne, [](int x) { return (x == 0); }), 1);
+    ASSERT_EQ(pluto::count_if(zeroZeroZero, [](int x) { return (x == 0); }), 3);
+    ASSERT_EQ(pluto::count_if(zeroToFour, [](int x) { return (x == 1); }), 1);
+    ASSERT_EQ(pluto::count_if(fiveToNine, [](int x) { return (x == 1); }), 0);
+    ASSERT_EQ(pluto::count_if(zeroToFourTwice, [](int x) { return (x == 1); }), 2);
+
+    ASSERT_EQ(pluto::count_if(zeroToFour, [](int x) { return ((x % 2) == 0); }), 3);
+    ASSERT_EQ(pluto::count_if(zeroToFourTwice, [](int x) { return ((x % 2) == 0); }), 6);
+}
+
+TEST_F(container_utils_tests, test_sum)
+{
+    ASSERT_EQ(pluto::sum(empty), 0);
+    ASSERT_EQ(pluto::sum(zero), 0);
+    ASSERT_EQ(pluto::sum(one), 1);
+    ASSERT_EQ(pluto::sum(three), 3);
+    ASSERT_EQ(pluto::sum(four), 4);
+    ASSERT_EQ(pluto::sum(five), 5);
+    ASSERT_EQ(pluto::sum(oneToThree), 6);
+    ASSERT_EQ(pluto::sum(fourZeroOne), 5);
+    ASSERT_EQ(pluto::sum(zeroZeroZero), 0);
+    ASSERT_EQ(pluto::sum(zeroToThree), 6);
+    ASSERT_EQ(pluto::sum(oneToFour), 10);
+    ASSERT_EQ(pluto::sum(zeroToFour), 10);
+    ASSERT_EQ(pluto::sum(fiveToNine), 35);
+    ASSERT_EQ(pluto::sum(zeroToFourTwice), 20);
+
+    ASSERT_EQ(pluto::sum(empty, 5), 5);
+    ASSERT_EQ(pluto::sum(five, 5), 10);
+    ASSERT_EQ(pluto::sum(oneToThree, 3), 9);
+    ASSERT_EQ(pluto::sum(fourZeroOne, 2), 7);
+    ASSERT_EQ(pluto::sum(fourZeroOne, 2), 7);
+    ASSERT_EQ(pluto::sum(zeroToFour, 1), 11);
+    ASSERT_EQ(pluto::sum(zeroToFourTwice, 0), 20);
+}
