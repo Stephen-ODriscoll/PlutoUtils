@@ -10,6 +10,15 @@ Secondly, the functions that compare case insensitive equality do an initial equ
 
 Optional locales default to [pluto::get_default_locale](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/locale.md#get_default_locale).
 
+### is_true
+#### operator()
+1. Takes a **bool**. Returns that **bool**.
+2. Takes a value. Returns a **bool** representing whether that value equates to **true**.
+
+### is_false
+#### operator()
+Takes a value. Returns a **bool** representing whether that value equates to **false**.
+
 ### is_equal
 Alias of **std::equal_to<>**.
 

@@ -90,6 +90,80 @@ protected:
     ~compare_tests() {}
 };
 
+TEST_F(compare_tests, test_is_true)
+{
+    ASSERT_TRUE(pluto::is_true()(1));
+    ASSERT_TRUE(pluto::is_true()(1l));
+    ASSERT_TRUE(pluto::is_true()(1ll));
+    ASSERT_TRUE(pluto::is_true()(1u));
+    ASSERT_TRUE(pluto::is_true()(1ul));
+    ASSERT_TRUE(pluto::is_true()(1ull));
+    ASSERT_TRUE(pluto::is_true()(1.0));
+    ASSERT_TRUE(pluto::is_true()(1.0f));
+
+    ASSERT_TRUE(pluto::is_true()(5));
+    ASSERT_TRUE(pluto::is_true()(5l));
+    ASSERT_TRUE(pluto::is_true()(5ll));
+    ASSERT_TRUE(pluto::is_true()(5u));
+    ASSERT_TRUE(pluto::is_true()(5ul));
+    ASSERT_TRUE(pluto::is_true()(5ull));
+    ASSERT_TRUE(pluto::is_true()(5.0));
+    ASSERT_TRUE(pluto::is_true()(5.0f));
+
+    int i{ 0 };
+    ASSERT_TRUE(pluto::is_true()(&i));
+    ASSERT_TRUE(pluto::is_true()(true));
+
+    ASSERT_FALSE(pluto::is_true()(0));
+    ASSERT_FALSE(pluto::is_true()(0l));
+    ASSERT_FALSE(pluto::is_true()(0ll));
+    ASSERT_FALSE(pluto::is_true()(0u));
+    ASSERT_FALSE(pluto::is_true()(0ul));
+    ASSERT_FALSE(pluto::is_true()(0ull));
+    ASSERT_FALSE(pluto::is_true()(0.0));
+    ASSERT_FALSE(pluto::is_true()(0.0f));
+
+    ASSERT_FALSE(pluto::is_true()(nullptr));
+    ASSERT_FALSE(pluto::is_true()(false));
+}
+
+TEST_F(compare_tests, test_is_false)
+{
+    ASSERT_FALSE(pluto::is_false()(1));
+    ASSERT_FALSE(pluto::is_false()(1l));
+    ASSERT_FALSE(pluto::is_false()(1ll));
+    ASSERT_FALSE(pluto::is_false()(1u));
+    ASSERT_FALSE(pluto::is_false()(1ul));
+    ASSERT_FALSE(pluto::is_false()(1ull));
+    ASSERT_FALSE(pluto::is_false()(1.0));
+    ASSERT_FALSE(pluto::is_false()(1.0f));
+
+    ASSERT_FALSE(pluto::is_false()(5));
+    ASSERT_FALSE(pluto::is_false()(5l));
+    ASSERT_FALSE(pluto::is_false()(5ll));
+    ASSERT_FALSE(pluto::is_false()(5u));
+    ASSERT_FALSE(pluto::is_false()(5ul));
+    ASSERT_FALSE(pluto::is_false()(5ull));
+    ASSERT_FALSE(pluto::is_false()(5.0));
+    ASSERT_FALSE(pluto::is_false()(5.0f));
+
+    int i{ 0 };
+    ASSERT_FALSE(pluto::is_false()(&i));
+    ASSERT_FALSE(pluto::is_false()(true));
+
+    ASSERT_TRUE(pluto::is_false()(0));
+    ASSERT_TRUE(pluto::is_false()(0l));
+    ASSERT_TRUE(pluto::is_false()(0ll));
+    ASSERT_TRUE(pluto::is_false()(0u));
+    ASSERT_TRUE(pluto::is_false()(0ul));
+    ASSERT_TRUE(pluto::is_false()(0ull));
+    ASSERT_TRUE(pluto::is_false()(0.0));
+    ASSERT_TRUE(pluto::is_false()(0.0f));
+
+    ASSERT_TRUE(pluto::is_false()(nullptr));
+    ASSERT_TRUE(pluto::is_false()(false));
+}
+
 TEST_F(compare_tests, test_is_equal)
 {
     TEST_ALL_ELEMS(ASSERT_TRUE,  pluto::is_equal(), ' ', ' ');

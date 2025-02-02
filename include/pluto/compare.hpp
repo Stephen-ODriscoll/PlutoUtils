@@ -13,6 +13,29 @@
 
 namespace pluto
 {
+    struct is_true
+    {
+        bool operator()(const bool value) const
+        {
+            return value;
+        }
+
+        template<class ValueT>
+        bool operator()(const ValueT& value) const
+        {
+            return !!(value);
+        }
+    };
+
+    struct is_false
+    {
+        template<class ValueT>
+        bool operator()(const ValueT& value) const
+        {
+            return !(value);
+        }
+    };
+
     typedef std::equal_to<>         is_equal;
     typedef std::not_equal_to<>     is_not_equal;
     typedef std::less<>             is_less;
