@@ -57,41 +57,50 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 1. Requires a template argument that can be anything. Takes a **std::wstring**. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
 2. Requires a template argument that can be anything. Takes a pointer to the start of a **wchar_t** array and the array size. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
 
+#### equals()
+Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left and right are equal using **std::equal**.
+
 #### iequals()
-1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left and right are equal, ignoring case.
-2. Takes a left string, a right string and an optional **std::locale**. Returns whether left and right are equal, ignoring case.
+1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left and right are equal using **std::equal**, ignoring case.
+2. Takes a left string, a right string and an optional **std::locale**. Returns whether left and right are equal using **std::equal**, ignoring case.
+
+#### starts_with()
+Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left starts with right using **std::equal**.
 
 #### istarts_with()
-1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left starts with right, ignoring case.
-2. Takes a left string, a right string and an optional **std::locale**. Returns whether left starts with right, ignoring case.
+1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left starts with right using **std::equal**, ignoring case.
+2. Takes a left string, a right string and an optional **std::locale**. Returns whether left starts with right using **std::equal**, ignoring case.
+
+#### ends_with()
+Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left ends with right using **std::equal**.
 
 #### iends_with()
-1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left ends with right, ignoring case.
-2. Takes a left string, a right string and an optional **std::locale**. Returns whether left ends with right, ignoring case.
+1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Returns whether left ends with right using **std::equal**, ignoring case.
+2. Takes a left string, a right string and an optional **std::locale**. Returns whether left ends with right using **std::equal**, ignoring case.
 
 #### find()
-Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left.
+Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::search**.
 - If found, an iterator for the start of right in left is returned.
 - If not found, left end is returned.
 
 #### ifind()
-1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left.
+1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::search**.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
-2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left.
+2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::search**.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
 #### contains()
-Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left.
+Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::search**.
 - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
 - If right does not exist in left, **false** is returned.
 
 #### icontains()
-1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left.
+1. Takes a pointer to the start of a left modifyable element array, the left array size, a pointer to the start of a right modifyable element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::search**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
-2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left.
+2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::search**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
 
@@ -115,9 +124,9 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 
 #### join()
 1. Takes iterators for left begin, left end and an optional join string. Returns a string created by appending all elements from begin to end, with the join string between them.
-- If called with no join string, an empty std::string is used.
+- If called with no join string, an empty **std::string** is used.
 2. Takes a container and an optional join string. Returns a string created by appending all elements in the container with the join string between them.
-- If called with no join string, an empty std::string is used.
+- If called with no join string, an empty **std::string** is used.
 
 #### lstrip()
 Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
