@@ -903,31 +903,31 @@ namespace pluto
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
-        std::size_t from{ 0 }, to;
+        std::size_t start{ 0 }, stop;
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while (from < string.size())
+        while (start < string.size())
         {
-            while (facet.is(std::ctype_base::space, string[from]))
+            while (facet.is(std::ctype_base::space, string[start]))
             {
-                ++from;
+                ++start;
 
-                if (!(from < string.size()))
+                if (!(start < string.size()))
                 {
                     goto done;
                 }
             }
 
-            to = from;
-            ++to;
+            stop = start;
+            ++stop;
 
-            while (to < string.size() && !facet.is(std::ctype_base::space, string[to]))
+            while (stop < string.size() && !facet.is(std::ctype_base::space, string[stop]))
             {
-                ++to;
+                ++stop;
             }
 
-            splits.emplace_back(string, from, (to - from));
-            from = to;
-            ++from;
+            splits.emplace_back(string, start, (stop - start));
+            start = stop;
+            ++start;
         }
 
     done:
@@ -990,14 +990,14 @@ namespace pluto
         }
         else
         {
-            std::size_t from{ 0 }, to;
-            while ((to = string.find(separator, from)) != string.npos)
+            std::size_t start{ 0 }, stop;
+            while ((stop = string.find(separator, start)) != string.npos)
             {
-                splits.emplace_back(string, from, (to - from));
-                from = (to + separator.size());
+                splits.emplace_back(string, start, (stop - start));
+                start = (stop + separator.size());
             }
 
-            splits.emplace_back(string, from);
+            splits.emplace_back(string, start);
         }
 
         return splits;
@@ -1047,12 +1047,12 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>& string,
         const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
-        std::size_t from, to{ 0 };
+        std::size_t start, stop{ 0 };
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
-        while ((from = string.find_first_not_of(separator, to)) != string.npos)
+        while ((start = string.find_first_not_of(separator, stop)) != string.npos)
         {
-            to = string.find_first_of(separator, from);
-            splits.emplace_back(string, from, (to - from));
+            stop = string.find_first_of(separator, start);
+            splits.emplace_back(string, start, (stop - start));
         }
 
         return splits;
@@ -1224,15 +1224,15 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
     {
-        std::size_t from{ 0 };
-        while ((from = string.find(find, from)) != string.npos)
+        std::size_t start{ 0 };
+        while ((start = string.find(find, start)) != string.npos)
         {
-            string.replace(from, find.size(), replace);
-            from += replace.size();
+            string.replace(start, find.size(), replace);
+            start += replace.size();
 
             if (find.empty())
             {
-                ++from;
+                ++start;
             }
         }
     }
@@ -1287,11 +1287,11 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
     {
-        std::size_t from{ 0 };
-        while ((from = string.find_first_of(find, from)) != string.npos)
+        std::size_t start{ 0 };
+        while ((start = string.find_first_of(find, start)) != string.npos)
         {
-            string.replace(from, 1, replace);
-            from += replace.size();
+            string.replace(start, 1, replace);
+            start += replace.size();
         }
     }
 
@@ -1346,13 +1346,13 @@ namespace pluto
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
-        std::size_t from{ 0 };
-        while (from < string.size() && facet.is(std::ctype_base::space, string[from]))
+        std::size_t start{ 0 };
+        while (start < string.size() && facet.is(std::ctype_base::space, string[start]))
         {
-            ++from;
+            ++start;
         }
 
-        string.erase(0, from);
+        string.erase(0, start);
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -1362,17 +1362,17 @@ namespace pluto
     {
         const auto& facet{ pluto::get_facet<ElemT>(locale) };
 
-        std::size_t to{ string.size() };
-        while (0 < to)
+        std::size_t stop{ string.size() };
+        while (0 < stop)
         {
-            if (!facet.is(std::ctype_base::space, string[--to]))
+            if (!facet.is(std::ctype_base::space, string[--stop]))
             {
-                ++to;
+                ++stop;
                 break;
             }
         }
 
-        string.erase(to);
+        string.erase(stop);
     }
 
     template<class ElemT, class TraitsT, class AllocT>

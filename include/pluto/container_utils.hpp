@@ -125,63 +125,63 @@ namespace pluto
         return container;
     }
 
-    template<class ContainerFromT, class ContainerToT, class FunctionT>
-    inline ContainerToT& map(
-        const ContainerFromT&   from,
-        ContainerToT&           to,
+    template<class ContainerSourceT, class ContainerDestinationT, class FunctionT>
+    inline ContainerDestinationT& map(
+        const ContainerSourceT& source,
+        ContainerDestinationT&  destination,
         FunctionT               function)
     {
-        pluto::map(std::begin(from), std::end(from), std::inserter(to, std::end(to)), function);
-        return to;
+        pluto::map(std::begin(source), std::end(source), std::inserter(destination, std::end(destination)), function);
+        return destination;
     }
 
-    template<class ContainerToT, class ContainerFromT, class FunctionT>
-    inline ContainerToT map(
-        const ContainerFromT&   from,
+    template<class ContainerDestinationT, class ContainerSourceT, class FunctionT>
+    inline ContainerDestinationT map(
+        const ContainerSourceT& source,
         FunctionT               function)
     {
-        ContainerToT to{};
-        return pluto::map<>(from, to, function);
+        ContainerDestinationT destination{};
+        return pluto::map<>(source, destination, function);
     }
 
-    template<template<class...> class ContainerT, class... FromTs, class FunctionT>
+    template<template<class...> class ContainerT, class... SourceTs, class FunctionT>
     inline auto map(
-        const ContainerT<FromTs...>&    from,
+        const ContainerT<SourceTs...>&  source,
         FunctionT                       function)
     {
-        typedef decltype(function(*std::begin(from))) ToT;
-        return pluto::map<ContainerT<ToT>, ContainerT<FromTs...>, FunctionT>(from, function);
+        typedef decltype(function(*std::begin(source))) DestinationT;
+        return pluto::map<ContainerT<DestinationT>, ContainerT<SourceTs...>, FunctionT>(source, function);
     }
 
     template<class ContainerT>
     inline ContainerT slice(
         const ContainerT&   container,
-        long long           from,
-        long long           to)
+        long long           start,
+        long long           stop)
     {
         const auto size{ static_cast<long long>(std::size(container)) };
 
-        if (from < 0)   { from += size; }
-        if (to < 0)     { to += size; }
+        if (start < 0)      { start += size; }
+        if (stop < 0)       { stop += size; }
 
-        if (from < 0)   { from = 0; }
-        if (size < to)  { to = size; }
-        if (to <= from) { return {}; }
+        if (start < 0)      { start = 0; }
+        if (size < stop)    { stop = size; }
+        if (stop <= start)  { return {}; }
 
-        auto fromIt { std::begin(container) };
-        auto toIt   { fromIt };
+        auto startIt{ std::begin(container) };
+        auto stopIt { startIt };
 
-        std::advance(fromIt, from);
-        std::advance(toIt, to);
-        return { fromIt, toIt };
+        std::advance(startIt, start);
+        std::advance(stopIt, stop);
+        return { startIt, stopIt };
     }
 
     template<class ContainerT>
     inline ContainerT slice(
         const ContainerT&   container,
-        const long long     to)
+        const long long     stop)
     {
-        return pluto::slice(container, 0, to);
+        return pluto::slice(container, 0, stop);
     }
 
     template<class ContainerT>

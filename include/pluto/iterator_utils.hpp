@@ -294,23 +294,23 @@ namespace pluto
         return std::for_each(begin, std::next(begin, size), function);
     }
 
-    template<class IteratorFromT, class IteratorToT, class FunctionT>
+    template<class IteratorSourceT, class IteratorDestinationT, class FunctionT>
     inline auto map(
-        const IteratorFromT beginF,
-        const IteratorFromT endF,
-        const IteratorToT   beginT,
-        FunctionT           function)
+        const IteratorSourceT       beginS,
+        const IteratorSourceT       endS,
+        const IteratorDestinationT  beginD,
+        FunctionT                   function)
     {
-        return std::transform(beginF, endF, beginT, function);
+        return std::transform(beginS, endS, beginD, function);
     }
 
-    template<class IteratorFromT, class IteratorToT, class FunctionT>
+    template<class IteratorSourceT, class IteratorDestinationT, class FunctionT>
     inline auto map(
-        const IteratorFromT beginF,
-        const std::size_t   sizeF,
-        const IteratorToT   beginT,
-        FunctionT           function)
+        const IteratorSourceT       beginS,
+        const std::size_t           sizeS,
+        const IteratorDestinationT  beginD,
+        FunctionT                   function)
     {
-        return pluto::map(beginF, std::next(beginF, sizeF), beginT, function);
+        return pluto::map(beginS, std::next(beginS, sizeS), beginD, function);
     }
 }

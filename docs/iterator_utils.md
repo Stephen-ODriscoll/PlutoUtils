@@ -76,7 +76,7 @@ Takes iterators for left begin, left end, right begin and an optional predicate.
 2. Takes an iterator for begin, the size and a function. Calls the function on every element. Returns the same function.
 
 #### map()
-1. Takes iterators for from begin, from end, to begin and a function. Calls the function on every element to map it. Returns the new end of to.
-    - To begin must have enough space allocated for all elements being stored, or use inserters.
-2. Takes an iterator for from begin, the size of from, an iterator for to begin and a function. Calls the function on every element to map it. Returns the new end of to.
-    - To begin must have enough space allocated for all elements being stored, or use inserters.
+1. Takes iterators for source begin, source end, destination begin and a function. Calls the function on every element to map it from source to destination. Returns the new end of destination.
+    - Destination begin must have enough space allocated for all elements being stored, or use inserters.
+2. Takes an iterator for source begin, the size of source, an iterator for destination begin and a function. Calls the function on every element to map it from source to destination. Returns the new end of destination.
+    - Destination begin must have enough space allocated for all elements being stored, or use inserters.

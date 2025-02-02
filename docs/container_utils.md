@@ -54,15 +54,15 @@ Takes a container and a predicate. Removes all elements where the predicate retu
 Takes a container and a function. Calls the function on every element in the container. Returns a reference to the same container.
 
 #### map()
-1. Takes containers for from, to and a function. Calls the function on every element to map it. Returns a reference to the same to container.
-2. Requires a template argument for the to container. Takes a container for from and a function. Calls the function on every element to map it. Returns the to container.
-3. Takes a container for from and a function. Calls the function on every element to map it. Automatically deduces the to container using the from container and the return of the function. Returns the to container.
+1. Takes containers for source, destination and a function. Calls the function on every element to map it from source to destination. Returns a reference to the same destination container.
+2. Requires a template argument for the destination container. Takes a container for source and a function. Calls the function on every element to map it from source to destination. Returns a destination container.
+3. Takes a container for source and a function. Calls the function on every element to map it from source to destination. Automatically deduces the destination container using the source container and the return of the function. Returns a destination container.
 
 #### slice()
-1. Takes a container and **long long**s for from and to. Returns a new container.
-    - If from or to are negative, then they are taken from the size of the container. If they fall outside the range of the container, then 0 or the size is used.
-2. Takes a container and a **long long** for to. Returns a new container.
-    - If to is negative, then it is taken from the size of the container. If it falls outside the range of the container, then 0 or the size is used.
+1. Takes a container and **long long**s for start and stop. Returns a new container.
+    - If start or stop are negative, then they are subtracted from the size of the container. If they fall outside the range of the container, then 0 or the container size is used.
+2. Takes a container and a **long long** for stop. Returns a new container.
+    - If stop is negative, then it is subtracted from the size of the container. If it falls outside the range of the container, then 0 or the container size is used.
 
 #### len()
 Takes a container. Returns the size of that container.
