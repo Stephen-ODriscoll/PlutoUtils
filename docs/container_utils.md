@@ -81,3 +81,19 @@ Takes a container and a predicate. Counts all elements that return **true** when
 
 #### sum()
 Takes a container and an optional value. Adds all elements to the value. Returns the total value.
+
+#### min()
+1. Takes a container. Returns a const reference to the minimum value in that container using **&lt;**.
+    - If there is more than one minimum, the first occurence is returned.
+    - Passing an empty container will result in an access violation.
+2. Takes a container and a predicate. Returns a const reference to the minimum value in that container using **&lt;**.
+    - If there is more than one minimum, the first occurence is returned.
+    - Passing an empty container will result in an access violation.
+
+#### max()
+1. Takes a container. Returns a const reference to the maximum value in that container using **&lt;**.
+    - If there is more than one maximum, the first occurence is returned.
+    - Passing an empty container will result in an access violation.
+2. Takes a container and a predicate. Returns a const reference to the maximum value in that container using **&lt;**.
+    - If there is more than one maximum, the first occurence is returned.
+    - Passing an empty container will result in an access violation.

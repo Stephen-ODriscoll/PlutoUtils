@@ -439,3 +439,71 @@ TEST_F(container_utils_tests, test_sum)
     ASSERT_EQ(pluto::sum(zeroToFour, 1), 11);
     ASSERT_EQ(pluto::sum(zeroToFourTwice, 0), 20);
 }
+
+TEST_F(container_utils_tests, test_min_no_predicate)
+{
+    ASSERT_EQ(pluto::min(zero), 0);
+    ASSERT_EQ(pluto::min(one), 1);
+    ASSERT_EQ(pluto::min(three), 3);
+    ASSERT_EQ(pluto::min(four), 4);
+    ASSERT_EQ(pluto::min(five), 5);
+    ASSERT_EQ(pluto::min(oneToThree), 1);
+    ASSERT_EQ(pluto::min(fourZeroOne), 0);
+    ASSERT_EQ(pluto::min(zeroZeroZero), 0);
+    ASSERT_EQ(pluto::min(zeroToThree), 0);
+    ASSERT_EQ(pluto::min(oneToFour), 1);
+    ASSERT_EQ(pluto::min(zeroToFour), 0);
+    ASSERT_EQ(pluto::min(fiveToNine), 5);
+    ASSERT_EQ(pluto::min(zeroToFourTwice), 0);
+}
+
+TEST_F(container_utils_tests, test_min_use_predicate)
+{
+    ASSERT_EQ(pluto::min(zero, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::min(one, pluto::is_less{}), 1);
+    ASSERT_EQ(pluto::min(three, pluto::is_less{}), 3);
+    ASSERT_EQ(pluto::min(four, pluto::is_less{}), 4);
+    ASSERT_EQ(pluto::min(five, pluto::is_less{}), 5);
+    ASSERT_EQ(pluto::min(oneToThree, pluto::is_less{}), 1);
+    ASSERT_EQ(pluto::min(fourZeroOne, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::min(zeroZeroZero, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::min(zeroToThree, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::min(oneToFour, pluto::is_less{}), 1);
+    ASSERT_EQ(pluto::min(zeroToFour, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::min(fiveToNine, pluto::is_less{}), 5);
+    ASSERT_EQ(pluto::min(zeroToFourTwice, pluto::is_less{}), 0);
+}
+
+TEST_F(container_utils_tests, test_max_no_predicate)
+{
+    ASSERT_EQ(pluto::max(zero), 0);
+    ASSERT_EQ(pluto::max(one), 1);
+    ASSERT_EQ(pluto::max(three), 3);
+    ASSERT_EQ(pluto::max(four), 4);
+    ASSERT_EQ(pluto::max(five), 5);
+    ASSERT_EQ(pluto::max(oneToThree), 3);
+    ASSERT_EQ(pluto::max(fourZeroOne), 4);
+    ASSERT_EQ(pluto::max(zeroZeroZero), 0);
+    ASSERT_EQ(pluto::max(zeroToThree), 3);
+    ASSERT_EQ(pluto::max(oneToFour), 4);
+    ASSERT_EQ(pluto::max(zeroToFour), 4);
+    ASSERT_EQ(pluto::max(fiveToNine), 9);
+    ASSERT_EQ(pluto::max(zeroToFourTwice), 4);
+}
+
+TEST_F(container_utils_tests, test_max_use_predicate)
+{
+    ASSERT_EQ(pluto::max(zero, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::max(one, pluto::is_less{}), 1);
+    ASSERT_EQ(pluto::max(three, pluto::is_less{}), 3);
+    ASSERT_EQ(pluto::max(four, pluto::is_less{}), 4);
+    ASSERT_EQ(pluto::max(five, pluto::is_less{}), 5);
+    ASSERT_EQ(pluto::max(oneToThree, pluto::is_less{}), 3);
+    ASSERT_EQ(pluto::max(fourZeroOne, pluto::is_less{}), 4);
+    ASSERT_EQ(pluto::max(zeroZeroZero, pluto::is_less{}), 0);
+    ASSERT_EQ(pluto::max(zeroToThree, pluto::is_less{}), 3);
+    ASSERT_EQ(pluto::max(oneToFour, pluto::is_less{}), 4);
+    ASSERT_EQ(pluto::max(zeroToFour, pluto::is_less{}), 4);
+    ASSERT_EQ(pluto::max(fiveToNine, pluto::is_less{}), 9);
+    ASSERT_EQ(pluto::max(zeroToFourTwice, pluto::is_less{}), 4);
+}

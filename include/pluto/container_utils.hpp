@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <cassert>
+
 #include "iterator_utils.hpp"
 
 namespace pluto
@@ -265,5 +267,73 @@ namespace pluto
         }
 
         return value;
+    }
+
+    template<class ContainerT>
+    inline const auto& (min)(const ContainerT& container)
+    {
+        decltype(&*std::begin(container)) pResult{};
+        for (auto& elem : container)
+        {
+            if (!pResult || (elem < *pResult))
+            {
+                pResult = &elem;
+            }
+        }
+
+        assert(pResult && "pluto::min() got an empty container");
+        return *pResult;
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline const auto& (min)(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        decltype(&*std::begin(container)) pResult{};
+        for (auto& elem : container)
+        {
+            if (!pResult || predicate(elem, *pResult))
+            {
+                pResult = &elem;
+            }
+        }
+
+        assert(pResult && "pluto::min() got an empty container");
+        return *pResult;
+    }
+
+    template<class ContainerT>
+    inline const auto& (max)(const ContainerT& container)
+    {
+        decltype(&*std::begin(container)) pResult{};
+        for (auto& elem : container)
+        {
+            if (!pResult || (*pResult < elem))
+            {
+                pResult = &elem;
+            }
+        }
+
+        assert(pResult && "pluto::max() got an empty container");
+        return *pResult;
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline const auto& (max)(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        decltype(&*std::begin(container)) pResult{};
+        for (auto& elem : container)
+        {
+            if (!pResult || predicate(*pResult, elem))
+            {
+                pResult = &elem;
+            }
+        }
+
+        assert(pResult && "pluto::max() got an empty container");
+        return *pResult;
     }
 }
