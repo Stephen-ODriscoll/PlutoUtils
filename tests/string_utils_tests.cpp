@@ -1903,3 +1903,108 @@ TEST_F(string_utils_tests, test_strip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, " a b c ", "a b c");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }
+
+TEST_F(string_utils_tests, test_bin_use_string)
+{
+    ASSERT_EQ(pluto::bin(0), "0b0");
+    ASSERT_EQ(pluto::bin(1), "0b1");
+    ASSERT_EQ(pluto::bin(2), "0b10");
+    ASSERT_EQ(pluto::bin(255), "0b11111111");
+    ASSERT_EQ(pluto::bin(256), "0b100000000");
+    ASSERT_EQ(pluto::bin(-1), "0b11111111111111111111111111111111");
+    ASSERT_EQ(pluto::bin(-2), "0b11111111111111111111111111111110");
+
+    ASSERT_EQ(pluto::bin(0u), "0b0");
+    ASSERT_EQ(pluto::bin(1u), "0b1");
+    ASSERT_EQ(pluto::bin(2u), "0b10");
+    ASSERT_EQ(pluto::bin(255u), "0b11111111");
+    ASSERT_EQ(pluto::bin(256u), "0b100000000");
+    ASSERT_EQ(pluto::bin(-1u), "0b11111111111111111111111111111111");
+    ASSERT_EQ(pluto::bin(-2u), "0b11111111111111111111111111111110");
+
+    ASSERT_EQ(pluto::bin(0ll), "0b0");
+    ASSERT_EQ(pluto::bin(1ll), "0b1");
+    ASSERT_EQ(pluto::bin(2ll), "0b10");
+    ASSERT_EQ(pluto::bin(255ll), "0b11111111");
+    ASSERT_EQ(pluto::bin(256ll), "0b100000000");
+    ASSERT_EQ(pluto::bin(-1ll), "0b1111111111111111111111111111111111111111111111111111111111111111");
+    ASSERT_EQ(pluto::bin(-2ll), "0b1111111111111111111111111111111111111111111111111111111111111110");
+
+    ASSERT_EQ(pluto::bin(0ull), "0b0");
+    ASSERT_EQ(pluto::bin(1ull), "0b1");
+    ASSERT_EQ(pluto::bin(2ull), "0b10");
+    ASSERT_EQ(pluto::bin(255ull), "0b11111111");
+    ASSERT_EQ(pluto::bin(256ull), "0b100000000");
+    ASSERT_EQ(pluto::bin(-1ull), "0b1111111111111111111111111111111111111111111111111111111111111111");
+    ASSERT_EQ(pluto::bin(-2ull), "0b1111111111111111111111111111111111111111111111111111111111111110");
+}
+
+TEST_F(string_utils_tests, test_oct_use_string)
+{
+    ASSERT_EQ(pluto::oct(0), "0o0");
+    ASSERT_EQ(pluto::oct(1), "0o1");
+    ASSERT_EQ(pluto::oct(8), "0o10");
+    ASSERT_EQ(pluto::oct(255), "0o377");
+    ASSERT_EQ(pluto::oct(256), "0o400");
+    ASSERT_EQ(pluto::oct(-1), "0o37777777777");
+    ASSERT_EQ(pluto::oct(-9), "0o37777777767");
+
+    ASSERT_EQ(pluto::oct(0u), "0o0");
+    ASSERT_EQ(pluto::oct(1u), "0o1");
+    ASSERT_EQ(pluto::oct(8u), "0o10");
+    ASSERT_EQ(pluto::oct(255u), "0o377");
+    ASSERT_EQ(pluto::oct(256u), "0o400");
+    ASSERT_EQ(pluto::oct(-1u), "0o37777777777");
+    ASSERT_EQ(pluto::oct(-9u), "0o37777777767");
+
+    ASSERT_EQ(pluto::oct(0ll), "0o0");
+    ASSERT_EQ(pluto::oct(1ll), "0o1");
+    ASSERT_EQ(pluto::oct(8ll), "0o10");
+    ASSERT_EQ(pluto::oct(255ll), "0o377");
+    ASSERT_EQ(pluto::oct(256ll), "0o400");
+    ASSERT_EQ(pluto::oct(-1ll), "0o1777777777777777777777");
+    ASSERT_EQ(pluto::oct(-9ll), "0o1777777777777777777767");
+
+    ASSERT_EQ(pluto::oct(0ull), "0o0");
+    ASSERT_EQ(pluto::oct(1ull), "0o1");
+    ASSERT_EQ(pluto::oct(8ull), "0o10");
+    ASSERT_EQ(pluto::oct(255ull), "0o377");
+    ASSERT_EQ(pluto::oct(256ull), "0o400");
+    ASSERT_EQ(pluto::oct(-1ull), "0o1777777777777777777777");
+    ASSERT_EQ(pluto::oct(-9ull), "0o1777777777777777777767");
+}
+
+TEST_F(string_utils_tests, test_hex_use_string)
+{
+    ASSERT_EQ(pluto::hex(0), "0x0");
+    ASSERT_EQ(pluto::hex(1), "0x1");
+    ASSERT_EQ(pluto::hex(16), "0x10");
+    ASSERT_EQ(pluto::hex(255), "0xff");
+    ASSERT_EQ(pluto::hex(256), "0x100");
+    ASSERT_EQ(pluto::hex(-1), "0xffffffff");
+    ASSERT_EQ(pluto::hex(-17), "0xffffffef");
+
+    ASSERT_EQ(pluto::hex(0u), "0x0");
+    ASSERT_EQ(pluto::hex(1u), "0x1");
+    ASSERT_EQ(pluto::hex(16u), "0x10");
+    ASSERT_EQ(pluto::hex(255u), "0xff");
+    ASSERT_EQ(pluto::hex(256u), "0x100");
+    ASSERT_EQ(pluto::hex(-1u), "0xffffffff");
+    ASSERT_EQ(pluto::hex(-17u), "0xffffffef");
+
+    ASSERT_EQ(pluto::hex(0ll), "0x0");
+    ASSERT_EQ(pluto::hex(1ll), "0x1");
+    ASSERT_EQ(pluto::hex(16ll), "0x10");
+    ASSERT_EQ(pluto::hex(255ll), "0xff");
+    ASSERT_EQ(pluto::hex(256ll), "0x100");
+    ASSERT_EQ(pluto::hex(-1ll), "0xffffffffffffffff");
+    ASSERT_EQ(pluto::hex(-17ll), "0xffffffffffffffef");
+
+    ASSERT_EQ(pluto::hex(0ull), "0x0");
+    ASSERT_EQ(pluto::hex(1ull), "0x1");
+    ASSERT_EQ(pluto::hex(16ull), "0x10");
+    ASSERT_EQ(pluto::hex(255ull), "0xff");
+    ASSERT_EQ(pluto::hex(256ull), "0x100");
+    ASSERT_EQ(pluto::hex(-1ull), "0xffffffffffffffff");
+    ASSERT_EQ(pluto::hex(-17ull), "0xffffffffffffffef");
+}

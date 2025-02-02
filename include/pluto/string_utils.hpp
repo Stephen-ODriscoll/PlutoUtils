@@ -1383,4 +1383,109 @@ namespace pluto
         pluto::rstrip(string, locale);
         pluto::lstrip(string, locale);
     }
+
+    template<class ValueT>
+    inline std::string bin(const ValueT& value)
+    {
+        constexpr auto maxLength{ sizeof(ValueT) * 8 };
+
+        std::string result{};
+        for (std::size_t i{ maxLength }; 0 < i;)
+        {
+            const auto digit{ (value >> --i) & 1 };
+            if (!result.empty())
+            {
+                result.push_back(digit ? '1' : '0');
+            }
+            else if (digit)
+            {
+                result.reserve(i + 3);
+                result.append("0b1");
+            }
+        }
+
+        if (result.empty())
+        {
+            result.append("0b0");
+        }
+
+        return result;
+    }
+
+    template <typename ValueT>
+    inline std::string oct(const ValueT& value)
+    {
+        /*
+        * Octal is the only system that doesn't go in evenly. Octal is 3 bits per digit.
+        * Also, if we have a negative number, then bit shifting will fill with 1's instead of 0's.
+        * To address this, & the last bits with either 1 or 3 depending on the remainder.
+        * 7 is never used, but it's there for completeness. 8 bit has remainder 2.
+        * 16 bit has remainder 1. 32 bit has remainder 2. 64 bit has remainder 1.
+        */
+        constexpr int lastBits[]    { 07, 01, 03 };
+        constexpr char characters[] { "01234567" };
+        constexpr auto sizeInBits   { sizeof(ValueT) * 8 };
+        constexpr auto remainder    { sizeInBits % 3 };
+        constexpr auto maxLength    { (sizeInBits + (remainder ? (3 - remainder) : 0)) / 3 };
+
+        std::string result{};
+        const auto lastDigit{ (value >> (maxLength - 1) * 3) & lastBits[remainder] };
+        if (lastDigit)
+        {
+            result.reserve(maxLength + 2);
+            result.append("0o").push_back(characters[lastDigit]);
+        }
+
+        std::size_t position{ (maxLength - 2) * 3 };
+        for (std::size_t i{ maxLength - 1 }; 0 < i; --i, position -= 3)
+        {
+            const auto digit{ (value >> position) & 07 };
+            if (!result.empty())
+            {
+                result.push_back(characters[digit]);
+            }
+            else if (digit)
+            {
+                result.reserve(i + 2);
+                result.append("0o").push_back(characters[digit]);
+            }
+        }
+
+        if (result.empty())
+        {
+            result.append("0o0");
+        }
+
+        return result;
+    }
+
+    template <typename ValueT>
+    inline std::string hex(const ValueT& value)
+    {
+        constexpr char characters[] { "0123456789abcdef" };
+        constexpr auto maxLength    { sizeof(ValueT) * 2 };
+
+        std::string result{};
+        std::size_t position{ (maxLength - 1) * 4 };
+        for (std::size_t i{ maxLength }; 0 < i; --i, position -= 4)
+        {
+            const auto digit{ (value >> position) & 0xf };
+            if (!result.empty())
+            {
+                result.push_back(characters[digit]);
+            }
+            else if (digit)
+            {
+                result.reserve(i + 2);
+                result.append("0x").push_back(characters[digit]);
+            }
+        }
+
+        if (result.empty())
+        {
+            result.append("0x0");
+        }
+
+        return result;
+    }
 }

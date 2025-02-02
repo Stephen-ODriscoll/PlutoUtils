@@ -127,3 +127,15 @@ Takes a string and an optional **std::locale**. Removes all trailing "space" cha
 
 #### strip()
 Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.
+
+#### bin()
+Takes a signed or unsigned number. Returns the **std::string** representation of that number in binary.
+- Uses bitwise operations.
+
+#### oct()
+Takes a signed or unsigned number. Returns the **std::string** representation of that number in octal.
+- Uses bitwise operations.
+
+#### hex()
+Takes a signed or unsigned number. Returns the **std::string** representation of that number in hexadecimal.
+- Uses bitwise operations.
