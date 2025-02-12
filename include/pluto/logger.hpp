@@ -29,7 +29,7 @@
 
 #include "filesystem.hpp"
 
-// Configurable with macro
+// Configurable with macros
 #ifndef PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOGGER_HIDE_SOURCE_INFO 0   // Define as 1 or 0
 #endif
