@@ -207,11 +207,17 @@
 
 // C++ 26 (when available)
 #if (defined(__cplusplus) && __cplusplus > 202302L) || (defined(_MSVC_LANG) && _MSVC_LANG > 202302L)
+#if __has_include(<contracts>)
+#include <contracts>
+#endif
 #if __has_include(<debugging>)
 #include <debugging>
 #endif
 #if __has_include(<hazard_pointer>)
 #include <hazard_pointer>
+#endif
+#if __has_include(<hive>)
+#include <hive>
 #endif
 #if __has_include(<inplace_vector>)
 #include <inplace_vector>
