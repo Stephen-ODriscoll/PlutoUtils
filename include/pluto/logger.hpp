@@ -752,31 +752,43 @@ namespace pluto
         {
             if (should_log(logLevel))
             {
-                // Message character limit is 8192
                 va_list args;
+                std::string message{};
+                bool messageCreated{ false };
+
                 va_start(args, format);
-                char buffer[8192]{};
 
                 try
                 {
                     // Create message from format and args
-                    if (vsnprintf(buffer, (sizeof(buffer) / sizeof(buffer[0])), format, args) < 0)
+                    auto messageLength{ vsnprintf(nullptr, 0, format, args) };
+                    if (0 < messageLength)
                     {
-                        buffer[0] = '\0';
+                        message.resize(messageLength + 1);
+                        if (vsnprintf(&message[0], message.size(), format, args) == messageLength)
+                        {
+                            message.resize(messageLength);
+                            messageCreated = true;
+                        }
                     }
                 }
-                catch (...) { buffer[0] = '\0'; }
+                catch (...) {}
 
                 va_end(args);
 
-                // Write message, or use format if message creation failed
+                // If message creation failed, use format
+                if (!messageCreated)
+                {
+                    message.assign(format);
+                }
+
                 add_log_to_buffer(
                     logFileName,
                     logLevel,
                     sourceFilePath,
                     sourceLine,
                     sourceFunction,
-                    (buffer[0] == '\0') ? format : buffer);
+                    message);
             }
         }
 

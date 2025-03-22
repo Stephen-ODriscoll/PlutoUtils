@@ -399,7 +399,6 @@ Takes a **pluto::logger::level**. Returns whether logging is enabled and the lev
 #### writef()
 Takes a **std::string** for log file name, a **pluto::logger::level** for level, a pointer to a **char** for file path, an **int** for line number, a pointer to a **char** for function name, a pointer to a **char** for message format and any number of additional arguments for the format. See [level](#level) for more info.
 - Creates the log info and adds it to the log buffer.
-- The message format has a limit of 8192 characters.
 
 #### write()
 Takes a **std::string** for log file name, a **pluto::logger::level** for level, a pointer to a **char** for file path, an **int** for line number, a pointer to a **char** for function name and a **std::string** for message. See [level](#level) for more info.
