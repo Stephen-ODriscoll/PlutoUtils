@@ -164,16 +164,44 @@
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    pluto::logger::get_instance().writef(file, level, "", 0, "", __VA_ARGS__)
+    do \
+    { \
+        if (pluto::logger::get_instance().should_log(level)) \
+        { \
+            pluto::logger::get_instance().writef(file, level, "", 0, "", __VA_ARGS__); \
+        } \
+    } \
+    while(false)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    pluto::logger::get_instance().stream(file, level, "", 0, "") << message
+    do \
+    { \
+        if (pluto::logger::get_instance().should_log(level)) \
+        { \
+            pluto::logger::get_instance().stream(file, level, "", 0, "") << message; \
+        } \
+    } \
+    while(false)
 #else
 #define PLUTO_LOG_FORMAT(file, level, ...) \
-    pluto::logger::get_instance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__)
+    do \
+    { \
+        if (pluto::logger::get_instance().should_log(level)) \
+        { \
+            pluto::logger::get_instance().writef(file, level, __FILE__, __LINE__, __func__, __VA_ARGS__); \
+        } \
+    } \
+    while(false)
 
 #define PLUTO_LOG_STREAM(file, level, message) \
-    pluto::logger::get_instance().stream(file, level, __FILE__, __LINE__, __func__) << message
+    do \
+    { \
+        if (pluto::logger::get_instance().should_log(level)) \
+        { \
+            pluto::logger::get_instance().stream(file, level, __FILE__, __LINE__, __func__) << message; \
+        } \
+    } \
+    while (false)
 #endif
 
 #define PLUTO_LOG_FORMAT_NONE(file, ...)        PLUTO_LOG_FORMAT(file, pluto::logger::level::none, __VA_ARGS__)
