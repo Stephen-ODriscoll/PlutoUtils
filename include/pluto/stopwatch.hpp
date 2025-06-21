@@ -9,12 +9,17 @@
 
 #include <chrono>
 
+// Configurable with a macro
+#ifndef PLUTO_STOPWATCH_CLOCK
+#define PLUTO_STOPWATCH_CLOCK std::chrono::high_resolution_clock
+#endif
+
 namespace pluto
 {
     class stopwatch
     {
     public:
-        typedef std::chrono::high_resolution_clock clock;
+        typedef PLUTO_STOPWATCH_CLOCK clock;
 
     private:
         clock::duration     m_time;
