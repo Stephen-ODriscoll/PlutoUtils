@@ -39,7 +39,12 @@ Takes a key and returns a **bool** representing whether that key exists in the c
 Clears the entire cache.
 
 #### insert()
-Takes a key and a value and inserts it into the cache. If the key already exists, it is updated with the new value and moved to the front of the least recently used list.
+Takes a key and a value and inserts it into the cache. If the key already exists, no action is taken. Returns whether the key was inserted.
+- If the capacity is 0, no insert is done, but **true** is returned.
+
+#### insert_or_assign()
+Takes a key and a value and inserts it into the cache. If the key already exists, it is updated with the new value and moved to the front of the least recently used list. Returns whether the key was inserted.
+- If the capacity is 0, no insert is done, but **true** is returned.
 
 #### get()
 Takes a key and a modifyable reference to a value.

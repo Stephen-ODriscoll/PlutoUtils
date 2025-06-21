@@ -61,29 +61,14 @@ namespace pluto
             }
         }
 
-        void insert(const key_type& key, const value_type& value)
+        bool insert(const key_type& key, const value_type& value)
         {
-            auto itMap{ m_map.find(key) };
-            if (itMap == m_map.end())
-            {
-                if (m_capacity != 0)
-                {
-                    // If cache is full, evict the least recently used item
-                    if (m_capacity <= size())
-                    {
-                        evict_lru();
-                    }
+            return insert(key, value, false);
+        }
 
-                    m_list.push_front(key);
-                    m_map.emplace(key, std::make_pair(value, m_list.begin()));
-                }
-            }
-            else
-            {
-                // Replace value in cache with new value
-                itMap->second.first = value;
-                move_to_front(itMap);
-            }
+        bool insert_or_assign(const key_type& key, const value_type& value)
+        {
+            return insert(key, value, true);
         }
 
         bool get(const key_type& key, value_type& value)
@@ -113,6 +98,36 @@ namespace pluto
         }
 
     private:
+        bool insert(const key_type& key, const value_type& value, const bool orAssign)
+        {
+            bool result{ false };
+            auto itMap{ m_map.find(key) };
+            if (itMap == m_map.end())
+            {
+                if (m_capacity != 0)
+                {
+                    // If cache is full, evict the least recently used item
+                    if (m_capacity <= size())
+                    {
+                        evict_lru();
+                    }
+
+                    m_list.push_front(key);
+                    m_map.emplace(key, std::make_pair(value, m_list.begin()));
+                }
+
+                result = true;
+            }
+            else if (orAssign)
+            {
+                // Replace value in cache with new value
+                itMap->second.first = value;
+                move_to_front(itMap);
+            }
+
+            return result;
+        }
+
         void move_to_front(typename map_type::iterator itMap)
         {
             // Move item to front of most recently used list

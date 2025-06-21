@@ -73,10 +73,16 @@ namespace pluto
             m_lruCache.capacity(newCapacity);
         }
 
-        void insert(const key_type& key, const value_type& value)
+        bool insert(const key_type& key, const value_type& value)
         {
             const std::unique_lock<shared_mutex_type> writer{ m_mutex };
-            m_lruCache.insert(key, value);
+            return m_lruCache.insert(key, value);
+        }
+
+        bool insert_or_assign(const key_type& key, const value_type& value)
+        {
+            const std::unique_lock<shared_mutex_type> writer{ m_mutex };
+            return m_lruCache.insert_or_assign(key, value);
         }
 
         bool get(const key_type& key, value_type& value)
