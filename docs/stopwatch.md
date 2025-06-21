@@ -4,7 +4,7 @@
 ## stopwatch.hpp
 
 #### PLUTO_STOPWATCH_CLOCK
-Define this macro to be a **std::chrono::..._clock**. Sets the clock. Defaults to **std::chrono::high_resolution_clock**.
+Define this macro to be a **std::chrono::&ast;&ast;&ast;_clock**. Sets the clock. Defaults to **std::chrono::high_resolution_clock**.
 
 ### stopwatch
 A simple stopwatch class built on top of **std::chrono**. When created, the stopwatch won't automatically start unless you pass **true** to the constructor.
