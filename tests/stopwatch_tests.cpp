@@ -19,7 +19,7 @@ protected:
 };
 
 // Basic sanity, timings are difficult to test
-TEST_F(stopwatch_tests, test_seconds)
+TEST_F(stopwatch_tests, test_stopwatch_sanity)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
@@ -28,9 +28,32 @@ TEST_F(stopwatch_tests, test_seconds)
 
     stopwatch.stop();
     ASSERT_FALSE(stopwatch.is_running());
-
     ASSERT_EQ(stopwatch.in_seconds(), 1);
     ASSERT_EQ(stopwatch.seconds_part(), 1);
+}
+
+TEST_F(stopwatch_tests, test_construct_stopped)
+{
+    pluto::stopwatch stopwatch{};
+    ASSERT_FALSE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time{ stopwatch.time() };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_EQ(time, decltype(time)::zero());
+}
+
+TEST_F(stopwatch_tests, test_construct_started)
+{
+    pluto::stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time{ stopwatch.time() };
+    ASSERT_TRUE(stopwatch.is_running());
+    ASSERT_NE(time, decltype(time)::zero());
 }
 
 TEST_F(stopwatch_tests, test_copy_constructor)
@@ -38,11 +61,33 @@ TEST_F(stopwatch_tests, test_copy_constructor)
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
     stopwatch.stop();
     ASSERT_FALSE(stopwatch.is_running());
 
     pluto::stopwatch stopwatch2{ stopwatch };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_FALSE(stopwatch2.is_running());
     ASSERT_EQ(stopwatch.time(), stopwatch2.time());
+}
+
+TEST_F(stopwatch_tests, test_time_call_does_not_start)
+{
+    pluto::stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    stopwatch.stop();
+    auto time1{ stopwatch.time() };
+    ASSERT_FALSE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time2{ stopwatch.time() };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_EQ(time1, time2);
 }
 
 TEST_F(stopwatch_tests, test_time_call_does_not_stop)
@@ -50,195 +95,187 @@ TEST_F(stopwatch_tests, test_time_call_does_not_stop)
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    auto firstTime{ stopwatch.time() };
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time1{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    stopwatch.stop();
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_NE(firstTime, secondTime);
+    auto time2{ stopwatch.time() };
+    ASSERT_TRUE(stopwatch.is_running());
+    ASSERT_LT(time1, time2);
 }
 
-TEST_F(stopwatch_tests, test_stop_call_stays_stopped)
+TEST_F(stopwatch_tests, test_reset)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    stopwatch.stop();
-    auto firstTime{ stopwatch.time() };
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    stopwatch.reset();
     ASSERT_FALSE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    ASSERT_EQ(stopwatch.in_nanoseconds(), 0);
+    ASSERT_EQ(stopwatch.in_microseconds(), 0);
+    ASSERT_EQ(stopwatch.in_milliseconds(), 0);
+    ASSERT_EQ(stopwatch.in_seconds(), 0);
+    ASSERT_EQ(stopwatch.in_minutes(), 0);
+    ASSERT_EQ(stopwatch.in_hours(), 0);
 
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_EQ(firstTime, secondTime);
+    ASSERT_EQ(stopwatch.nanoseconds_part(), 0);
+    ASSERT_EQ(stopwatch.microseconds_part(), 0);
+    ASSERT_EQ(stopwatch.milliseconds_part(), 0);
+    ASSERT_EQ(stopwatch.seconds_part(), 0);
+    ASSERT_EQ(stopwatch.minutes_part(), 0);
+    ASSERT_EQ(stopwatch.hours_part(), 0);
 }
 
-TEST_F(stopwatch_tests, test_stop_and_time_call_stays_stopped)
+TEST_F(stopwatch_tests, test_restart_does_restart)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    auto firstTime{ stopwatch.stop_and_time() };
-    ASSERT_FALSE(stopwatch.is_running());
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_EQ(firstTime, secondTime);
-}
-
-TEST_F(stopwatch_tests, test_stop_call_on_stopped_no_change)
-{
-    pluto::stopwatch stopwatch{ true };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    stopwatch.stop();
-    auto firstTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    stopwatch.stop();
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_EQ(firstTime, secondTime);
-}
-
-TEST_F(stopwatch_tests, test_stop_and_time_call_on_stopped_no_change)
-{
-    pluto::stopwatch stopwatch{ true };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    auto firstTime{ stopwatch.stop_and_time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    auto secondTime{ stopwatch.stop_and_time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_EQ(firstTime, secondTime);
-}
-
-TEST_F(stopwatch_tests, test_start_call_does_not_restart)
-{
-    pluto::stopwatch stopwatch{ true };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    auto firstTime{ stopwatch.time() };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    stopwatch.start();
-    auto secondTime{ stopwatch.time() };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    ASSERT_TRUE(firstTime <= secondTime);
-}
-
-TEST_F(stopwatch_tests, test_restart_call_does_restart)
-{
-    pluto::stopwatch stopwatch{ true };
-    ASSERT_TRUE(stopwatch.is_running());
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-    auto firstTime{ stopwatch.time() };
+    auto time1{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
 
     stopwatch.restart();
-    auto secondTime{ stopwatch.time() };
+    auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-
-    ASSERT_TRUE(secondTime < firstTime);
+    ASSERT_LT(time2, time1);
 }
 
-TEST_F(stopwatch_tests, test_stop_call_and_start_call_does_not_restart)
+TEST_F(stopwatch_tests, test_start_does_not_restart)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    stopwatch.stop();
-    auto firstTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
+    auto time1{ stopwatch.time() };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     stopwatch.start();
+    auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-
-    stopwatch.stop();
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_TRUE(firstTime <= secondTime);
+    ASSERT_LT(time1, time2);
 }
 
-TEST_F(stopwatch_tests, test_stop_and_time_call_and_start_call_does_not_restart)
+TEST_F(stopwatch_tests, test_stop_when_stopped_no_change)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    auto firstTime{ stopwatch.stop_and_time() };
+    stopwatch.stop();
+    auto time1{ stopwatch.time() };
     ASSERT_FALSE(stopwatch.is_running());
 
-    stopwatch.start();
-    ASSERT_TRUE(stopwatch.is_running());
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    auto secondTime{ stopwatch.stop_and_time() };
+    stopwatch.stop();
+    auto time2{ stopwatch.time() };
     ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_TRUE(firstTime <= secondTime);
+    ASSERT_EQ(time1, time2);
 }
 
-TEST_F(stopwatch_tests, test_stop_call_and_restart_call_does_restart)
+TEST_F(stopwatch_tests, test_stop_then_restart_does_restart)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     stopwatch.stop();
-    auto firstTime{ stopwatch.time() };
+    auto time1{ stopwatch.time() };
     ASSERT_FALSE(stopwatch.is_running());
 
     stopwatch.restart();
     ASSERT_TRUE(stopwatch.is_running());
 
-    stopwatch.stop();
-    auto secondTime{ stopwatch.time() };
-    ASSERT_FALSE(stopwatch.is_running());
-
-    ASSERT_TRUE(secondTime < firstTime);
+    auto time2{ stopwatch.time() };
+    ASSERT_TRUE(stopwatch.is_running());
+    ASSERT_LT(time2, time1);
 }
 
-TEST_F(stopwatch_tests, test_stop_and_time_call_and_restart_call_does_restart)
+TEST_F(stopwatch_tests, test_stop_then_start_does_not_restart)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    auto firstTime{ stopwatch.stop_and_time() };
+    stopwatch.stop();
+    auto time1{ stopwatch.time() };
+    ASSERT_FALSE(stopwatch.is_running());
+
+    stopwatch.start();
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time2{ stopwatch.time() };
+    ASSERT_TRUE(stopwatch.is_running());
+    ASSERT_LT(time1, time2);
+}
+
+TEST_F(stopwatch_tests, test_stop_and_time_when_stopped_no_change)
+{
+    pluto::stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time1{ stopwatch.stop_and_time() };
+    ASSERT_FALSE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time2{ stopwatch.stop_and_time() };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_EQ(time1, time2);
+}
+
+TEST_F(stopwatch_tests, test_stop_and_time_then_restart_does_restart)
+{
+    pluto::stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time1{ stopwatch.stop_and_time() };
     ASSERT_FALSE(stopwatch.is_running());
 
     stopwatch.restart();
     ASSERT_TRUE(stopwatch.is_running());
 
-    auto secondTime{ stopwatch.stop_and_time() };
+    auto time2{ stopwatch.stop_and_time() };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_LT(time2, time1);
+}
+
+TEST_F(stopwatch_tests, test_stop_and_time_then_start_does_not_restart)
+{
+    pluto::stopwatch stopwatch{ true };
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time1{ stopwatch.stop_and_time() };
     ASSERT_FALSE(stopwatch.is_running());
 
-    ASSERT_TRUE(secondTime < firstTime);
+    stopwatch.start();
+    ASSERT_TRUE(stopwatch.is_running());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto time2{ stopwatch.stop_and_time() };
+    ASSERT_FALSE(stopwatch.is_running());
+    ASSERT_LT(time1, time2);
 }

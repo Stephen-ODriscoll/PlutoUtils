@@ -45,6 +45,36 @@ namespace pluto
 
         ~stopwatch() {}
 
+        auto time() const
+        {
+            return (m_isRunning ? (m_time + (clock::now() - m_start)) : m_time);
+        }
+
+        template<class DurationT>
+        auto count() const { return std::chrono::duration_cast<DurationT>(time()).count(); }
+
+        template<class DurationT>
+        auto count(const long long rollover) const { return (count<DurationT>() % rollover); }
+
+        auto in_nanoseconds()   const   { return count<std::chrono::nanoseconds>(); }
+        auto in_microseconds()  const   { return count<std::chrono::microseconds>(); }
+        auto in_milliseconds()  const   { return count<std::chrono::milliseconds>(); }
+        auto in_seconds()       const   { return count<std::chrono::seconds>(); }
+        auto in_minutes()       const   { return count<std::chrono::minutes>(); }
+        auto in_hours()         const   { return count<std::chrono::hours>(); }
+
+        auto nanoseconds_part()     const   { return count<std::chrono::nanoseconds>(1'000); }
+        auto microseconds_part()    const   { return count<std::chrono::microseconds>(1'000); }
+        auto milliseconds_part()    const   { return count<std::chrono::milliseconds>(1'000); }
+        auto seconds_part()         const   { return count<std::chrono::seconds>(60); }
+        auto minutes_part()         const   { return count<std::chrono::minutes>(60); }
+        auto hours_part()           const   { return count<std::chrono::hours>(); }
+
+        bool is_running() const
+        {
+            return m_isRunning;
+        }
+
         void reset()
         {
             m_time = {};
@@ -82,35 +112,5 @@ namespace pluto
             stop();
             return m_time;
         }
-
-        auto time() const
-        {
-            return (m_isRunning ? (m_time + (clock::now() - m_start)) : m_time);
-        }
-
-        bool is_running() const
-        {
-            return m_isRunning;
-        }
-
-        template<class DurationT>
-        auto count() const { return std::chrono::duration_cast<DurationT>(time()).count(); }
-
-        template<class DurationT>
-        auto count(const long long rollover) const { return (count<DurationT>() % rollover); }
-
-        auto in_nanoseconds()   const   { return count<std::chrono::nanoseconds>(); }
-        auto in_microseconds()  const   { return count<std::chrono::microseconds>(); }
-        auto in_milliseconds()  const   { return count<std::chrono::milliseconds>(); }
-        auto in_seconds()       const   { return count<std::chrono::seconds>(); }
-        auto in_minutes()       const   { return count<std::chrono::minutes>(); }
-        auto in_hours()         const   { return count<std::chrono::hours>(); }
-
-        auto nanoseconds_part()     const   { return count<std::chrono::nanoseconds>(1'000); }
-        auto microseconds_part()    const   { return count<std::chrono::microseconds>(1'000); }
-        auto milliseconds_part()    const   { return count<std::chrono::milliseconds>(1'000); }
-        auto seconds_part()         const   { return count<std::chrono::seconds>(60); }
-        auto minutes_part()         const   { return count<std::chrono::minutes>(60); }
-        auto hours_part()           const   { return count<std::chrono::hours>(); }
     };
 }
