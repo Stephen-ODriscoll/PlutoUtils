@@ -16,7 +16,7 @@
 #include "pluto/lru_cache.hpp"
 #include "pluto/range.hpp"
 #include "pluto/safe_lru_cache.hpp"
-#include "pluto/scope_exit_actions.hpp"
+#include "pluto/scope_utils.hpp"
 #include "pluto/stopwatch.hpp"
 #include "pluto/string_utils.hpp"
 #include "pluto/value_utils.hpp"

@@ -20,7 +20,7 @@ add_library(
     pluto/lru_cache.hpp
     pluto/range.hpp
     pluto/safe_lru_cache.hpp
-    pluto/scope_exit_actions.hpp
+    pluto/scope_utils.hpp
     pluto/standard.hpp
     pluto/stopwatch.hpp
     pluto/string_utils.hpp

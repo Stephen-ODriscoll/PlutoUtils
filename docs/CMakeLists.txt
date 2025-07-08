@@ -21,7 +21,7 @@ add_library(
     pluto.md
     range.md
     safe_lru_cache.md
-    scope_exit_actions.md
+    scope_utils.md
     standard.md
     stopwatch.md
     string_utils.md

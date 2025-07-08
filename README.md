@@ -17,7 +17,7 @@ Or any subset of:
 #include <pluto/lru_cache.hpp>
 #include <pluto/range.hpp>
 #include <pluto/safe_lru_cache.hpp>
-#include <pluto/scope_exit_actions.hpp>
+#include <pluto/scope_utils.hpp>
 #include <pluto/standard.hpp>
 #include <pluto/stopwatch.hpp>
 #include <pluto/string_utils.hpp>
@@ -68,7 +68,7 @@ The only dependencies required to build the unit tests are CMake and Google Test
 
 [safe_lru_cache.hpp](./docs/safe_lru_cache.md)
 
-[scope_exit_actions.hpp](./docs/scope_exit_actions.md)
+[scope_utils.hpp](./docs/scope_utils.md)
 
 [stopwatch.hpp](./docs/stopwatch.md)
 

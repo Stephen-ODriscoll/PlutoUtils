@@ -27,7 +27,7 @@ add_executable(
     main.cpp
     range_tests.cpp
     safe_lru_cache_tests.cpp
-    scope_exit_actions_tests.cpp
+    scope_utils_tests.cpp
     standard_tests.cpp
     stopwatch_tests.cpp
     string_utils_tests.cpp
