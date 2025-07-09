@@ -5,6 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
+#include <stdexcept>
+
 #include <gtest/gtest.h>
 
 #include <pluto/scope_utils.hpp>
@@ -45,9 +47,9 @@ TEST_F(scope_utils_tests, test_on_scope_exit_with_fail)
 
         ASSERT_FALSE(changed);
 
-        throw std::exception("Test exception");
+        throw std::runtime_error{ "Test error" };
     }
-    catch (const std::exception& ex) {}
+    catch (const std::runtime_error& err) {}
 
     ASSERT_TRUE(changed);
 }
@@ -81,9 +83,9 @@ TEST_F(scope_utils_tests, test_on_scope_success_with_fail)
 
         ASSERT_FALSE(changed);
 
-        throw std::exception("Test exception");
+        throw std::runtime_error{ "Test error" };
     }
-    catch (const std::exception& ex) {}
+    catch (const std::runtime_error& err) {}
 
     ASSERT_FALSE(changed);
 }
@@ -117,9 +119,9 @@ TEST_F(scope_utils_tests, test_on_scope_fail_with_fail)
 
         ASSERT_FALSE(changed);
 
-        throw std::exception("Test exception");
+        throw std::runtime_error{ "Test error" };
     }
-    catch (const std::exception& ex) {}
+    catch (const std::runtime_error& err) {}
 
     ASSERT_TRUE(changed);
 }
