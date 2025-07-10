@@ -169,10 +169,11 @@ namespace pluto
         if (stop <= start)  { return {}; }
 
         auto startIt{ std::begin(container) };
-        auto stopIt { startIt };
-
         std::advance(startIt, start);
-        std::advance(stopIt, stop);
+
+        auto stopIt{ startIt };
+        std::advance(stopIt, (stop - start));
+
         return { startIt, stopIt };
     }
 
