@@ -13,7 +13,7 @@
 #define TEST_WITH_EXTRA_ELEMS 1 // Tests char8_t, char16_t and char32_t as elems, elem arrays and strings
 #endif
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEMS_1(check, function, x) \
     do \
     { \
@@ -48,7 +48,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEMS_2(check, function, x, y) \
     do \
     { \
@@ -84,7 +84,7 @@
     while (false)
 
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEM_ARRAYS_1(check, function, x) \
     do \
     { \
@@ -121,7 +121,7 @@
     } \
     while(false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y) \
     do \
     { \
@@ -182,7 +182,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEM_ARRAYS_3(check, function, x, y) \
     do \
     { \
@@ -220,7 +220,7 @@
     } \
     while(false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_ELEM_ARRAYS_4(check, function, x, y, z) \
     do \
     { \
@@ -268,7 +268,7 @@
     while(false)
 
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_1(check, function, x) \
     do \
     { \
@@ -303,7 +303,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_2(check, function, x, y) \
     do \
     { \
@@ -352,7 +352,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_3(check, function, x, y) \
     do \
     { \
@@ -387,7 +387,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_4(check, function, x, y, z) \
     do \
     { \
@@ -442,7 +442,7 @@
 #define VECTOR_HELPER_8(pre, x, ...)    pre##x, VECTOR_HELPER_7(pre, __VA_ARGS__)
 #define VECTOR_HELPER_9(pre, x, ...)    pre##x, VECTOR_HELPER_8(pre, __VA_ARGS__)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_5(check, function, x, size, ...) \
     do \
     { \
@@ -486,7 +486,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_6(check, function, x, y, size, ...) \
     do \
     { \
@@ -530,7 +530,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_7(check, function, x, y, size, ...) \
     do \
     { \
@@ -574,7 +574,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_8(check, function, x, y, size, ...) \
     do \
     { \
@@ -618,7 +618,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
 #define TEST_CHAR8_STRINGS_9(check, function, x, y, z, a) \
     do \
     { \

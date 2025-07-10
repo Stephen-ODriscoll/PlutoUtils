@@ -66,7 +66,7 @@ namespace pluto
 
         ~on_scope_success()
         {
-#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
             if (std::uncaught_exceptions() == 0)
 #else
             if (!std::uncaught_exception())
@@ -112,7 +112,7 @@ namespace pluto
 
         ~on_scope_fail()
         {
-#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
             if (std::uncaught_exceptions() != 0)
 #else
             if (std::uncaught_exception())

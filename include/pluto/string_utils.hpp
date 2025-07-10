@@ -128,7 +128,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool is_lower(
         const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
@@ -203,7 +203,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool is_upper(
         const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
@@ -332,7 +332,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class PredicateT = pluto::is_equal>
     inline bool equals(
         const std::u8string&    left,
@@ -399,7 +399,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool iequals(
         const std::u8string&    left,
         const std::u8string&    right,
@@ -445,7 +445,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class PredicateT = pluto::is_equal>
     inline bool starts_with(
         const std::u8string&    left,
@@ -512,7 +512,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool istarts_with(
         const std::u8string&    left,
         const std::u8string&    right,
@@ -558,7 +558,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class PredicateT = pluto::is_equal>
     inline bool ends_with(
         const std::u8string&    left,
@@ -625,7 +625,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool iends_with(
         const std::u8string&    left,
         const std::u8string&    right,
@@ -680,7 +680,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class PredicateT = pluto::is_equal>
     inline auto find(
         const std::u8string&    left,
@@ -747,7 +747,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline auto ifind(
         const std::u8string&    left,
         const std::u8string&    right,
@@ -802,7 +802,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class PredicateT = pluto::is_equal>
     inline bool contains(
         const std::u8string&    left,
@@ -869,7 +869,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline bool icontains(
         const std::u8string&    left,
         const std::u8string&    right,
@@ -949,7 +949,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline std::vector<std::u8string> split(
         const std::u8string&    u8str,
         const std::locale&      locale = pluto::get_default_locale())
@@ -1018,7 +1018,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline std::vector<std::u8string> split(
         const std::u8string& u8str,
         const std::u8string& separator)
@@ -1073,7 +1073,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline std::vector<std::u8string> split_any_of(
         const std::u8string& u8str,
         const std::u8string& separator)
@@ -1136,7 +1136,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class IteratorT>
     inline std::u8string join(
         const IteratorT         begin,
@@ -1191,7 +1191,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     template<class ContainerT>
     inline std::u8string join(
         const ContainerT&       container,
@@ -1254,7 +1254,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline void replace(
         std::u8string&          u8str,
         const std::u8string&    find,
@@ -1312,7 +1312,7 @@ namespace pluto
     }
 
 #if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
-#if (defined(__cplusplus) && __cplusplus > 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201703L)
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
     inline void replace_any_of(
         std::u8string&          u8str,
         const std::u8string&    find,

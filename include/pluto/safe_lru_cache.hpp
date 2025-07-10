@@ -17,7 +17,7 @@ namespace pluto
     template<class KeyT, class ValueT>
     class safe_lru_cache
     {
-#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
         typedef std::shared_mutex shared_mutex_type;
 #else
         typedef std::shared_timed_mutex shared_mutex_type;

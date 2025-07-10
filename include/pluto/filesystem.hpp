@@ -8,7 +8,7 @@
 #pragma once
 
 #ifndef PLUTO_FILESYSTEM_IS_EXPERIMENTAL
-#if (defined(__cplusplus) && __cplusplus > 201402L) || (defined(_MSVC_LANG) && _MSVC_LANG > 201402L)
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
 #define PLUTO_FILESYSTEM_IS_EXPERIMENTAL 0
 #else
 #define PLUTO_FILESYSTEM_IS_EXPERIMENTAL 1
