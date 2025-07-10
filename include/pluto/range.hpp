@@ -45,7 +45,7 @@ namespace pluto
             return ((begin == other.begin) ? (end < other.end) : (begin < other.begin));
         }
 
-        // Warning:
+        // Note:
         // Ranges of size 0 sorted by "no overlap" will behave strangely.
         // They will never overlap with anything as their size is 0.
         // Multiple ranges of size 0 can exist at the same spot.

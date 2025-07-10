@@ -28,7 +28,7 @@ Takes another **pluto::range**. Returns a **bool** representing whether this ran
 
 #### is_less_no_overlap()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is less than the other range, where they are equal if they overlap.
-- Warning: Ranges of size 0 sorted by "no overlap" will behave strangely. They will never overlap with anything as their size is 0. Multiple ranges of size 0 can exist at the same spot. Ranges of size 0 cannot be found using "no overlap". As such, they will be hidden in a sorted container. This is correct, technically a range of size 0 doesn't physically exist.
+- Note: Ranges of size 0 sorted by "no overlap" will behave strangely. They will never overlap with anything as their size is 0. Multiple ranges of size 0 can exist at the same spot. Ranges of size 0 cannot be found using "no overlap". As such, they will be hidden in a sorted container. This is correct, technically a range of size 0 doesn't physically exist.
 
 #### operator==()
 Takes another **pluto::range**. Returns a **bool** representing whether they are equal.
