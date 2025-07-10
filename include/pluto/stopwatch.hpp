@@ -10,8 +10,8 @@
 #include <chrono>
 
 // Configurable with a macro
-#ifndef PLUTO_STOPWATCH_CLOCK
-#define PLUTO_STOPWATCH_CLOCK std::chrono::high_resolution_clock
+#ifndef PLUTO_STOPWATCH_CLOCK_TYPE
+#define PLUTO_STOPWATCH_CLOCK_TYPE std::chrono::high_resolution_clock
 #endif
 
 namespace pluto
@@ -19,12 +19,12 @@ namespace pluto
     class stopwatch
     {
     public:
-        typedef PLUTO_STOPWATCH_CLOCK clock;
+        typedef PLUTO_STOPWATCH_CLOCK_TYPE clock_type;
 
     private:
-        clock::duration     m_time;
-        clock::time_point   m_start;
-        bool                m_isRunning;
+        clock_type::duration    m_time;
+        clock_type::time_point  m_start;
+        bool                    m_isRunning;
 
     public:
         stopwatch(const bool startNow = false) :
@@ -47,7 +47,7 @@ namespace pluto
 
         auto time() const
         {
-            return (m_isRunning ? (m_time + (clock::now() - m_start)) : m_time);
+            return (m_isRunning ? (m_time + (clock_type::now() - m_start)) : m_time);
         }
 
         template<class DurationT>
@@ -85,7 +85,7 @@ namespace pluto
         void restart()
         {
             m_time = {};
-            m_start = clock::now();
+            m_start = clock_type::now();
             m_isRunning = true;
         }
 
@@ -93,7 +93,7 @@ namespace pluto
         {
             if (!m_isRunning)
             {
-                m_start = clock::now();
+                m_start = clock_type::now();
                 m_isRunning = true;
             }
         }
@@ -102,7 +102,7 @@ namespace pluto
         {
             if (m_isRunning)
             {
-                m_time += (clock::now() - m_start);
+                m_time += (clock_type::now() - m_start);
                 m_isRunning = false;
             }
         }
