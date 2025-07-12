@@ -394,7 +394,7 @@ The vector of columns to print when logging.
 2. Takes a **std::vector&lt;pluto::logger::meta_data&gt;** and sets this to be the new meta data columns.
 
 #### should_log()
-Takes a **pluto::logger::level**. Returns whether logging is enabled and the level is an equal or higher priority than the logger level. See [level](#level) for more info.
+Takes a **pluto::logger::level**. Returns a **bool** representing whether logging is enabled and the level is an equal or higher priority than the logger level. See [level](#level) for more info.
 
 #### writef()
 Takes a **std::string** for log file name, a **pluto::logger::level** for level, a pointer to a **char** for file path, an **int** for line number, a pointer to a **char** for function name, a pointer to a **char** for message format and any number of additional arguments for the format. See [level](#level) for more info.
