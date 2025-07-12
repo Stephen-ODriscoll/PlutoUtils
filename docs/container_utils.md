@@ -56,7 +56,7 @@ Takes a container and a function. Calls the function on every element in the con
 #### map()
 1. Takes containers for source, destination and a function. Calls the function on every element to map it from source to destination using **std::transform**. Returns a reference to the same destination container.
 2. Requires a template argument for the destination container. Takes a container for source and a function. Calls the function on every element to map it from source to destination using **std::transform**. Returns a destination container.
-3. Takes a container for source and a function. Calls the function on every element to map it from source to destination. Automatically deduces the destination container using the source container and the return of the function using **std::transform**. Returns a destination container.
+3. Takes a container for source and a function. Automatically deduces the destination container using the source container and the return of the function. Calls the function on every element to map it from source to destination using **std::transform**. Returns a destination container.
 
 #### slice()
 1. Takes a container and **long long**s for start and stop. Returns a new container.
