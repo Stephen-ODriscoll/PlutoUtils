@@ -104,7 +104,7 @@ TEST_F(stopwatch_tests, test_time_call_does_not_stop)
 
     auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-    ASSERT_LT(time1, time2);
+    ASSERT_TRUE(time1 < time2);
 }
 
 TEST_F(stopwatch_tests, test_reset)
@@ -145,7 +145,7 @@ TEST_F(stopwatch_tests, test_restart_does_restart)
     stopwatch.restart();
     auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-    ASSERT_LT(time2, time1);
+    ASSERT_TRUE(time2 < time1);
 }
 
 TEST_F(stopwatch_tests, test_start_does_not_restart)
@@ -163,7 +163,7 @@ TEST_F(stopwatch_tests, test_start_does_not_restart)
     stopwatch.start();
     auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-    ASSERT_LT(time1, time2);
+    ASSERT_TRUE(time1 < time2);
 }
 
 TEST_F(stopwatch_tests, test_stop_when_stopped_no_change)
@@ -201,7 +201,7 @@ TEST_F(stopwatch_tests, test_stop_then_restart_does_restart)
 
     auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-    ASSERT_LT(time2, time1);
+    ASSERT_TRUE(time2 < time1);
 }
 
 TEST_F(stopwatch_tests, test_stop_then_start_does_not_restart)
@@ -222,7 +222,7 @@ TEST_F(stopwatch_tests, test_stop_then_start_does_not_restart)
 
     auto time2{ stopwatch.time() };
     ASSERT_TRUE(stopwatch.is_running());
-    ASSERT_LT(time1, time2);
+    ASSERT_TRUE(time1 < time2);
 }
 
 TEST_F(stopwatch_tests, test_stop_and_time_when_stopped_no_change)
@@ -257,7 +257,7 @@ TEST_F(stopwatch_tests, test_stop_and_time_then_restart_does_restart)
 
     auto time2{ stopwatch.stop_and_time() };
     ASSERT_FALSE(stopwatch.is_running());
-    ASSERT_LT(time2, time1);
+    ASSERT_TRUE(time2 < time1);
 }
 
 TEST_F(stopwatch_tests, test_stop_and_time_then_start_does_not_restart)
@@ -277,5 +277,5 @@ TEST_F(stopwatch_tests, test_stop_and_time_then_start_does_not_restart)
 
     auto time2{ stopwatch.stop_and_time() };
     ASSERT_FALSE(stopwatch.is_running());
-    ASSERT_LT(time1, time2);
+    ASSERT_TRUE(time1 < time2);
 }
