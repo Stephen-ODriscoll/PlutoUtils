@@ -347,25 +347,6 @@ TEST_F(container_utils_tests, test_len)
     }
 }
 
-TEST_F(container_utils_tests, test_all)
-{
-    ASSERT_TRUE(pluto::all(empty));
-    ASSERT_TRUE(pluto::all(one));
-    ASSERT_TRUE(pluto::all(three));
-    ASSERT_TRUE(pluto::all(four));
-    ASSERT_TRUE(pluto::all(five));
-    ASSERT_TRUE(pluto::all(oneToThree));
-    ASSERT_TRUE(pluto::all(oneToFour));
-    ASSERT_TRUE(pluto::all(fiveToNine));
-
-    ASSERT_FALSE(pluto::all(zero));
-    ASSERT_FALSE(pluto::all(fourZeroOne));
-    ASSERT_FALSE(pluto::all(zeroZeroZero));
-    ASSERT_FALSE(pluto::all(zeroToThree));
-    ASSERT_FALSE(pluto::all(zeroToFour));
-    ASSERT_FALSE(pluto::all(zeroToFourTwice));
-}
-
 TEST_F(container_utils_tests, test_any)
 {
     ASSERT_TRUE(pluto::any(one));
@@ -383,6 +364,25 @@ TEST_F(container_utils_tests, test_any)
     ASSERT_FALSE(pluto::any(empty));
     ASSERT_FALSE(pluto::any(zero));
     ASSERT_FALSE(pluto::any(zeroZeroZero));
+}
+
+TEST_F(container_utils_tests, test_all)
+{
+    ASSERT_TRUE(pluto::all(empty));
+    ASSERT_TRUE(pluto::all(one));
+    ASSERT_TRUE(pluto::all(three));
+    ASSERT_TRUE(pluto::all(four));
+    ASSERT_TRUE(pluto::all(five));
+    ASSERT_TRUE(pluto::all(oneToThree));
+    ASSERT_TRUE(pluto::all(oneToFour));
+    ASSERT_TRUE(pluto::all(fiveToNine));
+
+    ASSERT_FALSE(pluto::all(zero));
+    ASSERT_FALSE(pluto::all(fourZeroOne));
+    ASSERT_FALSE(pluto::all(zeroZeroZero));
+    ASSERT_FALSE(pluto::all(zeroToThree));
+    ASSERT_FALSE(pluto::all(zeroToFour));
+    ASSERT_FALSE(pluto::all(zeroToFourTwice));
 }
 
 TEST_F(container_utils_tests, test_count)

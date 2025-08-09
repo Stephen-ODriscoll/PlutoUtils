@@ -192,22 +192,6 @@ namespace pluto
     }
 
     template<class ContainerT, class PredicateT = pluto::is_true>
-    inline bool all(
-        const ContainerT&   container,
-        PredicateT          predicate = {})
-    {
-        for (const auto& elem : container)
-        {
-            if (!predicate(elem))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    template<class ContainerT, class PredicateT = pluto::is_true>
     inline bool any(
         const ContainerT&   container,
         PredicateT          predicate = {})
@@ -221,6 +205,22 @@ namespace pluto
         }
 
         return false;
+    }
+
+    template<class ContainerT, class PredicateT = pluto::is_true>
+    inline bool all(
+        const ContainerT&   container,
+        PredicateT          predicate = {})
+    {
+        for (const auto& elem : container)
+        {
+            if (!predicate(elem))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     template<class ContainerT, class ValueT>

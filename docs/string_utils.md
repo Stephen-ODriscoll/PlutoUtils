@@ -36,17 +36,17 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 3. Takes a string and an optional **std::locale**. Returns a **bool** representing whether all elements in the string are uppercase.
 
 #### str()
-1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns the corresponding **std::string**.
-2. Takes a **std::wstring**. Returns the corresponding **std::string**.
-3. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created with the array.
-4. Takes a **std::string**. Returns a copy of that **std::string**.
+1. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created with the array.
+2. Takes a **std::string**. Returns a copy of that **std::string**.
+3. Takes a pointer to the start of a **wchar_t** array and the array size. Returns the corresponding **std::string**.
+4. Takes a **std::wstring**. Returns the corresponding **std::string**.
 5. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument with a string stream.
 
 #### wstr()
-1. Takes a pointer to the start of a **char** array and the array size. Returns the corresponding **std::wstring**.
-2. Takes a **std::string**. Returns the corresponding **std::wstring**.
-3. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created with the array.
-4. Takes a **std::wstring**. Returns a copy of that **std::wstring**.
+1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created with the array.
+2. Takes a **std::wstring**. Returns a copy of that **std::wstring**.
+3. Takes a pointer to the start of a **char** array and the array size. Returns the corresponding **std::wstring**.
+4. Takes a **std::string**. Returns the corresponding **std::wstring**.
 5. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument with a wide string stream.
 
 #### str_to()

@@ -830,6 +830,21 @@ TEST_F(string_utils_tests, test_is_upper_use_strings)
     TEST_ALL_STRINGS_1(ASSERT_FALSE, pluto::is_upper, "aBcDeF");
 }
 
+TEST_F(string_utils_tests, test_str_use_char_array)
+{
+    const auto pChar{ "abcdef" };
+    const auto size { std::strlen(pChar) };
+
+    ASSERT_EQ(pluto::str(pChar, size), std::string(pChar));
+}
+
+TEST_F(string_utils_tests, test_str_use_string)
+{
+    const std::string str{ "abcdef" };
+
+    ASSERT_EQ(pluto::str(str), str);
+}
+
 TEST_F(string_utils_tests, test_str_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
@@ -847,21 +862,6 @@ TEST_F(string_utils_tests, test_str_use_wstring)
     ASSERT_EQ(pluto::str(wstr), str);
 }
 
-TEST_F(string_utils_tests, test_str_use_char_array)
-{
-    const auto pChar{ "abcdef" };
-    const auto size { std::strlen(pChar) };
-
-    ASSERT_EQ(pluto::str(pChar, size), std::string(pChar));
-}
-
-TEST_F(string_utils_tests, test_str_use_string)
-{
-    const std::string str{ "abcdef" };
-
-    ASSERT_EQ(pluto::str(str), str);
-}
-
 TEST_F(string_utils_tests, test_str_use_values)
 {
     const std::string str{ "1" };
@@ -874,6 +874,21 @@ TEST_F(string_utils_tests, test_str_use_values)
     ASSERT_EQ(pluto::str(1ull), str);
     ASSERT_EQ(pluto::str(1.0),  str);
     ASSERT_EQ(pluto::str(1.0f), str);
+}
+
+TEST_F(string_utils_tests, test_wstr_use_wchar_array)
+{
+    const auto pWChar   { L"abcdef" };
+    const auto size     { std::wcslen(pWChar) };
+
+    ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring(pWChar));
+}
+
+TEST_F(string_utils_tests, test_wstr_use_wstring)
+{
+    const std::wstring wstr{ L"abcdef" };
+
+    ASSERT_EQ(pluto::wstr(wstr), wstr);
 }
 
 TEST_F(string_utils_tests, test_wstr_use_char_array)
@@ -891,21 +906,6 @@ TEST_F(string_utils_tests, test_wstr_use_string)
     const std::string str   { "abcdef" };
 
     ASSERT_EQ(pluto::wstr(str), wstr);
-}
-
-TEST_F(string_utils_tests, test_wstr_use_wchar_array)
-{
-    const auto pWChar   { L"abcdef" };
-    const auto size     { std::wcslen(pWChar) };
-
-    ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring(pWChar));
-}
-
-TEST_F(string_utils_tests, test_wstr_use_wstring)
-{
-    const std::wstring wstr{ L"abcdef" };
-
-    ASSERT_EQ(pluto::wstr(wstr), wstr);
 }
 
 TEST_F(string_utils_tests, test_wstr_use_values)

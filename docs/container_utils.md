@@ -67,11 +67,11 @@ Takes a container and a function. Calls the function on every element in the con
 #### len()
 Takes a container. Returns the size of that container using **std::size**.
 
-#### all()
-Takes a container and an optional predicate. Returns whether every element equates to **true**.
-
 #### any()
 Takes a container and an optional predicate. Returns whether any element equates to **true**.
+
+#### all()
+Takes a container and an optional predicate. Returns whether every element equates to **true**.
 
 #### count()
 Takes a container and a value. Counts all elements that equal the value. Returns the count.

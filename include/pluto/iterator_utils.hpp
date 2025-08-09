@@ -176,9 +176,9 @@ namespace pluto
 
     template<class IteratorT, class ElemT>
     inline bool contains(
-        const IteratorT     begin,
-        const IteratorT     end,
-        const ElemT         elem)
+        const IteratorT begin,
+        const IteratorT end,
+        const ElemT     elem)
     {
         return (pluto::find(begin, end, elem) != end);
     }

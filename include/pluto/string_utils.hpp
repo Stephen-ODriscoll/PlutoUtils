@@ -227,6 +227,16 @@ namespace pluto
     }
 #endif
 
+    inline std::string str(const char* const pChar, const std::size_t size)
+    {
+        return std::string(pChar, size);
+    }
+
+    inline std::string str(const std::string& string)
+    {
+        return string;
+    }
+
     inline std::string str(const wchar_t* const pWChar, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
@@ -238,22 +248,22 @@ namespace pluto
         return pluto::str(&wstring[0], wstring.size());
     }
 
-    inline std::string str(const char* const pChar, const std::size_t size)
-    {
-        return std::string(pChar, size);
-    }
-
-    inline std::string str(const std::string& string)
-    {
-        return string;
-    }
-
     template<class ValueT>
     inline std::string str(const ValueT& value)
     {
         std::ostringstream ss{};
         ss << value;
         return ss.str();
+    }
+
+    inline std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
+    {
+        return std::wstring(pWChar, size);
+    }
+
+    inline std::wstring wstr(const std::wstring& wstring)
+    {
+        return wstring;
     }
 
     inline std::wstring wstr(const char* const pChar, const std::size_t size)
@@ -265,16 +275,6 @@ namespace pluto
     inline std::wstring wstr(const std::string& string)
     {
         return pluto::wstr(&string[0], string.size());
-    }
-
-    inline std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
-    {
-        return std::wstring(pWChar, size);
-    }
-
-    inline std::wstring wstr(const std::wstring& wstring)
-    {
-        return wstring;
     }
 
     template<class ValueT>
