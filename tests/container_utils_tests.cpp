@@ -145,6 +145,25 @@ TEST_F(container_utils_tests, test_find_elem_returns_end)
     ASSERT_EQ(pluto::find_elem(zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
+TEST_F(container_utils_tests, test_rfind_elem_returns_position)
+{
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 0), zeroToFourTwice.begin() + 5);
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 1), zeroToFourTwice.begin() + 6);
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 2), zeroToFourTwice.begin() + 7);
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 3), zeroToFourTwice.begin() + 8);
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 4), zeroToFourTwice.begin() + 9);
+
+    ASSERT_EQ(pluto::rfind_elem(fourZeroOne, 4), fourZeroOne.begin());
+    ASSERT_EQ(pluto::rfind_elem(fourZeroOne, 0), fourZeroOne.begin() + 1);
+    ASSERT_EQ(pluto::rfind_elem(fourZeroOne, 1), fourZeroOne.begin() + 2);
+}
+
+TEST_F(container_utils_tests, test_rfind_elem_returns_end)
+{
+    ASSERT_EQ(pluto::rfind_elem(empty, 0), empty.end());
+    ASSERT_EQ(pluto::rfind_elem(zeroToFourTwice, 5), zeroToFourTwice.end());
+}
+
 TEST_F(container_utils_tests, test_find_sequence_returns_position)
 {
     ASSERT_EQ(pluto::find_sequence(empty, empty), empty.begin());
@@ -165,6 +184,29 @@ TEST_F(container_utils_tests, test_find_sequence_returns_end)
 {
     ASSERT_EQ(pluto::find_sequence(zeroToFourTwice, five), zeroToFourTwice.end());
 }
+
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+TEST_F(container_utils_tests, test_rfind_sequence_returns_position)
+{
+    ASSERT_EQ(pluto::rfind_sequence(empty, empty), empty.begin());
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, empty), zeroToFourTwice.begin() + 10);
+
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, zeroToFourTwice), zeroToFourTwice.begin());
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, zeroToFourTwice2), zeroToFourTwice.begin());
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, fourZeroOne), zeroToFourTwice.begin() + 4);
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, oneToThree), zeroToFourTwice.begin() + 6);
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, zero), zeroToFourTwice.begin() + 5);
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, four), zeroToFourTwice.begin() + 9);
+
+    ASSERT_EQ(pluto::rfind_sequence(fourZeroOne, zero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(pluto::rfind_sequence(fourZeroOne, four), fourZeroOne.begin());
+}
+
+TEST_F(container_utils_tests, test_rfind_sequence_returns_end)
+{
+    ASSERT_EQ(pluto::rfind_sequence(zeroToFourTwice, five), zeroToFourTwice.end());
+}
+#endif
 
 TEST_F(container_utils_tests, test_find_if_returns_position)
 {
@@ -194,6 +236,34 @@ TEST_F(container_utils_tests, test_find_if_returns_end)
     ASSERT_EQ(pluto::find_if(zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
+TEST_F(container_utils_tests, test_rfind_if_returns_position)
+{
+    auto equalsZero { [](int i) { return i == 0; } };
+    auto equalsOne  { [](int i) { return i == 1; } };
+    auto equalsTwo  { [](int i) { return i == 2; } };
+    auto equalsThree{ [](int i) { return i == 3; } };
+    auto equalsFour { [](int i) { return i == 4; } };
+
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 5);
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 6);
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 7);
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 8);
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 9);
+
+    ASSERT_EQ(pluto::rfind_if(fourZeroOne, equalsFour), fourZeroOne.begin());
+    ASSERT_EQ(pluto::rfind_if(fourZeroOne, equalsZero), fourZeroOne.begin() + 1);
+    ASSERT_EQ(pluto::rfind_if(fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
+}
+
+TEST_F(container_utils_tests, test_rfind_if_returns_end)
+{
+    auto equalsZero{ [](int i) { return i == 0; } };
+    auto equalsFive{ [](int i) { return i == 5; } };
+
+    ASSERT_EQ(pluto::rfind_if(empty, equalsZero), empty.end());
+    ASSERT_EQ(pluto::rfind_if(zeroToFourTwice, equalsFive), zeroToFourTwice.end());
+}
+
 TEST_F(container_utils_tests, test_find_if_not_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
@@ -211,6 +281,25 @@ TEST_F(container_utils_tests, test_find_if_not_returns_position)
     ASSERT_EQ(pluto::find_if_not(fourZeroOne, equalsFour), fourZeroOne.begin() + 1);
     ASSERT_EQ(pluto::find_if_not(fourZeroOne, equalsZero), fourZeroOne.begin());
     ASSERT_EQ(pluto::find_if_not(fourZeroOne, equalsOne), fourZeroOne.begin());
+}
+
+TEST_F(container_utils_tests, test_rfind_if_not_returns_position)
+{
+    auto equalsZero { [](int i) { return i == 0; } };
+    auto equalsOne  { [](int i) { return i == 1; } };
+    auto equalsTwo  { [](int i) { return i == 2; } };
+    auto equalsThree{ [](int i) { return i == 3; } };
+    auto equalsFour { [](int i) { return i == 4; } };
+
+    ASSERT_EQ(pluto::rfind_if_not(zeroToFourTwice, equalsZero), zeroToFourTwice.begin() + 9);
+    ASSERT_EQ(pluto::rfind_if_not(zeroToFourTwice, equalsOne), zeroToFourTwice.begin() + 9);
+    ASSERT_EQ(pluto::rfind_if_not(zeroToFourTwice, equalsTwo), zeroToFourTwice.begin() + 9);
+    ASSERT_EQ(pluto::rfind_if_not(zeroToFourTwice, equalsThree), zeroToFourTwice.begin() + 9);
+    ASSERT_EQ(pluto::rfind_if_not(zeroToFourTwice, equalsFour), zeroToFourTwice.begin() + 8);
+
+    ASSERT_EQ(pluto::rfind_if_not(fourZeroOne, equalsFour), fourZeroOne.begin() + 2);
+    ASSERT_EQ(pluto::rfind_if_not(fourZeroOne, equalsZero), fourZeroOne.begin() + 2);
+    ASSERT_EQ(pluto::rfind_if_not(fourZeroOne, equalsOne), fourZeroOne.begin() + 1);
 }
 
 TEST_F(container_utils_tests, test_contains_elem_returns_true)

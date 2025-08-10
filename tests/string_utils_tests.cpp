@@ -1460,6 +1460,56 @@ TEST_F(string_utils_tests, test_find_use_strings)
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::find, "ABCDEF", "aBcDeg", 6); // end
 }
 
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+TEST_F(string_utils_tests, test_rfind_use_strings)
+{
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, " ", " ", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "A", "A", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "a", "A", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "A", "a", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "a", "a", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "A", "B", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "a", "B", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "A", "b", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "a", "b", 1); // end
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "", "", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, " ", "", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDEF", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcdef", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcdef", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "", " ", 0); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcdefg", 6); // end
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDE", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcde", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcde", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "BCDEF", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "bcdef", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "bcdef", 1);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "BCDE", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "BCDE", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "bcde", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "abcdef", "bcde", 1);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "aBcDeF", "ABCDEF", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "aBcDeF", 6); // end
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "aBcDeg", 6); // end
+}
+#endif
+
 TEST_F(string_utils_tests, test_ifind_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::ifind, " ", " ", 0);
@@ -1555,6 +1605,104 @@ TEST_F(string_utils_tests, test_ifind_use_strings)
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::ifind, "aBcDeF", "ABCDEG", 6); // end
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::ifind, "ABCDEF", "aBcDeg", 6); // end
 }
+
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+TEST_F(string_utils_tests, test_irfind_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "a", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "A", "a", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "a", "a", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "a", "b", 1); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, " ", "", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcdef", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcdef", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcdeg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcdeg", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcde", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcde", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "bcdef", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "bcdef", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "bcde", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "abcdef", "bcde", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeF", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeg", 6); // end
+}
+
+TEST_F(string_utils_tests, test_irfind_use_strings)
+{
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, " ", " ", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "A", "A", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "a", "A", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "A", "a", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "a", "a", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "A", "B", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "a", "B", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "A", "b", 1); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "a", "b", 1); // end
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "", "", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, " ", "", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDEF", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcdef", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcdef", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "", " ", 0); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcdefg", 6); // end
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "ABCDE", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "abcde", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "abcde", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "BCDEF", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "bcdef", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "bcdef", 1);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "BCDE", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "BCDE", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "bcde", 1);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "abcdef", "bcde", 1);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "aBcDeF", "ABCDEF", 0);
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeF", 0);
+
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeg", 6); // end
+}
+#endif
 
 TEST_F(string_utils_tests, test_contains_use_strings)
 {

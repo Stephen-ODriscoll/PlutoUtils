@@ -18,8 +18,19 @@ Takes a container and an element. Looks for the element using **std::find**.
 - If found, an iterator for the location of the element is returned.
 - If not found, an iterator for end is returned.
 
+#### rfind_elem()
+Takes a container and an element. Looks for the element using **std::find** with reverse iterators.
+- If found, an iterator for the location of the element is returned.
+- If not found, an iterator for end is returned.
+
 #### find_sequence()
 Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::search**.
+- If found, an iterator for the start of right in left is returned.
+- If not found, left end is returned.
+
+#### rfind_sequence()
+Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::find_end**.
+- Requires C++ 17 or above.
 - If found, an iterator for the start of right in left is returned.
 - If not found, left end is returned.
 
@@ -28,8 +39,18 @@ Takes a container and a predicate. Looks for where the predicate returns **true*
 - If found, an iterator for the location the predicate returned **true** is returned.
 - If not found, an iterator for end is returned.
 
+#### rfind_if()
+Takes a container and a predicate. Looks for where the predicate returns **true** using **std::find_if** with reverse iterators.
+- If found, an iterator for the location the predicate returned **true** is returned.
+- If not found, an iterator for end is returned.
+
 #### find_if_not()
 Takes a container and a predicate. Looks for where the predicate returns **false** using **std::find_if_not**.
+- If found, an iterator for the location the predicate returned **false** is returned.
+- If not found, an iterator for end is returned.
+
+#### rfind_if_not()
+Takes a container and a predicate. Looks for where the predicate returns **false** using **std::find_if_not** with reverse iterators.
 - If found, an iterator for the location the predicate returned **false** is returned.
 - If not found, an iterator for end is returned.
 

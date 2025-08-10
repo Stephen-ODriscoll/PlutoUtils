@@ -710,6 +710,66 @@ namespace pluto
     }
 #endif
 
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+    template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        PredicateT                                          predicate = {})
+    {
+        return pluto::rfind_sequence(left, right, predicate);
+    }
+
+    template<class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::string&  left,
+        const std::string&  right,
+        PredicateT          predicate = {})
+    {
+        return pluto::rfind<std::string::value_type>(left, right, predicate);
+    }
+
+    template<class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::wstring& left,
+        const std::wstring& right,
+        PredicateT          predicate = {})
+    {
+        return pluto::rfind<std::wstring::value_type>(left, right, predicate);
+    }
+
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
+    template<class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::u8string&    left,
+        const std::u8string&    right,
+        PredicateT              predicate = {})
+    {
+        return pluto::rfind<std::u8string::value_type>(left, right, predicate);
+    }
+#endif
+
+    template<class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::u16string&   left,
+        const std::u16string&   right,
+        PredicateT              predicate = {})
+    {
+        return pluto::rfind<std::u16string::value_type>(left, right, predicate);
+    }
+
+    template<class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const std::u32string&   left,
+        const std::u32string&   right,
+        PredicateT              predicate = {})
+    {
+        return pluto::rfind<std::u32string::value_type>(left, right, predicate);
+    }
+#endif
+#endif
+
     template<class ElemT>
     inline auto ifind(
         const ElemT* const  beginL,
@@ -772,6 +832,72 @@ namespace pluto
     {
         return pluto::ifind<>(left, right, locale);
     }
+#endif
+
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+    template<class ElemT>
+    inline auto irfind(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        const std::locale&  locale = pluto::get_default_locale())
+    {
+        return pluto::rfind(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+    }
+
+    template<class ElemT, class TraitsT, class AllocT>
+    inline auto irfind(
+        const std::basic_string<ElemT, TraitsT, AllocT>&    left,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    right,
+        const std::locale&                                  locale = pluto::get_default_locale())
+    {
+        return pluto::rfind_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
+    }
+
+    inline auto irfind(
+        const std::string& left,
+        const std::string& right,
+        const std::locale& locale = pluto::get_default_locale())
+    {
+        return pluto::irfind<>(left, right, locale);
+    }
+
+    inline auto irfind(
+        const std::wstring& left,
+        const std::wstring& right,
+        const std::locale&  locale = pluto::get_default_locale())
+    {
+        return pluto::irfind<>(left, right, locale);
+    }
+
+#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
+    inline auto irfind(
+        const std::u8string&    left,
+        const std::u8string&    right,
+        const std::locale&      locale = pluto::get_default_locale())
+    {
+        return pluto::irfind<>(left, right, locale);
+    }
+#endif
+
+    inline auto irfind(
+        const std::u16string&   left,
+        const std::u16string&   right,
+        const std::locale&      locale = pluto::get_default_locale())
+    {
+        return pluto::irfind<>(left, right, locale);
+    }
+
+    inline auto irfind(
+        const std::u32string&   left,
+        const std::u32string&   right,
+        const std::locale&      locale = pluto::get_default_locale())
+    {
+        return pluto::irfind<>(left, right, locale);
+    }
+#endif
 #endif
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>

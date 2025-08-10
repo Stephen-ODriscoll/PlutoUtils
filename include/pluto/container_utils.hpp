@@ -48,6 +48,14 @@ namespace pluto
         return pluto::find(std::begin(container), std::end(container), elem);
     }
 
+    template<class ContainerT, class ElemT>
+    inline auto rfind_elem(
+        const ContainerT&   container,
+        const ElemT&        elem)
+    {
+        return pluto::rfind(std::begin(container), std::end(container), elem);
+    }
+
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
     inline auto find_sequence(
         const ContainerLeftT&   left,
@@ -56,6 +64,17 @@ namespace pluto
     {
         return pluto::find(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
+
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+    template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
+    inline auto rfind_sequence(
+        const ContainerLeftT&   left,
+        const ContainerRightT&  right,
+        PredicateT              predicate = {})
+    {
+        return pluto::rfind(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
+    }
+#endif
 
     template<class ContainerT, class PredicateT>
     inline auto find_if(
@@ -66,11 +85,27 @@ namespace pluto
     }
 
     template<class ContainerT, class PredicateT>
+    inline auto rfind_if(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        return pluto::rfind_if(std::begin(container), std::end(container), predicate);
+    }
+
+    template<class ContainerT, class PredicateT>
     inline auto find_if_not(
         const ContainerT&   container,
         PredicateT          predicate)
     {
         return pluto::find_if_not(std::begin(container), std::end(container), predicate);
+    }
+
+    template<class ContainerT, class PredicateT>
+    inline auto rfind_if_not(
+        const ContainerT&   container,
+        PredicateT          predicate)
+    {
+        return pluto::rfind_if_not(std::begin(container), std::end(container), predicate);
     }
 
     template<class ContainerT, class ElemT>

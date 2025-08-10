@@ -138,6 +138,53 @@ namespace pluto
         return pluto::find(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
     }
 
+    template<class IteratorT, class ElemT>
+    inline auto rfind(
+        const IteratorT begin,
+        const IteratorT end,
+        const ElemT     elem)
+    {
+        const auto rbegin   { std::make_reverse_iterator(end) };
+        const auto rend     { std::make_reverse_iterator(begin) };
+
+        auto rit{ pluto::find(rbegin, rend, elem) };
+
+        return (rit == rend ? end : --(rit.base()));
+    }
+
+    template<class IteratorT, class ElemT>
+    inline auto rfind(
+        const IteratorT     begin,
+        const std::size_t   size,
+        const ElemT         elem)
+    {
+        return pluto::rfind(begin, std::next(begin, size), elem);
+    }
+
+#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const IteratorLeftT     beginL,
+        const IteratorLeftT     endL,
+        const IteratorRightT    beginR,
+        const IteratorRightT    endR,
+        PredicateT              predicate = {})
+    {
+        return std::find_end(beginL, endL, beginR, endR, predicate);
+    }
+
+    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
+    inline auto rfind(
+        const IteratorLeftT     beginL,
+        const std::size_t       sizeL,
+        const IteratorRightT    beginR,
+        const std::size_t       sizeR,
+        PredicateT              predicate = {})
+    {
+        return pluto::rfind(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
+    }
+#endif
+
     template<class IteratorT, class PredicateT>
     inline auto find_if(
         const IteratorT begin,
@@ -157,6 +204,29 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
+    inline auto rfind_if(
+        const IteratorT begin,
+        const IteratorT end,
+        PredicateT      predicate)
+    {
+        const auto rbegin   { std::make_reverse_iterator(end) };
+        const auto rend     { std::make_reverse_iterator(begin) };
+
+        auto rit{ pluto::find_if(rbegin, rend, predicate) };
+
+        return (rit == rend ? end : --(rit.base()));
+    }
+
+    template<class IteratorT, class PredicateT>
+    inline auto rfind_if(
+        const IteratorT     begin,
+        const std::size_t   size,
+        PredicateT          predicate)
+    {
+        return pluto::rfind_if(begin, std::next(begin, size), predicate);
+    }
+
+    template<class IteratorT, class PredicateT>
     inline auto find_if_not(
         const IteratorT begin,
         const IteratorT end,
@@ -172,6 +242,29 @@ namespace pluto
         PredicateT          predicate)
     {
         return pluto::find_if_not(begin, std::next(begin, size), predicate);
+    }
+
+    template<class IteratorT, class PredicateT>
+    inline auto rfind_if_not(
+        const IteratorT begin,
+        const IteratorT end,
+        PredicateT      predicate)
+    {
+        const auto rbegin   { std::make_reverse_iterator(end) };
+        const auto rend     { std::make_reverse_iterator(begin) };
+
+        auto rit{ pluto::find_if_not(rbegin, rend, predicate) };
+
+        return (rit == rend ? end : --(rit.base()));
+    }
+
+    template<class IteratorT, class PredicateT>
+    inline auto rfind_if_not(
+        const IteratorT     begin,
+        const std::size_t   size,
+        PredicateT          predicate)
+    {
+        return pluto::rfind_if_not(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT, class ElemT>

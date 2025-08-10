@@ -33,6 +33,22 @@ Takes iterators for left begin, left end, right begin and an optional predicate.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
+#### rfind()
+1. Takes iterators for begin, end and an element. Looks for the element using **std::find** with reverse iterators.
+    - If found, an iterator for the location of the element is returned.
+    - If not found, end is returned.
+2. Takes an iterator for begin, the size and an element. Looks for the element using **std::find** with reverse iterators.
+    - If found, an iterator for the location of the element is returned.
+    - If not found, end is returned.
+3. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurence of right in left using **std::find_end**.
+    - Requires C++ 17 or above.
+    - If found, an iterator for the start of right in left is returned.
+    - If not found, left end is returned.
+4. Takes an iterator for left begin, the size of left, an iterator for right begin, the size of right and an optional predicate. Looks for occurence of right in left using **std::find_end**.
+    - Requires C++ 17 or above.
+    - If found, an iterator for the start of right in left is returned.
+    - If not found, left end is returned.
+
 #### find_if()
 1. Takes iterators for begin, end and a predicate. Looks for where the predicate returns **true** using **std::find_if**.
     - If found, an iterator for the location the predicate returned **true** is returned.
@@ -41,11 +57,27 @@ Takes iterators for left begin, left end, right begin and an optional predicate.
     - If found, an iterator for the location the predicate returned **true** is returned.
     - If not found, end is returned.
 
+#### rfind_if()
+1. Takes iterators for begin, end and a predicate. Looks for where the predicate returns **true** using **std::find_if** with reverse iterators.
+    - If found, an iterator for the location the predicate returned **true** is returned.
+    - If not found, end is returned.
+2. Takes an iterator for begin, the size and a predicate. Looks for where the predicate returns **true** using **std::find_if** with reverse iterators.
+    - If found, an iterator for the location the predicate returned **true** is returned.
+    - If not found, end is returned.
+
 #### find_if_not()
 1. Takes iterators for begin, end and a predicate. Looks for where the predicate returns **false** using **std::find_if_not**.
     - If found, an iterator for the location the predicate returned **false** is returned.
     - If not found, end is returned.
 2. Takes an iterator for begin, the size and a predicate. Looks for where the predicate returns **false** using **std::find_if_not**.
+    - If found, an iterator for the location the predicate returned **false** is returned.
+    - If not found, end is returned.
+
+#### rfind_if_not()
+1. Takes iterators for begin, end and a predicate. Looks for where the predicate returns **false** using **std::find_if_not** with reverse iterators.
+    - If found, an iterator for the location the predicate returned **false** is returned.
+    - If not found, end is returned.
+2. Takes an iterator for begin, the size and a predicate. Looks for where the predicate returns **false** using **std::find_if_not** with reverse iterators.
     - If found, an iterator for the location the predicate returned **false** is returned.
     - If not found, end is returned.
 
