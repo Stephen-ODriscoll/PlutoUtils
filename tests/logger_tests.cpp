@@ -11,27 +11,15 @@
 
 #define LOG_FILE "test.log"
 
-#define LOG_FORMAT(...)             PLUTO_LOG_FORMAT_NONE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_FATAL(...)       PLUTO_LOG_FORMAT_FATAL(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_CRITICAL(...)    PLUTO_LOG_FORMAT_CRITICAL(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_ERROR(...)       PLUTO_LOG_FORMAT_ERROR(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_WARNING(...)     PLUTO_LOG_FORMAT_WARNING(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_NOTICE(...)      PLUTO_LOG_FORMAT_NOTICE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_INFO(...)        PLUTO_LOG_FORMAT_INFO(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_DEBUG(...)       PLUTO_LOG_FORMAT_DEBUG(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_TRACE(...)       PLUTO_LOG_FORMAT_TRACE(LOG_FILE, __VA_ARGS__)
-#define LOG_FORMAT_VERBOSE(...)     PLUTO_LOG_FORMAT_VERBOSE(LOG_FILE, __VA_ARGS__)
+#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE(LOG_FILE, level, __VA_ARGS__)
 
-#define LOG_STREAM(message)             PLUTO_LOG_STREAM_NONE(LOG_FILE, message)
-#define LOG_STREAM_FATAL(message)       PLUTO_LOG_STREAM_FATAL(LOG_FILE, message)
-#define LOG_STREAM_CRITICAL(message)    PLUTO_LOG_STREAM_CRITICAL(LOG_FILE, message)
-#define LOG_STREAM_ERROR(message)       PLUTO_LOG_STREAM_ERROR(LOG_FILE, message)
-#define LOG_STREAM_WARNING(message)     PLUTO_LOG_STREAM_WARNING(LOG_FILE, message)
-#define LOG_STREAM_NOTICE(message)      PLUTO_LOG_STREAM_NOTICE(LOG_FILE, message)
-#define LOG_STREAM_INFO(message)        PLUTO_LOG_STREAM_INFO(LOG_FILE, message)
-#define LOG_STREAM_DEBUG(message)       PLUTO_LOG_STREAM_DEBUG(LOG_FILE, message)
-#define LOG_STREAM_TRACE(message)       PLUTO_LOG_STREAM_TRACE(LOG_FILE, message)
-#define LOG_STREAM_VERBOSE(message)     PLUTO_LOG_STREAM_VERBOSE(LOG_FILE, message)
+#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF(LOG_FILE, level, __VA_ARGS__)
+
+#if PLUTO_LOGGER_HAS_FORMAT
+#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT(LOG_FILE, level, __VA_ARGS__)
+#endif
+
+#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM(LOG_FILE, level, __VA_ARGS__)
 
 class logger_tests : public testing::Test
 {
@@ -68,7 +56,7 @@ std::size_t count_logs()
     return logCount;
 }
 
-std::string get_last_log()
+std::string last_log()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
@@ -83,149 +71,142 @@ std::string get_last_log()
     return lastLog;
 }
 
-std::string get_last_log_message()
+std::string last_log_message()
 {
-    auto lastLog    { get_last_log() };
-    auto separator  { pluto::logger::get_instance().separator() };
-    auto index      { lastLog.rfind(separator) };
+    auto lastLog    { last_log() };
+    auto index      { lastLog.rfind(" | ")};
 
-    return ((index == std::string::npos) ? lastLog : lastLog.substr(index + separator.size()));
+    return ((index == std::string::npos) ? lastLog : lastLog.substr(index + 3));
 }
 
-TEST_F(logger_tests, test_log_format_levels)
+TEST_F(logger_tests, test_writef)
 {
     std::string message{};
 
-    message = "log message";
-    LOG_FORMAT(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Fatal log message";
-    LOG_FORMAT_FATAL(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
+    message = "Verbose log message";
+    LOG_WRITEF(verbose, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Trace log message";
+    LOG_WRITEF(trace, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Debug log message";
+    LOG_WRITEF(debug, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Info log message";
+    LOG_WRITEF(info, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Notice log message";
+    LOG_WRITEF(notice, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Warning log message";
+    LOG_WRITEF(warning, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Error log message";
+    LOG_WRITEF(error, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
     message = "Critical log message";
-    LOG_FORMAT_CRITICAL(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Error log message";
-    LOG_FORMAT_ERROR(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Warning log message";
-    LOG_FORMAT_WARNING(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Notice log message";
-    LOG_FORMAT_NOTICE(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Info log message";
-    LOG_FORMAT_INFO(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Debug log message";
-    LOG_FORMAT_DEBUG(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Trace log message";
-    LOG_FORMAT_TRACE(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Verbose log message";
-    LOG_FORMAT_VERBOSE(message.c_str());
-    ASSERT_EQ(message, get_last_log_message());
+    LOG_WRITEF(critical, message.c_str());
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Fatal log message";
+    LOG_WRITEF(fatal, message.c_str());
+    ASSERT_EQ(message, last_log_message());
 }
 
-TEST_F(logger_tests, test_log_stream_levels)
+TEST_F(logger_tests, test_stream)
 {
     std::string message{};
 
-    message = "log message";
-    LOG_STREAM(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Fatal log message";
-    LOG_STREAM_FATAL(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Error log message";
-    LOG_STREAM_ERROR(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Warning log message";
-    LOG_STREAM_WARNING(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Notice log message";
-    LOG_STREAM_NOTICE(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Info log message";
-    LOG_STREAM_INFO(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Debug log message";
-    LOG_STREAM_DEBUG(message);
-    ASSERT_EQ(message, get_last_log_message());
-
-    message = "Trace log message";
-    LOG_STREAM_TRACE(message);
-    ASSERT_EQ(message, get_last_log_message());
-
     message = "Verbose log message";
-    LOG_STREAM_VERBOSE(message);
-    ASSERT_EQ(message, get_last_log_message());
+    LOG_STREAM(verbose, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Trace log message";
+    LOG_STREAM(trace, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Debug log message";
+    LOG_STREAM(debug, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Info log message";
+    LOG_STREAM(info, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Notice log message";
+    LOG_STREAM(notice, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Warning log message";
+    LOG_STREAM(warning, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Error log message";
+    LOG_STREAM(error, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Critical log message";
+    LOG_STREAM(critical, message);
+    ASSERT_EQ(message, last_log_message());
+    
+    message = "Fatal log message";
+    LOG_STREAM(fatal, message);
+    ASSERT_EQ(message, last_log_message());
 }
 
-TEST_F(logger_tests, test_log_format_does_formatting)
+TEST_F(logger_tests, test_writef_does_formatting)
 {
-    LOG_FORMAT("log message: %s, %S", "Test", L"Test");
-    ASSERT_EQ("log message: Test, Test", get_last_log_message());
+    LOG_WRITEF(none, "log message: %s, %S", "Test", L"Test");
+    ASSERT_EQ("log message: Test, Test", last_log_message());
 }
 
-TEST_F(logger_tests, test_log_format_broken_still_logs)
+TEST_F(logger_tests, test_writef_broken_still_logs)
 {
-    LOG_FORMAT("log message: %s, %S", "Test");
-    ASSERT_EQ("log message: %s, %S", get_last_log_message());
+    LOG_WRITEF(none, "log message: %s, %S", "Test");
+    ASSERT_EQ("log message: %s, %S", last_log_message());
 }
 
-TEST_F(logger_tests, test_all_format_logs_are_written)
+TEST_F(logger_tests, test_writef_writes_all_logs)
 {
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_FORMAT("log message %z of %z", i, numLogs);
-        LOG_FORMAT_FATAL("log message %z of %z", i, numLogs);
-        LOG_FORMAT_CRITICAL("log message %z of %z", i, numLogs);
-        LOG_FORMAT_ERROR("log message %z of %z", i, numLogs);
-        LOG_FORMAT_WARNING("log message %z of %z", i, numLogs);
-        LOG_FORMAT_NOTICE("log message %z of %z", i, numLogs);
-        LOG_FORMAT_INFO("log message %z of %z", i, numLogs);
-        LOG_FORMAT_DEBUG("log message %z of %z", i, numLogs);
-        LOG_FORMAT_TRACE("log message %z of %z", i, numLogs);
-        LOG_FORMAT_VERBOSE("log message %z of %z", i, numLogs);
+        LOG_WRITEF(fatal, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(critical, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(error, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(warning, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(notice, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(info, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(debug, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(trace, "log message %z of %z", i, numLogs);
+        LOG_WRITEF(verbose, "log message %z of %z", i, numLogs);
     }
 
-    ASSERT_EQ(count_logs(), 1002);   // +2 for header
+    ASSERT_EQ(count_logs(), 902);   // +2 for header
 }
 
-TEST_F(logger_tests, test_all_stream_logs_are_written)
+TEST_F(logger_tests, test_stream_writes_all_logs)
 {
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_STREAM("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_FATAL("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_CRITICAL("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_ERROR("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_WARNING("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_NOTICE("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_INFO("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_DEBUG("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_TRACE("Log entry " << i << " of " << numLogs);
-        LOG_STREAM_VERBOSE("Log entry " << i << " of " << numLogs);
+        LOG_STREAM(fatal, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(critical, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(error, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(warning, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(notice, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(info, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(debug, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(trace, "Log entry " << i << " of " << numLogs);
+        LOG_STREAM(verbose, "Log entry " << i << " of " << numLogs);
     }
 
-    ASSERT_EQ(count_logs(), 1002);   // +2 for header
+    ASSERT_EQ(count_logs(), 902);   // +2 for header
 }
