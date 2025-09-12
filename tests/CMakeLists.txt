@@ -19,6 +19,7 @@ add_executable(
     compare_tests.cpp
     container_utils_tests.cpp
     filesystem_tests.cpp
+    platform_utils_tests.cpp
     pluto_tests.cpp
     iterator_utils_tests.cpp
     locale_tests.cpp
