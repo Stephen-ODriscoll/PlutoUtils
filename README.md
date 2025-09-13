@@ -74,9 +74,9 @@ The only dependencies required to build the unit tests are CMake and Google Test
 
 [scope_utils.hpp](./docs/scope_utils.md)
 
-[stopwatch.hpp](./docs/stopwatch.md)
-
 [standard.hpp](./docs/standard.md)
+
+[stopwatch.hpp](./docs/stopwatch.md)
 
 [string_utils.hpp](./docs/string_utils.md)
 
