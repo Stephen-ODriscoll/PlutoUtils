@@ -1,5 +1,5 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/main/README.md#documentation)
+[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
 ## compare.hpp
 Contains comparison operators used by other utilities. Also contains case insensitive comparison operators.

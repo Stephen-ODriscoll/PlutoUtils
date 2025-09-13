@@ -1,5 +1,5 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/main/README.md#documentation)
+[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
 ## string_utils.hpp
 When referring to strings, this includes **std::string**, **std::wstring**, **std::u8string**, **std::u16string** and **std::u32string**.

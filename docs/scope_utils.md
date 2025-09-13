@@ -1,5 +1,5 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/main/README.md#documentation)
+[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
 ## scope_utils.hpp
 These utilities are very useful for cleanup, especially cleanup of handles or memory. Simply add a lambda function to free any memory resource, and you can guarantee that memory is freed without having to free it on every possible return or exception.
