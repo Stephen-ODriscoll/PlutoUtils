@@ -19,13 +19,13 @@ add_executable(
     compare_tests.cpp
     container_utils_tests.cpp
     filesystem_tests.cpp
-    platform_utils_tests.cpp
-    pluto_tests.cpp
     iterator_utils_tests.cpp
     locale_tests.cpp
     logger_tests.cpp
     lru_cache_tests.cpp
     main.cpp
+    platform_utils_tests.cpp
+    pluto_tests.cpp
     range_tests.cpp
     safe_lru_cache_tests.cpp
     scope_utils_tests.cpp
