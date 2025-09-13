@@ -15,6 +15,7 @@ Or any subset of:
 #include <pluto/locale.hpp>
 #include <pluto/logger.hpp>
 #include <pluto/lru_cache.hpp>
+#include <pluto/platform_utils.hpp>
 #include <pluto/range.hpp>
 #include <pluto/safe_lru_cache.hpp>
 #include <pluto/scope_utils.hpp>
@@ -61,6 +62,8 @@ The only dependencies required to build the unit tests are CMake and Google Test
 [logger.hpp](./docs/logger.md)
 
 [lru_cache.hpp](./docs/lru_cache.md)
+
+[platform_utils.hpp](./docs/platform_utils.md)
 
 [pluto.hpp](./docs/pluto.md)
 
