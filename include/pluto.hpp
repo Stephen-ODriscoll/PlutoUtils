@@ -14,6 +14,7 @@
 #include "pluto/locale.hpp"
 #include "pluto/logger.hpp"
 #include "pluto/lru_cache.hpp"
+#include "pluto/platform_utils.hpp"
 #include "pluto/range.hpp"
 #include "pluto/safe_lru_cache.hpp"
 #include "pluto/scope_utils.hpp"
