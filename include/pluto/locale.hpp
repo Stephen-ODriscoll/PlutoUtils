@@ -9,6 +9,8 @@
 
 #include <locale>
 
+#include "version.hpp"
+
 // Configurable with a macro
 #ifndef PLUTO_LOCALE_DEFAULT_LOCALE
 #define PLUTO_LOCALE_DEFAULT_LOCALE ""

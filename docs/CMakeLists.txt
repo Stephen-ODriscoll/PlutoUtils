@@ -26,4 +26,5 @@ add_library(
     standard.md
     stopwatch.md
     string_utils.md
-    value_utils.md)
+    value_utils.md
+    version.md)

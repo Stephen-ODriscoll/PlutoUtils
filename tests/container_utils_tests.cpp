@@ -185,7 +185,7 @@ TEST_F(container_utils_tests, test_find_sequence_returns_end)
     ASSERT_EQ(pluto::find_sequence(zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
 TEST_F(container_utils_tests, test_rfind_sequence_returns_position)
 {
     ASSERT_EQ(pluto::rfind_sequence(empty, empty), empty.begin());

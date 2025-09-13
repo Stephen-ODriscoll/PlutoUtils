@@ -13,7 +13,7 @@
 #define TEST_WITH_EXTRA_ELEMS 1 // Tests char8_t, char16_t and char32_t as elems, elem arrays and strings
 #endif
 
-#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_20
 #define TEST_CHAR8_ELEMS(check, function, x, y) \
     do \
     { \
@@ -48,7 +48,7 @@
     } \
     while (false)
 
-#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_20
 #define TEST_CHAR8_ELEMS_IGNORE_CASE(check, function, x, y) \
     do \
     { \

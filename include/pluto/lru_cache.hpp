@@ -10,6 +10,8 @@
 #include <map>
 #include <list>
 
+#include "version.hpp"
+
 namespace pluto
 {
     template<class KeyT, class ValueT>

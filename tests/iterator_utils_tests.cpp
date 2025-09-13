@@ -329,7 +329,7 @@ TEST_F(iterator_utils_tests, test_rfind_elem_use_size_returns_end)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
 TEST_F(iterator_utils_tests, test_rfind_sequence_use_end_returns_position)
 {
     ASSERT_EQ(TEST_USE_END_1(pluto::rfind, empty, empty), empty.begin());

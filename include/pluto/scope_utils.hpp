@@ -11,6 +11,8 @@
 #include <exception>
 #include <functional>
 
+#include "version.hpp"
+
 namespace pluto
 {
     class on_scope_exit
@@ -66,7 +68,7 @@ namespace pluto
 
         ~on_scope_success()
         {
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
             if (std::uncaught_exceptions() == 0)
 #else
             if (!std::uncaught_exception())
@@ -112,7 +114,7 @@ namespace pluto
 
         ~on_scope_fail()
         {
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
             if (std::uncaught_exceptions() != 0)
 #else
             if (std::uncaught_exception())

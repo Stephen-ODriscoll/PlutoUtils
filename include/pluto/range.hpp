@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "version.hpp"
+
 namespace pluto
 {
     template<class T>

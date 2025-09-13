@@ -23,6 +23,7 @@ Or any subset of:
 #include <pluto/stopwatch.hpp>
 #include <pluto/string_utils.hpp>
 #include <pluto/value_utils.hpp>
+#include <pluto/version.hpp>
 ```
 
 *Note: standard.hpp includes the whole C++ standard. It is not included when you include pluto.hpp*
@@ -80,3 +81,5 @@ The only dependencies required to build the unit tests are CMake and Google Test
 [string_utils.hpp](./docs/string_utils.md)
 
 [value_utils.hpp](./docs/value_utils.md)
+
+[version.hpp](./docs/version.md)

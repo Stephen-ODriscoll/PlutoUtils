@@ -7,8 +7,10 @@
 
 #pragma once
 
+#include "version.hpp"
+
 #ifndef PLUTO_FILESYSTEM_IS_EXPERIMENTAL
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
 #define PLUTO_FILESYSTEM_IS_EXPERIMENTAL 0
 #else
 #define PLUTO_FILESYSTEM_IS_EXPERIMENTAL 1

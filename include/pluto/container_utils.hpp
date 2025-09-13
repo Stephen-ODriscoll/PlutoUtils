@@ -65,7 +65,7 @@ namespace pluto
         return pluto::find(std::begin(left), std::end(left), std::begin(right), std::end(right), predicate);
     }
 
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
     template<class ContainerLeftT, class ContainerRightT, class PredicateT = pluto::is_equal>
     inline auto rfind_sequence(
         const ContainerLeftT&   left,

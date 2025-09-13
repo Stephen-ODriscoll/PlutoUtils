@@ -161,7 +161,7 @@ namespace pluto
         return pluto::rfind(begin, std::next(begin, size), elem);
     }
 
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     inline auto rfind(
         const IteratorLeftT     beginL,

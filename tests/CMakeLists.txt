@@ -32,7 +32,8 @@ add_executable(
     standard_tests.cpp
     stopwatch_tests.cpp
     string_utils_tests.cpp
-    value_utils_tests.cpp)
+    value_utils_tests.cpp
+    version_tests.cpp)
 
 target_link_libraries(
     ${PROJECT_NAME}

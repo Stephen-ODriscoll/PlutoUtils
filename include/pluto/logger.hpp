@@ -22,9 +22,11 @@
 #include <functional>
 #include <condition_variable>
 
+#include "filesystem.hpp"
+#include "platform_utils.hpp"
+
 #ifndef PLUTO_LOGGER_HAS_FORMAT
-#if ((defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)) \
-    && __has_include(<format>)
+#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<format>)
 #define PLUTO_LOGGER_HAS_FORMAT 1
 #else
 #define PLUTO_LOGGER_HAS_FORMAT 0
@@ -36,8 +38,7 @@
 #endif
 
 #ifndef PLUTO_LOGGER_HAS_SOURCE_LOCATION
-#if ((defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)) \
-    && __has_include(<source_location>)
+#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<source_location>)
 #define PLUTO_LOGGER_HAS_SOURCE_LOCATION 1
 #else
 #define PLUTO_LOGGER_HAS_SOURCE_LOCATION 0
@@ -47,9 +48,6 @@
 #if PLUTO_LOGGER_HAS_SOURCE_LOCATION
 #include <source_location>
 #endif
-
-#include "filesystem.hpp"
-#include "platform_utils.hpp"
 
 // Configurable with macros
 #ifndef PLUTO_LOGGER_CLOCK_TYPE

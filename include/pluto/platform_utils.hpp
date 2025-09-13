@@ -16,6 +16,8 @@
 #include <unistd.h>
 #endif
 
+#include "version.hpp"
+
 namespace pluto
 {
     inline const char* file_name(const char* const filePath)

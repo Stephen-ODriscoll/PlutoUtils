@@ -9,6 +9,8 @@
 
 #include <chrono>
 
+#include "version.hpp"
+
 // Configurable with a macro
 #ifndef PLUTO_STOPWATCH_CLOCK_TYPE
 #define PLUTO_STOPWATCH_CLOCK_TYPE std::chrono::high_resolution_clock

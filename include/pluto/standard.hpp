@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "version.hpp"
+
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -57,8 +59,7 @@
 #include <valarray>
 #include <vector>
 
-// C++ 11
-#if (defined(__cplusplus) && 199711L < __cplusplus) || (defined(_MSVC_LANG) && 199711L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_11
 #include <array>
 #include <atomic>
 #include <cfenv>
@@ -84,13 +85,11 @@
 #include <unordered_set>
 #endif
 
-// C++ 14
-#if (defined(__cplusplus) && 201103L < __cplusplus) || (defined(_MSVC_LANG) && 201103L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_14
 #include <shared_mutex>
 #endif
 
-// C++ 17
-#if (defined(__cplusplus) && 201402L < __cplusplus) || (defined(_MSVC_LANG) && 201402L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_17
 #if __has_include(<any>)
 #include <any>
 #endif
@@ -123,8 +122,7 @@
 #include <ctgmath>
 #endif
 
-// C++ 20
-#if (defined(__cplusplus) && 201703L < __cplusplus) || (defined(_MSVC_LANG) && 201703L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_20
 #if __has_include(<barrier>)
 #include <barrier>
 #endif
@@ -174,8 +172,7 @@
 #include <ciso646>
 #endif
 
-// C++ 23
-#if (defined(__cplusplus) && 202002L < __cplusplus) || (defined(_MSVC_LANG) && 202002L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_23
 #if __has_include(<expected>)
 #include <expected>
 #endif
@@ -205,8 +202,7 @@
 #endif
 #endif
 
-// C++ 26 (when available)
-#if (defined(__cplusplus) && 202302L < __cplusplus) || (defined(_MSVC_LANG) && 202302L < _MSVC_LANG)
+#if PLUTO_UTILS_HAS_CXX_26
 #if __has_include(<contracts>)
 #include <contracts>
 #endif
