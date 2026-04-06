@@ -109,51 +109,55 @@
 #define PLUTO_LOGGER_INITIAL_HEADER_WRITER pluto::logger::default_header_writer
 #endif
 
-#define PLUTO_LOG_WRITE(file, level, ...) \
+#define PLUTO_LOG_WRITE_WITH(logger, file, level, ...) \
     do \
     { \
-        if (pluto::logger::get().should_log(pluto::log_level::level)) \
+        if (logger.should_log(pluto::log_level::level)) \
         { \
-            pluto::logger::get().write( \
-                file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.write(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
 
-#define PLUTO_LOG_WRITEF(file, level, ...) \
+#define PLUTO_LOG_WRITE(file, level, ...) PLUTO_LOG_WRITE_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
+
+#define PLUTO_LOG_WRITEF_WITH(logger, file, level, ...) \
     do \
     { \
-        if (pluto::logger::get().should_log(pluto::log_level::level)) \
+        if (logger.should_log(pluto::log_level::level)) \
         { \
-            pluto::logger::get().writef( \
-                file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.writef(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
+
+#define PLUTO_LOG_WRITEF(file, level, ...) PLUTO_LOG_WRITEF_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
 
 #if PLUTO_LOGGER_HAS_FORMAT
-#define PLUTO_LOG_FORMAT(file, level, ...) \
+#define PLUTO_LOG_FORMAT_WITH(logger, file, level, ...) \
     do \
     { \
-        if (pluto::logger::get().should_log(pluto::log_level::level)) \
+        if (logger.should_log(pluto::log_level::level)) \
         { \
-            pluto::logger::get().format( \
-                file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.format(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
+
+#define PLUTO_LOG_FORMAT(file, level, ...) PLUTO_LOG_FORMAT_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
 #endif
 
-#define PLUTO_LOG_STREAM(file, level, ...) \
+#define PLUTO_LOG_STREAM_WITH(logger, file, level, ...) \
     do \
     { \
-        if (pluto::logger::get().should_log(pluto::log_level::level)) \
+        if (logger.should_log(pluto::log_level::level)) \
         { \
-            (pluto::logger::get().stream( \
-                file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }) << __VA_ARGS__).end(); \
+            (logger.stream(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }) << __VA_ARGS__).end(); \
         } \
     } \
     while (false)
+
+#define PLUTO_LOG_STREAM(file, level, ...) PLUTO_LOG_STREAM_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
 
 namespace pluto
 {

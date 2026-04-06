@@ -9,53 +9,19 @@
 
 #include <pluto/logger.hpp>
 
-#define LOG_FILE "logs/log_no_singleton.log"
-
-#define SOURCE_INFO { __FILE__, __LINE__, __func__ }
-
 pluto::logger g_logger{};
 
-#define LOG_WRITE(level, ...) \
-    do \
-    { \
-        if (g_logger.should_log(pluto::log_level::level)) \
-        { \
-            g_logger.write(LOG_FILE, pluto::log_level::level, SOURCE_INFO, __VA_ARGS__); \
-        } \
-    } \
-    while(false)
+#define LOG_FILE "logs/log_no_singleton.log"
 
-#define LOG_WRITEF(level, ...) \
-    do \
-    { \
-        if (g_logger.should_log(pluto::log_level::level)) \
-        { \
-            g_logger.writef(LOG_FILE, pluto::log_level::level, SOURCE_INFO, __VA_ARGS__); \
-        } \
-    } \
-    while(false)
+#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
+
+#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
 
 #if PLUTO_LOGGER_HAS_FORMAT
-#define LOG_FORMAT(level, ...) \
-    do \
-    { \
-        if (g_logger.should_log(pluto::log_level::level)) \
-        { \
-            g_logger.format(LOG_FILE, pluto::log_level::level, SOURCE_INFO, __VA_ARGS__); \
-        } \
-    } \
-    while(false)
+#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
 #endif
 
-#define LOG_STREAM(level, ...) \
-    do \
-    { \
-        if (g_logger.should_log(pluto::log_level::level)) \
-        { \
-            (g_logger.stream(LOG_FILE, pluto::log_level::level, SOURCE_INFO) << __VA_ARGS__).end(); \
-        } \
-    } \
-    while (false)
+#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
 
 int main(int argc, char* argv[])
 {

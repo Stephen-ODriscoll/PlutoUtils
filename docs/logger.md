@@ -67,14 +67,26 @@ Define this macro to be a **std::function<void(std::ostream&, const log_entry&)>
 ### PLUTO_LOGGER_INITIAL_HEADER_WRITER
 Define this macro to be a **std::function<void(std::ostream&)>**. Sets the initial header writer. See [header_writer](#header_writer). Defaults to **pluto::logger::default_header_writer**. See [default_header_writer](#default_header_writer).
 
+### PLUTO_LOG_WRITE_WITH
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [write](#write) on the logger.
+
 ### PLUTO_LOG_WRITE
 Definition that takes a file, a level and any number of additional arguments and passes them to [write](#write) on the logger instance.
+
+### PLUTO_LOG_WRITEF_WITH
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [writef](#writef) on the logger.
 
 ### PLUTO_LOG_WRITEF
 Definition that takes a file, a level and any number of additional arguments and passes them to [writef](#writef) on the logger instance.
 
+### PLUTO_LOG_FORMAT_WITH
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [format](#format) on the logger.
+
 ### PLUTO_LOG_FORMAT
 Definition that takes a file, a level and any number of additional arguments and passes them to [format](#format) on the logger instance.
+
+### PLUTO_LOG_STREAM_WITH
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [stream](#stream) on the logger. The additional arguments are streamed to the streamer.
 
 ### PLUTO_LOG_STREAM
 Definition that takes a file, a level and any number of additional arguments and passes them to [stream](#stream) on the logger instance. The additional arguments are streamed to the streamer.
