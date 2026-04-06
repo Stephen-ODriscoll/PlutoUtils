@@ -429,7 +429,7 @@ TEST_F(container_utils_tests, test_len)
     ASSERT_EQ(pluto::len(array), 10);
 
     std::vector<int> vector{};
-    for (std::size_t i{ 0 }; i < 100;)
+    for (int i{ 0 }; i < 100;)
     {
         vector.push_back(i);
         ASSERT_EQ(pluto::len(vector), ++i);
