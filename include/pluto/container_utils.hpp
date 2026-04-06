@@ -196,12 +196,10 @@ namespace pluto
     {
         const auto size{ static_cast<long long>(std::size(container)) };
 
-        if (start < 0)      { start += size; }
-        if (stop < 0)       { stop += size; }
-
-        if (start < 0)      { start = 0; }
-        if (size < stop)    { stop = size; }
-        if (stop <= start)  { return {}; }
+        if (start < 0)          { start += size; if (start < 0) { start = 0; } }
+        if (stop < 0)           { stop += size; }
+        else if (size < stop)   { stop = size; }
+        if (stop <= start)      { return {}; }
 
         auto startIt{ std::begin(container) };
         std::advance(startIt, start);
