@@ -7,7 +7,10 @@
 
 #pragma once
 
-#define PLUTO_UTILS_VERSION "2.0.0"
+#define PLUTO_UTILS_VERSION_MAJOR 2
+#define PLUTO_UTILS_VERSION_MINOR 0
+#define PLUTO_UTILS_VERSION_PATCH 0
+#define PLUTO_UTILS_VERSION_STRING "2.0.0"
 
 #ifndef PLUTO_UTILS_HAS_CXX_11
 #if (defined(__cplusplus) && 199711L < __cplusplus) || (defined(_MSVC_LANG) && 199711L < _MSVC_LANG)

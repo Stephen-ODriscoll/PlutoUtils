@@ -3,7 +3,16 @@
 
 ## version.hpp
 
-#### PLUTO_UTILS_VERSION
+#### PLUTO_UTILS_VERSION_MAJOR
+This macro represents the current major version of Pluto Utils
+
+#### PLUTO_UTILS_VERSION_MINOR
+This macro represents the current minor version of Pluto Utils
+
+#### PLUTO_UTILS_VERSION_PATCH
+This macro represents the current patch version of Pluto Utils
+
+#### PLUTO_UTILS_VERSION_STRING
 This macro represents the current version of Pluto Utils in the format "x.x.x".
 
 #### PLUTO_UTILS_HAS_CXX_11
