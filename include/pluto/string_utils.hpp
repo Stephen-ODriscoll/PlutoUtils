@@ -1526,13 +1526,13 @@ namespace pluto
             else if (digit)
             {
                 result.reserve(i + 3);
-                result.append("0b1");
+                result.assign("0b1");
             }
         }
 
         if (result.empty())
         {
-            result.append("0b0");
+            result.assign("0b0");
         }
 
         return result;
@@ -1555,17 +1555,10 @@ namespace pluto
         constexpr auto maxLength    { (sizeInBits + (remainder ? (3 - remainder) : 0)) / 3 };
 
         std::string result{};
-        const auto lastDigit{ (value >> (maxLength - 1) * 3) & lastBits[remainder] };
-        if (lastDigit)
+        std::size_t position{ maxLength * 3 };
+        for (std::size_t i{ maxLength }; 0 < i; --i)
         {
-            result.reserve(maxLength + 2);
-            result.append("0o").push_back(characters[lastDigit]);
-        }
-
-        std::size_t position{ (maxLength - 2) * 3 };
-        for (std::size_t i{ maxLength - 1 }; 0 < i; --i, position -= 3)
-        {
-            const auto digit{ (value >> position) & 07 };
+            const auto digit{ (value >> (position -= 3)) & (i == maxLength ? lastBits[remainder] : 07) };
             if (!result.empty())
             {
                 result.push_back(characters[digit]);
@@ -1573,13 +1566,13 @@ namespace pluto
             else if (digit)
             {
                 result.reserve(i + 2);
-                result.append("0o").push_back(characters[digit]);
+                result.assign("0o").push_back(characters[digit]);
             }
         }
 
         if (result.empty())
         {
-            result.append("0o0");
+            result.assign("0o0");
         }
 
         return result;
@@ -1592,10 +1585,10 @@ namespace pluto
         constexpr auto maxLength    { sizeof(ValueT) * 2 };
 
         std::string result{};
-        std::size_t position{ (maxLength - 1) * 4 };
-        for (std::size_t i{ maxLength }; 0 < i; --i, position -= 4)
+        std::size_t position{ maxLength * 4 };
+        for (std::size_t i{ maxLength }; 0 < i; --i)
         {
-            const auto digit{ (value >> position) & 0xf };
+            const auto digit{ (value >> (position -= 4)) & 0xf };
             if (!result.empty())
             {
                 result.push_back(characters[digit]);
@@ -1603,13 +1596,13 @@ namespace pluto
             else if (digit)
             {
                 result.reserve(i + 2);
-                result.append("0x").push_back(characters[digit]);
+                result.assign("0x").push_back(characters[digit]);
             }
         }
 
         if (result.empty())
         {
-            result.append("0x0");
+            result.assign("0x0");
         }
 
         return result;
