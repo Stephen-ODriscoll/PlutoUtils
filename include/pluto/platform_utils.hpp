@@ -48,7 +48,7 @@ namespace pluto
 #ifdef _WIN32
         return static_cast<std::size_t>(::GetCurrentThreadId());
 #elif defined(__APPLE__)
-        std::uint64_t appleThreadID{};
+        std::uint64_t appleThreadID{ 0 };
         pthread_threadid_np(nullptr, &appleThreadID);
         return static_cast<std::size_t>(appleThreadID);
 #else
