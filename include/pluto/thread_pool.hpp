@@ -286,7 +286,7 @@ namespace pluto
 
             m_scheduledTasks.emplace(time, task_info{ priority, task });
 
-            if (m_scheduledTasks.size() == 1)
+            if (!m_scheduler.joinable())
             {
                 lock.unlock();
                 m_scheduler = std::thread{ &thread_pool::start_scheduling, this };
@@ -359,6 +359,11 @@ namespace pluto
                     // New task from schedule, wake one of the workers
                     m_workersCondition.notify_one();
                 }
+            }
+
+            if (!m_isStopping)
+            {
+                m_scheduler.detach();
             }
         }
 

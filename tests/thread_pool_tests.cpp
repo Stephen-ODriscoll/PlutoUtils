@@ -176,6 +176,7 @@ TEST_F(thread_pool_tests, test_run_at)
 
     ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+    ASSERT_EQ(threadPool.scheduled_tasks_size(), 0);
     ASSERT_TRUE(done);
 }
 
@@ -198,6 +199,7 @@ TEST_F(thread_pool_tests, test_run_after)
 
     ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+    ASSERT_EQ(threadPool.scheduled_tasks_size(), 0);
     ASSERT_TRUE(done);
 }
 
@@ -232,6 +234,44 @@ TEST_F(thread_pool_tests, test_run_sync_has_high_priority)
     
     ASSERT_TRUE(counter < numTasks);
     ASSERT_TRUE(done);
+}
+
+TEST_F(thread_pool_tests, test_scheduler_exits_and_is_restarted)
+{
+    pluto::thread_pool threadPool{};
+    ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+
+    std::atomic_size_t counter{ 0 };
+    threadPool.run_after(
+        std::chrono::milliseconds(1),
+        [&counter]()
+        {
+            ++counter;
+        }
+    );
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
+    ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+    ASSERT_EQ(threadPool.scheduled_tasks_size(), 0);
+    ASSERT_EQ(counter, 1);
+
+    threadPool.run_after(
+        std::chrono::milliseconds(1),
+        [&counter]()
+        {
+            ++counter;
+        }
+    );
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
+    ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+    ASSERT_EQ(threadPool.scheduled_tasks_size(), 0);
+    ASSERT_EQ(counter, 2);
 }
 
 TEST_F(thread_pool_tests, test_wait_until_no_tasks_waiting)

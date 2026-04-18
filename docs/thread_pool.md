@@ -6,6 +6,8 @@ A thread pool that allows tasks (use lambdas) to be run synchronously, asynchron
 
 When the target worker size is changed, the worker size will eventually update to be the same value. If the target worker size is greater than the worker size, new threads will immediately be spawned. If the target worker size is less than the worker size, then waiting workers will exit until they are equal.
 
+The task scheduler runs as an additional thread. The scheduler waits until the next scheduled task is ready, then adds it to the task queue. When there are no more tasks to schedule, the scheduler exits. The next thread to add a scheduled task will then restart the scheduler.
+
 All tasks of a higher priority are handled before starting any tasks of a lower priority.
 
 #### PLUTO_THREAD_POOL_PRIORITY_LOWEST
