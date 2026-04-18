@@ -26,5 +26,6 @@ add_library(
     standard.md
     stopwatch.md
     string_utils.md
+    thread_pool.md
     value_utils.md
     version.md)

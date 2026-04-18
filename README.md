@@ -22,6 +22,7 @@ Or any subset of:
 #include <pluto/standard.hpp>
 #include <pluto/stopwatch.hpp>
 #include <pluto/string_utils.hpp>
+#include <pluto/thread_pool.hpp>
 #include <pluto/value_utils.hpp>
 #include <pluto/version.hpp>
 ```
@@ -79,6 +80,8 @@ The only dependencies required to build the unit tests are CMake and Google Test
 [stopwatch.hpp](./docs/stopwatch.md)
 
 [string_utils.hpp](./docs/string_utils.md)
+
+[thread_pool.hpp](./docs/thread_pool.md)
 
 [value_utils.hpp](./docs/value_utils.md)
 

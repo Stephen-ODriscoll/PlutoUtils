@@ -20,5 +20,6 @@
 #include "pluto/scope_utils.hpp"
 #include "pluto/stopwatch.hpp"
 #include "pluto/string_utils.hpp"
+#include "pluto/thread_pool.hpp"
 #include "pluto/value_utils.hpp"
 #include "pluto/version.hpp"

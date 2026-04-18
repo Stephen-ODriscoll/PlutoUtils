@@ -25,5 +25,6 @@ add_library(
     pluto/standard.hpp
     pluto/stopwatch.hpp
     pluto/string_utils.hpp
+    pluto/thread_pool.hpp
     pluto/value_utils.hpp
     pluto/version.hpp)
