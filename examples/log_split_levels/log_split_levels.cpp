@@ -26,36 +26,36 @@ void custom_log_writer(std::ostream& stream, const pluto::log_entry& log)
 
     stream << std::right << std::setfill('0')
         << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S.")
-        << std::setw(6) << microseconds << " | "
+        << std::setw(6) << microseconds << '|'
         << std::setfill(' ')
-        << std::setw(7) << pluto::process_id() << " | "
-        << std::setw(7) << log.thread_id << " | "
+        << std::setw(7) << pluto::process_id() << '|'
+        << std::setw(7) << log.thread_id << '|'
         << std::left
-        << std::setw(20) << std::string(pluto::file_name(log.source.file), 0, 20) << " | "
+        << std::setw(20) << std::string(pluto::file_name(log.source.file), 0, 20) << '|'
         << std::right
-        << std::setw(5) << log.source.line << " | "
+        << std::setw(5) << log.source.line << '|'
         << std::left
-        << std::setw(20) << std::string(log.source.function, 0, 20) << " | "
+        << std::setw(20) << std::string(log.source.function, 0, 20) << '|'
         << log.message;
 }
 
 void custom_header_writer(std::ostream& stream)
 {
     stream << std::left << std::setfill(' ')
-        << std::setw(26) << "Timestamp" << " | "
-        << std::setw(7) << "PID" << " | "
-        << std::setw(7) << "TID" << " | "
-        << std::setw(20) << "File Name" << " | "
-        << std::setw(5) << "Line" << " | "
-        << std::setw(20) << "Function" << " | "
+        << std::setw(26) << "Timestamp" << '|'
+        << std::setw(7) << "PID" << '|'
+        << std::setw(7) << "TID" << '|'
+        << std::setw(20) << "File Name" << '|'
+        << std::setw(5) << "Line" << '|'
+        << std::setw(20) << "Function" << '|'
         << "Message" << '\n'
         << std::setfill('-')
-        << std::setw(26) << "" << "-+-"
-        << std::setw(7) << "" << "-+-"
-        << std::setw(7) << "" << "-+-"
-        << std::setw(20) << "" << "-+-"
-        << std::setw(5) << "" << "-+-"
-        << std::setw(20) << "" << "-+-"
+        << std::setw(26) << "" << '+'
+        << std::setw(7) << "" << '+'
+        << std::setw(7) << "" << '+'
+        << std::setw(20) << "" << '+'
+        << std::setw(5) << "" << '+'
+        << std::setw(20) << "" << '+'
         << std::setw(7) << ""
         << std::setfill(' ');
 }

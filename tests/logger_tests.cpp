@@ -74,9 +74,9 @@ std::string last_log()
 std::string last_log_message()
 {
     auto lastLog    { last_log() };
-    auto index      { lastLog.rfind(" | ")};
+    auto index      { lastLog.rfind('|') };
 
-    return ((index == std::string::npos) ? lastLog : lastLog.substr(index + 3));
+    return ((index == std::string::npos) ? lastLog : lastLog.substr(index + 1));
 }
 
 TEST_F(logger_tests, test_writef)

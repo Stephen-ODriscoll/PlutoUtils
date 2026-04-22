@@ -14,18 +14,18 @@ Have a look at some of the examples for suggestions on how to setup and use this
 
 Sample output:
 ```
-Timestamp                  | PID     | TID     | Level    | File Name            | Line  | Function             | Message
----------------------------+---------+---------+----------+----------------------+-------+----------------------+--------
-2025-09-12 18:49:19.566039 |   41352 |   26380 |          | log_default.cpp      |    24 | main                 | Log write
-2025-09-12 18:49:19.566125 |   41352 |   26380 | Verbose  | log_default.cpp      |    29 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566140 |   41352 |   26380 | Trace    | log_default.cpp      |    30 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566147 |   41352 |   26380 | Debug    | log_default.cpp      |    31 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566151 |   41352 |   26380 | Info     | log_default.cpp      |    32 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566155 |   41352 |   26380 | Notice   | log_default.cpp      |    33 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566162 |   41352 |   26380 | Warning  | log_default.cpp      |    34 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566166 |   41352 |   26380 | Error    | log_default.cpp      |    35 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566177 |   41352 |   26380 | Critical | log_default.cpp      |    36 | main                 | Log writef 0 of 100
-2025-09-12 18:49:19.566181 |   41352 |   26380 | Fatal    | log_default.cpp      |    37 | main                 | Log writef 0 of 100
+Timestamp                 |PID    |TID    |Level   |File Name           |Line |Function            |Message
+--------------------------+-------+-------+--------+--------------------+-----+--------------------+-------
+2025-09-12 18:49:19.566039|  41352|  26380|        |log_default.cpp     |   24|main                |Log write
+2025-09-12 18:49:19.566125|  41352|  26380|Verbose |log_default.cpp     |   29|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566140|  41352|  26380|Trace   |log_default.cpp     |   30|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566147|  41352|  26380|Debug   |log_default.cpp     |   31|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566151|  41352|  26380|Info    |log_default.cpp     |   32|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566155|  41352|  26380|Notice  |log_default.cpp     |   33|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566162|  41352|  26380|Warning |log_default.cpp     |   34|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566166|  41352|  26380|Error   |log_default.cpp     |   35|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566177|  41352|  26380|Critical|log_default.cpp     |   36|main                |Log writef 0 of 100
+2025-09-12 18:49:19.566181|  41352|  26380|Fatal   |log_default.cpp     |   37|main                |Log writef 0 of 100
 ```
 
 ### PLUTO_LOGGER_CLOCK_TYPE

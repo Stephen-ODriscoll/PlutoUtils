@@ -29,10 +29,10 @@ void custom_log_writer(std::ostream& stream, const pluto::log_entry& log)
                 log.time.time_since_epoch()).count() % 1'000 };
 
     stream
-        << " [" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S.") << milliseconds << "]"
-        << " [" << pluto::process_id() << ":" << log.thread_id << "]"
-        << " [" << pluto::file_name(log.source.file) << ":" << log.source.line << "]"
-        << " [" << pluto::log_level_to_shortened(log.level) << "] "
+        << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S.") << milliseconds << "] "
+        << "[" << pluto::process_id() << ":" << log.thread_id << "] "
+        << "[" << pluto::file_name(log.source.file) << ":" << log.source.line << "] "
+        << "[" << pluto::log_level_to_shortened(log.level) << "] "
         << log.message;
 }
 
