@@ -46,10 +46,6 @@ The only dependencies required to build the unit tests are CMake and Google Test
 1. Run generate_xcode.sh (Creates **/build/PlutoUtils.xcodeproj**)
 2. Run build_xcode_debug.sh or build_xcode_release.sh (Creates **/build/Debug/pluto_tests** or **/build/Release/pluto_tests**)
 
-### Possible Future Work
-- thread_pool.hpp
-- timer.hpp
-
 ## Documentation
 [compare.hpp](./docs/compare.md)
 
