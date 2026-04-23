@@ -221,6 +221,9 @@
 #if __has_include(<linalg>)
 #include <linalg>
 #endif
+#if __has_include(<meta>)
+#include <meta>
+#endif
 #if __has_include(<rcu>)
 #include <rcu>
 #endif
