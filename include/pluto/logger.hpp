@@ -374,10 +374,10 @@ namespace pluto
                 dirsCreated { false } {}
         };
 
-        mutable std::mutex              m_loggingMutex          {};
-        std::thread                     m_loggingThread         {};
-        std::condition_variable         m_loggingThreadCondition{};
-        std::map<std::string, log_file> m_logFiles              {};
+        mutable std::mutex              m_loggingMutex      {};
+        std::thread                     m_loggingThread     {};
+        std::condition_variable         m_loggingCondition  {};
+        std::map<std::string, log_file> m_logFiles          {};
 
         std::atomic_bool        m_isLogging         { true };
         std::atomic<log_level>  m_level             { PLUTO_LOGGER_INITIAL_LEVEL };
@@ -404,7 +404,7 @@ namespace pluto
         ~logger()
         {
             m_isLogging.store(false);
-            m_loggingThreadCondition.notify_all();
+            m_loggingCondition.notify_all();
 
             if (m_loggingThread.joinable())
             {
@@ -520,7 +520,7 @@ namespace pluto
         logger& buffer_flush_size(const std::size_t s)
         {
             m_bufferFlushSize.store(s);
-            m_loggingThreadCondition.notify_one();  // wake the logging thread
+            m_loggingCondition.notify_one();  // wake the logging thread
             return *this;
         }
 
@@ -695,7 +695,7 @@ namespace pluto
                 {
                     // Unlock the mutex and wake the logging thread
                     lock.unlock();
-                    m_loggingThreadCondition.notify_one();
+                    m_loggingCondition.notify_one();
                 }
             }
             else
@@ -827,7 +827,7 @@ namespace pluto
             {
                 if (shouldWait)
                 {
-                    m_loggingThreadCondition.wait(lock);
+                    m_loggingCondition.wait(lock);
                     shouldWait = false;
                 }
                 else
