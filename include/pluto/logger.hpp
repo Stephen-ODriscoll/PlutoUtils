@@ -161,20 +161,20 @@
 
 namespace pluto
 {
-    enum class log_level : unsigned char
+    enum class log_level : signed char
     {
-        header = 0, // Reserved for header info.
-        verbose,    // Very informative and noisy updates.
-        trace,      // Specialised step-by-step tracking updates.
-        debug,      // Helpful updates for more in depth tracking.
-        info,       // Important updates for tracking activity.
-        notice,     // Strange or significant behaviour that is not an issue by itself.
-        warning,    // Issues which should not be noticed or have been mitigated.
-        error,      // Issues which have a noticeable impact but do not affect functionality.
-        critical,   // Issues which cause high impact or loss of functionality.
-        fatal,      // Issues which break the application or a large portion of it.
-        none,       // No level specified.
-        off,        // Disable logging.
+        header = -1,    // Reserved for header info.
+        verbose,        // Very informative and noisy updates.
+        trace,          // Specialised step-by-step tracking updates.
+        debug,          // Helpful updates for more in depth tracking.
+        info,           // Important updates for tracking activity.
+        notice,         // Strange or significant behaviour that is not an issue by itself.
+        warning,        // Issues which should not be noticed or have been mitigated.
+        error,          // Issues which have a noticeable impact but do not affect functionality.
+        critical,       // Issues which cause high impact or loss of functionality.
+        fatal,          // Issues which break the application or a large portion of it.
+        none,           // No level specified.
+        off,            // Disable logging.
 
         verb = verbose,
         note = notice,
