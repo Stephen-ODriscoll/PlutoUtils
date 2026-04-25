@@ -12,20 +12,20 @@ add_library(
     INTERFACE
     ../README.md
     compare.md
-    container_utils.md
+    container.md
     filesystem.md
-    iterator_utils.md
+    iterator.md
     locale.md
     logger.md
     lru_cache.md
-    platform_utils.md
+    platform.md
     pluto.md
     range.md
     safe_lru_cache.md
-    scope_utils.md
+    scope.md
     standard.md
     stopwatch.md
-    string_utils.md
+    string.md
     thread_pool.md
-    value_utils.md
+    value.md
     version.md)

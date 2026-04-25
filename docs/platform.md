@@ -1,7 +1,7 @@
 # Pluto Utils
 [Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
-## platform_utils.hpp
+## platform.hpp
 
 #### file_name()
 Takes a **const char&ast;** for the file path. Gets the file name by finding the last occorrence of **'\'** or **'/'**. Returns a **const char&ast;** for the file name.

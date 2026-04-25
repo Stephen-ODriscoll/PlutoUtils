@@ -7,34 +7,34 @@
 
 #include <gtest/gtest.h>
 
-#include <pluto/platform_utils.hpp>
+#include <pluto/platform.hpp>
 
-class platform_utils_tests : public testing::Test
+class platform_tests : public testing::Test
 {
 protected:
-    platform_utils_tests() {}
-    ~platform_utils_tests() {}
+    platform_tests() {}
+    ~platform_tests() {}
 };
 
-TEST_F(platform_utils_tests, test_file_name_back_slash)
+TEST_F(platform_tests, test_file_name_back_slash)
 {
     auto fileName{ pluto::file_name("C:\\Test\\file.txt")};
     ASSERT_EQ(std::string{ fileName }, std::string{ "file.txt" });
 }
 
-TEST_F(platform_utils_tests, test_file_name_forward_slash)
+TEST_F(platform_tests, test_file_name_forward_slash)
 {
     auto fileName{ pluto::file_name("C:/Test/file.txt") };
     ASSERT_EQ(std::string{ fileName }, std::string{ "file.txt" });
 }
 
-TEST_F(platform_utils_tests, test_process_id)
+TEST_F(platform_tests, test_process_id)
 {
     auto processID{ pluto::process_id() };
     ASSERT_TRUE(0 < processID);
 }
 
-TEST_F(platform_utils_tests, test_thread_id)
+TEST_F(platform_tests, test_thread_id)
 {
     auto threadID{ pluto::thread_id() };
     ASSERT_TRUE(0 < threadID);
@@ -49,7 +49,7 @@ TEST_F(platform_utils_tests, test_thread_id)
 #endif
 }
 
-TEST_F(platform_utils_tests, test_local_time)
+TEST_F(platform_tests, test_local_time)
 {
     std::time_t posixTime{ 894544496 };
 
@@ -59,7 +59,7 @@ TEST_F(platform_utils_tests, test_local_time)
     ASSERT_EQ(localTime.tm_mon, 4);
 }
 
-TEST_F(platform_utils_tests, test_gm_time)
+TEST_F(platform_tests, test_gm_time)
 {
     std::time_t posixTime{ 894544496 };
 

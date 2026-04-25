@@ -1,7 +1,7 @@
 # Pluto Utils
 [Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
-## container_utils.hpp
+## container.hpp
 Optional predicates default to [pluto::is_equal](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/compare.md#is_equal).
 
 #### equals()

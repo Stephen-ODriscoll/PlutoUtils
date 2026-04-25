@@ -12,19 +12,19 @@ add_library(
     INTERFACE
     pluto.hpp
     pluto/compare.hpp
-    pluto/container_utils.hpp
+    pluto/container.hpp
     pluto/filesystem.hpp
-    pluto/iterator_utils.hpp
+    pluto/iterator.hpp
     pluto/locale.hpp
     pluto/logger.hpp
     pluto/lru_cache.hpp
-    pluto/platform_utils.hpp
+    pluto/platform.hpp
     pluto/range.hpp
     pluto/safe_lru_cache.hpp
-    pluto/scope_utils.hpp
+    pluto/scope.hpp
     pluto/standard.hpp
     pluto/stopwatch.hpp
-    pluto/string_utils.hpp
+    pluto/string.hpp
     pluto/thread_pool.hpp
-    pluto/value_utils.hpp
+    pluto/value.hpp
     pluto/version.hpp)

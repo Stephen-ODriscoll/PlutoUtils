@@ -17,23 +17,23 @@ include_directories(
 add_executable(
     ${PROJECT_NAME}
     compare_tests.cpp
-    container_utils_tests.cpp
+    container_tests.cpp
     filesystem_tests.cpp
-    iterator_utils_tests.cpp
+    iterator_tests.cpp
     locale_tests.cpp
     logger_tests.cpp
     lru_cache_tests.cpp
     main.cpp
-    platform_utils_tests.cpp
+    platform_tests.cpp
     pluto_tests.cpp
     range_tests.cpp
     safe_lru_cache_tests.cpp
-    scope_utils_tests.cpp
+    scope_tests.cpp
     standard_tests.cpp
     stopwatch_tests.cpp
-    string_utils_tests.cpp
+    string_tests.cpp
     thread_pool_tests.cpp
-    value_utils_tests.cpp
+    value_tests.cpp
     version_tests.cpp)
 
 target_link_libraries(

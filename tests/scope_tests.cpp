@@ -9,16 +9,16 @@
 
 #include <gtest/gtest.h>
 
-#include <pluto/scope_utils.hpp>
+#include <pluto/scope.hpp>
 
-class scope_utils_tests : public testing::Test
+class scope_tests : public testing::Test
 {
 protected:
-    scope_utils_tests() {}
-    ~scope_utils_tests() {}
+    scope_tests() {}
+    ~scope_tests() {}
 };
 
-TEST_F(scope_utils_tests, test_on_scope_exit_with_success)
+TEST_F(scope_tests, test_on_scope_exit_with_success)
 {
     bool changed{ false };
 
@@ -34,7 +34,7 @@ TEST_F(scope_utils_tests, test_on_scope_exit_with_success)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_utils_tests, test_on_scope_exit_with_fail)
+TEST_F(scope_tests, test_on_scope_exit_with_fail)
 {
     bool changed{ false };
 
@@ -54,7 +54,7 @@ TEST_F(scope_utils_tests, test_on_scope_exit_with_fail)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_utils_tests, test_on_scope_success_with_success)
+TEST_F(scope_tests, test_on_scope_success_with_success)
 {
     bool changed{ false };
 
@@ -70,7 +70,7 @@ TEST_F(scope_utils_tests, test_on_scope_success_with_success)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_utils_tests, test_on_scope_success_with_fail)
+TEST_F(scope_tests, test_on_scope_success_with_fail)
 {
     bool changed{ false };
 
@@ -90,7 +90,7 @@ TEST_F(scope_utils_tests, test_on_scope_success_with_fail)
     ASSERT_FALSE(changed);
 }
 
-TEST_F(scope_utils_tests, test_on_scope_fail_with_success)
+TEST_F(scope_tests, test_on_scope_fail_with_success)
 {
     bool changed{ false };
 
@@ -106,7 +106,7 @@ TEST_F(scope_utils_tests, test_on_scope_fail_with_success)
     ASSERT_FALSE(changed);
 }
 
-TEST_F(scope_utils_tests, test_on_scope_fail_with_fail)
+TEST_F(scope_tests, test_on_scope_fail_with_fail)
 {
     bool changed{ false };
 

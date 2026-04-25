@@ -15,13 +15,13 @@
 #include <sstream>
 #include <codecvt>
 
-#include "container_utils.hpp"
+#include "container.hpp"
 
-#ifndef PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#ifndef PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #ifdef _WIN32
-#define PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE 1
+#define PLUTO_STRING_OVERLOAD_FOR_UNICODE 1
 #else
-#define PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE 0
+#define PLUTO_STRING_OVERLOAD_FOR_UNICODE 0
 #endif
 #endif
 
@@ -127,7 +127,7 @@ namespace pluto
         return pluto::is_lower<>(wstring, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool is_lower(
         const std::u8string&    u8string,
@@ -202,7 +202,7 @@ namespace pluto
         return pluto::is_upper<>(wstring, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool is_upper(
         const std::u8string&    u8string,
@@ -331,7 +331,7 @@ namespace pluto
         return pluto::equals<std::wstring>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline bool equals(
@@ -398,7 +398,7 @@ namespace pluto
         return pluto::iequals<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool iequals(
         const std::u8string&    left,
@@ -444,7 +444,7 @@ namespace pluto
         return pluto::starts_with<std::wstring>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline bool starts_with(
@@ -511,7 +511,7 @@ namespace pluto
         return pluto::istarts_with<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool istarts_with(
         const std::u8string&    left,
@@ -557,7 +557,7 @@ namespace pluto
         return pluto::ends_with<std::wstring>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline bool ends_with(
@@ -624,7 +624,7 @@ namespace pluto
         return pluto::iends_with<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool iends_with(
         const std::u8string&    left,
@@ -679,7 +679,7 @@ namespace pluto
         return pluto::find<std::wstring::value_type>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline auto find(
@@ -738,7 +738,7 @@ namespace pluto
         return pluto::rfind<std::wstring::value_type>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline auto rfind(
@@ -806,7 +806,7 @@ namespace pluto
         return pluto::ifind<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline auto ifind(
         const std::u8string&    left,
@@ -871,7 +871,7 @@ namespace pluto
         return pluto::irfind<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline auto irfind(
         const std::u8string&    left,
@@ -927,7 +927,7 @@ namespace pluto
         return pluto::contains<std::wstring::value_type>(left, right, predicate);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
     inline bool contains(
@@ -994,7 +994,7 @@ namespace pluto
         return pluto::icontains<>(left, right, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool icontains(
         const std::u8string&    left,
@@ -1074,7 +1074,7 @@ namespace pluto
         return pluto::split<>(wstring, locale);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline std::vector<std::u8string> split(
         const std::u8string&    u8string,
@@ -1143,7 +1143,7 @@ namespace pluto
         return pluto::split<>(wstring, separator);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline std::vector<std::u8string> split(
         const std::u8string& u8string,
@@ -1198,7 +1198,7 @@ namespace pluto
         return pluto::split_any_of<>(wstring, separator);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline std::vector<std::u8string> split_any_of(
         const std::u8string& u8string,
@@ -1261,7 +1261,7 @@ namespace pluto
         return pluto::join<std::wstring::value_type>(begin, end, separator);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class IteratorT>
     inline std::u8string join(
@@ -1316,7 +1316,7 @@ namespace pluto
         return pluto::join<std::wstring::value_type>(container, separator);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class ContainerT>
     inline std::u8string join(
@@ -1379,7 +1379,7 @@ namespace pluto
         pluto::replace<>(wstring, find, replace);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline void replace(
         std::u8string&          u8string,
@@ -1437,7 +1437,7 @@ namespace pluto
         pluto::replace_any_of<>(wstring, find, replace);
     }
 
-#if PLUTO_STRING_UTILS_OVERLOAD_FOR_UNICODE
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     inline void replace_any_of(
         std::u8string&          u8string,

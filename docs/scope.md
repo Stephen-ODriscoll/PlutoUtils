@@ -1,7 +1,7 @@
 # Pluto Utils
 [Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
 
-## scope_utils.hpp
+## scope.hpp
 These utilities are very useful for cleanup, especially cleanup of handles or memory. Simply add a lambda function to free any memory resource, and you can guarantee that memory is freed without having to free it on every possible return or exception.
 - Throwing in a destructor is dangerous and can result in a crash, so all destructors will try to catch and ignore any exceptions thrown during scope exit. Always add checks for null pointers before trying to free resources.
 

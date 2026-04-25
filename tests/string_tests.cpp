@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <pluto/string_utils.hpp>
+#include <pluto/string.hpp>
 
 #ifdef _WIN32
 #define TEST_WITH_EXTRA_ELEMS 1 // Tests char8_t, char16_t and char32_t as elems, elem arrays and strings
@@ -667,14 +667,14 @@
     } \
     while (false)
 
-class string_utils_tests : public testing::Test
+class string_tests : public testing::Test
 {
 protected:
-    string_utils_tests() {}
-    ~string_utils_tests() {}
+    string_tests() {}
+    ~string_tests() {}
 };
 
-TEST_F(string_utils_tests, test_lower_use_elems)
+TEST_F(string_tests, test_lower_use_elems)
 {
     TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::lower, ' ', ' ');
     TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::lower, 'a', 'a');
@@ -683,7 +683,7 @@ TEST_F(string_utils_tests, test_lower_use_elems)
     TEST_ALL_ELEMS_2(ASSERT_NE, pluto::lower, 'A', 'A');
 }
 
-TEST_F(string_utils_tests, test_lower_use_elem_arrays)
+TEST_F(string_tests, test_lower_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, " ", " ");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::lower, "a", "a");
@@ -701,7 +701,7 @@ TEST_F(string_utils_tests, test_lower_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::lower, "abcdef", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_lower_use_strings)
+TEST_F(string_tests, test_lower_use_strings)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, " ", " ");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lower, "a", "a");
@@ -719,7 +719,7 @@ TEST_F(string_utils_tests, test_lower_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_NE, pluto::lower, "abcdef", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_upper_use_elems)
+TEST_F(string_tests, test_upper_use_elems)
 {
     TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::upper, ' ', ' ');
     TEST_ALL_ELEMS_2(ASSERT_EQ, pluto::upper, 'A', 'A');
@@ -728,7 +728,7 @@ TEST_F(string_utils_tests, test_upper_use_elems)
     TEST_ALL_ELEMS_2(ASSERT_NE, pluto::upper, 'a', 'a');
 }
 
-TEST_F(string_utils_tests, test_upper_use_elem_arrays)
+TEST_F(string_tests, test_upper_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, " ", " ");
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_EQ, pluto::upper, "A", "A");
@@ -746,7 +746,7 @@ TEST_F(string_utils_tests, test_upper_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_2(ASSERT_NE, pluto::upper, "ABCDEF", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_upper_use_strings)
+TEST_F(string_tests, test_upper_use_strings)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, " ", " ");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::upper, "A", "A");
@@ -764,14 +764,14 @@ TEST_F(string_utils_tests, test_upper_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_NE, pluto::upper, "ABCDEF", "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_is_lower_use_elems)
+TEST_F(string_tests, test_is_lower_use_elems)
 {
     TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_lower, ' ');
     TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_lower, 'a');
     TEST_ALL_ELEMS_1(ASSERT_FALSE, pluto::is_lower, 'A');
 }
 
-TEST_F(string_utils_tests, test_is_lower_use_elem_arrays)
+TEST_F(string_tests, test_is_lower_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, pluto::is_lower, " ");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, pluto::is_lower, "a");
@@ -784,7 +784,7 @@ TEST_F(string_utils_tests, test_is_lower_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, pluto::is_lower, "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_is_lower_use_strings)
+TEST_F(string_tests, test_is_lower_use_strings)
 {
     TEST_ALL_STRINGS_1(ASSERT_TRUE, pluto::is_lower, " ");
     TEST_ALL_STRINGS_1(ASSERT_TRUE, pluto::is_lower, "a");
@@ -797,14 +797,14 @@ TEST_F(string_utils_tests, test_is_lower_use_strings)
     TEST_ALL_STRINGS_1(ASSERT_FALSE, pluto::is_lower, "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_is_upper_use_elems)
+TEST_F(string_tests, test_is_upper_use_elems)
 {
     TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_upper, ' ');
     TEST_ALL_ELEMS_1(ASSERT_TRUE, pluto::is_upper, 'A');
     TEST_ALL_ELEMS_1(ASSERT_FALSE, pluto::is_upper, 'a');
 }
 
-TEST_F(string_utils_tests, test_is_upper_use_elem_arrays)
+TEST_F(string_tests, test_is_upper_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, pluto::is_upper, " ");
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_TRUE, pluto::is_upper, "A");
@@ -817,7 +817,7 @@ TEST_F(string_utils_tests, test_is_upper_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_1(ASSERT_FALSE, pluto::is_upper, "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_is_upper_use_strings)
+TEST_F(string_tests, test_is_upper_use_strings)
 {
     TEST_ALL_STRINGS_1(ASSERT_TRUE, pluto::is_upper, " ");
     TEST_ALL_STRINGS_1(ASSERT_TRUE, pluto::is_upper, "A");
@@ -830,7 +830,7 @@ TEST_F(string_utils_tests, test_is_upper_use_strings)
     TEST_ALL_STRINGS_1(ASSERT_FALSE, pluto::is_upper, "aBcDeF");
 }
 
-TEST_F(string_utils_tests, test_str_use_char_array)
+TEST_F(string_tests, test_str_use_char_array)
 {
     const auto pChar{ "abcdef" };
     const auto size { std::strlen(pChar) };
@@ -838,14 +838,14 @@ TEST_F(string_utils_tests, test_str_use_char_array)
     ASSERT_EQ(pluto::str(pChar, size), std::string(pChar));
 }
 
-TEST_F(string_utils_tests, test_str_use_string)
+TEST_F(string_tests, test_str_use_string)
 {
     const std::string str{ "abcdef" };
 
     ASSERT_EQ(pluto::str(str), str);
 }
 
-TEST_F(string_utils_tests, test_str_use_wchar_array)
+TEST_F(string_tests, test_str_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
@@ -854,7 +854,7 @@ TEST_F(string_utils_tests, test_str_use_wchar_array)
     ASSERT_EQ(pluto::str(pWChar, size), std::string(pChar));
 }
 
-TEST_F(string_utils_tests, test_str_use_wstring)
+TEST_F(string_tests, test_str_use_wstring)
 {
     const std::wstring wstr { L"abcdef" };
     const std::string str   { "abcdef" };
@@ -862,7 +862,7 @@ TEST_F(string_utils_tests, test_str_use_wstring)
     ASSERT_EQ(pluto::str(wstr), str);
 }
 
-TEST_F(string_utils_tests, test_str_use_values)
+TEST_F(string_tests, test_str_use_values)
 {
     const std::string str{ "1" };
 
@@ -876,7 +876,7 @@ TEST_F(string_utils_tests, test_str_use_values)
     ASSERT_EQ(pluto::str(1.0f), str);
 }
 
-TEST_F(string_utils_tests, test_wstr_use_wchar_array)
+TEST_F(string_tests, test_wstr_use_wchar_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto size     { std::wcslen(pWChar) };
@@ -884,14 +884,14 @@ TEST_F(string_utils_tests, test_wstr_use_wchar_array)
     ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring(pWChar));
 }
 
-TEST_F(string_utils_tests, test_wstr_use_wstring)
+TEST_F(string_tests, test_wstr_use_wstring)
 {
     const std::wstring wstr{ L"abcdef" };
 
     ASSERT_EQ(pluto::wstr(wstr), wstr);
 }
 
-TEST_F(string_utils_tests, test_wstr_use_char_array)
+TEST_F(string_tests, test_wstr_use_char_array)
 {
     const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
@@ -900,7 +900,7 @@ TEST_F(string_utils_tests, test_wstr_use_char_array)
     ASSERT_EQ(pluto::wstr(pChar, size), std::wstring(pWChar));
 }
 
-TEST_F(string_utils_tests, test_wstr_use_string)
+TEST_F(string_tests, test_wstr_use_string)
 {
     const std::wstring wstr { L"abcdef" };
     const std::string str   { "abcdef" };
@@ -908,7 +908,7 @@ TEST_F(string_utils_tests, test_wstr_use_string)
     ASSERT_EQ(pluto::wstr(str), wstr);
 }
 
-TEST_F(string_utils_tests, test_wstr_use_values)
+TEST_F(string_tests, test_wstr_use_values)
 {
     const std::wstring wstr{ L"1" };
 
@@ -922,7 +922,7 @@ TEST_F(string_utils_tests, test_wstr_use_values)
     ASSERT_EQ(pluto::wstr(1.0f),    wstr);
 }
 
-TEST_F(string_utils_tests, test_str_to_values_use_string)
+TEST_F(string_tests, test_str_to_values_use_string)
 {
     const std::string str{ "1" };
 
@@ -936,7 +936,7 @@ TEST_F(string_utils_tests, test_str_to_values_use_string)
     ASSERT_EQ(pluto::str_to<float>(str),                1.0f);
 }
 
-TEST_F(string_utils_tests, test_str_to_values_use_char_array)
+TEST_F(string_tests, test_str_to_values_use_char_array)
 {
     const auto pChar{ "1" };
     const auto size { std::strlen(pChar) };
@@ -951,7 +951,7 @@ TEST_F(string_utils_tests, test_str_to_values_use_char_array)
     ASSERT_EQ(pluto::str_to<float>(pChar, size),                1.0f);
 }
 
-TEST_F(string_utils_tests, test_wstr_to_values_use_wstring)
+TEST_F(string_tests, test_wstr_to_values_use_wstring)
 {
     const std::wstring wstr{ L"1" };
 
@@ -965,7 +965,7 @@ TEST_F(string_utils_tests, test_wstr_to_values_use_wstring)
     ASSERT_EQ(pluto::wstr_to<float>(wstr),              1.0f);
 }
 
-TEST_F(string_utils_tests, test_wstr_to_values_use_wchar_array)
+TEST_F(string_tests, test_wstr_to_values_use_wchar_array)
 {
     const auto pWChar   { L"1" };
     const auto size     { std::wcslen(pWChar) };
@@ -980,7 +980,7 @@ TEST_F(string_utils_tests, test_wstr_to_values_use_wchar_array)
     ASSERT_EQ(pluto::wstr_to<float>(pWChar, size),              1.0f);
 }
 
-TEST_F(string_utils_tests, test_equals_use_strings)
+TEST_F(string_tests, test_equals_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::equals, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::equals, "A", "A");
@@ -1028,7 +1028,7 @@ TEST_F(string_utils_tests, test_equals_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_iequals_use_elem_arrays)
+TEST_F(string_tests, test_iequals_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::iequals, " ", " ");
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::iequals, "A", "A");
@@ -1076,7 +1076,7 @@ TEST_F(string_utils_tests, test_iequals_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::iequals, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_iequals_use_strings)
+TEST_F(string_tests, test_iequals_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::iequals, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::iequals, "A", "A");
@@ -1124,7 +1124,7 @@ TEST_F(string_utils_tests, test_iequals_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::iequals, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_starts_with_use_strings)
+TEST_F(string_tests, test_starts_with_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::starts_with, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::starts_with, "A", "A");
@@ -1172,7 +1172,7 @@ TEST_F(string_utils_tests, test_starts_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_istarts_with_use_elem_arrays)
+TEST_F(string_tests, test_istarts_with_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::istarts_with, " ", " ");
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::istarts_with, "A", "A");
@@ -1220,7 +1220,7 @@ TEST_F(string_utils_tests, test_istarts_with_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::istarts_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_istarts_with_use_strings)
+TEST_F(string_tests, test_istarts_with_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::istarts_with, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::istarts_with, "A", "A");
@@ -1268,7 +1268,7 @@ TEST_F(string_utils_tests, test_istarts_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::istarts_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_ends_with_use_strings)
+TEST_F(string_tests, test_ends_with_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::ends_with, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::ends_with, "A", "A");
@@ -1316,7 +1316,7 @@ TEST_F(string_utils_tests, test_ends_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_iends_with_use_elem_arrays)
+TEST_F(string_tests, test_iends_with_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::iends_with, " ", " ");
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::iends_with, "A", "A");
@@ -1364,7 +1364,7 @@ TEST_F(string_utils_tests, test_iends_with_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::iends_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_iends_with_use_strings)
+TEST_F(string_tests, test_iends_with_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::iends_with, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::iends_with, "A", "A");
@@ -1412,7 +1412,7 @@ TEST_F(string_utils_tests, test_iends_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::iends_with, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_find_use_strings)
+TEST_F(string_tests, test_find_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::find, " ", " ", 0);
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::find, "A", "A", 0);
@@ -1461,7 +1461,7 @@ TEST_F(string_utils_tests, test_find_use_strings)
 }
 
 #if PLUTO_UTILS_HAS_CXX_17
-TEST_F(string_utils_tests, test_rfind_use_strings)
+TEST_F(string_tests, test_rfind_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, " ", " ", 0);
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, "A", "A", 0);
@@ -1510,7 +1510,7 @@ TEST_F(string_utils_tests, test_rfind_use_strings)
 }
 #endif
 
-TEST_F(string_utils_tests, test_ifind_use_elem_arrays)
+TEST_F(string_tests, test_ifind_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::ifind, " ", " ", 0);
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::ifind, "A", "A", 0);
@@ -1558,7 +1558,7 @@ TEST_F(string_utils_tests, test_ifind_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::ifind, "ABCDEF", "aBcDeg", 6); // end
 }
 
-TEST_F(string_utils_tests, test_ifind_use_strings)
+TEST_F(string_tests, test_ifind_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::ifind, " ", " ", 0);
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::ifind, "A", "A", 0);
@@ -1607,7 +1607,7 @@ TEST_F(string_utils_tests, test_ifind_use_strings)
 }
 
 #if PLUTO_UTILS_HAS_CXX_17
-TEST_F(string_utils_tests, test_irfind_use_elem_arrays)
+TEST_F(string_tests, test_irfind_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, " ", " ", 0);
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "A", "A", 0);
@@ -1655,7 +1655,7 @@ TEST_F(string_utils_tests, test_irfind_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeg", 6); // end
 }
 
-TEST_F(string_utils_tests, test_irfind_use_strings)
+TEST_F(string_tests, test_irfind_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, " ", " ", 0);
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "A", "A", 0);
@@ -1704,7 +1704,7 @@ TEST_F(string_utils_tests, test_irfind_use_strings)
 }
 #endif
 
-TEST_F(string_utils_tests, test_contains_use_strings)
+TEST_F(string_tests, test_contains_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::contains, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::contains, "A", "A");
@@ -1752,7 +1752,7 @@ TEST_F(string_utils_tests, test_contains_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_icontains_use_elem_arrays)
+TEST_F(string_tests, test_icontains_use_elem_arrays)
 {
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::icontains, " ", " ");
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::icontains, "A", "A");
@@ -1800,7 +1800,7 @@ TEST_F(string_utils_tests, test_icontains_use_elem_arrays)
     TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::icontains, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_icontains_use_strings)
+TEST_F(string_tests, test_icontains_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::icontains, " ", " ");
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::icontains, "A", "A");
@@ -1848,7 +1848,7 @@ TEST_F(string_utils_tests, test_icontains_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::icontains, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_utils_tests, test_split_use_strings)
+TEST_F(string_tests, test_split_use_strings)
 {
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "a", 1, "a");
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "A", 1, "A");
@@ -1863,7 +1863,7 @@ TEST_F(string_utils_tests, test_split_use_strings)
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "a\tb\nc\vd\fe\rf", 6, "a", "b", "c", "d", "e", "f");
 }
 
-TEST_F(string_utils_tests, test_split_separator_use_strings)
+TEST_F(string_tests, test_split_separator_use_strings)
 {
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "a", "", 1, "a");
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "a", " ", 1, "a");
@@ -1888,7 +1888,7 @@ TEST_F(string_utils_tests, test_split_separator_use_strings)
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
 }
 
-TEST_F(string_utils_tests, test_split_any_of_use_strings)
+TEST_F(string_tests, test_split_any_of_use_strings)
 {
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a", " ", 1, "a");
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A", " ", 1, "A");
@@ -1911,7 +1911,7 @@ TEST_F(string_utils_tests, test_split_any_of_use_strings)
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
 }
 
-TEST_F(string_utils_tests, test_join_iterators_use_strings)
+TEST_F(string_tests, test_join_iterators_use_strings)
 {
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
@@ -1930,7 +1930,7 @@ TEST_F(string_utils_tests, test_join_iterators_use_strings)
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
-TEST_F(string_utils_tests, test_join_container_use_strings)
+TEST_F(string_tests, test_join_container_use_strings)
 {
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
@@ -1949,7 +1949,7 @@ TEST_F(string_utils_tests, test_join_container_use_strings)
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
-TEST_F(string_utils_tests, test_replace_use_strings)
+TEST_F(string_tests, test_replace_use_strings)
 {
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, " ", "", "", " ");
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, "a", " ", "b", "a");
@@ -1974,7 +1974,7 @@ TEST_F(string_utils_tests, test_replace_use_strings)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, "abcdefabcdef", "ace", "def", "abcdefabcdef");
 }
 
-TEST_F(string_utils_tests, test_replace_any_of_use_strings)
+TEST_F(string_tests, test_replace_any_of_use_strings)
 {
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, " ", "", "", " ");
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a", " ", "b", "a");
@@ -2002,7 +2002,7 @@ TEST_F(string_utils_tests, test_replace_any_of_use_strings)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "ab", "abbabdabfabbabdabf");
 }
 
-TEST_F(string_utils_tests, test_lstrip_use_strings)
+TEST_F(string_tests, test_lstrip_use_strings)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "A", "A");
@@ -2016,7 +2016,7 @@ TEST_F(string_utils_tests, test_lstrip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
-TEST_F(string_utils_tests, test_rstrip_use_strings)
+TEST_F(string_tests, test_rstrip_use_strings)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "A", "A");
@@ -2030,7 +2030,7 @@ TEST_F(string_utils_tests, test_rstrip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
-TEST_F(string_utils_tests, test_strip_use_strings)
+TEST_F(string_tests, test_strip_use_strings)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "A", "A");
@@ -2044,7 +2044,7 @@ TEST_F(string_utils_tests, test_strip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }
 
-TEST_F(string_utils_tests, test_bin_use_string)
+TEST_F(string_tests, test_bin_use_string)
 {
     ASSERT_EQ(pluto::bin(0), "0b0");
     ASSERT_EQ(pluto::bin(1), "0b1");
@@ -2079,7 +2079,7 @@ TEST_F(string_utils_tests, test_bin_use_string)
     ASSERT_EQ(pluto::bin(-2ull), "0b1111111111111111111111111111111111111111111111111111111111111110");
 }
 
-TEST_F(string_utils_tests, test_oct_use_string)
+TEST_F(string_tests, test_oct_use_string)
 {
     ASSERT_EQ(pluto::oct(0), "0o0");
     ASSERT_EQ(pluto::oct(1), "0o1");
@@ -2114,7 +2114,7 @@ TEST_F(string_utils_tests, test_oct_use_string)
     ASSERT_EQ(pluto::oct(-9ull), "0o1777777777777777777767");
 }
 
-TEST_F(string_utils_tests, test_hex_use_string)
+TEST_F(string_tests, test_hex_use_string)
 {
     ASSERT_EQ(pluto::hex(0), "0x0");
     ASSERT_EQ(pluto::hex(1), "0x1");

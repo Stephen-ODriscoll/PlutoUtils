@@ -9,7 +9,7 @@
 
 #include <cassert>
 
-#include "iterator_utils.hpp"
+#include "iterator.hpp"
 
 namespace pluto
 {

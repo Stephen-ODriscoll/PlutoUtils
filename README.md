@@ -9,21 +9,21 @@ This project provides useful utilities that add to a modern C++ standard and rem
 Or any subset of:
 ```
 #include <pluto/compare.hpp>
-#include <pluto/container_utils.hpp>
+#include <pluto/container.hpp>
 #include <pluto/filesystem.hpp>
-#include <pluto/iterator_utils.hpp>
+#include <pluto/iterator.hpp>
 #include <pluto/locale.hpp>
 #include <pluto/logger.hpp>
 #include <pluto/lru_cache.hpp>
-#include <pluto/platform_utils.hpp>
+#include <pluto/platform.hpp>
 #include <pluto/range.hpp>
 #include <pluto/safe_lru_cache.hpp>
-#include <pluto/scope_utils.hpp>
+#include <pluto/scope.hpp>
 #include <pluto/standard.hpp>
 #include <pluto/stopwatch.hpp>
-#include <pluto/string_utils.hpp>
+#include <pluto/string.hpp>
 #include <pluto/thread_pool.hpp>
-#include <pluto/value_utils.hpp>
+#include <pluto/value.hpp>
 #include <pluto/version.hpp>
 ```
 
@@ -49,11 +49,11 @@ The only dependencies required to build the unit tests are CMake and Google Test
 ## Documentation
 [compare.hpp](./docs/compare.md)
 
-[container_utils.hpp](./docs/container_utils.md)
+[container.hpp](./docs/container.md)
 
 [filesystem.hpp](./docs/filesystem.md)
 
-[iterator_utils.hpp](./docs/iterator_utils.md)
+[iterator.hpp](./docs/iterator.md)
 
 [locale.hpp](./docs/locale.md)
 
@@ -61,7 +61,7 @@ The only dependencies required to build the unit tests are CMake and Google Test
 
 [lru_cache.hpp](./docs/lru_cache.md)
 
-[platform_utils.hpp](./docs/platform_utils.md)
+[platform.hpp](./docs/platform.md)
 
 [pluto.hpp](./docs/pluto.md)
 
@@ -69,16 +69,16 @@ The only dependencies required to build the unit tests are CMake and Google Test
 
 [safe_lru_cache.hpp](./docs/safe_lru_cache.md)
 
-[scope_utils.hpp](./docs/scope_utils.md)
+[scope.hpp](./docs/scope.md)
 
 [standard.hpp](./docs/standard.md)
 
 [stopwatch.hpp](./docs/stopwatch.md)
 
-[string_utils.hpp](./docs/string_utils.md)
+[string.hpp](./docs/string.md)
 
 [thread_pool.hpp](./docs/thread_pool.md)
 
-[value_utils.hpp](./docs/value_utils.md)
+[value.hpp](./docs/value.md)
 
 [version.hpp](./docs/version.md)

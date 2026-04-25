@@ -23,7 +23,7 @@
 #include <condition_variable>
 
 #include "filesystem.hpp"
-#include "platform_utils.hpp"
+#include "platform.hpp"
 
 #ifndef PLUTO_LOGGER_HAS_FORMAT
 #if PLUTO_UTILS_HAS_CXX_20 && __has_include(<format>)

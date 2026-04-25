@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <pluto/iterator_utils.hpp>
+#include <pluto/iterator.hpp>
 
 #define TEST_USE_END_1(predicate, container, other) \
     predicate(container.begin(), container.end(), other.begin(), other.end())
@@ -21,7 +21,7 @@
 #define TEST_USE_SIZE_2(predicate, container, other) \
     predicate(container.begin(), container.size(), other)
 
-class iterator_utils_tests : public testing::Test
+class iterator_tests : public testing::Test
 {
 public:
     const std::vector<int> empty            { };
@@ -41,11 +41,11 @@ public:
     const std::vector<int> zeroToFourTwice2 { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
 
 protected:
-    iterator_utils_tests() {}
-    ~iterator_utils_tests() {}
+    iterator_tests() {}
+    ~iterator_tests() {}
 };
 
-TEST_F(iterator_utils_tests, test_equals_use_end_returns_true)
+TEST_F(iterator_tests, test_equals_use_end_returns_true)
 {
     ASSERT_TRUE(TEST_USE_END_1(pluto::equals, empty, empty));
 
@@ -53,7 +53,7 @@ TEST_F(iterator_utils_tests, test_equals_use_end_returns_true)
     ASSERT_TRUE(TEST_USE_END_1(pluto::equals, zeroToFour, zeroToFour2));
 }
 
-TEST_F(iterator_utils_tests, test_equals_use_end_returns_false)
+TEST_F(iterator_tests, test_equals_use_end_returns_false)
 {
     ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_END_1(pluto::equals, zeroToFour, zeroToThree));
@@ -72,7 +72,7 @@ TEST_F(iterator_utils_tests, test_equals_use_end_returns_false)
     ASSERT_FALSE(TEST_USE_END_1(pluto::equals, oneToFour, zeroToThree));
 }
 
-TEST_F(iterator_utils_tests, test_equals_use_size_returns_true)
+TEST_F(iterator_tests, test_equals_use_size_returns_true)
 {
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::equals, empty, empty));
 
@@ -80,7 +80,7 @@ TEST_F(iterator_utils_tests, test_equals_use_size_returns_true)
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, zeroToFour2));
 }
 
-TEST_F(iterator_utils_tests, test_equals_use_size_returns_false)
+TEST_F(iterator_tests, test_equals_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, zeroToFour, zeroToThree));
@@ -99,7 +99,7 @@ TEST_F(iterator_utils_tests, test_equals_use_size_returns_false)
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::equals, oneToFour, zeroToThree));
 }
 
-TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_true)
+TEST_F(iterator_tests, test_starts_with_use_end_returns_true)
 {
     ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, empty, empty));
 
@@ -109,7 +109,7 @@ TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_true)
     ASSERT_TRUE(TEST_USE_END_1(pluto::starts_with, zeroToFour, zero));
 }
 
-TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_false)
+TEST_F(iterator_tests, test_starts_with_use_end_returns_false)
 {
     ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, zeroToFour, oneToFour));
@@ -127,7 +127,7 @@ TEST_F(iterator_utils_tests, test_starts_with_use_end_returns_false)
     ASSERT_FALSE(TEST_USE_END_1(pluto::starts_with, one, oneToFour));
 }
 
-TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_true)
+TEST_F(iterator_tests, test_starts_with_use_size_returns_true)
 {
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, empty, empty));
 
@@ -137,7 +137,7 @@ TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_true)
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, zero));
 }
 
-TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_false)
+TEST_F(iterator_tests, test_starts_with_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, zeroToFour, oneToFour));
@@ -155,7 +155,7 @@ TEST_F(iterator_utils_tests, test_starts_with_use_size_returns_false)
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::starts_with, one, oneToFour));
 }
 
-TEST_F(iterator_utils_tests, test_ends_with_use_end_returns_true)
+TEST_F(iterator_tests, test_ends_with_use_end_returns_true)
 {
     ASSERT_TRUE(TEST_USE_END_1(pluto::ends_with, empty, empty));
 
@@ -165,7 +165,7 @@ TEST_F(iterator_utils_tests, test_ends_with_use_end_returns_true)
     ASSERT_TRUE(TEST_USE_END_1(pluto::ends_with, zeroToFour, four));
 }
 
-TEST_F(iterator_utils_tests, test_ends_with_use_end_returns_false)
+TEST_F(iterator_tests, test_ends_with_use_end_returns_false)
 {
     ASSERT_FALSE(TEST_USE_END_1(pluto::ends_with, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_END_1(pluto::ends_with, zeroToFour, zeroToThree));
@@ -183,7 +183,7 @@ TEST_F(iterator_utils_tests, test_ends_with_use_end_returns_false)
     ASSERT_FALSE(TEST_USE_END_1(pluto::ends_with, three, zeroToThree));
 }
 
-TEST_F(iterator_utils_tests, test_ends_with_use_size_returns_true)
+TEST_F(iterator_tests, test_ends_with_use_size_returns_true)
 {
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::ends_with, empty, empty));
 
@@ -193,7 +193,7 @@ TEST_F(iterator_utils_tests, test_ends_with_use_size_returns_true)
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::ends_with, zeroToFour, four));
 }
 
-TEST_F(iterator_utils_tests, test_ends_with_use_size_returns_false)
+TEST_F(iterator_tests, test_ends_with_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::ends_with, zeroToFour, fiveToNine));
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::ends_with, zeroToFour, zeroToThree));
@@ -211,7 +211,7 @@ TEST_F(iterator_utils_tests, test_ends_with_use_size_returns_false)
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::ends_with, three, zeroToThree));
 }
 
-TEST_F(iterator_utils_tests, test_find_elem_use_end_returns_position)
+TEST_F(iterator_tests, test_find_elem_use_end_returns_position)
 {
     ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
@@ -224,13 +224,13 @@ TEST_F(iterator_utils_tests, test_find_elem_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_find_elem_use_end_returns_end)
+TEST_F(iterator_tests, test_find_elem_use_end_returns_end)
 {
     ASSERT_EQ(TEST_USE_END_2(pluto::find, empty, 0), empty.end());
     ASSERT_EQ(TEST_USE_END_2(pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_find_elem_use_size_returns_position)
+TEST_F(iterator_tests, test_find_elem_use_size_returns_position)
 {
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 0), zeroToFourTwice.begin());
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 1), zeroToFourTwice.begin() + 1);
@@ -243,13 +243,13 @@ TEST_F(iterator_utils_tests, test_find_elem_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_find_elem_use_size_returns_end)
+TEST_F(iterator_tests, test_find_elem_use_size_returns_end)
 {
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, empty, 0), empty.end());
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_find_sequence_use_end_returns_position)
+TEST_F(iterator_tests, test_find_sequence_use_end_returns_position)
 {
     ASSERT_EQ(TEST_USE_END_1(pluto::find, empty, empty), empty.begin());
     ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
@@ -265,12 +265,12 @@ TEST_F(iterator_utils_tests, test_find_sequence_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_1(pluto::find, fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_find_sequence_use_end_returns_end)
+TEST_F(iterator_tests, test_find_sequence_use_end_returns_end)
 {
     ASSERT_EQ(TEST_USE_END_1(pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_find_sequence_use_size_returns_position)
+TEST_F(iterator_tests, test_find_sequence_use_size_returns_position)
 {
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, empty, empty), empty.begin());
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, empty), zeroToFourTwice.begin());
@@ -286,12 +286,12 @@ TEST_F(iterator_utils_tests, test_find_sequence_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_find_sequence_use_size_returns_end)
+TEST_F(iterator_tests, test_find_sequence_use_size_returns_end)
 {
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::find, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_elem_use_end_returns_position)
+TEST_F(iterator_tests, test_rfind_elem_use_end_returns_position)
 {
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind, zeroToFourTwice, 0), zeroToFourTwice.begin() + 5);
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind, zeroToFourTwice, 1), zeroToFourTwice.begin() + 6);
@@ -304,13 +304,13 @@ TEST_F(iterator_utils_tests, test_rfind_elem_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_rfind_elem_use_end_returns_end)
+TEST_F(iterator_tests, test_rfind_elem_use_end_returns_end)
 {
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind, empty, 0), empty.end());
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_elem_use_size_returns_position)
+TEST_F(iterator_tests, test_rfind_elem_use_size_returns_position)
 {
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, zeroToFourTwice, 0), zeroToFourTwice.begin() + 5);
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, zeroToFourTwice, 1), zeroToFourTwice.begin() + 6);
@@ -323,14 +323,14 @@ TEST_F(iterator_utils_tests, test_rfind_elem_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, fourZeroOne, 1), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_rfind_elem_use_size_returns_end)
+TEST_F(iterator_tests, test_rfind_elem_use_size_returns_end)
 {
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, empty, 0), empty.end());
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind, zeroToFourTwice, 5), zeroToFourTwice.end());
 }
 
 #if PLUTO_UTILS_HAS_CXX_17
-TEST_F(iterator_utils_tests, test_rfind_sequence_use_end_returns_position)
+TEST_F(iterator_tests, test_rfind_sequence_use_end_returns_position)
 {
     ASSERT_EQ(TEST_USE_END_1(pluto::rfind, empty, empty), empty.begin());
     ASSERT_EQ(TEST_USE_END_1(pluto::rfind, zeroToFourTwice, empty), zeroToFourTwice.begin() + 10);
@@ -346,12 +346,12 @@ TEST_F(iterator_utils_tests, test_rfind_sequence_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_1(pluto::rfind, fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_sequence_use_end_returns_end)
+TEST_F(iterator_tests, test_rfind_sequence_use_end_returns_end)
 {
     ASSERT_EQ(TEST_USE_END_1(pluto::rfind, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_sequence_use_size_returns_position)
+TEST_F(iterator_tests, test_rfind_sequence_use_size_returns_position)
 {
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::rfind, empty, empty), empty.begin());
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::rfind, zeroToFourTwice, empty), zeroToFourTwice.begin() + 10);
@@ -367,13 +367,13 @@ TEST_F(iterator_utils_tests, test_rfind_sequence_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::rfind, fourZeroOne, four), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_sequence_use_size_returns_end)
+TEST_F(iterator_tests, test_rfind_sequence_use_size_returns_end)
 {
     ASSERT_EQ(TEST_USE_SIZE_1(pluto::rfind, zeroToFourTwice, five), zeroToFourTwice.end());
 }
 #endif
 
-TEST_F(iterator_utils_tests, test_find_if_use_end_returns_position)
+TEST_F(iterator_tests, test_find_if_use_end_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -392,7 +392,7 @@ TEST_F(iterator_utils_tests, test_find_if_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::find_if, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_find_if_use_end_returns_end)
+TEST_F(iterator_tests, test_find_if_use_end_returns_end)
 {
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
@@ -401,7 +401,7 @@ TEST_F(iterator_utils_tests, test_find_if_use_end_returns_end)
     ASSERT_EQ(TEST_USE_END_2(pluto::find_if, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_find_if_use_size_returns_position)
+TEST_F(iterator_tests, test_find_if_use_size_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -420,7 +420,7 @@ TEST_F(iterator_utils_tests, test_find_if_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find_if, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_find_if_use_size_returns_end)
+TEST_F(iterator_tests, test_find_if_use_size_returns_end)
 {
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
@@ -429,7 +429,7 @@ TEST_F(iterator_utils_tests, test_find_if_use_size_returns_end)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find_if, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_use_end_returns_position)
+TEST_F(iterator_tests, test_rfind_if_use_end_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -448,7 +448,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind_if, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_use_end_returns_end)
+TEST_F(iterator_tests, test_rfind_if_use_end_returns_end)
 {
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
@@ -457,7 +457,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_use_end_returns_end)
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind_if, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_use_size_returns_position)
+TEST_F(iterator_tests, test_rfind_if_use_size_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -476,7 +476,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind_if, fourZeroOne, equalsOne), fourZeroOne.begin() + 2);
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_use_size_returns_end)
+TEST_F(iterator_tests, test_rfind_if_use_size_returns_end)
 {
     auto equalsZero{ [](int i) { return i == 0; } };
     auto equalsFive{ [](int i) { return i == 5; } };
@@ -485,7 +485,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_use_size_returns_end)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind_if, zeroToFourTwice, equalsFive), zeroToFourTwice.end());
 }
 
-TEST_F(iterator_utils_tests, test_find_if_not_use_end_returns_position)
+TEST_F(iterator_tests, test_find_if_not_use_end_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -504,7 +504,7 @@ TEST_F(iterator_utils_tests, test_find_if_not_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::find_if_not, fourZeroOne, equalsOne), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_find_if_not_use_size_returns_position)
+TEST_F(iterator_tests, test_find_if_not_use_size_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -523,7 +523,7 @@ TEST_F(iterator_utils_tests, test_find_if_not_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::find_if_not, fourZeroOne, equalsOne), fourZeroOne.begin());
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_not_use_end_returns_position)
+TEST_F(iterator_tests, test_rfind_if_not_use_end_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -542,7 +542,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_not_use_end_returns_position)
     ASSERT_EQ(TEST_USE_END_2(pluto::rfind_if_not, fourZeroOne, equalsOne), fourZeroOne.begin() + 1);
 }
 
-TEST_F(iterator_utils_tests, test_rfind_if_not_use_size_returns_position)
+TEST_F(iterator_tests, test_rfind_if_not_use_size_returns_position)
 {
     auto equalsZero { [](int i) { return i == 0; } };
     auto equalsOne  { [](int i) { return i == 1; } };
@@ -561,7 +561,7 @@ TEST_F(iterator_utils_tests, test_rfind_if_not_use_size_returns_position)
     ASSERT_EQ(TEST_USE_SIZE_2(pluto::rfind_if_not, fourZeroOne, equalsOne), fourZeroOne.begin() + 1);
 }
 
-TEST_F(iterator_utils_tests, test_contains_elem_use_end_returns_true)
+TEST_F(iterator_tests, test_contains_elem_use_end_returns_true)
 {
     ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 0));
     ASSERT_TRUE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 1));
@@ -574,12 +574,12 @@ TEST_F(iterator_utils_tests, test_contains_elem_use_end_returns_true)
     ASSERT_TRUE(TEST_USE_END_2(pluto::contains, fourZeroOne, 1));
 }
 
-TEST_F(iterator_utils_tests, test_contains_elem_use_end_returns_false)
+TEST_F(iterator_tests, test_contains_elem_use_end_returns_false)
 {
     ASSERT_FALSE(TEST_USE_END_2(pluto::contains, zeroToFourTwice, 5));
 }
 
-TEST_F(iterator_utils_tests, test_contains_elem_use_size_returns_true)
+TEST_F(iterator_tests, test_contains_elem_use_size_returns_true)
 {
     ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 0));
     ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 1));
@@ -591,12 +591,12 @@ TEST_F(iterator_utils_tests, test_contains_elem_use_size_returns_true)
     ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, fourZeroOne, 0));
     ASSERT_TRUE(TEST_USE_SIZE_2(pluto::contains, fourZeroOne, 1));
 }
-TEST_F(iterator_utils_tests, test_contains_elem_use_size_returns_false)
+TEST_F(iterator_tests, test_contains_elem_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_2(pluto::contains, zeroToFourTwice, 5));
 }
 
-TEST_F(iterator_utils_tests, test_contains_sequence_use_end_returns_true)
+TEST_F(iterator_tests, test_contains_sequence_use_end_returns_true)
 {
     ASSERT_TRUE(TEST_USE_END_1(pluto::contains, empty, empty));
     ASSERT_TRUE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, empty));
@@ -612,12 +612,12 @@ TEST_F(iterator_utils_tests, test_contains_sequence_use_end_returns_true)
     ASSERT_TRUE(TEST_USE_END_1(pluto::contains, fourZeroOne, four));
 }
 
-TEST_F(iterator_utils_tests, test_contains_sequence_use_end_returns_false)
+TEST_F(iterator_tests, test_contains_sequence_use_end_returns_false)
 {
     ASSERT_FALSE(TEST_USE_END_1(pluto::contains, zeroToFourTwice, five));
 }
 
-TEST_F(iterator_utils_tests, test_contains_sequence_use_size_returns_true)
+TEST_F(iterator_tests, test_contains_sequence_use_size_returns_true)
 {
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, empty, empty));
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, empty));
@@ -633,12 +633,12 @@ TEST_F(iterator_utils_tests, test_contains_sequence_use_size_returns_true)
     ASSERT_TRUE(TEST_USE_SIZE_1(pluto::contains, fourZeroOne, four));
 }
 
-TEST_F(iterator_utils_tests, test_contains_sequence_use_size_returns_false)
+TEST_F(iterator_tests, test_contains_sequence_use_size_returns_false)
 {
     ASSERT_FALSE(TEST_USE_SIZE_1(pluto::contains, zeroToFourTwice, five));
 }
 
-TEST_F(iterator_utils_tests, test_sort_use_end)
+TEST_F(iterator_tests, test_sort_use_end)
 {
     std::vector<int> sorted     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     std::vector<int> unsorted   { 5, 4, 6, 3, 7, 2, 8, 1, 9, 0 };
@@ -647,7 +647,7 @@ TEST_F(iterator_utils_tests, test_sort_use_end)
     ASSERT_EQ(unsorted, sorted);
 }
 
-TEST_F(iterator_utils_tests, test_sort_use_size)
+TEST_F(iterator_tests, test_sort_use_size)
 {
     std::vector<int> sorted     { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     std::vector<int> unsorted   { 5, 4, 6, 3, 7, 2, 8, 1, 9, 0 };
@@ -656,7 +656,7 @@ TEST_F(iterator_utils_tests, test_sort_use_size)
     ASSERT_EQ(unsorted, sorted);
 }
 
-TEST_F(iterator_utils_tests, test_reverse_use_end)
+TEST_F(iterator_tests, test_reverse_use_end)
 {
     std::vector<int> reversed   { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
     std::vector<int> unreversed { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -665,7 +665,7 @@ TEST_F(iterator_utils_tests, test_reverse_use_end)
     ASSERT_EQ(unreversed, reversed);
 }
 
-TEST_F(iterator_utils_tests, test_reverse_use_size)
+TEST_F(iterator_tests, test_reverse_use_size)
 {
     std::vector<int> reversed   { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
     std::vector<int> unreversed { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -674,7 +674,7 @@ TEST_F(iterator_utils_tests, test_reverse_use_size)
     ASSERT_EQ(unreversed, reversed);
 }
 
-TEST_F(iterator_utils_tests, test_filter_use_end)
+TEST_F(iterator_tests, test_filter_use_end)
 {
     std::vector<int> filtered   { 0, 2, 4, 6, 8 };
     std::vector<int> unfiltered { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -684,7 +684,7 @@ TEST_F(iterator_utils_tests, test_filter_use_end)
     ASSERT_EQ(unfiltered, filtered);
 }
 
-TEST_F(iterator_utils_tests, test_filter_use_size)
+TEST_F(iterator_tests, test_filter_use_size)
 {
     std::vector<int> filtered   { 0, 2, 4, 6, 8 };
     std::vector<int> unfiltered { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -694,7 +694,7 @@ TEST_F(iterator_utils_tests, test_filter_use_size)
     ASSERT_EQ(unfiltered, filtered);
 }
 
-TEST_F(iterator_utils_tests, test_for_each_use_end)
+TEST_F(iterator_tests, test_for_each_use_end)
 {
     std::vector<int> changed    { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     std::vector<int> unchanged  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -703,7 +703,7 @@ TEST_F(iterator_utils_tests, test_for_each_use_end)
     ASSERT_EQ(unchanged, changed);
 }
 
-TEST_F(iterator_utils_tests, test_for_each_use_size)
+TEST_F(iterator_tests, test_for_each_use_size)
 {
     std::vector<int> changed    { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     std::vector<int> unchanged  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -712,7 +712,7 @@ TEST_F(iterator_utils_tests, test_for_each_use_size)
     ASSERT_EQ(unchanged, changed);
 }
 
-TEST_F(iterator_utils_tests, test_map_use_end)
+TEST_F(iterator_tests, test_map_use_end)
 {
     const std::vector<int> mappedVector   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     const std::vector<int> unmappedVector { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -741,7 +741,7 @@ TEST_F(iterator_utils_tests, test_map_use_end)
     ASSERT_EQ(resultVector, mappedVector);
 }
 
-TEST_F(iterator_utils_tests, test_map_use_size)
+TEST_F(iterator_tests, test_map_use_size)
 {
     const std::vector<int> mappedVector   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     const std::vector<int> unmappedVector { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };

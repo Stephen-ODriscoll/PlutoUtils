@@ -7,16 +7,16 @@
 
 #include <gtest/gtest.h>
 
-#include <pluto/value_utils.hpp>
+#include <pluto/value.hpp>
 
-class value_utils_tests : public testing::Test
+class value_tests : public testing::Test
 {
 protected:
-    value_utils_tests() {}
-    ~value_utils_tests() {}
+    value_tests() {}
+    ~value_tests() {}
 };
 
-TEST_F(value_utils_tests, test_abs)
+TEST_F(value_tests, test_abs)
 {
     ASSERT_EQ(pluto::abs(0), 0);
     ASSERT_EQ(pluto::abs(1), 1);
@@ -37,7 +37,7 @@ TEST_F(value_utils_tests, test_abs)
     ASSERT_EQ(pluto::abs(-0.2f), 0.2f);
 }
 
-TEST_F(value_utils_tests, test_copy)
+TEST_F(value_tests, test_copy)
 {
     ASSERT_EQ(pluto::copy(0), 0);
     ASSERT_EQ(pluto::copy(1), 1);
@@ -46,7 +46,7 @@ TEST_F(value_utils_tests, test_copy)
     ASSERT_EQ(pluto::copy(-2), -2);
 }
 
-TEST_F(value_utils_tests, test_min_no_predicate)
+TEST_F(value_tests, test_min_no_predicate)
 {
     ASSERT_EQ(pluto::min(1, 1), 1);
     ASSERT_EQ(pluto::min(1, 2), 1);
@@ -76,7 +76,7 @@ TEST_F(value_utils_tests, test_min_no_predicate)
     ASSERT_EQ(pluto::min(-0.2f, -0.1f), -0.2f);
 }
 
-TEST_F(value_utils_tests, test_min_use_predicate)
+TEST_F(value_tests, test_min_use_predicate)
 {
     ASSERT_EQ(pluto::min(1, 1, pluto::is_less{}), 1);
     ASSERT_EQ(pluto::min(1, 2, pluto::is_less{}), 1);
@@ -106,7 +106,7 @@ TEST_F(value_utils_tests, test_min_use_predicate)
     ASSERT_EQ(pluto::min(-0.2f, -0.1f, pluto::is_less{}), -0.2f);
 }
 
-TEST_F(value_utils_tests, test_max_no_predicate)
+TEST_F(value_tests, test_max_no_predicate)
 {
     ASSERT_EQ(pluto::max(1, 1), 1);
     ASSERT_EQ(pluto::max(1, 2), 2);
@@ -136,7 +136,7 @@ TEST_F(value_utils_tests, test_max_no_predicate)
     ASSERT_EQ(pluto::max(-0.2f, -0.1f), -0.1f);
 }
 
-TEST_F(value_utils_tests, test_max_use_predicate)
+TEST_F(value_tests, test_max_use_predicate)
 {
     ASSERT_EQ(pluto::max(1, 1, pluto::is_less{}), 1);
     ASSERT_EQ(pluto::max(1, 2, pluto::is_less{}), 2);
@@ -166,7 +166,7 @@ TEST_F(value_utils_tests, test_max_use_predicate)
     ASSERT_EQ(pluto::max(-0.2f, -0.1f, pluto::is_less{}), -0.1f);
 }
 
-TEST_F(value_utils_tests, test_pow_use_float)
+TEST_F(value_tests, test_pow_use_float)
 {
     ASSERT_EQ(pluto::pow(1.0f, 0.0f), 1.0f);
     ASSERT_EQ(pluto::pow(1.0f, 1.0f), 1.0f);
@@ -178,7 +178,7 @@ TEST_F(value_utils_tests, test_pow_use_float)
     ASSERT_EQ(pluto::pow(4.0f, 0.5f), 2.0f);
 }
 
-TEST_F(value_utils_tests, test_pow_use_double)
+TEST_F(value_tests, test_pow_use_double)
 {
     ASSERT_EQ(pluto::pow(1.0, 0.0), 1.0);
     ASSERT_EQ(pluto::pow(1.0, 1.0), 1.0);
@@ -190,7 +190,7 @@ TEST_F(value_utils_tests, test_pow_use_double)
     ASSERT_EQ(pluto::pow(4.0, 0.5), 2.0);
 }
 
-TEST_F(value_utils_tests, test_pow_use_long_double)
+TEST_F(value_tests, test_pow_use_long_double)
 {
     ASSERT_EQ(pluto::pow(1.0L, 0.0L), 1.0L);
     ASSERT_EQ(pluto::pow(1.0L, 1.0L), 1.0L);
@@ -202,7 +202,7 @@ TEST_F(value_utils_tests, test_pow_use_long_double)
     ASSERT_EQ(pluto::pow(4.0L, 0.5L), 2.0L);
 }
 
-TEST_F(value_utils_tests, test_pow_use_template)
+TEST_F(value_tests, test_pow_use_template)
 {
     ASSERT_EQ(pluto::pow(1, 0), 1.0);
     ASSERT_EQ(pluto::pow(1, 1), 1.0);
@@ -221,7 +221,7 @@ TEST_F(value_utils_tests, test_pow_use_template)
     ASSERT_EQ(pluto::pow(5ll, -1ll), 0.2);
 }
 
-TEST_F(value_utils_tests, test_round)
+TEST_F(value_tests, test_round)
 {
     ASSERT_EQ(pluto::round(0.0), 0.0);
     ASSERT_EQ(pluto::round(0.1), 0.0);
