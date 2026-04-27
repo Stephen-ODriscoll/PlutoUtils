@@ -34,15 +34,18 @@ Definition used to represent the highest priority value as a **signed char**, wh
 #### PLUTO_THREAD_POOL_CLOCK_TYPE
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::system_clock**.
 
+### thread_pool
+A thread pool class. Takes a **std::size_t** for the target worker size. The thread pool will start with this many threads.
+
 #### clock_type
 The type of the clock.
 
-### action
+#### action
 Represents an action to preform on destruction of a thread pool. Action options are:
 - **join_all**: Join all threads. Threads will finish their current tasks and exit.
 - **complete_tasks**: Complete all tasks. Threads are still joined, but not until all tasks are complete.
 
-### priority
+#### priority
 Represents a priority for a given task. Higher priority tasks are always completed first. Priority options are:
 - **lowest**: The lowest value. Same value as **PLUTO_THREAD_POOL_PRIORITY_LOWEST**.
 - **lower**: A lower value. Same value as **PLUTO_THREAD_POOL_PRIORITY_LOWER**.
@@ -51,9 +54,6 @@ Represents a priority for a given task. Higher priority tasks are always complet
 - **high**: A high value. Same value as **PLUTO_THREAD_POOL_PRIORITY_HIGH**.
 - **higher**: A higher value. Same value as **PLUTO_THREAD_POOL_PRIORITY_HIGHER**.
 - **highest**: The highest value. Same value as **PLUTO_THREAD_POOL_PRIORITY_HIGHEST**.
-
-### thread_pool
-A thread pool class. Takes a **std::size_t** for the target worker size. The thread pool will start with this many threads.
 
 #### workers_size()
 Returns a **std::size_t** representing the number of worker threads.
@@ -106,3 +106,6 @@ Waits on calling thread until no tasks are waiting.
 
 #### wait_until_all_tasks_complete()
 Waits on calling thread until all tasks are complete.
+
+### global_thread_pool()
+Returns a reference to a local static **pluto::thread_pool** instance.
