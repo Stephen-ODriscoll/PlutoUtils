@@ -3,7 +3,7 @@
 
 ## stopwatch.hpp
 
-#### PLUTO_STOPWATCH_CLOCK_TYPE
+### PLUTO_STOPWATCH_CLOCK_TYPE
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::steady_clock**.
 
 ### stopwatch

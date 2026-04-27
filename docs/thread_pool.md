@@ -10,28 +10,28 @@ The task scheduler runs as an additional thread. The scheduler waits until the n
 
 All tasks of a higher priority are handled before starting any tasks of a lower priority.
 
-#### PLUTO_THREAD_POOL_PRIORITY_LOWEST
+### PLUTO_THREAD_POOL_PRIORITY_LOWEST
 Definition used to represent the lowest priority value as a **signed char**, which is -128.
 
-#### PLUTO_THREAD_POOL_PRIORITY_LOWER
+### PLUTO_THREAD_POOL_PRIORITY_LOWER
 Definition used to represent a lower priority value as a **signed char**, which is -64.
 
-#### PLUTO_THREAD_POOL_PRIORITY_LOW
+### PLUTO_THREAD_POOL_PRIORITY_LOW
 Definition used to represent a low priority value as a **signed char**, which is -32.
 
-#### PLUTO_THREAD_POOL_PRIORITY_NORMAL
+### PLUTO_THREAD_POOL_PRIORITY_NORMAL
 Definition used to represent a normal priority value as a **signed char**, which is 0.
 
-#### PLUTO_THREAD_POOL_PRIORITY_HIGH
+### PLUTO_THREAD_POOL_PRIORITY_HIGH
 Definition used to represent a high priority value as a **signed char**, which is 32.
 
-#### PLUTO_THREAD_POOL_PRIORITY_HIGHER
+### PLUTO_THREAD_POOL_PRIORITY_HIGHER
 Definition used to represent a higher priority value as a **signed char**, which is 64.
 
-#### PLUTO_THREAD_POOL_PRIORITY_HIGHEST
+### PLUTO_THREAD_POOL_PRIORITY_HIGHEST
 Definition used to represent the highest priority value as a **signed char**, which is 127.
 
-#### PLUTO_THREAD_POOL_CLOCK_TYPE
+### PLUTO_THREAD_POOL_CLOCK_TYPE
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::system_clock**.
 
 ### thread_pool
