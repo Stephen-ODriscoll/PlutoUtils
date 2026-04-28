@@ -16,22 +16,22 @@ protected:
     ~locale_tests() {}
 };
 
-TEST_F(locale_tests, test_get_c_locale)
+TEST_F(locale_tests, test_c_locale)
 {
-    const auto& cLocale{ pluto::get_c_locale() };
+    const auto& cLocale{ pluto::c_locale() };
 }
 
-TEST_F(locale_tests, test_get_system_locale)
+TEST_F(locale_tests, test_system_locale)
 {
-    const auto& systemLocale{ pluto::get_system_locale() };
+    const auto& systemLocale{ pluto::system_locale() };
 }
 
-TEST_F(locale_tests, test_get_default_locale)
+TEST_F(locale_tests, test_default_locale)
 {
-    const auto& defaultLocale{ pluto::get_default_locale() };
+    const auto& defaultLocale{ pluto::default_locale() };
 }
 
-TEST_F(locale_tests, test_get_facet)
+TEST_F(locale_tests, test_use_facet)
 {
-    const auto& facet{ pluto::get_facet<char>(pluto::get_default_locale()) };
+    const auto& facet{ pluto::use_facet<char>(pluto::default_locale()) };
 }

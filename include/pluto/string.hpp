@@ -30,24 +30,24 @@ namespace pluto
     template<class ElemT>
     inline ElemT lower(
         const ElemT         elem,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::get_facet<ElemT>(locale).tolower(elem);
+        return pluto::use_facet<ElemT>(locale).tolower(elem);
     }
 
     template<class ElemT>
     inline void lower(
         ElemT* const        pElem,
         const std::size_t   size,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        pluto::get_facet<ElemT>(locale).tolower(pElem, (pElem + size));
+        pluto::use_facet<ElemT>(locale).tolower(pElem, (pElem + size));
     }
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void lower(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
-        const std::locale&                          locale = pluto::get_default_locale())
+        const std::locale&                          locale = pluto::default_locale())
     {
         pluto::lower(&string[0], string.size(), locale);
     }
@@ -55,24 +55,24 @@ namespace pluto
     template<class ElemT>
     inline ElemT upper(
         const ElemT         elem,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::get_facet<ElemT>(locale).toupper(elem);
+        return pluto::use_facet<ElemT>(locale).toupper(elem);
     }
 
     template<class ElemT>
     inline void upper(
         ElemT* const        pElem,
         const std::size_t   size,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        pluto::get_facet<ElemT>(locale).toupper(pElem, (pElem + size));
+        pluto::use_facet<ElemT>(locale).toupper(pElem, (pElem + size));
     }
 
     template<class ElemT, class TraitsT, class AllocT>
     inline void upper(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
-        const std::locale&                          locale = pluto::get_default_locale())
+        const std::locale&                          locale = pluto::default_locale())
     {
         pluto::upper(&string[0], string.size(), locale);
     }
@@ -80,18 +80,18 @@ namespace pluto
     template<class ElemT>
     inline bool is_lower(
         const ElemT         elem,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        return !(pluto::get_facet<ElemT>(locale).is(std::ctype_base::upper, elem));
+        return !(pluto::use_facet<ElemT>(locale).is(std::ctype_base::upper, elem));
     }
 
     template<class ElemT>
     inline bool is_lower(
         const ElemT* const  pElem,
         const std::size_t   size,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        const auto& facet{ pluto::get_facet<ElemT>(locale) };
+        const auto& facet{ pluto::use_facet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -108,21 +108,21 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline bool is_lower(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::is_lower(&string[0], string.size(), locale);
     }
 
     inline bool is_lower(
         const std::string& string,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::is_lower<>(string, locale);
     }
 
     inline bool is_lower(
         const std::wstring& wstring,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::is_lower<>(wstring, locale);
     }
@@ -131,7 +131,7 @@ namespace pluto
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool is_lower(
         const std::u8string&    u8string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_lower<>(u8string, locale);
     }
@@ -139,14 +139,14 @@ namespace pluto
 
     inline bool is_lower(
         const std::u16string&   u16string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_lower<>(u16string, locale);
     }
 
     inline bool is_lower(
         const std::u32string&   u32string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_lower<>(u32string, locale);
     }
@@ -155,18 +155,18 @@ namespace pluto
     template<class ElemT>
     inline bool is_upper(
         const ElemT         elem,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        return !(pluto::get_facet<ElemT>(locale).is(std::ctype_base::lower, elem));
+        return !(pluto::use_facet<ElemT>(locale).is(std::ctype_base::lower, elem));
     }
 
     template<class ElemT>
     inline bool is_upper(
         const ElemT* const  pElem,
         const std::size_t   size,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
-        const auto& facet{ pluto::get_facet<ElemT>(locale) };
+        const auto& facet{ pluto::use_facet<ElemT>(locale) };
 
         const auto end{ pElem + size };
         for (auto it{ pElem }; it < end; ++it)
@@ -183,21 +183,21 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline bool is_upper(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::is_upper(&string[0], string.size(), locale);
     }
 
     inline bool is_upper(
         const std::string& string,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::is_upper<>(string, locale);
     }
 
     inline bool is_upper(
         const std::wstring& wstring,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::is_upper<>(wstring, locale);
     }
@@ -206,7 +206,7 @@ namespace pluto
 #if PLUTO_UTILS_HAS_CXX_20
     inline bool is_upper(
         const std::u8string&    u8string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_upper<>(u8string, locale);
     }
@@ -214,14 +214,14 @@ namespace pluto
 
     inline bool is_upper(
         const std::u16string&   u16string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_upper<>(u16string, locale);
     }
 
     inline bool is_upper(
         const std::u32string&   u32string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_upper<>(u32string, locale);
     }
@@ -368,7 +368,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::equals(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -377,7 +377,7 @@ namespace pluto
     inline bool iequals(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::equals(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -385,7 +385,7 @@ namespace pluto
     inline bool iequals(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::iequals<>(left, right, locale);
     }
@@ -393,7 +393,7 @@ namespace pluto
     inline bool iequals(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::iequals<>(left, right, locale);
     }
@@ -403,7 +403,7 @@ namespace pluto
     inline bool iequals(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iequals<>(left, right, locale);
     }
@@ -412,7 +412,7 @@ namespace pluto
     inline bool iequals(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iequals<>(left, right, locale);
     }
@@ -420,7 +420,7 @@ namespace pluto
     inline bool iequals(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iequals<>(left, right, locale);
     }
@@ -481,7 +481,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::starts_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -490,7 +490,7 @@ namespace pluto
     inline bool istarts_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::starts_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -498,7 +498,7 @@ namespace pluto
     inline bool istarts_with(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::istarts_with<>(left, right, locale);
     }
@@ -506,7 +506,7 @@ namespace pluto
     inline bool istarts_with(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::istarts_with<>(left, right, locale);
     }
@@ -516,7 +516,7 @@ namespace pluto
     inline bool istarts_with(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::istarts_with<>(left, right, locale);
     }
@@ -525,7 +525,7 @@ namespace pluto
     inline bool istarts_with(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::istarts_with<>(left, right, locale);
     }
@@ -533,7 +533,7 @@ namespace pluto
     inline bool istarts_with(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::istarts_with<>(left, right, locale);
     }
@@ -594,7 +594,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::ends_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -603,7 +603,7 @@ namespace pluto
     inline bool iends_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::ends_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -611,7 +611,7 @@ namespace pluto
     inline bool iends_with(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::iends_with<>(left, right, locale);
     }
@@ -619,7 +619,7 @@ namespace pluto
     inline bool iends_with(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::iends_with<>(left, right, locale);
     }
@@ -629,7 +629,7 @@ namespace pluto
     inline bool iends_with(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iends_with<>(left, right, locale);
     }
@@ -638,7 +638,7 @@ namespace pluto
     inline bool iends_with(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iends_with<>(left, right, locale);
     }
@@ -646,7 +646,7 @@ namespace pluto
     inline bool iends_with(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::iends_with<>(left, right, locale);
     }
@@ -776,7 +776,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::find(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -785,7 +785,7 @@ namespace pluto
     inline auto ifind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::find_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -793,7 +793,7 @@ namespace pluto
     inline auto ifind(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::ifind<>(left, right, locale);
     }
@@ -801,7 +801,7 @@ namespace pluto
     inline auto ifind(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::ifind<>(left, right, locale);
     }
@@ -811,7 +811,7 @@ namespace pluto
     inline auto ifind(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::ifind<>(left, right, locale);
     }
@@ -820,7 +820,7 @@ namespace pluto
     inline auto ifind(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::ifind<>(left, right, locale);
     }
@@ -828,7 +828,7 @@ namespace pluto
     inline auto ifind(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::ifind<>(left, right, locale);
     }
@@ -841,7 +841,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::rfind(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -850,7 +850,7 @@ namespace pluto
     inline auto irfind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::rfind_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -858,7 +858,7 @@ namespace pluto
     inline auto irfind(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::irfind<>(left, right, locale);
     }
@@ -866,7 +866,7 @@ namespace pluto
     inline auto irfind(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::irfind<>(left, right, locale);
     }
@@ -876,7 +876,7 @@ namespace pluto
     inline auto irfind(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::irfind<>(left, right, locale);
     }
@@ -885,7 +885,7 @@ namespace pluto
     inline auto irfind(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::irfind<>(left, right, locale);
     }
@@ -893,7 +893,7 @@ namespace pluto
     inline auto irfind(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::irfind<>(left, right, locale);
     }
@@ -964,7 +964,7 @@ namespace pluto
         const std::size_t   sizeL,
         const ElemT* const  beginR,
         const std::size_t   sizeR,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::contains(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
     }
@@ -973,7 +973,7 @@ namespace pluto
     inline bool icontains(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::contains_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
@@ -981,7 +981,7 @@ namespace pluto
     inline bool icontains(
         const std::string& left,
         const std::string& right,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::icontains<>(left, right, locale);
     }
@@ -989,7 +989,7 @@ namespace pluto
     inline bool icontains(
         const std::wstring& left,
         const std::wstring& right,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::icontains<>(left, right, locale);
     }
@@ -999,7 +999,7 @@ namespace pluto
     inline bool icontains(
         const std::u8string&    left,
         const std::u8string&    right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::icontains<>(left, right, locale);
     }
@@ -1008,7 +1008,7 @@ namespace pluto
     inline bool icontains(
         const std::u16string&   left,
         const std::u16string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::icontains<>(left, right, locale);
     }
@@ -1016,7 +1016,7 @@ namespace pluto
     inline bool icontains(
         const std::u32string&   left,
         const std::u32string&   right,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::icontains<>(left, right, locale);
     }
@@ -1025,9 +1025,9 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
-        const std::locale&                                  locale = pluto::get_default_locale())
+        const std::locale&                                  locale = pluto::default_locale())
     {
-        const auto& facet{ pluto::get_facet<ElemT>(locale) };
+        const auto& facet{ pluto::use_facet<ElemT>(locale) };
 
         std::size_t start{ 0 }, stop;
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
@@ -1062,14 +1062,14 @@ namespace pluto
 
     inline std::vector<std::string> split(
         const std::string& string,
-        const std::locale& locale = pluto::get_default_locale())
+        const std::locale& locale = pluto::default_locale())
     {
         return pluto::split<>(string, locale);
     }
 
     inline std::vector<std::wstring> split(
         const std::wstring& wstring,
-        const std::locale&  locale = pluto::get_default_locale())
+        const std::locale&  locale = pluto::default_locale())
     {
         return pluto::split<>(wstring, locale);
     }
@@ -1078,7 +1078,7 @@ namespace pluto
 #if PLUTO_UTILS_HAS_CXX_20
     inline std::vector<std::u8string> split(
         const std::u8string&    u8string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::split<>(u8string, locale);
     }
@@ -1086,14 +1086,14 @@ namespace pluto
 
     inline std::vector<std::u16string> split(
         const std::u16string&   u16string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::split<>(u16string, locale);
     }
 
     inline std::vector<std::u32string> split(
         const std::u32string&   u32string,
-        const std::locale&      locale = pluto::get_default_locale())
+        const std::locale&      locale = pluto::default_locale())
     {
         return pluto::split<>(u32string, locale);
     }
@@ -1468,9 +1468,9 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline void lstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
-        const std::locale&                          locale = pluto::get_default_locale())
+        const std::locale&                          locale = pluto::default_locale())
     {
-        const auto& facet{ pluto::get_facet<ElemT>(locale) };
+        const auto& facet{ pluto::use_facet<ElemT>(locale) };
 
         std::size_t start{ 0 };
         while (start < string.size() && facet.is(std::ctype_base::space, string[start]))
@@ -1484,9 +1484,9 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline void rstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
-        const std::locale&                          locale = pluto::get_default_locale())
+        const std::locale&                          locale = pluto::default_locale())
     {
-        const auto& facet{ pluto::get_facet<ElemT>(locale) };
+        const auto& facet{ pluto::use_facet<ElemT>(locale) };
 
         std::size_t stop{ string.size() };
         while (0 < stop)
@@ -1504,7 +1504,7 @@ namespace pluto
     template<class ElemT, class TraitsT, class AllocT>
     inline void strip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
-        const std::locale&                          locale = pluto::get_default_locale())
+        const std::locale&                          locale = pluto::default_locale())
     {
         pluto::rstrip(string, locale);
         pluto::lstrip(string, locale);

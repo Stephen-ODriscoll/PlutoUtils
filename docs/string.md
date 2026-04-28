@@ -10,7 +10,7 @@ Defines **_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING** on MSVC to silence
 
 Case insensitive checks avail of the performance benefits talked about in [compare.hpp](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/compare.md).
 
-Optional locales default to [pluto::get_default_locale](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/locale.md#get_default_locale).
+Optional locales default to [pluto::default_locale](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/locale.md#default_locale).
 
 ### PLUTO_STRING_OVERLOAD_FOR_UNICODE
 Define this macro as 1 to enable overload for unicode strings, or 0 to disable it. This applies to **std::u8string**, **std::u16string** and **std::u32string**. Defaults to 1 on Windows and 0 everywhere else.

@@ -48,8 +48,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iequal(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_iequal(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -62,8 +62,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_not_iequal(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_not_iequal(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -76,8 +76,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iless(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_iless(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -90,8 +90,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_igreater(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_igreater(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -104,8 +104,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iless_equal(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_iless_equal(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {
@@ -118,8 +118,8 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_igreater_equal(const std::locale& locale = pluto::get_default_locale()) :
-            facet{ pluto::get_facet<ElemT>(locale) } {}
+        is_igreater_equal(const std::locale& locale = pluto::default_locale()) :
+            facet{ pluto::use_facet<ElemT>(locale) } {}
 
         bool operator()(const ElemT& left, const ElemT& right) const
         {

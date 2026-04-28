@@ -18,26 +18,26 @@
 
 namespace pluto
 {
-    inline const auto& get_c_locale()
+    inline const auto& c_locale()
     {
         static const std::locale cLocale{ "C" };
         return cLocale;
     }
 
-    inline const auto& get_system_locale()
+    inline const auto& system_locale()
     {
         static const std::locale systemLocale{ "" };
         return systemLocale;
     }
 
-    inline const auto& get_default_locale()
+    inline const auto& default_locale()
     {
         static const std::locale defaultLocale{ PLUTO_LOCALE_DEFAULT_LOCALE };
         return defaultLocale;
     }
 
     template<class ElemT>
-    inline const auto& get_facet(const std::locale& locale)
+    inline const auto& use_facet(const std::locale& locale)
     {
         return std::use_facet<std::ctype<ElemT>>(locale);
     }
