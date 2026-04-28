@@ -19,7 +19,7 @@ protected:
 };
 
 // Basic sanity, timings are difficult to test
-TEST_F(stopwatch_tests, test_stopwatch_sanity)
+TEST_F(stopwatch_tests, test_sanity)
 {
     pluto::stopwatch stopwatch{ true };
     ASSERT_TRUE(stopwatch.is_running());

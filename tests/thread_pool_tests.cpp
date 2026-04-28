@@ -18,7 +18,7 @@ protected:
     ~thread_pool_tests() {}
 };
 
-TEST_F(thread_pool_tests, test_thread_pool_sanity)
+TEST_F(thread_pool_tests, test_sanity)
 {
     pluto::thread_pool threadPool{ 0 };
 

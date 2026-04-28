@@ -23,7 +23,7 @@ protected:
     ~range_tests() {}
 };
 
-TEST_F(range_tests, test_range_sanity)
+TEST_F(range_tests, test_sanity)
 {
     pluto::int_range intRange{ 1, 2 };
 
@@ -38,7 +38,7 @@ TEST_F(range_tests, test_range_sanity)
     ASSERT_EQ(intRange.size(), 2);
 }
 
-TEST_F(range_tests, test_range_copy_constructor)
+TEST_F(range_tests, test_copy_constructor)
 {
     pluto::int_range intRange{ 1, 2 };
 
@@ -55,7 +55,7 @@ TEST_F(range_tests, test_range_copy_constructor)
     ASSERT_EQ(intRange2.size(), 1);
 }
 
-TEST_F(range_tests, test_range_is_equal)
+TEST_F(range_tests, test_is_equal)
 {
     ASSERT_TRUE(intRange1.is_equal(intRange2));
     ASSERT_TRUE(intRange2.is_equal(intRange1));
@@ -72,7 +72,7 @@ TEST_F(range_tests, test_range_is_equal)
     ASSERT_FALSE(intRange5 == intRange3);
 }
 
-TEST_F(range_tests, test_range_is_not_equal)
+TEST_F(range_tests, test_is_not_equal)
 {
     ASSERT_FALSE(intRange1 != intRange2);
     ASSERT_FALSE(intRange2 != intRange1);
@@ -82,7 +82,7 @@ TEST_F(range_tests, test_range_is_not_equal)
     ASSERT_TRUE(intRange5 != intRange3);
 }
 
-TEST_F(range_tests, test_range_is_less)
+TEST_F(range_tests, test_is_less)
 {
     ASSERT_FALSE(intRange1.is_less(intRange2));
     ASSERT_FALSE(intRange2.is_less(intRange1));
@@ -99,7 +99,7 @@ TEST_F(range_tests, test_range_is_less)
     ASSERT_FALSE(intRange5 < intRange3);
 }
 
-TEST_F(range_tests, test_range_is_greater)
+TEST_F(range_tests, test_is_greater)
 {
     ASSERT_FALSE(intRange1 > intRange2);
     ASSERT_FALSE(intRange2 > intRange1);
@@ -109,7 +109,7 @@ TEST_F(range_tests, test_range_is_greater)
     ASSERT_TRUE(intRange5 > intRange3);
 }
 
-TEST_F(range_tests, test_range_is_less_equal)
+TEST_F(range_tests, test_is_less_equal)
 {
     ASSERT_TRUE(intRange1 <= intRange2);
     ASSERT_TRUE(intRange2 <= intRange1);
@@ -119,7 +119,7 @@ TEST_F(range_tests, test_range_is_less_equal)
     ASSERT_FALSE(intRange5 <= intRange3);
 }
 
-TEST_F(range_tests, test_range_is_greater_equal)
+TEST_F(range_tests, test_is_greater_equal)
 {
     ASSERT_TRUE(intRange1 >= intRange2);
     ASSERT_TRUE(intRange2 >= intRange1);
@@ -129,7 +129,7 @@ TEST_F(range_tests, test_range_is_greater_equal)
     ASSERT_TRUE(intRange5 >= intRange3);
 }
 
-TEST_F(range_tests, test_range_is_overlapping)
+TEST_F(range_tests, test_is_overlapping)
 {
     ASSERT_FALSE(intRange1.is_overlapping(intRange2));
     ASSERT_FALSE(intRange2.is_overlapping(intRange1));
@@ -139,7 +139,7 @@ TEST_F(range_tests, test_range_is_overlapping)
     ASSERT_FALSE(intRange5.is_overlapping(intRange3));
 }
 
-TEST_F(range_tests, test_range_is_less_no_overlap)
+TEST_F(range_tests, test_is_less_no_overlap)
 {
     ASSERT_TRUE(intRange1.is_less_no_overlap(intRange2));
     ASSERT_TRUE(intRange2.is_less_no_overlap(intRange1));

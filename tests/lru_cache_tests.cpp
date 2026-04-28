@@ -26,7 +26,7 @@ protected:
     }
 };
 
-TEST_F(lru_cache_tests, test_cache_sanity)
+TEST_F(lru_cache_tests, test_sanity)
 {
     std::size_t value{ 0 };
 
