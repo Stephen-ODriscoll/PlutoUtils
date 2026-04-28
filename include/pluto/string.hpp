@@ -1033,18 +1033,13 @@ namespace pluto
         std::vector<std::basic_string<ElemT, TraitsT, AllocT>> splits{};
         while (start < string.size())
         {
-            while (facet.is(std::ctype_base::space, string[start]))
+            if (facet.is(std::ctype_base::space, string[start]))
             {
                 ++start;
-
-                if (!(start < string.size()))
-                {
-                    goto done;
-                }
+                continue;
             }
 
-            stop = start;
-            ++stop;
+            stop = (start + 1);
 
             while (stop < string.size() && !facet.is(std::ctype_base::space, string[stop]))
             {
@@ -1052,11 +1047,9 @@ namespace pluto
             }
 
             splits.emplace_back(string, start, (stop - start));
-            start = stop;
-            ++start;
+            start = (stop + 1);
         }
 
-    done:
         return splits;
     }
 
