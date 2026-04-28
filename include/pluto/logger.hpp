@@ -119,7 +119,7 @@
     } \
     while(false)
 
-#define PLUTO_LOG_WRITE(file, level, ...) PLUTO_LOG_WRITE_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
+#define PLUTO_LOG_WRITE(file, level, ...) PLUTO_LOG_WRITE_WITH(pluto::logger::instance(), file, level, __VA_ARGS__)
 
 #define PLUTO_LOG_WRITEF_WITH(logger, file, level, ...) \
     do \
@@ -131,7 +131,7 @@
     } \
     while(false)
 
-#define PLUTO_LOG_WRITEF(file, level, ...) PLUTO_LOG_WRITEF_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
+#define PLUTO_LOG_WRITEF(file, level, ...) PLUTO_LOG_WRITEF_WITH(pluto::logger::instance(), file, level, __VA_ARGS__)
 
 #if PLUTO_LOGGER_HAS_FORMAT
 #define PLUTO_LOG_FORMAT_WITH(logger, file, level, ...) \
@@ -144,7 +144,7 @@
     } \
     while(false)
 
-#define PLUTO_LOG_FORMAT(file, level, ...) PLUTO_LOG_FORMAT_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
+#define PLUTO_LOG_FORMAT(file, level, ...) PLUTO_LOG_FORMAT_WITH(pluto::logger::instance(), file, level, __VA_ARGS__)
 #endif
 
 #define PLUTO_LOG_STREAM_WITH(logger, file, level, ...) \
@@ -157,7 +157,7 @@
     } \
     while (false)
 
-#define PLUTO_LOG_STREAM(file, level, ...) PLUTO_LOG_STREAM_WITH(pluto::logger::get(), file, level, __VA_ARGS__)
+#define PLUTO_LOG_STREAM(file, level, ...) PLUTO_LOG_STREAM_WITH(pluto::logger::instance(), file, level, __VA_ARGS__)
 
 namespace pluto
 {
@@ -432,7 +432,7 @@ namespace pluto
 
         logger& operator=(const logger&) = delete;
 
-        static logger& get()
+        static logger& instance()
         {
             static logger instance{};
             return instance;

@@ -158,7 +158,7 @@ Constructor takes no arguments as this class is normally a singleton. Define **P
 #### clock_type
 The type of the clock.
 
-#### get()
+#### instance()
 Returns a reference to a local static **pluto::logger** instance.
 
 #### default_log_writer()

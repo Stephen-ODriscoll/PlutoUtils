@@ -62,7 +62,7 @@ void custom_header_writer(std::ostream& stream)
 
 int main(int argc, char* argv[])
 {
-    pluto::logger::get()
+    pluto::logger::instance()
         .log_writer(custom_log_writer)
         .header_writer(custom_header_writer);
 

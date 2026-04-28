@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    LOG_STREAM(info, "Num logs discarded:" << pluto::logger::get().num_discarded_logs());
+    LOG_STREAM(info, "Num logs discarded:" << pluto::logger::instance().num_discarded_logs());
 
     return 0;
 }

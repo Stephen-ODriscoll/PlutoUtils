@@ -45,7 +45,7 @@ void custom_header_writer(std::ostream& stream)
 
 int main(int argc, char* argv[])
 {
-    pluto::logger::get()
+    pluto::logger::instance()
         .level(pluto::log_level::info)
         .buffer_max_size(1000)
         .buffer_flush_size(100)
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    LOG_STREAM(info, "Num logs discarded:" << pluto::logger::get().num_discarded_logs());
+    LOG_STREAM(info, "Num logs discarded:" << pluto::logger::instance().num_discarded_logs());
 
     return 0;
 }

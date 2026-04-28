@@ -55,6 +55,9 @@ Represents a priority for a given task. Higher priority tasks are always complet
 - **higher**: A higher value. Same value as **PLUTO_THREAD_POOL_PRIORITY_HIGHER**.
 - **highest**: The highest value. Same value as **PLUTO_THREAD_POOL_PRIORITY_HIGHEST**.
 
+#### instance()
+Returns a reference to a local static **pluto::thread_pool** instance.
+
 #### workers_size()
 Returns a **std::size_t** representing the number of worker threads.
 
@@ -106,6 +109,3 @@ Waits on calling thread until no tasks are waiting.
 
 #### wait_until_all_tasks_complete()
 Waits on calling thread until all tasks are complete.
-
-### global_thread_pool()
-Returns a reference to a local static **pluto::thread_pool** instance.

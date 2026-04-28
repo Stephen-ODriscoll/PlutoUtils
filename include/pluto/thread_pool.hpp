@@ -147,6 +147,16 @@ namespace pluto
             }
         }
 
+        thread_pool(const thread_pool&) = delete;
+
+        thread_pool& operator=(const thread_pool&) = delete;
+
+        static thread_pool& instance()
+        {
+            static thread_pool instance{};
+            return instance;
+        }
+
         std::size_t workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
@@ -415,10 +425,4 @@ namespace pluto
             }
         }
     };
-
-    inline pluto::thread_pool& global_thread_pool()
-    {
-        static pluto::thread_pool globalThreadPool{};
-        return globalThreadPool;
-    }
 }
