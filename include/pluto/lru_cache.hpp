@@ -29,17 +29,30 @@ namespace pluto
         map_type    m_map{};
     
     public:
-        lru_cache(const std::size_t capacity) :
+        inline lru_cache(const std::size_t capacity) :
             m_capacity{ capacity } {}
 
-        ~lru_cache() {}
+        PLUTO_UTILS_NODISCARD inline std::size_t size() const
+        {
+            return m_map.size();
+        }
 
-        std::size_t size()                  const   { return m_map.size(); }
-        std::size_t capacity()              const   { return m_capacity; }
-        bool empty()                        const   { return m_map.empty(); }
-        bool contains(const key_type& key)  const   { return (m_map.find(key) != m_map.end()); }
+        PLUTO_UTILS_NODISCARD inline std::size_t capacity() const
+        {
+            return m_capacity;
+        }
 
-        void clear()
+        PLUTO_UTILS_NODISCARD inline bool empty() const
+        {
+            return m_map.empty();
+        }
+
+        PLUTO_UTILS_NODISCARD inline bool contains(const key_type& key) const
+        {
+            return (m_map.find(key) != m_map.end());
+        }
+
+        inline void clear()
         {
             m_map.clear();
             m_list.clear();
@@ -63,12 +76,12 @@ namespace pluto
             }
         }
 
-        bool insert(const key_type& key, const value_type& value)
+        inline bool insert(const key_type& key, const value_type& value)
         {
             return insert(key, value, false);
         }
 
-        bool insert_or_assign(const key_type& key, const value_type& value)
+        inline bool insert_or_assign(const key_type& key, const value_type& value)
         {
             return insert(key, value, true);
         }

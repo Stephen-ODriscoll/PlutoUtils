@@ -23,12 +23,12 @@
 namespace pluto
 {
 #if PLUTO_LOCALE_NO_STATIC
-    inline const auto c_locale()
+    PLUTO_UTILS_NODISCARD inline const auto c_locale()
     {
         return std::locale{ "C" };
     }
 #else
-    inline const auto& c_locale()
+    PLUTO_UTILS_NODISCARD inline const auto& c_locale()
     {
         static const std::locale cLocale{ "C" };
         return cLocale;
@@ -36,12 +36,12 @@ namespace pluto
 #endif
 
 #if PLUTO_LOCALE_NO_STATIC
-    inline const auto system_locale()
+    PLUTO_UTILS_NODISCARD inline const auto system_locale()
     {
         return std::locale{ "" };
     }
 #else
-    inline const auto& system_locale()
+    PLUTO_UTILS_NODISCARD inline const auto& system_locale()
     {
         static const std::locale systemLocale{ "" };
         return systemLocale;
@@ -49,12 +49,12 @@ namespace pluto
 #endif
 
 #if PLUTO_LOCALE_NO_STATIC
-    inline const auto default_locale()
+    PLUTO_UTILS_NODISCARD inline const auto default_locale()
     {
         return std::locale{ PLUTO_LOCALE_DEFAULT_LOCALE };
     }
 #else
-    inline const auto& default_locale()
+    PLUTO_UTILS_NODISCARD inline const auto& default_locale()
     {
         static const std::locale defaultLocale{ PLUTO_LOCALE_DEFAULT_LOCALE };
         return defaultLocale;
@@ -62,7 +62,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline const auto& use_facet(const std::locale& locale)
+    PLUTO_UTILS_NODISCARD inline const auto& use_facet(const std::locale& locale)
     {
         return std::use_facet<std::ctype<ElemT>>(locale);
     }

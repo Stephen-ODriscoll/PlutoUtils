@@ -188,7 +188,7 @@ namespace pluto
         int         line;
         const char* function;
 
-        source_info(
+        PLUTO_UTILS_CONSTEXPR source_info(
             const char* const   file,
             const int           line,
             const char* const   function) :
@@ -196,19 +196,17 @@ namespace pluto
             line    { line },
             function{ function } {}
 
-        source_info(const source_info& other) :
+        PLUTO_UTILS_CONSTEXPR source_info(const source_info& other) :
             file    { other.file },
             line    { other.line },
             function{ other.function } {}
 
 #if PLUTO_LOGGER_HAS_SOURCE_LOCATION
-        source_info(const std::source_location& source = std::source_location::current()) :
+        PLUTO_UTILS_CONSTEXPR source_info(const std::source_location& source = std::source_location::current()) :
             file    { source.file_name() },
             line    { static_cast<int>(source.line()) },
             function{ source.function_name() } {}
 #endif
-
-        ~source_info() {}
     };
 
     struct log_entry
@@ -232,11 +230,9 @@ namespace pluto
             level       { level },
             source      { source },
             message     { message } {}
-
-        ~log_entry() {}
     };
 
-    inline const char* log_level_to_c_str(const log_level logLevel)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_c_str(const log_level logLevel)
     {
         switch (logLevel)
         {
@@ -255,7 +251,7 @@ namespace pluto
         }
     }
 
-    inline const char* log_level_to_title(const log_level logLevel)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_title(const log_level logLevel)
     {
         switch (logLevel)
         {
@@ -274,7 +270,7 @@ namespace pluto
         }
     }
 
-    inline const char* log_level_to_shortened(const log_level logLevel)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_shortened(const log_level logLevel)
     {
         switch (logLevel)
         {
@@ -293,7 +289,7 @@ namespace pluto
         }
     }
 
-    inline char log_level_to_char(const log_level logLevel)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR char log_level_to_char(const log_level logLevel)
     {
         switch (logLevel)
         {
@@ -353,7 +349,7 @@ namespace pluto
             }
 
             template<class ValueT>
-            streamer& operator<<(const ValueT& value)
+            inline streamer& operator<<(const ValueT& value)
             {
                 m_stream << value;
                 return *this;
@@ -432,7 +428,7 @@ namespace pluto
 
         logger& operator=(const logger&) = delete;
 
-        static logger& instance()
+        inline static logger& instance()
         {
             static logger instance{};
             return instance;
@@ -490,59 +486,127 @@ namespace pluto
                 << std::setfill(' ');
         }
 
-        bool is_logging()                   const   { return m_isLogging.load(); }
-        log_level level()                   const   { return m_level.load(); }
-        bool create_dirs()                  const   { return m_createDirs.load(); }
-        bool write_header()                 const   { return m_writeHeader.load(); }
-        std::size_t buffer_max_size()       const   { return m_bufferMaxSize.load(); }
-        std::size_t buffer_flush_size()     const   { return m_bufferFlushSize.load(); }
-        std::size_t file_rotation_size()    const   { return m_fileRotationSize.load(); }
-        std::size_t file_rotation_limit()   const   { return m_fileRotationLimit.load(); }
-        std::size_t num_discarded_logs()    const   { return m_numDiscardedLogs.load(); }
+        PLUTO_UTILS_NODISCARD inline bool is_logging() const
+        {
+            return m_isLogging.load();
+        }
 
-        std::function<void(std::ostream&, const log_entry&)> log_writer() const
+        PLUTO_UTILS_NODISCARD inline log_level level() const
+        {
+            return m_level.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline bool create_dirs() const
+        {
+            return m_createDirs.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline bool write_header() const
+        {
+            return m_writeHeader.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::size_t buffer_max_size() const
+        {
+            return m_bufferMaxSize.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::size_t buffer_flush_size() const
+        {
+            return m_bufferFlushSize.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::size_t file_rotation_size() const
+        {
+            return m_fileRotationSize.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::size_t file_rotation_limit() const
+        {
+            return m_fileRotationLimit.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::size_t num_discarded_logs() const
+        {
+            return m_numDiscardedLogs.load();
+        }
+
+        PLUTO_UTILS_NODISCARD inline std::function<void(std::ostream&, const log_entry&)> log_writer() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_logWriter;
         }
 
-        std::function<void(std::ostream&)> header_writer() const
+        PLUTO_UTILS_NODISCARD inline std::function<void(std::ostream&)> header_writer() const
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             return m_headerWriter;
         }
 
-        logger& level(const log_level l)                { m_level.store(l);         return *this; }
-        logger& create_dirs(const bool b)               { m_createDirs.store(b);    return *this; }
-        logger& write_header(const bool b)              { m_writeHeader.store(b);   return *this; }
-        logger& buffer_max_size(const std::size_t s)    { m_bufferMaxSize.store(s); return *this; }
+        inline logger& level(const log_level l)
+        {
+            m_level.store(l);
+            return *this;
+        }
 
-        logger& buffer_flush_size(const std::size_t s)
+        inline logger& create_dirs(const bool b)
+        {
+            m_createDirs.store(b);
+            return *this;
+        }
+
+        inline logger& write_header(const bool b)
+        {
+            m_writeHeader.store(b);
+            return *this;
+        }
+
+        inline logger& buffer_max_size(const std::size_t s)
+        {
+            m_bufferMaxSize.store(s);
+            return *this;
+        }
+
+        inline logger& buffer_flush_size(const std::size_t s)
         {
             m_bufferFlushSize.store(s);
             m_loggingCondition.notify_one();  // wake the logging thread
             return *this;
         }
 
-        logger& file_rotation_size(const std::size_t s)     { m_fileRotationSize.store(s);  return *this; }
-        logger& file_rotation_limit(const std::size_t s)    { m_fileRotationLimit.store(s); return *this; }
-        logger& reset_num_discarded_logs()                  { m_numDiscardedLogs.store(0);  return *this; }
+        inline logger& file_rotation_size(const std::size_t s)
+        {
+            m_fileRotationSize.store(s);
+            return *this;
+        }
 
-        logger& log_writer(const std::function<void(std::ostream&, const log_entry&)>& f)
+        inline logger& file_rotation_limit(const std::size_t s)
+        {
+            m_fileRotationLimit.store(s);
+            return *this;
+        }
+
+        inline logger& reset_num_discarded_logs()
+        {
+            m_numDiscardedLogs.store(0);
+            return *this;
+        }
+
+        inline logger& log_writer(const std::function<void(std::ostream&, const log_entry&)>& f)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_logWriter = f;
             return *this;
         }
 
-        logger& header_writer(const std::function<void(std::ostream&)>& f)
+        inline logger& header_writer(const std::function<void(std::ostream&)>& f)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
             m_headerWriter = f;
             return *this;
         }
 
-        bool should_log(const log_level logLevel) const
+        PLUTO_UTILS_NODISCARD inline bool should_log(const log_level logLevel) const
         {
             return (is_logging() && level() <= logLevel);
         }
@@ -560,7 +624,7 @@ namespace pluto
         }
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
-        void write(
+        inline void write(
             const std::string&  logFile,
             const log_level     logLevel,
             const std::string&  message)
@@ -614,7 +678,7 @@ namespace pluto
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
         template<class... ArgsT>
-        void writef(
+        inline void writef(
             const std::string&  logFile,
             const log_level     logLevel,
             const char* const   scheme,
@@ -642,7 +706,7 @@ namespace pluto
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
         template<class... ArgsT>
-        void format(
+        inline void format(
             const std::string&                  logFile,
             const log_level                     logLevel,
             const std::format_string<ArgsT...>  scheme,
@@ -653,7 +717,7 @@ namespace pluto
 #endif
 #endif
 
-        streamer stream(
+        PLUTO_UTILS_NODISCARD inline streamer stream(
             const std::string&  logFile,
             const log_level     logLevel,
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO

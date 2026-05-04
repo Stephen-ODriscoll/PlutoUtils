@@ -15,13 +15,13 @@ namespace pluto
 {
     struct is_true
     {
-        bool operator()(const bool value) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const bool value) const
         {
             return value;
         }
 
         template<class ValueT>
-        bool operator()(const ValueT& value) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
         {
             return !!(value);
         }
@@ -30,7 +30,7 @@ namespace pluto
     struct is_false
     {
         template<class ValueT>
-        bool operator()(const ValueT& value) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
         {
             return !(value);
         }
@@ -48,10 +48,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iequal(const std::locale& locale = pluto::default_locale()) :
+        inline is_iequal(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) == facet.toupper(right));
         }
@@ -62,10 +62,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_not_iequal(const std::locale& locale = pluto::default_locale()) :
+        inline is_not_iequal(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left != right && facet.toupper(left) != facet.toupper(right));
         }
@@ -76,10 +76,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iless(const std::locale& locale = pluto::default_locale()) :
+        inline is_iless(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (facet.toupper(left) < facet.toupper(right));
         }
@@ -90,10 +90,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_igreater(const std::locale& locale = pluto::default_locale()) :
+        inline is_igreater(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (facet.toupper(left) > facet.toupper(right));
         }
@@ -104,10 +104,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_iless_equal(const std::locale& locale = pluto::default_locale()) :
+        inline is_iless_equal(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) <= facet.toupper(right));
         }
@@ -118,10 +118,10 @@ namespace pluto
     {
         const std::ctype<ElemT>& facet;
 
-        is_igreater_equal(const std::locale& locale = pluto::default_locale()) :
+        inline is_igreater_equal(const std::locale& locale = pluto::default_locale()) :
             facet{ pluto::use_facet<ElemT>(locale) } {}
 
-        bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
         {
             return (left == right || facet.toupper(left) >= facet.toupper(right));
         }

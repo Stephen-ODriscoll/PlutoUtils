@@ -20,7 +20,7 @@
 
 namespace pluto
 {
-    inline const char* file_name(const char* const filePath)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* file_name(const char* const filePath)
     {
         const char* fileName{ filePath };
         for (const char* pChar{ filePath }; *pChar; ++pChar)
@@ -34,7 +34,7 @@ namespace pluto
         return fileName;
     }
 
-    inline int process_id()
+    PLUTO_UTILS_NODISCARD inline int process_id()
     {
 #ifdef _WIN32
         return static_cast<int>(::GetCurrentProcessId());
@@ -43,7 +43,7 @@ namespace pluto
 #endif
     }
 
-    inline std::size_t thread_id()
+    PLUTO_UTILS_NODISCARD inline std::size_t thread_id()
     {
 #ifdef _WIN32
         return static_cast<std::size_t>(::GetCurrentThreadId());
@@ -56,7 +56,7 @@ namespace pluto
 #endif
     }
 
-    inline std::tm local_time(const std::time_t& posixTime)
+    PLUTO_UTILS_NODISCARD inline std::tm local_time(const std::time_t& posixTime)
     {
         std::tm localTime{};
 #ifdef _WIN32
@@ -67,7 +67,7 @@ namespace pluto
         return localTime;
     }
 
-    inline std::tm gm_time(const std::time_t& posixTime)
+    PLUTO_UTILS_NODISCARD inline std::tm gm_time(const std::time_t& posixTime)
     {
         std::tm gmTime{};
 #ifdef _WIN32

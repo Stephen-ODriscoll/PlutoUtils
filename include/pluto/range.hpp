@@ -17,32 +17,30 @@ namespace pluto
         T begin;
         T end;
 
-        range(const T& begin, const T& end) :
+        PLUTO_UTILS_CONSTEXPR range(const T& begin, const T& end) :
             begin   { begin },
             end     { end } {}
 
-        range(const range& other) :
+        PLUTO_UTILS_CONSTEXPR range(const range& other) :
             begin   { other.begin },
             end     { other.end } {}
 
-        ~range() {}
-
-        auto size() const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR auto size() const
         {
             return (end - begin);
         }
 
-        bool is_equal(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_equal(const range& other) const
         {
             return (begin == other.begin && end == other.end);
         }
 
-        bool is_overlapping(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_overlapping(const range& other) const
         {
             return (begin < other.end && other.begin < end);
         }
 
-        bool is_less(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_less(const range& other) const
         {
             return ((begin == other.begin) ? (end < other.end) : (begin < other.begin));
         }
@@ -55,37 +53,37 @@ namespace pluto
         // As such, they will be hidden in a sorted container.
         //
         // This is correct, technically a range of size 0 doesn't physically exist.
-        bool is_less_no_overlap(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_less_no_overlap(const range& other) const
         {
             return (end <= other.begin);
         }
 
-        bool operator==(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator==(const range& other) const
         {
             return is_equal(other);
         }
 
-        bool operator!=(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator!=(const range& other) const
         {
             return !(is_equal(other));
         }
 
-        bool operator<(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator<(const range& other) const
         {
             return is_less(other);
         }
 
-        bool operator>(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator>(const range& other) const
         {
             return other.is_less(*this);
         }
 
-        bool operator<=(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator<=(const range& other) const
         {
             return !(other.is_less(*this));
         }
 
-        bool operator>=(const range& other) const
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator>=(const range& other) const
         {
             return !(is_less(other));
         }

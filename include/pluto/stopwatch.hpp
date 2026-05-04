@@ -29,7 +29,7 @@ namespace pluto
         bool                    m_isRunning;
 
     public:
-        stopwatch(const bool startNow = false) :
+        inline stopwatch(const bool startNow = false) :
             m_time      {},
             m_start     {},
             m_isRunning { false }
@@ -40,58 +40,108 @@ namespace pluto
             }
         }
 
-        stopwatch(const stopwatch& other) :
+        inline stopwatch(const stopwatch& other) :
             m_time      { other.m_time },
             m_start     { other.m_start },
             m_isRunning { other.m_isRunning } {}
 
-        ~stopwatch() {}
-
-        auto time() const
+        PLUTO_UTILS_NODISCARD inline auto time() const
         {
             return (m_isRunning ? (m_time + (clock_type::now() - m_start)) : m_time);
         }
 
         template<class DurationT>
-        auto count() const { return std::chrono::duration_cast<DurationT>(time()).count(); }
+        PLUTO_UTILS_NODISCARD inline auto count() const
+        {
+            return std::chrono::duration_cast<DurationT>(time()).count();
+        }
 
         template<class DurationT>
-        auto count(const long long rollover) const { return (count<DurationT>() % rollover); }
+        PLUTO_UTILS_NODISCARD inline auto count(const long long rollover) const
+        {
+            return (count<DurationT>() % rollover);
+        }
 
-        auto in_nanoseconds()   const   { return count<std::chrono::nanoseconds>(); }
-        auto in_microseconds()  const   { return count<std::chrono::microseconds>(); }
-        auto in_milliseconds()  const   { return count<std::chrono::milliseconds>(); }
-        auto in_seconds()       const   { return count<std::chrono::seconds>(); }
-        auto in_minutes()       const   { return count<std::chrono::minutes>(); }
-        auto in_hours()         const   { return count<std::chrono::hours>(); }
+        PLUTO_UTILS_NODISCARD inline auto in_nanoseconds() const
+        {
+            return count<std::chrono::nanoseconds>();
+        }
 
-        auto nanoseconds_part()     const   { return count<std::chrono::nanoseconds>(1'000); }
-        auto microseconds_part()    const   { return count<std::chrono::microseconds>(1'000); }
-        auto milliseconds_part()    const   { return count<std::chrono::milliseconds>(1'000); }
-        auto seconds_part()         const   { return count<std::chrono::seconds>(60); }
-        auto minutes_part()         const   { return count<std::chrono::minutes>(60); }
-        auto hours_part()           const   { return count<std::chrono::hours>(); }
+        PLUTO_UTILS_NODISCARD inline auto in_microseconds() const
+        {
+            return count<std::chrono::microseconds>();
+        }
 
-        bool is_running() const
+        PLUTO_UTILS_NODISCARD inline auto in_milliseconds() const
+        {
+            return count<std::chrono::milliseconds>();
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto in_seconds() const
+        {
+            return count<std::chrono::seconds>();
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto in_minutes() const
+        {
+            return count<std::chrono::minutes>();
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto in_hours() const
+        {
+            return count<std::chrono::hours>();
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto nanoseconds_part() const
+        {
+            return count<std::chrono::nanoseconds>(1'000);
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto microseconds_part() const
+        {
+            return count<std::chrono::microseconds>(1'000);
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto milliseconds_part() const
+        {
+            return count<std::chrono::milliseconds>(1'000);
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto seconds_part() const
+        {
+            return count<std::chrono::seconds>(60);
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto minutes_part() const
+        {
+            return count<std::chrono::minutes>(60);
+        }
+
+        PLUTO_UTILS_NODISCARD inline auto hours_part() const
+        {
+            return count<std::chrono::hours>();
+        }
+
+        PLUTO_UTILS_NODISCARD inline bool is_running() const
         {
             return m_isRunning;
         }
 
-        void reset()
+        inline void reset()
         {
             m_time = {};
             m_start = {};
             m_isRunning = false;
         }
 
-        void restart()
+        inline void restart()
         {
             m_time = {};
             m_start = clock_type::now();
             m_isRunning = true;
         }
 
-        void start()
+        inline void start()
         {
             if (!m_isRunning)
             {
@@ -100,7 +150,7 @@ namespace pluto
             }
         }
 
-        void stop()
+        inline void stop()
         {
             if (m_isRunning)
             {
@@ -109,7 +159,7 @@ namespace pluto
             }
         }
 
-        auto stop_and_time()
+        inline auto stop_and_time()
         {
             stop();
             return m_time;

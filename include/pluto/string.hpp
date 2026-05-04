@@ -28,7 +28,7 @@
 namespace pluto
 {
     template<class ElemT>
-    inline ElemT lower(
+    PLUTO_UTILS_NODISCARD inline ElemT lower(
         const ElemT         elem,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -53,7 +53,7 @@ namespace pluto
     }
     
     template<class ElemT>
-    inline ElemT upper(
+    PLUTO_UTILS_NODISCARD inline ElemT upper(
         const ElemT         elem,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -78,7 +78,7 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const ElemT         elem,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -86,7 +86,7 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const ElemT* const  pElem,
         const std::size_t   size,
         const std::locale&  locale = pluto::default_locale())
@@ -106,21 +106,21 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::is_lower(&string[0], string.size(), locale);
     }
 
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::string& string,
         const std::locale& locale = pluto::default_locale())
     {
         return pluto::is_lower<>(string, locale);
     }
 
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::wstring& wstring,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -129,7 +129,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::u8string&    u8string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -137,14 +137,14 @@ namespace pluto
     }
 #endif
 
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::u16string&   u16string,
         const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_lower<>(u16string, locale);
     }
 
-    inline bool is_lower(
+    PLUTO_UTILS_NODISCARD inline bool is_lower(
         const std::u32string&   u32string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -153,7 +153,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const ElemT         elem,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -161,7 +161,7 @@ namespace pluto
     }
 
     template<class ElemT>
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const ElemT* const  pElem,
         const std::size_t   size,
         const std::locale&  locale = pluto::default_locale())
@@ -181,21 +181,21 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::default_locale())
     {
         return pluto::is_upper(&string[0], string.size(), locale);
     }
 
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::string& string,
         const std::locale& locale = pluto::default_locale())
     {
         return pluto::is_upper<>(string, locale);
     }
 
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::wstring& wstring,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -204,7 +204,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::u8string&    u8string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -212,14 +212,14 @@ namespace pluto
     }
 #endif
 
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::u16string&   u16string,
         const std::locale&      locale = pluto::default_locale())
     {
         return pluto::is_upper<>(u16string, locale);
     }
 
-    inline bool is_upper(
+    PLUTO_UTILS_NODISCARD inline bool is_upper(
         const std::u32string&   u32string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -227,58 +227,58 @@ namespace pluto
     }
 #endif
 
-    inline std::string str(const char* const pChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline std::string str(const char* const pChar, const std::size_t size)
     {
         return std::string(pChar, size);
     }
 
-    inline std::string str(const std::string& string)
+    PLUTO_UTILS_NODISCARD inline std::string str(const std::string& string)
     {
         return string;
     }
 
-    inline std::string str(const wchar_t* const pWChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline std::string str(const wchar_t* const pWChar, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
         return converter.to_bytes(pWChar, (pWChar + size));
     }
 
-    inline std::string str(const std::wstring& wstring)
+    PLUTO_UTILS_NODISCARD inline std::string str(const std::wstring& wstring)
     {
         return pluto::str(&wstring[0], wstring.size());
     }
 
     template<class ValueT>
-    inline std::string str(const ValueT& value)
+    PLUTO_UTILS_NODISCARD inline std::string str(const ValueT& value)
     {
         std::ostringstream ss{};
         ss << value;
         return ss.str();
     }
 
-    inline std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
     {
         return std::wstring(pWChar, size);
     }
 
-    inline std::wstring wstr(const std::wstring& wstring)
+    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::wstring& wstring)
     {
         return wstring;
     }
 
-    inline std::wstring wstr(const char* const pChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const char* const pChar, const std::size_t size)
     {
         static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
         return converter.from_bytes(pChar, (pChar + size));
     }
 
-    inline std::wstring wstr(const std::string& string)
+    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::string& string)
     {
         return pluto::wstr(&string[0], string.size());
     }
 
     template<class ValueT>
-    inline std::wstring wstr(const ValueT& value)
+    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const ValueT& value)
     {
         std::wostringstream ss{};
         ss << value;
@@ -286,7 +286,7 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline ValueT str_to(const std::string& string)
+    PLUTO_UTILS_NODISCARD inline ValueT str_to(const std::string& string)
     {
         ValueT value;
         std::istringstream(string) >> value;
@@ -294,13 +294,13 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline ValueT str_to(const char* const pChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline ValueT str_to(const char* const pChar, const std::size_t size)
     {
         return pluto::str_to<ValueT>(std::string(pChar, size));
     }
 
     template<class ValueT>
-    inline ValueT wstr_to(const std::wstring& wstring)
+    PLUTO_UTILS_NODISCARD inline ValueT wstr_to(const std::wstring& wstring)
     {
         ValueT value;
         std::wistringstream(wstring) >> value;
@@ -308,13 +308,13 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline ValueT wstr_to(const wchar_t* const pWChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD inline ValueT wstr_to(const wchar_t* const pWChar, const std::size_t size)
     {
         return pluto::wstr_to<ValueT>(std::wstring(pWChar, size));
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool equals(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -323,7 +323,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool equals(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -334,7 +334,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline bool equals(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -344,7 +344,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool equals(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -353,7 +353,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool equals(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -363,7 +363,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -374,7 +374,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -382,7 +382,7 @@ namespace pluto
         return pluto::equals(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -390,7 +390,7 @@ namespace pluto
         return pluto::iequals<>(left, right, locale);
     }
 
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -400,7 +400,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -409,7 +409,7 @@ namespace pluto
     }
 #endif
 
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -417,7 +417,7 @@ namespace pluto
         return pluto::iequals<>(left, right, locale);
     }
 
-    inline bool iequals(
+    PLUTO_UTILS_NODISCARD inline bool iequals(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -427,7 +427,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool starts_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -436,7 +436,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool starts_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -447,7 +447,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline bool starts_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -457,7 +457,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool starts_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -466,7 +466,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool starts_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -476,7 +476,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -487,7 +487,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -495,7 +495,7 @@ namespace pluto
         return pluto::starts_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -503,7 +503,7 @@ namespace pluto
         return pluto::istarts_with<>(left, right, locale);
     }
 
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -513,7 +513,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -522,7 +522,7 @@ namespace pluto
     }
 #endif
 
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -530,7 +530,7 @@ namespace pluto
         return pluto::istarts_with<>(left, right, locale);
     }
 
-    inline bool istarts_with(
+    PLUTO_UTILS_NODISCARD inline bool istarts_with(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -540,7 +540,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool ends_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -549,7 +549,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool ends_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -560,7 +560,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline bool ends_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -570,7 +570,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool ends_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -579,7 +579,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool ends_with(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -589,7 +589,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -600,7 +600,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -608,7 +608,7 @@ namespace pluto
         return pluto::ends_with(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -616,7 +616,7 @@ namespace pluto
         return pluto::iends_with<>(left, right, locale);
     }
 
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -626,7 +626,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -635,7 +635,7 @@ namespace pluto
     }
 #endif
 
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -643,7 +643,7 @@ namespace pluto
         return pluto::iends_with<>(left, right, locale);
     }
 
-    inline bool iends_with(
+    PLUTO_UTILS_NODISCARD inline bool iends_with(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -653,7 +653,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         PredicateT                                          predicate = {})
@@ -662,7 +662,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -671,7 +671,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -682,7 +682,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -692,7 +692,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -701,7 +701,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto find(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -712,7 +712,7 @@ namespace pluto
 
 #if PLUTO_UTILS_HAS_CXX_17
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         PredicateT                                          predicate = {})
@@ -721,7 +721,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -730,7 +730,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -741,7 +741,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -751,7 +751,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -760,7 +760,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline auto rfind(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -771,7 +771,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -782,7 +782,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -790,7 +790,7 @@ namespace pluto
         return pluto::find_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -798,7 +798,7 @@ namespace pluto
         return pluto::ifind<>(left, right, locale);
     }
 
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -808,7 +808,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -817,7 +817,7 @@ namespace pluto
     }
 #endif
 
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -825,7 +825,7 @@ namespace pluto
         return pluto::ifind<>(left, right, locale);
     }
 
-    inline auto ifind(
+    PLUTO_UTILS_NODISCARD inline auto ifind(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -836,7 +836,7 @@ namespace pluto
 
 #if PLUTO_UTILS_HAS_CXX_17
     template<class ElemT>
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -847,7 +847,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -855,7 +855,7 @@ namespace pluto
         return pluto::rfind_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -863,7 +863,7 @@ namespace pluto
         return pluto::irfind<>(left, right, locale);
     }
 
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -873,7 +873,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -882,7 +882,7 @@ namespace pluto
     }
 #endif
 
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -890,7 +890,7 @@ namespace pluto
         return pluto::irfind<>(left, right, locale);
     }
 
-    inline auto irfind(
+    PLUTO_UTILS_NODISCARD inline auto irfind(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -901,7 +901,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         PredicateT                                          predicate = {})
@@ -910,7 +910,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::string&  left,
         const std::string&  right,
         PredicateT          predicate = {})
@@ -919,7 +919,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::wstring& left,
         const std::wstring& right,
         PredicateT          predicate = {})
@@ -930,7 +930,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::u8string&    left,
         const std::u8string&    right,
         PredicateT              predicate = {})
@@ -940,7 +940,7 @@ namespace pluto
 #endif
 
     template<class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::u16string&   left,
         const std::u16string&   right,
         PredicateT              predicate = {})
@@ -949,7 +949,7 @@ namespace pluto
     }
 
     template<class PredicateT = pluto::is_equal>
-    inline bool contains(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const std::u32string&   left,
         const std::u32string&   right,
         PredicateT              predicate = {})
@@ -959,7 +959,7 @@ namespace pluto
 #endif
 
     template<class ElemT>
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const ElemT* const  beginL,
         const std::size_t   sizeL,
         const ElemT* const  beginR,
@@ -970,7 +970,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
         const std::basic_string<ElemT, TraitsT, AllocT>&    right,
         const std::locale&                                  locale = pluto::default_locale())
@@ -978,7 +978,7 @@ namespace pluto
         return pluto::contains_sequence(left, right, pluto::is_iequal<ElemT>{ locale });
     }
 
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::string& left,
         const std::string& right,
         const std::locale& locale = pluto::default_locale())
@@ -986,7 +986,7 @@ namespace pluto
         return pluto::icontains<>(left, right, locale);
     }
 
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::wstring& left,
         const std::wstring& right,
         const std::locale&  locale = pluto::default_locale())
@@ -996,7 +996,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::u8string&    left,
         const std::u8string&    right,
         const std::locale&      locale = pluto::default_locale())
@@ -1005,7 +1005,7 @@ namespace pluto
     }
 #endif
 
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::u16string&   left,
         const std::u16string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -1013,7 +1013,7 @@ namespace pluto
         return pluto::icontains<>(left, right, locale);
     }
 
-    inline bool icontains(
+    PLUTO_UTILS_NODISCARD inline bool icontains(
         const std::u32string&   left,
         const std::u32string&   right,
         const std::locale&      locale = pluto::default_locale())
@@ -1023,7 +1023,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::default_locale())
     {
@@ -1053,14 +1053,14 @@ namespace pluto
         return splits;
     }
 
-    inline std::vector<std::string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
         const std::string& string,
         const std::locale& locale = pluto::default_locale())
     {
         return pluto::split<>(string, locale);
     }
 
-    inline std::vector<std::wstring> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
         const std::wstring& wstring,
         const std::locale&  locale = pluto::default_locale())
     {
@@ -1069,7 +1069,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline std::vector<std::u8string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
         const std::u8string&    u8string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -1077,14 +1077,14 @@ namespace pluto
     }
 #endif
 
-    inline std::vector<std::u16string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
         const std::u16string&   u16string,
         const std::locale&      locale = pluto::default_locale())
     {
         return pluto::split<>(u16string, locale);
     }
 
-    inline std::vector<std::u32string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
         const std::u32string&   u32string,
         const std::locale&      locale = pluto::default_locale())
     {
@@ -1093,7 +1093,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split(
         const std::basic_string<ElemT, TraitsT, AllocT>& string,
         const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
@@ -1122,14 +1122,14 @@ namespace pluto
         return splits;
     }
 
-    inline std::vector<std::string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
         const std::string& string,
         const std::string& separator)
     {
         return pluto::split<>(string, separator);
     }
 
-    inline std::vector<std::wstring> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
         const std::wstring& wstring,
         const std::wstring& separator)
     {
@@ -1138,7 +1138,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline std::vector<std::u8string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
         const std::u8string& u8string,
         const std::u8string& separator)
     {
@@ -1146,14 +1146,14 @@ namespace pluto
     }
 #endif
 
-    inline std::vector<std::u16string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
         const std::u16string& u16string,
         const std::u16string& separator)
     {
         return pluto::split<>(u16string, separator);
     }
 
-    inline std::vector<std::u32string> split(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
         const std::u32string& u32string,
         const std::u32string& separator)
     {
@@ -1162,7 +1162,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<ElemT, TraitsT, AllocT>> split_any_of(
         const std::basic_string<ElemT, TraitsT, AllocT>& string,
         const std::basic_string<ElemT, TraitsT, AllocT>& separator)
     {
@@ -1177,14 +1177,14 @@ namespace pluto
         return splits;
     }
 
-    inline std::vector<std::string> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split_any_of(
         const std::string& string,
         const std::string& separator)
     {
         return pluto::split_any_of<>(string, separator);
     }
 
-    inline std::vector<std::wstring> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split_any_of(
         const std::wstring& wstring,
         const std::wstring& separator)
     {
@@ -1193,7 +1193,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline std::vector<std::u8string> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split_any_of(
         const std::u8string& u8string,
         const std::u8string& separator)
     {
@@ -1201,14 +1201,14 @@ namespace pluto
     }
 #endif
 
-    inline std::vector<std::u16string> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split_any_of(
         const std::u16string& u16string,
         const std::u16string& separator)
     {
         return pluto::split_any_of<>(u16string, separator);
     }
 
-    inline std::vector<std::u32string> split_any_of(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split_any_of(
         const std::u32string& u32string,
         const std::u32string& separator)
     {
@@ -1217,7 +1217,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT, class IteratorT>
-    inline std::basic_string<ElemT, TraitsT, AllocT> join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::basic_string<ElemT, TraitsT, AllocT> join(
         const IteratorT                                     begin,
         const IteratorT                                     end,
         const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
@@ -1237,7 +1237,7 @@ namespace pluto
     }
 
     template<class IteratorT>
-    inline std::string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string join(
         const IteratorT     begin,
         const IteratorT     end,
         const std::string&  separator)
@@ -1246,7 +1246,7 @@ namespace pluto
     }
 
     template<class IteratorT>
-    inline std::wstring join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring join(
         const IteratorT     begin,
         const IteratorT     end,
         const std::wstring& separator)
@@ -1257,7 +1257,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class IteratorT>
-    inline std::u8string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string join(
         const IteratorT         begin,
         const IteratorT         end,
         const std::u8string&    separator)
@@ -1267,7 +1267,7 @@ namespace pluto
 #endif
 
     template<class IteratorT>
-    inline std::u16string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string join(
         const IteratorT         begin,
         const IteratorT         end,
         const std::u16string&   separator)
@@ -1276,7 +1276,7 @@ namespace pluto
     }
 
     template<class IteratorT>
-    inline std::u32string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string join(
         const IteratorT         begin,
         const IteratorT         end,
         const std::u32string&   separator)
@@ -1286,7 +1286,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT, class ContainerT>
-    inline std::basic_string<ElemT, TraitsT, AllocT> join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::basic_string<ElemT, TraitsT, AllocT> join(
         const ContainerT&                                   container,
         const std::basic_string<ElemT, TraitsT, AllocT>&    separator)
     {
@@ -1294,7 +1294,7 @@ namespace pluto
     }
 
     template<class ContainerT>
-    inline std::string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string join(
         const ContainerT&   container,
         const std::string&  separator)
     {
@@ -1302,7 +1302,7 @@ namespace pluto
     }
 
     template<class ContainerT>
-    inline std::wstring join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring join(
         const ContainerT&   container,
         const std::wstring& separator)
     {
@@ -1312,7 +1312,7 @@ namespace pluto
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     template<class ContainerT>
-    inline std::u8string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string join(
         const ContainerT&       container,
         const std::u8string&    separator)
     {
@@ -1321,7 +1321,7 @@ namespace pluto
 #endif
 
     template<class ContainerT>
-    inline std::u16string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string join(
         const ContainerT&       container,
         const std::u16string&   separator)
     {
@@ -1329,7 +1329,7 @@ namespace pluto
     }
 
     template<class ContainerT>
-    inline std::u32string join(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string join(
         const ContainerT&       container,
         const std::u32string&   separator)
     {
@@ -1338,7 +1338,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::basic_string<ElemT, TraitsT, AllocT>&          string,
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
@@ -1356,7 +1356,7 @@ namespace pluto
         }
     }
 
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::string&        string,
         const std::string&  find,
         const std::string&  replace)
@@ -1364,7 +1364,7 @@ namespace pluto
         pluto::replace<>(string, find, replace);
     }
 
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::wstring&       wstring,
         const std::wstring& find,
         const std::wstring& replace)
@@ -1374,7 +1374,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::u8string&          u8string,
         const std::u8string&    find,
         const std::u8string&    replace)
@@ -1383,7 +1383,7 @@ namespace pluto
     }
 #endif
 
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::u16string&         u16string,
         const std::u16string&   find,
         const std::u16string&   replace)
@@ -1391,7 +1391,7 @@ namespace pluto
         pluto::replace<>(u16string, find, replace);
     }
 
-    inline void replace(
+    PLUTO_UTILS_CONSTEXPR void replace(
         std::u32string&         u32string,
         const std::u32string&   find,
         const std::u32string&   replace)
@@ -1401,7 +1401,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::basic_string<ElemT, TraitsT, AllocT>&          string,
         const std::basic_string<ElemT, TraitsT, AllocT>&    find,
         const std::basic_string<ElemT, TraitsT, AllocT>&    replace)
@@ -1414,7 +1414,7 @@ namespace pluto
         }
     }
 
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::string&        string,
         const std::string&  find,
         const std::string&  replace)
@@ -1422,7 +1422,7 @@ namespace pluto
         pluto::replace_any_of<>(string, find, replace);
     }
 
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::wstring&       wstring,
         const std::wstring& find,
         const std::wstring& replace)
@@ -1432,7 +1432,7 @@ namespace pluto
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::u8string&          u8string,
         const std::u8string&    find,
         const std::u8string&    replace)
@@ -1441,7 +1441,7 @@ namespace pluto
     }
 #endif
 
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::u16string&         u16string,
         const std::u16string&   find,
         const std::u16string&   replace)
@@ -1449,7 +1449,7 @@ namespace pluto
         pluto::replace_any_of<>(u16string, find, replace);
     }
 
-    inline void replace_any_of(
+    PLUTO_UTILS_CONSTEXPR void replace_any_of(
         std::u32string&         u32string,
         const std::u32string&   find,
         const std::u32string&   replace)
@@ -1459,7 +1459,7 @@ namespace pluto
 #endif
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void lstrip(
+    PLUTO_UTILS_CONSTEXPR void lstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::default_locale())
     {
@@ -1475,7 +1475,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void rstrip(
+    PLUTO_UTILS_CONSTEXPR void rstrip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::default_locale())
     {
@@ -1495,7 +1495,7 @@ namespace pluto
     }
 
     template<class ElemT, class TraitsT, class AllocT>
-    inline void strip(
+    PLUTO_UTILS_CONSTEXPR void strip(
         std::basic_string<ElemT, TraitsT, AllocT>&  string,
         const std::locale&                          locale = pluto::default_locale())
     {
@@ -1504,7 +1504,7 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline std::string bin(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string bin(const ValueT& value)
     {
         constexpr auto maxLength{ sizeof(ValueT) * 8 };
 
@@ -1532,7 +1532,7 @@ namespace pluto
     }
 
     template <typename ValueT>
-    inline std::string oct(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string oct(const ValueT& value)
     {
         /*
         * Octal is the only system that doesn't go in evenly. Octal is 3 bits per digit.
@@ -1572,7 +1572,7 @@ namespace pluto
     }
 
     template <typename ValueT>
-    inline std::string hex(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string hex(const ValueT& value)
     {
         constexpr char characters[] { "0123456789abcdef" };
         constexpr auto maxLength    { sizeof(ValueT) * 2 };

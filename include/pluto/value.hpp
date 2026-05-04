@@ -14,19 +14,19 @@
 namespace pluto
 {
     template<class ValueT>
-    inline ValueT abs(const ValueT value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR ValueT abs(const ValueT value)
     {
         return ((value < 0) ? -value : value);
     }
 
     template<class ValueT>
-    inline ValueT copy(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR ValueT copy(const ValueT& value)
     {
         return { value };
     }
 
     template<class ValueT>
-    inline const ValueT& (min)(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (min)(
         const ValueT& left,
         const ValueT& right)
     {
@@ -34,7 +34,7 @@ namespace pluto
     }
 
     template<class ValueT, class PredicateT>
-    inline const ValueT& (min)(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (min)(
         const ValueT&   left,
         const ValueT&   right,
         PredicateT      predicate)
@@ -43,7 +43,7 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline const ValueT& (max)(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (max)(
         const ValueT& left,
         const ValueT& right)
     {
@@ -51,7 +51,7 @@ namespace pluto
     }
 
     template<class ValueT, class PredicateT>
-    inline const ValueT& (max)(
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (max)(
         const ValueT&   left,
         const ValueT&   right,
         PredicateT      predicate)
@@ -59,21 +59,21 @@ namespace pluto
         return (predicate(left, right) ? right : left);
     }
 
-    inline auto pow(
+    PLUTO_UTILS_NODISCARD inline auto pow(
         const float value,
         const float power)
     {
         return std::pow(value, power);
     }
 
-    inline auto pow(
+    PLUTO_UTILS_NODISCARD inline auto pow(
         const double value,
         const double power)
     {
         return std::pow(value, power);
     }
 
-    inline auto pow(
+    PLUTO_UTILS_NODISCARD inline auto pow(
         const long double value,
         const long double power)
     {
@@ -81,7 +81,7 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline auto pow(
+    PLUTO_UTILS_NODISCARD inline auto pow(
         const ValueT value,
         const ValueT power)
     {
@@ -89,7 +89,7 @@ namespace pluto
     }
 
     template<class ValueT>
-    inline auto round(const ValueT value)
+    PLUTO_UTILS_NODISCARD inline auto round(const ValueT value)
     {
         return std::round(value);
     }

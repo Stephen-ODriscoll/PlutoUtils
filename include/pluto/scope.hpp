@@ -20,9 +20,9 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        on_scope_exit() {}
+        inline on_scope_exit() {}
 
-        on_scope_exit(const std::function<void()>& task)
+        inline on_scope_exit(const std::function<void()>& task)
         {
             add(task);
         }
@@ -48,7 +48,7 @@ namespace pluto
 
         on_scope_exit& operator=(const on_scope_exit&) = delete;
 
-        void add(const std::function<void()>& task)
+        inline void add(const std::function<void()>& task)
         {
             m_tasks.push(task);
         }
@@ -59,9 +59,9 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        on_scope_success() {}
+        inline on_scope_success() {}
 
-        on_scope_success(const std::function<void()>& task)
+        inline on_scope_success(const std::function<void()>& task)
         {
             add(task);
         }
@@ -94,7 +94,7 @@ namespace pluto
 
         on_scope_success& operator=(const on_scope_success&) = delete;
 
-        void add(const std::function<void()>& task)
+        inline void add(const std::function<void()>& task)
         {
             m_tasks.push(task);
         }
@@ -105,9 +105,9 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        on_scope_fail() {}
+        inline on_scope_fail() {}
 
-        on_scope_fail(const std::function<void()>& tasks)
+        inline on_scope_fail(const std::function<void()>& tasks)
         {
             add(tasks);
         }
@@ -140,7 +140,7 @@ namespace pluto
 
         on_scope_fail& operator=(const on_scope_fail&) = delete;
 
-        void add(const std::function<void()>& task)
+        inline void add(const std::function<void()>& task)
         {
             m_tasks.push(task);
         }

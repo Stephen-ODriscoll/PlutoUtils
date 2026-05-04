@@ -151,61 +151,61 @@ namespace pluto
 
         thread_pool& operator=(const thread_pool&) = delete;
 
-        static thread_pool& instance()
+        inline static thread_pool& instance()
         {
             static thread_pool instance{};
             return instance;
         }
 
-        std::size_t workers_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_workers.size();
         }
 
-        std::size_t target_workers_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t target_workers_size() const
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
             return m_targetWorkersSize;
         }
 
-        std::size_t active_workers_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t active_workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_activeWorkersSize;
         }
 
-        std::size_t waiting_workers_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t waiting_workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return (m_workers.size() - m_activeWorkersSize);
         }
 
-        std::size_t tasks_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return (m_waitingTasks.size() + m_activeWorkersSize);
         }
 
-        std::size_t active_tasks_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t active_tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_activeWorkersSize;
         }
 
-        std::size_t waiting_tasks_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t waiting_tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_waitingTasks.size();
         }
 
-        std::size_t scheduled_tasks_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t scheduled_tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_scheduledTasks.size();
         }
 
-        action on_stop() const
+        PLUTO_UTILS_NODISCARD inline action on_stop() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_onStop;
@@ -236,7 +236,7 @@ namespace pluto
             return *this;
         }
 
-        thread_pool& on_stop(const action onStop)
+        inline thread_pool& on_stop(const action onStop)
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
             m_onStop = onStop;
@@ -256,7 +256,7 @@ namespace pluto
             m_workersCondition.notify_one();
         }
 
-        void run_async(
+        inline void run_async(
             const std::function<void()>&    task,
             const priority                  priority)
         {
@@ -280,7 +280,7 @@ namespace pluto
             promise.get_future().wait();
         }
 
-        void run_sync(
+        inline void run_sync(
             const std::function<void()>&    task,
             const priority                  priority)
         {
@@ -309,7 +309,7 @@ namespace pluto
             }
         }
 
-        void run_at(
+        inline void run_at(
             const clock_type::time_point&   time,
             const std::function<void()>&    task,
             const priority                  priority)
@@ -317,7 +317,7 @@ namespace pluto
             run_at(time, task, static_cast<const signed char>(priority));
         }
 
-        void run_after(
+        inline void run_after(
             const clock_type::duration&     duration,
             const std::function<void()>&    task,
             const signed char               priority = PLUTO_THREAD_POOL_PRIORITY_NORMAL)
@@ -325,7 +325,7 @@ namespace pluto
             run_at((clock_type::now() + duration), task, priority);
         }
 
-        void run_after(
+        inline void run_after(
             const clock_type::duration&     duration,
             const std::function<void()>&    task,
             const priority                  priority)
@@ -333,7 +333,7 @@ namespace pluto
             run_after(duration, task, static_cast<const signed char>(priority));
         }
 
-        void wait_until_no_tasks_waiting()
+        inline void wait_until_no_tasks_waiting()
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
@@ -343,7 +343,7 @@ namespace pluto
             }
         }
 
-        void wait_until_all_tasks_complete()
+        inline void wait_until_all_tasks_complete()
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
