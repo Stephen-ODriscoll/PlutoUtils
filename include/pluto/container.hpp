@@ -290,7 +290,7 @@ namespace pluto
         return result;
     }
 
-    template<class ContainerT, class ValueT = ContainerT::value_type>
+    template<class ContainerT, class ValueT = typename ContainerT::value_type>
     PLUTO_UTILS_NODISCARD_CONSTEXPR ValueT sum(
         const ContainerT&   container,
         ValueT              value = {})
