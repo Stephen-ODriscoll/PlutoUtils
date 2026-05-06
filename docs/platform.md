@@ -4,7 +4,7 @@
 ## platform.hpp
 
 ### file_name()
-Takes a **const char&ast;** for the file path. Gets the file name by finding the last occorrence of **'\'** or **'/'**. Returns a **const char&ast;** for the file name.
+Takes a **const char\*** for the file path. Gets the file name by finding the last occorrence of **'\\'** or **'/'**. Returns a **const char\*** for the file name.
 
 ### process_id()
 Returns an **int** for the current process id.

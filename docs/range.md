@@ -67,4 +67,4 @@ A range class that takes a begin and end of type **long long**.
 A range class that takes a begin and end of type **unsigned long long**.
 
 ### pvoid_range
-A range class that takes a begin and end of type **void&ast;**.
+A range class that takes a begin and end of type **void\***.

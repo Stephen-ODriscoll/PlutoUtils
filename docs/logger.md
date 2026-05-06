@@ -111,13 +111,13 @@ Represents information about some source code.
 - Can be contructed with no arguments, but this requires C++ 20 or above, and **std::source_location**.
 
 #### file
-A **const char&ast;** representing the source file.
+A **const char\*** representing the source file.
 
 #### line
 An **int** representing the source line number.
 
 #### function
-A **const char&ast;** representing the source function.
+A **const char\*** representing the source function.
 
 ### log_entry
 Represents information about a single log.
@@ -141,13 +141,13 @@ A **pluto::source_info** representing the source code details for the calling th
 A **std::string** representing the log message.
 
 ### log_level_to_c_str()
-Takes a **pluto::log_level**. Returns a **const char&ast;** corresponding to that [log_level](#log_level).
+Takes a **pluto::log_level**. Returns a **const char\*** corresponding to that [log_level](#log_level).
 
 ### log_level_to_title()
-Takes a **pluto::log_level**. Returns a titled **const char&ast;** corresponding to that [log_level](#log_level).
+Takes a **pluto::log_level**. Returns a titled **const char\*** corresponding to that [log_level](#log_level).
 
 ### log_level_to_shortened()
-Takes a **pluto::log_level**. Returns a three character **const char&ast;** corresponding to that [log_level](#log_level).
+Takes a **pluto::log_level**. Returns a three character **const char\*** corresponding to that [log_level](#log_level).
 
 ### log_level_to_char()
 Takes a **pluto::log_level**. Returns a **char** corresponding to that [log_level](#log_level).
@@ -228,12 +228,12 @@ Takes a **std::string** for the log file, a **pluto::log_level** for the log lev
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
 
 #### writef()
-Takes a **std::string** for the log file, a **pluto::log_level** for the log level, a **pluto::source_info** for the source info, a **const char&ast;** for the scheme and any number of additional arguments. Message creation is done by **std::vsnprintf**. See [log_level](#log_level).
+Takes a **std::string** for the log file, a **pluto::log_level** for the log level, a **pluto::source_info** for the source info, a **const char\*** for the scheme and any number of additional arguments. Message creation is done by **std::vsnprintf**. See [log_level](#log_level).
 - Adds the created log message to the corresponding log file buffer, if the level should be logged.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
 
 #### format()
-Takes a **std::string** for the log file, a **pluto::log_level** for the log level, a **pluto::source_info** for the source info, a **const char&ast;** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**. See [log_level](#log_level).
+Takes a **std::string** for the log file, a **pluto::log_level** for the log level, a **pluto::source_info** for the source info, a **const char\*** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**. See [log_level](#log_level).
 - Requires C++ 20 or above, and **std::format**.
 - Adds the created log message to the corresponding log file buffer, if the level should be logged.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
