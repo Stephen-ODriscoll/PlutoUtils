@@ -1,8 +1,8 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
+[Back to README](../README.md#documentation)
 
 ## container.hpp
-Optional predicates default to [pluto::is_equal](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/compare.md#is_equal).
+Optional predicates default to [pluto::is_equal](./compare.md#is_equal).
 
 ### equals()
 Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left and right are equal using **std::equal**.

@@ -1,8 +1,8 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
+[Back to README](../README.md#documentation)
 
 ## iterator.hpp
-Optional predicates default to [pluto::is_equal](https://github.com/Stephen-ODriscoll/PlutoUtils/blob/master/docs/compare.md#is_equal).
+Optional predicates default to [pluto::is_equal](./compare.md#is_equal).
 
 ### equals_same_size()
 Takes iterators for left begin, left end, right begin and an optional predicate. Assumes same size. Returns a **bool** representing whether left and right are equal using **std::equal**.

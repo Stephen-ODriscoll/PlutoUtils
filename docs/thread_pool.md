@@ -1,5 +1,5 @@
 # Pluto Utils
-[Back to README](https://www.github.com/Stephen-ODriscoll/PlutoUtils/blob/master/README.md#documentation)
+[Back to README](../README.md#documentation)
 
 ## thread_pool.hpp
 A thread pool that allows tasks (use lambdas) to be run synchronously, asynchronously or scheduled for a specific time.
