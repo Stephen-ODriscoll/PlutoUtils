@@ -10,13 +10,13 @@ Takes a signed number. Returns the positive equivalent of that number.
 Takes a value. Returns the copy of this value using the copy constructor.
 
 ### min()
-1. Takes values for left and right. Returns the minimum of the two using **&lt;**.
+1. Takes values for left and right. Returns the minimum of the two using **\<**.
     - If the values are equal, left is returned.
 2. Takes values for left, right and a predicate. Returns the minimum of the two using the predicate.
     - If the values are equal, left is returned.
 
 ### max()
-1. Takes values for left and right. Returns the maximum of the two using **&lt;**.
+1. Takes values for left and right. Returns the maximum of the two using **\<**.
     - If the values are equal, left is returned.
 2. Takes values for left, right and a predicate. Returns the maximum of the two using the predicate.
     - If the values are equal, left is returned.

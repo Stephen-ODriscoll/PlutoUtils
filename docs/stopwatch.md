@@ -10,7 +10,7 @@ Define this macro to be a clock from **std::chrono**. Sets the clock type. See [
 A simple stopwatch class built on top of **std::chrono**. When created, the stopwatch won't automatically start unless you pass **true** to the constructor.
 
 #### clock_type
-The type of the clock.
+The type of the clock. Defaults to [PLUTO_STOPWATCH_CLOCK_TYPE](#PLUTO_STOPWATCH_CLOCK_TYPE).
 
 #### time()
 Returns the current time duration. Does not stop the stopwatch.

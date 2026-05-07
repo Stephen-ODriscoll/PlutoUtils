@@ -38,7 +38,7 @@ Define this macro to be a clock from **std::chrono**. Sets the clock type. See [
 A thread pool class. Takes a **std::size_t** for the target worker size. The thread pool will start with this many threads.
 
 #### clock_type
-The type of the clock.
+The type of the clock. Defaults to [PLUTO_THREAD_POOL_CLOCK_TYPE](#PLUTO_THREAD_POOL_CLOCK_TYPE).
 
 #### action
 Represents an action to preform on destruction of a thread pool. Action options are:
@@ -84,25 +84,25 @@ Returns a **std::size_t** representing the number of tasks that are waiting.
 Returns a **std::size_t** representing the number of tasks that are scheduled.
 
 #### on_stop()
-The action to perform when the thread pool is destroyed. See [action](#action).
-1. Returns a **pluto::thread_pool::action** representing the current on stop action.
-2. Takes a **pluto::thread_pool::action** and sets this to be the new on stop action.
+The action to perform when the thread pool is destroyed.
+1. Returns a [pluto::thread_pool::action](#action) representing the current on stop action.
+2. Takes a [pluto::thread_pool::action](#action) and sets this to be the new on stop action.
 
 #### run_async()
-1. Takes a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to PLUTO_THREAD_POOL_PRIORITY_NORMAL).
-2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and a **pluto::thread_pool::priority**.
+1. Takes a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to [PLUTO_THREAD_POOL_PRIORITY_NORMAL](#PLUTO_THREAD_POOL_PRIORITY_NORMAL)).
+2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and a [pluto::thread_pool::priority](#priority).
 
 #### run_sync()
-1. Takes a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to PLUTO_THREAD_POOL_PRIORITY_HIGH).
-2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and a **pluto::thread_pool::priority**.
+1. Takes a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to [PLUTO_THREAD_POOL_PRIORITY_HIGH](#PLUTO_THREAD_POOL_PRIORITY_HIGH)).
+2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and a [pluto::thread_pool::priority](#priority).
 
 #### run_at()
-1. Takes a **pluto::thread_pool::clock_type::time_point**, a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to PLUTO_THREAD_POOL_PRIORITY_NORMAL).
-2. Takes a **pluto::thread_pool::clock_type::time_point**, a **std::function** with no arguments and **void** return type (use lambdas) and a **pluto::thread_pool::priority**.
+1. Takes a [pluto::thread_pool::clock_type](#clock_type)**::time_point**, a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to [PLUTO_THREAD_POOL_PRIORITY_NORMAL](#PLUTO_THREAD_POOL_PRIORITY_NORMAL)).
+2. Takes a [pluto::thread_pool::clock_type](#clock_type)**::time_point**, a **std::function** with no arguments and **void** return type (use lambdas) and a [pluto::thread_pool::priority](#priority).
 
 #### run_after()
-1. Takes a **pluto::thread_pool::clock_type::duration**, a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to PLUTO_THREAD_POOL_PRIORITY_NORMAL).
-2. Takes a **pluto::thread_pool::clock_type::duration**, a **std::function** with no arguments and **void** return type (use lambdas) and a **pluto::thread_pool::priority**.
+1. Takes a [pluto::thread_pool::clock_type](#clock_type)**::duration**, a **std::function** with no arguments and **void** return type (use lambdas) and an optional **signed char** for the priority (defaults to [PLUTO_THREAD_POOL_PRIORITY_NORMAL](#PLUTO_THREAD_POOL_PRIORITY_NORMAL)).
+2. Takes a [pluto::thread_pool::clock_type](#clock_type)**::duration**, a **std::function** with no arguments and **void** return type (use lambdas) and a [pluto::thread_pool::priority](#priority).
 
 #### wait_until_no_tasks_waiting()
 Waits on calling thread until no tasks are waiting.
