@@ -38,58 +38,58 @@ Define this macro as 1 to expose the logger constructor and destructor. Otherwis
 Define this macro as 1 to hide all source info. This will prevent logger from using macros that expose the file name, line number and function name. Defaults to 0.
 
 ### PLUTO_LOGGER_SOURCE_INFO_ARGS
-Define this macro to be the arguments that are passed to [source_info](#source_info) in logging macros. Defaults to **__FILE__, __LINE__, __func__** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, and **"", 0, ""** when 0.
+Define this macro to be the arguments that are passed to [pluto::source_info](#source_info) in logging macros. Defaults to **\_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, and **"", 0, ""** when 0.
 
 ### PLUTO_LOGGER_INITIAL_LEVEL
-Define this macro as a [pluto::log_level](#log_level). Sets the initial logger level. See [level](#level). Defaults to **verbose**.
+Define this macro as a [pluto::log_level](#log_level). Sets the initial logger level. See [level()](#level). Defaults to **verbose**.
 
 ### PLUTO_LOGGER_INITIAL_CREATE_DIRS
-Define this macro as **false** to initially disable directory creation for log files. See [create_dirs](#create_dirs). Defaults to **true**.
+Define this macro as **false** to initially disable directory creation for log files. See [create_dirs()](#create_dirs). Defaults to **true**.
 
 ### PLUTO_LOGGER_INITIAL_WRITE_HEADER
-Define this macro as **false** to initially disable writing of header for log files. See [write_header](#write_header). Defaults to **true**.
+Define this macro as **false** to initially disable writing of header for log files. See [write_header()](#write_header). Defaults to **true**.
 
 ### PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE
-Define this macro to be a **std::size_t**. Sets the initial log buffer max size. See [buffer_max_size](#buffer_max_size). Defaults to 0 which means unlimited.
+Define this macro to be a **std::size_t**. Sets the initial log buffer max size. See [buffer_max_size()](#buffer_max_size). Defaults to 0 which means unlimited.
 
 ### PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE
-Define this macro to be a **std::size_t**. Sets the initial log buffer flush size. See [buffer_flush_size](#buffer_flush_size). Defaults to 1.
+Define this macro to be a **std::size_t**. Sets the initial log buffer flush size. See [buffer_flush_size()](#buffer_flush_size). Defaults to 1.
 
 ### PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE
-Define this macro to be a **std::size_t**. Sets the initial log file rotation size. See [file_rotation_size](#file_rotation_size). Defaults to 0 which means no rotation (in bytes).
+Define this macro to be a **std::size_t**. Sets the initial log file rotation size. See [file_rotation_size()](#file_rotation_size). Defaults to 0 which means no rotation (in bytes).
 
 ### PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT
-Define this macro to be a **std::size_t**. Sets the initial log file rotation limit. See [file_rotation_limit](#file_rotation_limit). Defaults to 1.
+Define this macro to be a **std::size_t**. Sets the initial log file rotation limit. See [file_rotation_limit()](#file_rotation_limit). Defaults to 1.
 
 ### PLUTO_LOGGER_INITIAL_LOG_WRITER
-Define this macro to be a **std::function<void(std::ostream&, const log_entry&)>**. Sets the initial log writer. See [log_writer](#log_writer). Defaults to [pluto::logger::default_log_writer](#default_log_writer).
+Define this macro to be a **std::function<void(std::ostream&, const log_entry&)>**. Sets the initial log writer. See [log_writer()](#log_writer). Defaults to [pluto::logger::default_log_writer()](#default_log_writer).
 
 ### PLUTO_LOGGER_INITIAL_HEADER_WRITER
-Define this macro to be a **std::function<void(std::ostream&)>**. Sets the initial header writer. See [header_writer](#header_writer). Defaults to [pluto::logger::default_header_writer](#default_header_writer).
+Define this macro to be a **std::function<void(std::ostream&)>**. Sets the initial header writer. See [header_writer()](#header_writer). Defaults to [pluto::logger::default_header_writer()](#default_header_writer).
 
 ### PLUTO_LOG_WRITE_WITH
-Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [write](#write) on the logger.
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [write()](#write) on the logger.
 
 ### PLUTO_LOG_WRITE
-Definition that takes a file, a level and any number of additional arguments and passes them to [write](#write) on the logger instance.
+Definition that takes a file, a level and any number of additional arguments and passes them to [write()](#write) on the logger instance.
 
 ### PLUTO_LOG_WRITEF_WITH
-Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [writef](#writef) on the logger.
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [writef()](#writef) on the logger.
 
 ### PLUTO_LOG_WRITEF
-Definition that takes a file, a level and any number of additional arguments and passes them to [writef](#writef) on the logger instance.
+Definition that takes a file, a level and any number of additional arguments and passes them to [writef()](#writef) on the logger instance.
 
 ### PLUTO_LOG_FORMAT_WITH
-Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [format](#format) on the logger.
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [format()](#format) on the logger.
 
 ### PLUTO_LOG_FORMAT
-Definition that takes a file, a level and any number of additional arguments and passes them to [format](#format) on the logger instance.
+Definition that takes a file, a level and any number of additional arguments and passes them to [format()](#format) on the logger instance.
 
 ### PLUTO_LOG_STREAM_WITH
-Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [stream](#stream) on the logger. The additional arguments are streamed to the streamer.
+Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [stream()](#stream) on the logger. The additional arguments are streamed to the streamer.
 
 ### PLUTO_LOG_STREAM
-Definition that takes a file, a level and any number of additional arguments and passes them to [stream](#stream) on the logger instance. The additional arguments are streamed to the streamer.
+Definition that takes a file, a level and any number of additional arguments and passes them to [stream()](#stream) on the logger instance. The additional arguments are streamed to the streamer.
 
 ### log_level
 Represents a log level. Level options are:
@@ -108,7 +108,7 @@ Represents a log level. Level options are:
 
 ### source_info
 Represents information about some source code.
-- Can be contructed with no arguments, but this requires C++ 20 or above, and **std::source_location**.
+- Can be constructed with no arguments, but this requires C++ 20 or above, and **std::source_location**.
 
 #### file
 A **const char\*** representing the source file.
@@ -153,7 +153,7 @@ Takes a [pluto::log_level](#log_level). Returns a three character **const char\*
 Takes a [pluto::log_level](#log_level). Returns a **char** corresponding to that log level.
 
 ### logger
-Constructor takes no arguments as this class is normally a singleton. Define **PLUTO_LOGGER_NO_SINGLETON** as 1 to access the constructor.
+Constructor takes no arguments as this class is normally a singleton. Define [PLUTO_LOGGER_NO_SINGLETON](#PLUTO_LOGGER_NO_SINGLETON) as 1 to access the constructor.
 
 #### clock_type
 The type of the clock. Defaults to [PLUTO_LOGGER_CLOCK_TYPE](#PLUTO_LOGGER_CLOCK_TYPE).
@@ -198,18 +198,18 @@ The size of the file (in bytes) whereby the file will be rotated. Rotated means 
 2. Takes a **std::size_t** and sets this to be the new log file rotation size.
 
 #### file_rotation_limit()
-The limit to the number of older files that are stored. If that number is 5, then you'd get "log", "log_1", "log_2", "log_3", "log_4" and "log_5" with the latest logs. See [file_rotation_size](#file_rotation_size) for disabling rotation.
+The limit to the number of older files that are stored. If that number is 5, then you'd get "log", "log_1", "log_2", "log_3", "log_4" and "log_5" with the latest logs. See [file_rotation_size()](#file_rotation_size) for disabling rotation.
 1. Returns a **std::size_t** representing the current log file rotation limit.
 2. Takes a **std::size_t** and sets this to be the new log file rotation limit.
 
 #### num_discarded_logs()
 Returns a **std::size_t** representing the current number of discarded logs.
 - Logs will be discarded when the buffer is full and a new log cannot be added.
-- If this is a problem, then you can increase the size of the log buffer with [buffer_max_size](#buffer_max_size), or reduce the frequency of logging.
-- If you're logging to multiple files, you can try having multiple loggers, which means multiple logging threads. This can be done by defining **PLUTO_LOGGER_NO_SINGLETON** as 1 and creating a global logger for each file.
+- If this is a problem, then you can increase the size of the log buffer with [buffer_max_size()](#buffer_max_size), or reduce the frequency of logging.
+- If you're logging to multiple files, you can try having multiple loggers, which means multiple logging threads. This can be done by defining [PLUTO_LOGGER_NO_SINGLETON](#PLUTO_LOGGER_NO_SINGLETON) as 1 and creating a global logger for each file.
 
 #### reset_num_discarded_logs()
-Resets the number of discarded logs back to 0. See [num_discarded_logs](#num_discarded_logs).
+Resets the number of discarded logs back to 0. See [num_discarded_logs()](#num_discarded_logs).
 
 #### log_writer()
 1. Returns a **std::function<void(std::ostream&, const log_entry&)>** representing the current log writer.
