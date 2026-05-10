@@ -276,9 +276,9 @@ TEST_F(thread_pool_tests, test_scheduler_exits_and_is_restarted)
 
 TEST_F(thread_pool_tests, test_wait_until_no_tasks_waiting)
 {
-    std::size_t numTasks{ 128 }; // Should be multiple of 16 so that all threads sleep at the end
+    std::size_t numTasks{ 128 }; // Should be a multiple of the thread pool size so that all threads sleep at the end
 
-    pluto::thread_pool threadPool{};
+    pluto::thread_pool threadPool{ 8 };
     ASSERT_NE(threadPool.workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
@@ -303,7 +303,7 @@ TEST_F(thread_pool_tests, test_wait_until_all_tasks_complete)
 {
     std::size_t numTasks{ 128 };
 
-    pluto::thread_pool threadPool{};
+    pluto::thread_pool threadPool{ 8 };
     ASSERT_NE(threadPool.workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
