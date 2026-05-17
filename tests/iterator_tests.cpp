@@ -39,6 +39,23 @@ protected:
     ~iterator_tests() {}
 };
 
+TEST_F(iterator_tests, test_equals_same_size_returns_true)
+{
+    ASSERT_TRUE(TEST_1(pluto::equals_same_size, empty, empty));
+
+    ASSERT_TRUE(TEST_1(pluto::equals_same_size, zeroToFour, zeroToFour));
+    ASSERT_TRUE(TEST_1(pluto::equals_same_size, zeroToFour, zeroToFour2));
+}
+
+TEST_F(iterator_tests, test_equals_same_size_returns_false)
+{
+    ASSERT_FALSE(TEST_1(pluto::equals_same_size, zeroToFour, fiveToNine));
+    ASSERT_FALSE(TEST_1(pluto::equals_same_size, fiveToNine, zeroToFour));
+
+    ASSERT_FALSE(TEST_1(pluto::equals_same_size, zeroToThree, oneToFour));
+    ASSERT_FALSE(TEST_1(pluto::equals_same_size, oneToFour, zeroToThree));
+}
+
 TEST_F(iterator_tests, test_equals_returns_true)
 {
     ASSERT_TRUE(TEST_1(pluto::equals, empty, empty));
