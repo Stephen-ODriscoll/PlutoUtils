@@ -313,6 +313,17 @@ namespace pluto
         return pluto::wstr_to<ValueT>(std::wstring(pWChar, size));
     }
 
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::equals(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
+
     template<class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
         const std::string&  left,
@@ -370,7 +381,7 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::equals(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::equals(beginL, (beginL + sizeL), beginR, (beginR + sizeR), pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -425,6 +436,17 @@ namespace pluto
         return pluto::iequals<>(left, right, locale);
     }
 #endif
+
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::starts_with(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
 
     template<class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
@@ -483,7 +505,12 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::starts_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::starts_with(
+            beginL,
+            (beginL + sizeL),
+            beginR,
+            (beginR + sizeR),
+            pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -538,6 +565,17 @@ namespace pluto
         return pluto::istarts_with<>(left, right, locale);
     }
 #endif
+
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::ends_with(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
 
     template<class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
@@ -596,7 +634,12 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::ends_with(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::ends_with(
+            beginL,
+            (beginL + sizeL),
+            beginR,
+            (beginR + sizeR),
+            pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -651,6 +694,17 @@ namespace pluto
         return pluto::iends_with<>(left, right, locale);
     }
 #endif
+
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::find(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
@@ -711,6 +765,17 @@ namespace pluto
 #endif
 
 #if PLUTO_UTILS_HAS_CXX_17
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::rfind(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
+
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
         const std::basic_string<ElemT, TraitsT, AllocT>&    left,
@@ -778,7 +843,7 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::find(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::find(beginL, (beginL + sizeL), beginR, (beginR + sizeR), pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -843,7 +908,7 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::rfind(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::rfind(beginL, (beginL + sizeL), beginR, (beginR + sizeR), pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>
@@ -899,6 +964,17 @@ namespace pluto
     }
 #endif
 #endif
+
+    template<class ElemT, class PredicateT = pluto::is_equal>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
+        const ElemT* const  beginL,
+        const std::size_t   sizeL,
+        const ElemT* const  beginR,
+        const std::size_t   sizeR,
+        PredicateT          predicate = {})
+    {
+        return pluto::contains(beginL, (beginL + sizeL), beginR, (beginR + sizeR), predicate);
+    }
 
     template<class ElemT, class TraitsT, class AllocT, class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
@@ -966,7 +1042,7 @@ namespace pluto
         const std::size_t   sizeR,
         const std::locale&  locale = pluto::default_locale())
     {
-        return pluto::contains(beginL, sizeL, beginR, sizeR, pluto::is_iequal<ElemT>{ locale });
+        return pluto::contains(beginL, (beginL + sizeL), beginR, (beginR + sizeR), pluto::is_iequal<ElemT>{ locale });
     }
 
     template<class ElemT, class TraitsT, class AllocT>

@@ -37,18 +37,6 @@ namespace pluto
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR bool equals(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        return (sizeL == sizeR) &&
-            pluto::equals_same_size(beginL, std::next(beginL, sizeL), beginR, predicate);
-    }
-
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
         const IteratorLeftT     beginL,
         const IteratorLeftT     endL,
@@ -58,18 +46,6 @@ namespace pluto
     {
         return (std::distance(beginR, endR) <= std::distance(beginL, endL)) &&
             pluto::equals_same_size(beginR, endR, beginL, predicate);
-    }
-
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR bool starts_with(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        return (sizeR <= sizeL) &&
-            pluto::equals_same_size(beginR, std::next(beginR, sizeR), beginL, predicate);
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
@@ -86,18 +62,6 @@ namespace pluto
             pluto::equals_same_size(beginR, endR, std::prev(endL, sizeR), predicate);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR bool ends_with(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        return (sizeR <= sizeL) &&
-            pluto::equals_same_size(beginR, std::next(beginR, sizeR), std::next(beginL, (sizeL - sizeR)), predicate);
-    }
-
     template<class IteratorT, class ElemT>
     PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
         const IteratorT begin,
@@ -105,15 +69,6 @@ namespace pluto
         const ElemT     elem)
     {
         return std::find(begin, end, elem);
-    }
-
-    template<class IteratorT, class ElemT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
-        const IteratorT     begin,
-        const std::size_t   size,
-        const ElemT         elem)
-    {
-        return pluto::find(begin, std::next(begin, size), elem);
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
@@ -125,17 +80,6 @@ namespace pluto
         PredicateT              predicate = {})
     {
         return std::search(beginL, endL, beginR, endR, predicate);
-    }
-
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        return pluto::find(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
     }
 
     template<class IteratorT, class ElemT>
@@ -152,15 +96,6 @@ namespace pluto
         return (rit == rend ? end : --(rit.base()));
     }
 
-    template<class IteratorT, class ElemT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
-        const IteratorT     begin,
-        const std::size_t   size,
-        const ElemT         elem)
-    {
-        return pluto::rfind(begin, std::next(begin, size), elem);
-    }
-
 #if PLUTO_UTILS_HAS_CXX_17
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
     PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
@@ -172,17 +107,6 @@ namespace pluto
     {
         return std::find_end(beginL, endL, beginR, endR, predicate);
     }
-
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        return pluto::rfind(beginL, std::next(beginL, sizeL), beginR, std::next(beginR, sizeR), predicate);
-    }
 #endif
 
     template<class IteratorT, class PredicateT>
@@ -192,15 +116,6 @@ namespace pluto
         PredicateT      predicate)
     {
         return std::find_if(begin, end, predicate);
-    }
-
-    template<class IteratorT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find_if(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate)
-    {
-        return pluto::find_if(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT, class PredicateT>
@@ -218,30 +133,12 @@ namespace pluto
     }
 
     template<class IteratorT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind_if(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate)
-    {
-        return pluto::rfind_if(begin, std::next(begin, size), predicate);
-    }
-
-    template<class IteratorT, class PredicateT>
     PLUTO_UTILS_NODISCARD_CONSTEXPR auto find_if_not(
         const IteratorT begin,
         const IteratorT end,
         PredicateT      predicate)
     {
         return std::find_if_not(begin, end, predicate);
-    }
-
-    template<class IteratorT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto find_if_not(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate)
-    {
-        return pluto::find_if_not(begin, std::next(begin, size), predicate);
     }
 
     template<class IteratorT, class PredicateT>
@@ -258,32 +155,12 @@ namespace pluto
         return (rit == rend ? end : --(rit.base()));
     }
 
-    template<class IteratorT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto rfind_if_not(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate)
-    {
-        return pluto::rfind_if_not(begin, std::next(begin, size), predicate);
-    }
-
     template<class IteratorT, class ElemT>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
         const IteratorT begin,
         const IteratorT end,
         const ElemT     elem)
     {
-        return (pluto::find(begin, end, elem) != end);
-    }
-
-    template<class IteratorT, class ElemT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
-        const IteratorT     begin,
-        const std::size_t   size,
-        const ElemT         elem)
-    {
-        const auto end{ std::next(begin, size) };
-
         return (pluto::find(begin, end, elem) != end);
     }
 
@@ -299,24 +176,6 @@ namespace pluto
             (pluto::find(beginL, endL, beginR, endR, predicate) != endL);
     }
 
-    template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR bool contains(
-        const IteratorLeftT     beginL,
-        const std::size_t       sizeL,
-        const IteratorRightT    beginR,
-        const std::size_t       sizeR,
-        PredicateT              predicate = {})
-    {
-        if (sizeR == 0)
-        {
-            return true;
-        }
-
-        const auto endL{ std::next(beginL, sizeL) };
-
-        return (pluto::find(beginL, endL, beginR, std::next(beginR, sizeR), predicate) != endL);
-    }
-
     template<class IteratorT, class PredicateT = pluto::is_less>
     PLUTO_UTILS_CONSTEXPR void sort(
         const IteratorT begin,
@@ -326,29 +185,12 @@ namespace pluto
         std::sort(begin, end, predicate);
     }
 
-    template<class IteratorT, class PredicateT = pluto::is_less>
-    PLUTO_UTILS_CONSTEXPR void sort(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate = {})
-    {
-        pluto::sort(begin, std::next(begin, size), predicate);
-    }
-
     template<class IteratorT>
     PLUTO_UTILS_CONSTEXPR void reverse(
         const IteratorT begin,
         const IteratorT end)
     {
         std::reverse(begin, end);
-    }
-
-    template<class IteratorT>
-    PLUTO_UTILS_CONSTEXPR void reverse(
-        const IteratorT     begin,
-        const std::size_t   size)
-    {
-        pluto::reverse(begin, std::next(begin, size));
     }
 
     template<class IteratorT, class PredicateT>
@@ -360,15 +202,6 @@ namespace pluto
         return std::remove_if(begin, end, [predicate](const auto& elem) { return !(predicate(elem)); });
     }
 
-    template<class IteratorT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR auto filter(
-        const IteratorT     begin,
-        const std::size_t   size,
-        PredicateT          predicate)
-    {
-        return pluto::filter(begin, std::next(begin, size), predicate);
-    }
-
     template<class IteratorT, class FunctionT>
     PLUTO_UTILS_CONSTEXPR auto for_each(
         const IteratorT begin,
@@ -376,15 +209,6 @@ namespace pluto
         FunctionT       function)
     {
         return std::for_each(begin, end, function);
-    }
-
-    template<class IteratorT, class FunctionT>
-    PLUTO_UTILS_CONSTEXPR auto for_each(
-        const IteratorT     begin,
-        const std::size_t   size,
-        FunctionT           function)
-    {
-        return pluto::for_each(begin, std::next(begin, size), function);
     }
 
     template<class IteratorSourceT, class IteratorDestinationT, class FunctionT>
@@ -395,15 +219,5 @@ namespace pluto
         FunctionT                   function)
     {
         return std::transform(beginS, endS, beginD, function);
-    }
-
-    template<class IteratorSourceT, class IteratorDestinationT, class FunctionT>
-    PLUTO_UTILS_CONSTEXPR auto map(
-        const IteratorSourceT       beginS,
-        const std::size_t           sizeS,
-        const IteratorDestinationT  beginD,
-        FunctionT                   function)
-    {
-        return pluto::map(beginS, std::next(beginS, sizeS), beginD, function);
     }
 }

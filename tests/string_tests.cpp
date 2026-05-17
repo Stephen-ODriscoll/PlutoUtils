@@ -980,6 +980,54 @@ TEST_F(string_tests, test_wstr_to_values_use_wchar_array)
     ASSERT_EQ(pluto::wstr_to<float>(pWChar, size),              1.0f);
 }
 
+TEST_F(string_tests, test_equals_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::equals, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::equals, "ABCDEF", "aBcDeg");
+}
+
 TEST_F(string_tests, test_equals_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::equals, " ", " ");
@@ -1122,6 +1170,54 @@ TEST_F(string_tests, test_iequals_use_strings)
 
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::iequals, "aBcDeF", "ABCDEG");
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::iequals, "ABCDEF", "aBcDeg");
+}
+
+TEST_F(string_tests, test_starts_with_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::starts_with, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::starts_with, "ABCDEF", "aBcDeg");
 }
 
 TEST_F(string_tests, test_starts_with_use_strings)
@@ -1268,6 +1364,54 @@ TEST_F(string_tests, test_istarts_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::istarts_with, "ABCDEF", "aBcDeg");
 }
 
+TEST_F(string_tests, test_ends_with_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "A", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "a", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "abcdef", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::ends_with, "abcdef", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "abcdef", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::ends_with, "ABCDEF", "aBcDeg");
+}
+
 TEST_F(string_tests, test_ends_with_use_strings)
 {
     TEST_ALL_STRINGS_3(ASSERT_TRUE, pluto::ends_with, " ", " ");
@@ -1412,6 +1556,54 @@ TEST_F(string_tests, test_iends_with_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::iends_with, "ABCDEF", "aBcDeg");
 }
 
+TEST_F(string_tests, test_find_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "a", "A", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "A", "a", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "a", "a", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "a", "b", 1); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, " ", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "abcdef", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "abcdef", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "abcdefg", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "ABCDE", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "abcde", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "abcde", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "BCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "bcdef", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "bcdef", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "BCDE", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "bcde", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "abcdef", "bcde", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "aBcDeF", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "aBcDeF", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::find, "ABCDEF", "aBcDeg", 6); // end
+}
+
 TEST_F(string_tests, test_find_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::find, " ", " ", 0);
@@ -1461,6 +1653,54 @@ TEST_F(string_tests, test_find_use_strings)
 }
 
 #if PLUTO_UTILS_HAS_CXX_17
+TEST_F(string_tests, test_rfind_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, " ", " ", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "A", "A", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "a", "A", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "A", "a", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "a", "a", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "A", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "a", "B", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "A", "b", 1); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "a", "b", 1); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "", "", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, " ", "", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDEF", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcdef", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcdef", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "", " ", 0); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDEFG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcdefg", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcdefg", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "ABCDE", 0);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "ABCDE", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "abcde", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "abcde", 0);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "BCDEF", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "BCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "bcdef", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "bcdef", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "BCDE", 1);
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "BCDE", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "bcde", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "abcdef", "bcde", 1);
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "aBcDeF", "ABCDEF", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "aBcDeF", 6); // end
+
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "aBcDeF", "ABCDEG", 6); // end
+    TEST_ALL_ELEM_ARRAYS_4(ASSERT_EQ, pluto::rfind, "ABCDEF", "aBcDeg", 6); // end
+}
+
 TEST_F(string_tests, test_rfind_use_strings)
 {
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::rfind, " ", " ", 0);
@@ -1703,6 +1943,54 @@ TEST_F(string_tests, test_irfind_use_strings)
     TEST_ALL_STRINGS_4(ASSERT_EQ, pluto::irfind, "ABCDEF", "aBcDeg", 6); // end
 }
 #endif
+
+TEST_F(string_tests, test_contains_use_elem_arrays)
+{
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, " ", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "A", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "a", "a");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "a", "A");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "A", "a");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "A", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "a", "B");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "A", "b");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "a", "b");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, " ", "");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "abcdef", "abcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "abcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "", " ");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "abcdeg");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "abcdeg");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "abcdef", "abcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "ABCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "abcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "abcdef", "bcdef");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "BCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "bcdef");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "ABCDEF", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_TRUE, pluto::contains, "abcdef", "bcde");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "abcdef", "BCDE");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "bcde");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "aBcDeF", "ABCDEF");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "aBcDeF");
+
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "aBcDeF", "ABCDEG");
+    TEST_ALL_ELEM_ARRAYS_3(ASSERT_FALSE, pluto::contains, "ABCDEF", "aBcDeg");
+}
 
 TEST_F(string_tests, test_contains_use_strings)
 {
