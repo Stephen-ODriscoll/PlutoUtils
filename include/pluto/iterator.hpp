@@ -32,8 +32,7 @@ namespace pluto
         const IteratorRightT    endR,
         PredicateT              predicate = {})
     {
-        return (std::distance(beginL, endL) == std::distance(beginR, endR)) &&
-            pluto::equals_same_size(beginL, endL, beginR, predicate);
+        return std::equal(beginL, endL, beginR, endR, predicate);
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
@@ -44,8 +43,23 @@ namespace pluto
         const IteratorRightT    endR,
         PredicateT              predicate = {})
     {
-        return (std::distance(beginR, endR) <= std::distance(beginL, endL)) &&
-            pluto::equals_same_size(beginR, endR, beginL, predicate);
+#if PLUTO_UTILS_HAS_CXX_20
+        if constexpr (std::random_access_iterator<IteratorLeftT> && std::random_access_iterator<IteratorRightT>)
+        {
+            return ((endR - beginR) <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, beginL, predicate);
+        }
+#endif
+
+        auto itL{ beginL };
+        for (auto itR{ beginR }; itR != endR; ++itL, ++itR)
+        {
+            if (itL == endL || !predicate(*itL, *itR))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     template<class IteratorLeftT, class IteratorRightT, class PredicateT = pluto::is_equal>
@@ -56,10 +70,24 @@ namespace pluto
         const IteratorRightT    endR,
         PredicateT              predicate = {})
     {
-        const auto sizeR{ std::distance(beginR, endR) };
+#if PLUTO_UTILS_HAS_CXX_20
+        if constexpr (std::random_access_iterator<IteratorLeftT> && std::random_access_iterator<IteratorRightT>)
+        {
+            const auto sizeR{ endR - beginR };
+            return (sizeR <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, (endL - sizeR), predicate);
+        }
+#endif
 
-        return (sizeR <= std::distance(beginL, endL)) &&
-            pluto::equals_same_size(beginR, endR, std::prev(endL, sizeR), predicate);
+        auto itL{ endL };
+        for (auto itR{ endR }; itR != beginR;)
+        {
+            if (itL == beginL || !predicate(*(--itL), *(--itR)))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     template<class IteratorT, class ElemT>

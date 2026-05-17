@@ -11,10 +11,10 @@ Takes iterators for left begin, left end, right begin and an optional predicate.
 Takes iterators for left begin, left end, right begin, right end and an optional predicate. Returns a **bool** representing whether left and right are equal using **std::equal**.
 
 ### starts_with()
-Takes iterators for left begin, left end, right begin, right end and an optional predicate. Returns a **bool** representing whether left starts with right using **std::equal**.
+Takes iterators for left begin, left end, right begin, right end and an optional predicate. Returns a **bool** representing whether left starts with right.
 
 ### ends_with()
-Takes iterators for left begin, left end, right begin, right end and an optional predicate. Returns a **bool** representing whether left ends with right using **std::equal**.
+Takes iterators for left begin, left end, right begin, right end and an optional predicate. Returns a **bool** representing whether left ends with right.
 
 ### find()
 1. Takes iterators for begin, end and an element. Looks for the element using **std::find**.

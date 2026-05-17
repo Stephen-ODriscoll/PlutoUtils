@@ -8,10 +8,10 @@ Optional predicates default to [pluto::is_equal](./compare.md#is_equal).
 Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left and right are equal using **std::equal**.
 
 ### starts_with()
-Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left starts with right using **std::equal**.
+Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left starts with right.
 
 ### ends_with()
-Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left ends with right using **std::equal**.
+Takes containers for left, right and an optional predicate. Returns a **bool** representing whether left ends with right.
 
 ### find_elem()
 Takes a container and an element. Looks for the element using **std::find**.

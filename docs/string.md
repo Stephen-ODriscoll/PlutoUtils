@@ -66,20 +66,20 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left and right are equal using **std::equal**, ignoring case.
 
 ### starts_with()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Returns a **bool** representing whether left starts with right using **std::equal**.
-2. Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left starts with right using **std::equal**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Returns a **bool** representing whether left starts with right.
+2. Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left starts with right.
 
 ### istarts_with()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Returns a **bool** representing whether left starts with right using **std::equal**, ignoring case.
-2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left starts with right using **std::equal**, ignoring case.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Returns a **bool** representing whether left starts with right, ignoring case.
+2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left starts with right, ignoring case.
 
 ### ends_with()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Returns a **bool** representing whether left ends with right using **std::equal**.
-2. Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left ends with right using **std::equal**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Returns a **bool** representing whether left ends with right.
+2. Takes a left string, a right string and an optional predicate. Returns a **bool** representing whether left ends with right.
 
 ### iends_with()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Returns a **bool** representing whether left ends with right using **std::equal**, ignoring case.
-2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left ends with right using **std::equal**, ignoring case.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Returns a **bool** representing whether left ends with right, ignoring case.
+2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left ends with right, ignoring case.
 
 ### find()
 1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurence of right in left using **std::search**.
