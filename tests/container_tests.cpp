@@ -32,11 +32,11 @@ public:
     const std::vector<int> zeroToFourTwice  { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
     const std::vector<int> zeroToFourTwice2 { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
 
-    const std::vector<int> mappedVector     { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     const std::vector<int> unmappedVector   { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    const std::vector<int> mappedVector     { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
 
-    const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
     const std::set<int> unmappedSet { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
 
 protected:
     container_tests() {}
