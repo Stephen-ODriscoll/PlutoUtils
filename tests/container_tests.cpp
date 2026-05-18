@@ -373,22 +373,7 @@ TEST_F(container_tests, test_for_each)
     ASSERT_EQ(pluto::for_each(unchanged, [](int& x) { x *= 10; }), changed);
 }
 
-TEST_F(container_tests, test_map_auto_container)
-{
-    ASSERT_EQ(pluto::map(unmappedVector, [](int x) { return x * 10; }), mappedVector);
-    ASSERT_EQ(pluto::map(unmappedSet, [](int x) { return x * 10; }), mappedSet);
-}
-
-TEST_F(container_tests, test_map_template_container)
-{
-    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedVector, [](int x) { return x * 10; }), mappedVector);
-    ASSERT_EQ(pluto::map<std::set<int>>(unmappedSet, [](int x) { return x * 10; }), mappedSet);
-
-    ASSERT_EQ(pluto::map<std::set<int>>(unmappedVector, [](int x) { return x * 10; }), mappedSet);
-    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedSet, [](int x) { return x * 10; }), mappedVector);
-}
-
-TEST_F(container_tests, test_map_with_container)
+TEST_F(container_tests, test_map_use_destination)
 {
     std::vector<int> resultVector{};
     pluto::map(unmappedVector, resultVector, [](int x) { return x * 10; });
@@ -397,6 +382,21 @@ TEST_F(container_tests, test_map_with_container)
     std::set<int> resultSet{};
     pluto::map(unmappedSet, resultSet, [](int x) { return x * 10; });
     ASSERT_EQ(resultSet, mappedSet);
+}
+
+TEST_F(container_tests, test_map_use_template_destination)
+{
+    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedVector, [](int x) { return x * 10; }), mappedVector);
+    ASSERT_EQ(pluto::map<std::set<int>>(unmappedSet, [](int x) { return x * 10; }), mappedSet);
+
+    ASSERT_EQ(pluto::map<std::set<int>>(unmappedVector, [](int x) { return x * 10; }), mappedSet);
+    ASSERT_EQ(pluto::map<std::vector<int>>(unmappedSet, [](int x) { return x * 10; }), mappedVector);
+}
+
+TEST_F(container_tests, test_map_no_destination)
+{
+    ASSERT_EQ(pluto::map(unmappedVector, [](int x) { return x * 10; }), mappedVector);
+    ASSERT_EQ(pluto::map(unmappedSet, [](int x) { return x * 10; }), mappedSet);
 }
 
 TEST_F(container_tests, test_slice)

@@ -2136,7 +2136,7 @@ TEST_F(string_tests, test_icontains_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::icontains, "ABCDEF", "aBcDeg");
 }
 
-TEST_F(string_tests, test_split_use_strings)
+TEST_F(string_tests, test_split_no_separator)
 {
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "a", 1, "a");
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "A", 1, "A");
@@ -2151,7 +2151,7 @@ TEST_F(string_tests, test_split_use_strings)
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "a\tb\nc\vd\fe\rf", 6, "a", "b", "c", "d", "e", "f");
 }
 
-TEST_F(string_tests, test_split_separator_use_strings)
+TEST_F(string_tests, test_split_use_separator)
 {
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "a", "", 1, "a");
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "a", " ", 1, "a");
@@ -2176,7 +2176,7 @@ TEST_F(string_tests, test_split_separator_use_strings)
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split, "abcdefabcdef", "ace", 1, "abcdefabcdef");
 }
 
-TEST_F(string_tests, test_split_any_of_use_strings)
+TEST_F(string_tests, test_split_any_of)
 {
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "a", " ", 1, "a");
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "A", " ", 1, "A");
@@ -2199,7 +2199,7 @@ TEST_F(string_tests, test_split_any_of_use_strings)
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
 }
 
-TEST_F(string_tests, test_join_iterators_use_strings)
+TEST_F(string_tests, test_join_use_iterators)
 {
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
@@ -2218,7 +2218,7 @@ TEST_F(string_tests, test_join_iterators_use_strings)
     TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
-TEST_F(string_tests, test_join_container_use_strings)
+TEST_F(string_tests, test_join_use_container)
 {
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
@@ -2237,7 +2237,7 @@ TEST_F(string_tests, test_join_container_use_strings)
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
-TEST_F(string_tests, test_map_join_iterators_use_strings)
+TEST_F(string_tests, test_map_join_use_iterators)
 {
     std::vector<int> vector { 1 };
     std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
@@ -2248,7 +2248,7 @@ TEST_F(string_tests, test_map_join_iterators_use_strings)
     ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
 }
 
-TEST_F(string_tests, test_map_join_container_use_strings)
+TEST_F(string_tests, test_map_join_use_container)
 {
     std::vector<int> vector { 1 };
     std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
@@ -2259,7 +2259,7 @@ TEST_F(string_tests, test_map_join_container_use_strings)
     ASSERT_EQ(pluto::map_join(vector2, ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
 }
 
-TEST_F(string_tests, test_replace_use_strings)
+TEST_F(string_tests, test_replace)
 {
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, " ", "", "", " ");
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, "a", " ", "b", "a");
@@ -2284,7 +2284,7 @@ TEST_F(string_tests, test_replace_use_strings)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, "abcdefabcdef", "ace", "def", "abcdefabcdef");
 }
 
-TEST_F(string_tests, test_replace_any_of_use_strings)
+TEST_F(string_tests, test_replace_any_of)
 {
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, " ", "", "", " ");
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "a", " ", "b", "a");
@@ -2312,7 +2312,7 @@ TEST_F(string_tests, test_replace_any_of_use_strings)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "ab", "abbabdabfabbabdabf");
 }
 
-TEST_F(string_tests, test_lstrip_use_strings)
+TEST_F(string_tests, test_lstrip)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "A", "A");
@@ -2326,7 +2326,7 @@ TEST_F(string_tests, test_lstrip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
-TEST_F(string_tests, test_rstrip_use_strings)
+TEST_F(string_tests, test_rstrip)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "A", "A");
@@ -2340,7 +2340,7 @@ TEST_F(string_tests, test_rstrip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
-TEST_F(string_tests, test_strip_use_strings)
+TEST_F(string_tests, test_strip)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "A", "A");
@@ -2354,7 +2354,7 @@ TEST_F(string_tests, test_strip_use_strings)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
 }
 
-TEST_F(string_tests, test_bin_use_string)
+TEST_F(string_tests, test_bin)
 {
     ASSERT_EQ(pluto::bin(0), "0b0");
     ASSERT_EQ(pluto::bin(1), "0b1");
@@ -2389,7 +2389,7 @@ TEST_F(string_tests, test_bin_use_string)
     ASSERT_EQ(pluto::bin(-2ull), "0b1111111111111111111111111111111111111111111111111111111111111110");
 }
 
-TEST_F(string_tests, test_oct_use_string)
+TEST_F(string_tests, test_oct)
 {
     ASSERT_EQ(pluto::oct(0), "0o0");
     ASSERT_EQ(pluto::oct(1), "0o1");
@@ -2424,7 +2424,7 @@ TEST_F(string_tests, test_oct_use_string)
     ASSERT_EQ(pluto::oct(-9ull), "0o1777777777777777777767");
 }
 
-TEST_F(string_tests, test_hex_use_string)
+TEST_F(string_tests, test_hex)
 {
     ASSERT_EQ(pluto::hex(0), "0x0");
     ASSERT_EQ(pluto::hex(1), "0x1");
