@@ -1413,6 +1413,139 @@ namespace pluto
     }
 #endif
 
+    template<class ElemT, class TraitsT, class AllocT, class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::basic_string<ElemT, TraitsT, AllocT> map_join(
+        const IteratorT                                     begin,
+        const IteratorT                                     end,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    separator,
+        FunctionT                                           function)
+    {
+        std::basic_string<ElemT, TraitsT, AllocT> joined{};
+        for (auto it{ begin }; it != end; ++it)
+        {
+            if (it != begin)
+            {
+                joined.append(separator);
+            }
+
+            joined.append(function(*it));
+        }
+
+        return joined;
+    }
+
+    template<class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string map_join(
+        const IteratorT     begin,
+        const IteratorT     end,
+        const std::string&  separator,
+        FunctionT           function)
+    {
+        return pluto::map_join<std::string::value_type>(begin, end, separator, function);
+    }
+
+    template<class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring map_join(
+        const IteratorT     begin,
+        const IteratorT     end,
+        const std::wstring& separator,
+        FunctionT           function)
+    {
+        return pluto::map_join<std::wstring::value_type>(begin, end, separator, function);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    template<class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string map_join(
+        const IteratorT         begin,
+        const IteratorT         end,
+        const std::u8string&    separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u8string::value_type>(begin, end, separator, function);
+    }
+#endif
+
+    template<class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string map_join(
+        const IteratorT         begin,
+        const IteratorT         end,
+        const std::u16string&   separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u16string::value_type>(begin, end, separator, function);
+    }
+
+    template<class IteratorT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string map_join(
+        const IteratorT         begin,
+        const IteratorT         end,
+        const std::u32string&   separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u32string::value_type>(begin, end, separator, function);
+    }
+#endif
+
+    template<class ElemT, class TraitsT, class AllocT, class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::basic_string<ElemT, TraitsT, AllocT> map_join(
+        const ContainerT&                                   container,
+        const std::basic_string<ElemT, TraitsT, AllocT>&    separator,
+        FunctionT                                           function)
+    {
+        return pluto::map_join<ElemT>(std::begin(container), std::end(container), separator, function);
+    }
+
+    template<class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string map_join(
+        const ContainerT&   container,
+        const std::string&  separator,
+        FunctionT           function)
+    {
+        return pluto::map_join<std::string::value_type>(container, separator, function);
+    }
+
+    template<class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring map_join(
+        const ContainerT&   container,
+        const std::wstring& separator,
+        FunctionT           function)
+    {
+        return pluto::map_join<std::wstring::value_type>(container, separator, function);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    template<class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string map_join(
+        const ContainerT&       container,
+        const std::u8string&    separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u8string::value_type>(container, separator, function);
+    }
+#endif
+
+    template<class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string map_join(
+        const ContainerT&       container,
+        const std::u16string&   separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u16string::value_type>(container, separator, function);
+    }
+
+    template<class ContainerT, class FunctionT>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string map_join(
+        const ContainerT&       container,
+        const std::u32string&   separator,
+        FunctionT               function)
+    {
+        return pluto::map_join<std::u32string::value_type>(container, separator, function);
+    }
+#endif
+
     template<class ElemT, class TraitsT, class AllocT>
     PLUTO_UTILS_CONSTEXPR void replace(
         std::basic_string<ElemT, TraitsT, AllocT>&          string,

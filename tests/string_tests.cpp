@@ -2237,6 +2237,28 @@ TEST_F(string_tests, test_join_container_use_strings)
     TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
 }
 
+TEST_F(string_tests, test_map_join_iterators_use_strings)
+{
+    std::vector<int> vector { 1 };
+    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
+
+    ASSERT_EQ(pluto::map_join(vector.begin(), vector.end(), ",", pluto::str<int>), "1");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), "", pluto::str<int>), "123456");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), " ", pluto::str<int>), "1 2 3 4 5 6");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
+}
+
+TEST_F(string_tests, test_map_join_container_use_strings)
+{
+    std::vector<int> vector { 1 };
+    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
+
+    ASSERT_EQ(pluto::map_join(vector, ",", pluto::str<int>), "1");
+    ASSERT_EQ(pluto::map_join(vector2, "", pluto::str<int>), "123456");
+    ASSERT_EQ(pluto::map_join(vector2, " ", pluto::str<int>), "1 2 3 4 5 6");
+    ASSERT_EQ(pluto::map_join(vector2, ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
+}
+
 TEST_F(string_tests, test_replace_use_strings)
 {
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace, " ", "", "", " ");
