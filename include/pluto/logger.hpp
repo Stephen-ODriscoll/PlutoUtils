@@ -428,7 +428,7 @@ namespace pluto
 
         logger& operator=(const logger&) = delete;
 
-        inline static logger& instance()
+        static inline logger& instance()
         {
             static logger instance{};
             return instance;

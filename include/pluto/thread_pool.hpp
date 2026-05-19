@@ -151,7 +151,7 @@ namespace pluto
 
         thread_pool& operator=(const thread_pool&) = delete;
 
-        inline static thread_pool& instance()
+        static inline thread_pool& instance()
         {
             static thread_pool instance{};
             return instance;
