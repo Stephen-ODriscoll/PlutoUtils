@@ -29,7 +29,7 @@ Or any subset of:
 
 *Note: standard.hpp includes the whole C++ standard. It is not included when you include pluto.hpp*
 
-This project also provides implementations of several Python built in functions. Including str(), split(), replace(), join(), lstrip(), rstrip(), strip(), bin(), hex(), oct(), filter(), map(), slice(), len(), all(), any(), sum(), min(), max(), abs(), pow() and round().
+This project also provides implementations of several Python built in functions, including str(), split(), replace(), join(), lstrip(), rstrip(), strip(), bin(), oct(), hex(), filter(), map(), slice(), len(), any(), all(), sum(), min(), max(), abs(), pow() and round().
 
 ## Building Unit Tests
 The only dependencies required to build the unit tests are CMake and Google Test.
