@@ -46,7 +46,7 @@ namespace pluto
 #if PLUTO_UTILS_HAS_CXX_20
         if constexpr (std::random_access_iterator<IteratorLeftT> && std::random_access_iterator<IteratorRightT>)
         {
-            return ((endR - beginR) <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, beginL, predicate);
+            return (((endR - beginR) <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, beginL, predicate));
         }
 #endif
 
@@ -74,7 +74,7 @@ namespace pluto
         if constexpr (std::random_access_iterator<IteratorLeftT> && std::random_access_iterator<IteratorRightT>)
         {
             const auto sizeR{ endR - beginR };
-            return (sizeR <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, (endL - sizeR), predicate);
+            return ((sizeR <= (endL - beginL)) && pluto::equals_same_size(beginR, endR, (endL - sizeR), predicate));
         }
 #endif
 
@@ -200,8 +200,7 @@ namespace pluto
         const IteratorRightT    endR,
         PredicateT              predicate = {})
     {
-        return (beginR == endR) ||
-            (pluto::find(beginL, endL, beginR, endR, predicate) != endL);
+        return ((beginR == endR) || (pluto::find(beginL, endL, beginR, endR, predicate) != endL));
     }
 
     template<class IteratorT, class PredicateT = pluto::is_less>
