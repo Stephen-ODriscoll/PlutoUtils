@@ -110,7 +110,7 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::default_locale())
     {
-        return pluto::is_lower(&string[0], string.size(), locale);
+        return pluto::is_lower(string.c_str(), string.size(), locale);
     }
 
     PLUTO_UTILS_NODISCARD inline bool is_lower(
@@ -185,7 +185,7 @@ namespace pluto
         const std::basic_string<ElemT, TraitsT, AllocT>&    string,
         const std::locale&                                  locale = pluto::default_locale())
     {
-        return pluto::is_upper(&string[0], string.size(), locale);
+        return pluto::is_upper(string.c_str(), string.size(), locale);
     }
 
     PLUTO_UTILS_NODISCARD inline bool is_upper(
@@ -245,7 +245,7 @@ namespace pluto
 
     PLUTO_UTILS_NODISCARD inline std::string str(const std::wstring& wstring)
     {
-        return pluto::str(&wstring[0], wstring.size());
+        return pluto::str(wstring.c_str(), wstring.size());
     }
 
     template<class ValueT>
@@ -274,7 +274,7 @@ namespace pluto
 
     PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::string& string)
     {
-        return pluto::wstr(&string[0], string.size());
+        return pluto::wstr(string.c_str(), string.size());
     }
 
     template<class ValueT>
