@@ -7,7 +7,7 @@
 Define this macro as 1 to create a new **std::locale** for each call. Otherwise, a local static instance will be used. Defaults to 0.
 
 ### PLUTO_LOCALE_DEFAULT_LOCALE
-Define this macro to be a **std::locale**. Sets the default locale. Defaults to "" which means system locale.
+Define this macro to be a **std::locale**. Sets the default locale. Defaults to **"en_US.UTF-8"**.
 
 ### c_locale()
 Returns a reference to a local static **std::locale** for the c locale. Define [PLUTO_LOCALE_NO_STATIC](#PLUTO_LOCALE_NO_STATIC) as 1 to avoid using local statics.

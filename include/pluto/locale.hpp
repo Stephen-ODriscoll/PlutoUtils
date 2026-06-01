@@ -17,7 +17,7 @@
 #endif
 
 #ifndef PLUTO_LOCALE_DEFAULT_LOCALE
-#define PLUTO_LOCALE_DEFAULT_LOCALE ""
+#define PLUTO_LOCALE_DEFAULT_LOCALE "en_US.UTF-8"
 #endif
 
 namespace pluto
