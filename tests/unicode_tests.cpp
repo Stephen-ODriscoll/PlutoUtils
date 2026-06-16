@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 
 #include <fstream>
+#include <stdexcept>
 
 #include <pluto/unicode.hpp>
 #include <pluto/filesystem.hpp>
@@ -69,7 +70,7 @@ TEST_F(unicode_tests, reading_characters)
     std::ifstream fileStream{ "unicode.csv" };
     if (!fileStream.is_open() || !fileStream.good())
     {
-        throw std::exception{ "failed to open unicode.csv" };
+        throw std::runtime_error{ "failed to open unicode.csv" };
     }
 
     std::string line{};
