@@ -7,13 +7,9 @@
 
 #pragma once
 
-// Note: std::codecvt_utf8 is deprecated but there is no alternative in the std library
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
-
 #include <vector>
 #include <string>
 #include <sstream>
-#include <codecvt>
 
 #include "container.hpp"
 
@@ -227,69 +223,147 @@ namespace pluto
     }
 #endif
 
-    PLUTO_UTILS_NODISCARD inline std::string str(const char* const pChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const char* const pChar, const std::size_t size)
     {
-        return std::string(pChar, size);
+        return std::string{ pChar, size };
     }
 
-    PLUTO_UTILS_NODISCARD inline std::string str(const std::string& string)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const std::string& string)
     {
         return string;
     }
 
-    PLUTO_UTILS_NODISCARD inline std::string str(const wchar_t* const pWChar, const std::size_t size)
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const char8_t* const pChar8, const std::size_t size)
     {
-        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
-        return converter.to_bytes(pWChar, (pWChar + size));
+        return std::string{ reinterpret_cast<const char* const>(pChar8), size };
     }
 
-    PLUTO_UTILS_NODISCARD inline std::string str(const std::wstring& wstring)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const std::u8string& u8string)
     {
-        return pluto::str(wstring.c_str(), wstring.size());
+        return pluto::str(u8string.c_str(), u8string.size());
     }
+#endif
 
     template<class ValueT>
-    PLUTO_UTILS_NODISCARD inline std::string str(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const ValueT& value)
     {
         std::ostringstream ss{};
         ss << value;
         return ss.str();
     }
 
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const wchar_t* const pWChar, const std::size_t size)
     {
-        return std::wstring(pWChar, size);
+        return std::wstring{ pWChar, size };
     }
 
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::wstring& wstring)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const std::wstring& wstring)
     {
         return wstring;
     }
 
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const char* const pChar, const std::size_t size)
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char32_t* const pChar32, const std::size_t size)
     {
-        static std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter{};
-        return converter.from_bytes(pChar, (pChar + size));
+        return std::wstring{ reinterpret_cast<const wchar_t* const>(pChar32), size };
     }
 
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::string& string)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const std::u32string& u32string)
     {
-        return pluto::wstr(string.c_str(), string.size());
+        return pluto::wstr(u32string.c_str(), u32string.size());
     }
+#else
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char16_t* const pChar16, const std::size_t size)
+    {
+        return std::wstring{ reinterpret_cast<const wchar_t* const>(pChar16), size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const std::u16string& u16string)
+    {
+        return pluto::wstr(u16string.c_str(), u16string.size());
+    }
+#endif
 
     template<class ValueT>
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const ValueT& value)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const ValueT& value)
     {
         std::wostringstream ss{};
         ss << value;
         return ss.str();
     }
 
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const char* const pChar, const std::size_t size)
+    {
+        return std::u8string{ reinterpret_cast<const char8_t* const>(pChar), size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const std::string& string)
+    {
+        return pluto::u8str(string.c_str(), string.size());
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const char8_t* const pChar8, const std::size_t size)
+    {
+        return std::u8string{ pChar8, size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const std::u8string& u8string)
+    {
+        return u8string;
+    }
+#endif
+
+#if !PLUTO_UTILS_HAS_32_BIT_WCHAR
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const wchar_t* const pWChar, const std::size_t size)
+    {
+        return std::u16string{ reinterpret_cast<const char16_t* const>(pWChar), size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const std::wstring& wstring)
+    {
+        return pluto::u16str(wstring.c_str(), wstring.size());
+    }
+#endif
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const char16_t* const pChar16, const std::size_t size)
+    {
+        return std::u16string{ pChar16, size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const std::u16string& u16string)
+    {
+        return u16string;
+    }
+
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const wchar_t* const pWChar, const std::size_t size)
+    {
+        return std::u32string{ reinterpret_cast<const char32_t* const>(pWChar), size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const std::wstring& wstring)
+    {
+        return pluto::u32str(wstring.c_str(), wstring.size());
+    }
+#endif
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const char32_t* const pChar32, const std::size_t size)
+    {
+        return std::u32string{ pChar32, size };
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const std::u32string& u32string)
+    {
+        return u32string;
+    }
+
     template<class ValueT>
     PLUTO_UTILS_NODISCARD inline ValueT str_to(const std::string& string)
     {
         ValueT value;
-        std::istringstream(string) >> value;
+        std::istringstream{ string } >> value;
         return value;
     }
 
@@ -303,7 +377,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD inline ValueT wstr_to(const std::wstring& wstring)
     {
         ValueT value;
-        std::wistringstream(wstring) >> value;
+        std::wistringstream{ wstring } >> value;
         return value;
     }
 

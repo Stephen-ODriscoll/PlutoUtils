@@ -835,7 +835,7 @@ TEST_F(string_tests, test_str_use_char_array)
     const auto pChar{ "abcdef" };
     const auto size { std::strlen(pChar) };
 
-    ASSERT_EQ(pluto::str(pChar, size), std::string(pChar));
+    ASSERT_EQ(pluto::str(pChar, size), std::string{ pChar });
 }
 
 TEST_F(string_tests, test_str_use_string)
@@ -845,22 +845,24 @@ TEST_F(string_tests, test_str_use_string)
     ASSERT_EQ(pluto::str(str), str);
 }
 
-TEST_F(string_tests, test_str_use_wchar_array)
+#if PLUTO_UTILS_HAS_CXX_20
+TEST_F(string_tests, test_str_use_char8_array)
 {
-    const auto pWChar   { L"abcdef" };
     const auto pChar    { "abcdef" };
-    const auto size     { std::wcslen(pWChar) };
+    const auto pChar8   { u8"abcdef" };
+    const auto size     { std::strlen(pChar) };
 
-    ASSERT_EQ(pluto::str(pWChar, size), std::string(pChar));
+    ASSERT_EQ(pluto::str(pChar8, size), std::string{ pChar });
 }
 
-TEST_F(string_tests, test_str_use_wstring)
+TEST_F(string_tests, test_str_use_u8string)
 {
-    const std::wstring wstr { L"abcdef" };
-    const std::string str   { "abcdef" };
+    const std::string str       { "abcdef" };
+    const std::u8string u8str   { u8"abcdef" };
 
-    ASSERT_EQ(pluto::str(wstr), str);
+    ASSERT_EQ(pluto::str(u8str), str);
 }
+#endif
 
 TEST_F(string_tests, test_str_use_values)
 {
@@ -881,7 +883,7 @@ TEST_F(string_tests, test_wstr_use_wchar_array)
     const auto pWChar   { L"abcdef" };
     const auto size     { std::wcslen(pWChar) };
 
-    ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring(pWChar));
+    ASSERT_EQ(pluto::wstr(pWChar, size), std::wstring{ pWChar });
 }
 
 TEST_F(string_tests, test_wstr_use_wstring)
@@ -891,22 +893,41 @@ TEST_F(string_tests, test_wstr_use_wstring)
     ASSERT_EQ(pluto::wstr(wstr), wstr);
 }
 
-TEST_F(string_tests, test_wstr_use_char_array)
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
+TEST_F(string_tests, test_wstr_use_char32_array)
 {
     const auto pWChar   { L"abcdef" };
-    const auto pChar    { "abcdef" };
-    const auto size     { std::strlen(pChar) };
+    const auto pChar32  { U"abcdef" };
+    const auto size     { std::wcslen(pWChar) };
 
-    ASSERT_EQ(pluto::wstr(pChar, size), std::wstring(pWChar));
+    ASSERT_EQ(pluto::wstr(pChar32, size), std::wstring{ pWChar });
 }
 
-TEST_F(string_tests, test_wstr_use_string)
+TEST_F(string_tests, test_wstr_use_u32string)
 {
-    const std::wstring wstr { L"abcdef" };
-    const std::string str   { "abcdef" };
+    const std::wstring wstr     { L"abcdef" };
+    const std::u32string u32str { U"abcdef" };
 
-    ASSERT_EQ(pluto::wstr(str), wstr);
+    ASSERT_EQ(pluto::wstr(u32str), wstr);
 }
+#else
+TEST_F(string_tests, test_wstr_use_char16_array)
+{
+    const auto pWChar   { L"abcdef" };
+    const auto pChar16  { u"abcdef" };
+    const auto size     { std::wcslen(pWChar) };
+
+    ASSERT_EQ(pluto::wstr(pChar16, size), std::wstring{ pWChar });
+}
+
+TEST_F(string_tests, test_wstr_use_u16string)
+{
+    const std::wstring wstr     { L"abcdef" };
+    const std::u16string u16str { u"abcdef" };
+
+    ASSERT_EQ(pluto::wstr(u16str), wstr);
+}
+#endif
 
 TEST_F(string_tests, test_wstr_use_values)
 {
@@ -920,6 +941,111 @@ TEST_F(string_tests, test_wstr_use_values)
     ASSERT_EQ(pluto::wstr(1ull),    wstr);
     ASSERT_EQ(pluto::wstr(1.0),     wstr);
     ASSERT_EQ(pluto::wstr(1.0f),    wstr);
+}
+
+#if PLUTO_UTILS_HAS_CXX_20
+TEST_F(string_tests, test_u8str_use_char_array)
+{
+    const auto pChar    { "abcdef" };
+    const auto pChar8   { u8"abcdef" };
+    const auto size     { std::strlen(pChar) };
+
+    ASSERT_EQ(pluto::u8str(pChar, size), std::u8string{ pChar8 });
+}
+
+TEST_F(string_tests, test_u8str_use_string)
+{
+    const std::string str       { "abcdef" };
+    const std::u8string u8str   { u8"abcdef" };
+
+    ASSERT_EQ(pluto::u8str(str), u8str);
+}
+
+TEST_F(string_tests, test_u8str_use_char8_array)
+{
+    const auto pChar    { "abcdef" };
+    const auto pChar8   { u8"abcdef" };
+    const auto size     { std::strlen(pChar) };
+
+    ASSERT_EQ(pluto::u8str(pChar8, size), std::u8string{ pChar8 });
+}
+
+TEST_F(string_tests, test_u8str_use_u8string)
+{
+    const std::u8string u8str{ u8"abcdef" };
+
+    ASSERT_EQ(pluto::u8str(u8str), u8str);
+}
+#endif
+
+#if !PLUTO_UTILS_HAS_32_BIT_WCHAR
+TEST_F(string_tests, test_u16str_use_wchar_array)
+{
+    const auto pWChar   { L"abcdef" };
+    const auto pChar16  { u"abcdef" };
+    const auto size     { std::wcslen(pWChar) };
+
+    ASSERT_EQ(pluto::u16str(pWChar, size), std::u16string{ pChar16 });
+}
+
+TEST_F(string_tests, test_u16str_use_wstring)
+{
+    const std::wstring wstr     { L"abcdef" };
+    const std::u16string u16str { u"abcdef" };
+
+    ASSERT_EQ(pluto::u16str(wstr), u16str);
+}
+#endif
+
+TEST_F(string_tests, test_u16str_use_char16_array)
+{
+    const auto pChar    { "abcdef" };
+    const auto pChar16  { u"abcdef" };
+    const auto size     { std::strlen(pChar) };
+
+    ASSERT_EQ(pluto::u16str(pChar16, size), std::u16string{ pChar16 });
+}
+
+TEST_F(string_tests, test_u16str_use_u16string)
+{
+    const std::u16string u16str{ u"abcdef" };
+
+    ASSERT_EQ(pluto::u16str(u16str), u16str);
+}
+
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
+TEST_F(string_tests, test_u32str_use_wchar_array)
+{
+    const auto pWChar   { L"abcdef" };
+    const auto pChar32  { U"abcdef" };
+    const auto size     { std::wcslen(pWChar) };
+
+    ASSERT_EQ(pluto::u32str(pWChar, size), std::u32string{ pChar32 });
+}
+
+TEST_F(string_tests, test_u32str_use_wstring)
+{
+    const std::wstring wstr     { L"abcdef" };
+    const std::u32string u32str { U"abcdef" };
+
+    ASSERT_EQ(pluto::u32str(wstr), u32str);
+}
+#endif
+
+TEST_F(string_tests, test_u32str_use_char32_array)
+{
+    const auto pChar    { "abcdef" };
+    const auto pChar32  { U"abcdef" };
+    const auto size     { std::strlen(pChar) };
+
+    ASSERT_EQ(pluto::u32str(pChar32, size), std::u32string{ pChar32 });
+}
+
+TEST_F(string_tests, test_u32str_use_u32string)
+{
+    const std::u32string u32str{ U"abcdef" };
+
+    ASSERT_EQ(pluto::u32str(u32str), u32str);
 }
 
 TEST_F(string_tests, test_str_to_values_use_string)

@@ -60,6 +60,14 @@
 #endif
 #endif
 
+#ifndef PLUTO_UTILS_HAS_32_BIT_WCHAR
+#ifdef _WIN32
+#define PLUTO_UTILS_HAS_32_BIT_WCHAR 0
+#else
+#define PLUTO_UTILS_HAS_32_BIT_WCHAR 1
+#endif
+#endif
+
 #ifndef PLUTO_UTILS_NODISCARD
 #if PLUTO_UTILS_HAS_CXX_17
 #define PLUTO_UTILS_NODISCARD [[nodiscard]]

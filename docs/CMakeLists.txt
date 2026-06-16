@@ -27,5 +27,6 @@ add_library(
     stopwatch.md
     string.md
     thread_pool.md
+    unicode.md
     value.md
     version.md)

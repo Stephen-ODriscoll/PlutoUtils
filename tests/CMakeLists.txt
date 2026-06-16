@@ -33,6 +33,7 @@ add_executable(
     stopwatch_tests.cpp
     string_tests.cpp
     thread_pool_tests.cpp
+    unicode_tests.cpp
     value_tests.cpp
     version_tests.cpp)
 
@@ -45,3 +46,11 @@ if((NOT MSVC) AND CMAKE_CXX_STANDARD EQUAL 14)
         ${PROJECT_NAME}
         stdc++fs)
 endif()
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/tests/unicode.csv ${PROJECT_BINARY_DIR})
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/tests/unicode.csv $<TARGET_FILE_DIR:${PROJECT_NAME}>)

@@ -4,9 +4,7 @@
 ## string.hpp
 When referring to strings, this includes **std::string**, **std::wstring**, **std::u8string**, **std::u16string** and **std::u32string**.
 
-**wstring_convert** is used for character conversions. This is deprecated, but is still generally agreed to be the best way to convert without using an external library.
-
-Defines **_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING** on MSVC to silence deprecation warnings.
+String conversions between strings with characters of different sizes are handled in [unicode.hpp](./unicode.md).
 
 Case insensitive checks avail of the performance benefits talked about in [compare.hpp](./compare.md).
 
@@ -36,26 +34,60 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 3. Takes a string and an optional **std::locale**. Returns a **bool** representing whether all elements in the string are uppercase.
 
 ### str()
-1. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created with the array.
+1. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created using the array.
 2. Takes a **std::string**. Returns a copy of that **std::string**.
-3. Takes a pointer to the start of a **wchar_t** array and the array size. Returns the corresponding **std::string**.
-4. Takes a **std::wstring**. Returns the corresponding **std::string**.
-5. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument with a string stream.
+3. Takes a pointer to the start of a **char8_t** array and the array size. Assumes same encoding. Returns a **std::string** created using the array.
+    - Requires C++ 20 or above.
+4. Takes a **std::u8string**. Assumes same encoding. Returns a **std::string** created using the string.
+    - Requires C++ 20 or above.
+5. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument using a string stream.
 
 ### wstr()
-1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created with the array.
+1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created using the array.
 2. Takes a **std::wstring**. Returns a copy of that **std::wstring**.
-3. Takes a pointer to the start of a **char** array and the array size. Returns the corresponding **std::wstring**.
-4. Takes a **std::string**. Returns the corresponding **std::wstring**.
-5. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument with a wide string stream.
+3. Takes a pointer to the start of a **char16_t** array and the array size. Assumes same encoding. Returns a **std::wstring** created using the array.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 0.
+4. Takes a **std::u16string**. Assumes same encoding. Returns a **std::wstring** created using the string.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 0.
+5. Takes a pointer to the start of a **char32_t** array and the array size. Assumes same encoding. Returns a **std::wstring** created using the array.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 1.
+6. Takes a **std::u32string**. Assumes same encoding. Returns a **std::wstring** created using the string.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 1.
+7. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument using a wide string stream.
+
+### u8str()
+1. Takes a pointer to the start of a **char** array and the array size. Assumes same encoding. Returns a **std::u8string** created using the array.
+    - Requires C++ 20 or above.
+2. Takes a **std::string**. Assumes same encoding. Returns a **std::u8string** created using the string.
+    - Requires C++ 20 or above.
+3. Takes a pointer to the start of a **char8_t** array and the array size. Returns a **std::u8string** created using the array.
+    - Requires C++ 20 or above.
+4. Takes a **std::u8string**. Returns a copy of that **std::u8string**.
+    - Requires C++ 20 or above.
+
+### u16str()
+1. Takes a pointer to the start of a **wchar_t** array and the array size. Assumes same encoding. Returns a **std::u16string** created using the array.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 0.
+2. Takes a **std::wstring**. Assumes same encoding. Returns a **std::u16string** created using the string.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 0.
+3. Takes a pointer to the start of a **char16_t** array and the array size. Returns a **std::u16string** created using the array.
+4. Takes a **std::u16string**. Returns a copy of that **std::u16string**.
+
+### u32str()
+1. Takes a pointer to the start of a **wchar_t** array and the array size. Assumes same encoding. Returns a **std::u32string** created using the array.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 1.
+2. Takes a **std::wstring**. Assumes same encoding. Returns a **std::u32string** created using the string.
+    - Requires [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) to be 1.
+3. Takes a pointer to the start of a **char32_t** array and the array size. Returns a **std::u32string** created using the array.
+4. Takes a **std::u32string**. Returns a copy of that **std::u32string**.
 
 ### str_to()
-1. Requires a template argument that can be anything. Takes a **std::string**. Converts the string to the template argument type with a string stream. Returns the result of the conversion.
-2. Requires a template argument that can be anything. Takes a pointer to the start of a **char** array and the array size. Converts the string to the template argument type with a string stream. Returns the result of the conversion.
+1. Requires a template argument that can be anything. Takes a **std::string**. Converts the string to the template argument type using a string stream. Returns the result of the conversion.
+2. Requires a template argument that can be anything. Takes a pointer to the start of a **char** array and the array size. Converts the string to the template argument type using a string stream. Returns the result of the conversion.
 
 ### wstr_to()
-1. Requires a template argument that can be anything. Takes a **std::wstring**. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
-2. Requires a template argument that can be anything. Takes a pointer to the start of a **wchar_t** array and the array size. Converts the string to the template argument type with a wide string stream. Returns the result of the conversion.
+1. Requires a template argument that can be anything. Takes a **std::wstring**. Converts the string to the template argument type using a wide string stream. Returns the result of the conversion.
+2. Requires a template argument that can be anything. Takes a pointer to the start of a **wchar_t** array and the array size. Converts the string to the template argument type using a wide string stream. Returns the result of the conversion.
 
 ### equals()
 1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Returns a **bool** representing whether left and right are equal using **std::equal**.

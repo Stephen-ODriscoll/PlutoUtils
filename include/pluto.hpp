@@ -21,5 +21,6 @@
 #include "pluto/stopwatch.hpp"
 #include "pluto/string.hpp"
 #include "pluto/thread_pool.hpp"
+#include "pluto/unicode.hpp"
 #include "pluto/value.hpp"
 #include "pluto/version.hpp"
