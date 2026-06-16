@@ -108,7 +108,7 @@ Represents a log level. Level options are:
 
 ### source_info
 Represents information about some source code.
-- Can be constructed with no arguments, but this requires C++ 20 or above, and **std::source_location**.
+- Can be constructed with no arguments, but this is only available with C++ 20 or above, and **std::source_location**.
 
 #### file
 A **const char\*** representing the source file.
@@ -234,7 +234,7 @@ Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for t
 
 #### format()
 Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level, a [pluto::source_info](#source_info) for the source info, a **const char\*** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**.
-- Requires C++ 20 or above, and **std::format**.
+- Only available with C++ 20 or above, and **std::format**.
 - Adds the created log message to the corresponding log file buffer, if the level should be logged.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
 
