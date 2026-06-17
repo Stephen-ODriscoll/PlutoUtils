@@ -126,7 +126,7 @@
     do \
     { \
         auto char8Array{ new char8_t[size + 1] }; \
-        memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
+        std::memcpy(char8Array, u8##x, ((size + 1) * sizeof(char8_t))); \
         function(char8Array, size); \
         check(std::u8string{ char8Array }, std::u8string{ u8##y }); \
         delete[] char8Array; \
@@ -144,13 +144,13 @@
         TEST_CHAR8_ELEM_ARRAYS_2(check, function, x, y); \
         \
         auto char16Array{ new char16_t[size + 1] }; \
-        memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
+        std::memcpy(char16Array, u##x, ((size + 1) * sizeof(char16_t))); \
         function(char16Array, size); \
         check(std::u16string{ char16Array }, std::u16string{ u##y }); \
         delete[] char16Array; \
         \
         auto char32Array{ new char32_t[size + 1] }; \
-        memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
+        std::memcpy(char32Array, U##x, ((size + 1) * sizeof(char32_t))); \
         function(char32Array, size); \
         check(std::u32string{ char32Array }, std::u32string{ U##y }); \
         delete[] char32Array; \
@@ -167,13 +167,13 @@
         const auto size{ std::strlen(x) }; \
         \
         auto charArray{ new char[size + 1] }; \
-        memcpy(charArray, x, ((size + 1) * sizeof(char))); \
+        std::memcpy(charArray, x, ((size + 1) * sizeof(char))); \
         function(charArray, size); \
         check(std::string{ charArray }, std::string{ y }); \
         delete[] charArray; \
         \
         auto wcharArray{ new wchar_t[size + 1] }; \
-        memcpy(wcharArray, L##x, ((size + 1) * sizeof(wchar_t))); \
+        std::memcpy(wcharArray, L##x, ((size + 1) * sizeof(wchar_t))); \
         function(wcharArray, size); \
         check(std::wstring{ wcharArray }, std::wstring{ L##y }); \
         delete[] wcharArray; \
