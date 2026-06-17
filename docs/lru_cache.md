@@ -47,7 +47,7 @@ Takes a key and a value and inserts it into the cache. If the key already exists
 - If the capacity is 0, no insert is done, but **true** is returned.
 
 #### get()
-Takes a key and a modifyable reference to a value.
+Takes a key and a modifiable reference to a value.
 - If the key exists in cache, the value is copied to the provided reference, the key is moved to the front of the least recently used list, and the function returns **true**.
 - If the key doesn't exist in cache, the function returns **false**.
 

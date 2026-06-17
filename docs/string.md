@@ -15,12 +15,12 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 
 ### lower()
 1. Takes an element and an optional **std::locale**. Returns the lowercase letter for the element.
-2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Transforms all elements in the array to lowercase.
+2. Takes a pointer to the start of a modifiable element array, the array size and an optional **std::locale**. Transforms all elements in the array to lowercase.
 3. Takes a string and an optional **std::locale**. Transforms all elements in the string to lowercase.
 
 ### upper()
 1. Takes an element and an optional **std::locale**. Returns the uppercase letter for the element.
-2. Takes a pointer to the start of a modifyable element array, the array size and an optional **std::locale**. Transforms all elements in the array to uppercase.
+2. Takes a pointer to the start of a modifiable element array, the array size and an optional **std::locale**. Transforms all elements in the array to uppercase.
 3. Takes a string and an optional **std::locale**. Transforms all elements in the string to uppercase.
 
 ### is_lower()
