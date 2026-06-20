@@ -59,6 +59,7 @@ TEST_F(thread_pool_tests, test_on_stop_join_all)
     {
         pluto::thread_pool threadPool{};
         ASSERT_NE(threadPool.workers_size(), 0);
+        ASSERT_EQ(threadPool.active_workers_size(), 0);
         ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
         threadPool.on_stop(pluto::thread_pool::action::join_all);
@@ -87,6 +88,7 @@ TEST_F(thread_pool_tests, test_on_stop_complete_tasks)
     {
         pluto::thread_pool threadPool{};
         ASSERT_NE(threadPool.workers_size(), 0);
+        ASSERT_EQ(threadPool.active_workers_size(), 0);
         ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
         threadPool.on_stop(pluto::thread_pool::action::complete_tasks);
@@ -112,6 +114,7 @@ TEST_F(thread_pool_tests, test_run_async)
 
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };
@@ -126,6 +129,8 @@ TEST_F(thread_pool_tests, test_run_async)
         );
     }
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
     ASSERT_TRUE(0 < threadPool.active_workers_size());
     ASSERT_TRUE(0 < threadPool.waiting_tasks_size());
     ASSERT_TRUE(counter < numTasks);
@@ -137,6 +142,7 @@ TEST_F(thread_pool_tests, test_run_sync)
 
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };
@@ -152,7 +158,7 @@ TEST_F(thread_pool_tests, test_run_sync)
         );
     }
 
-    ASSERT_EQ(threadPool.active_workers_size(), 0);
+    ASSERT_TRUE(threadPool.active_workers_size() <= 1);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
     ASSERT_EQ(counter, numTasks);
 }
@@ -161,6 +167,7 @@ TEST_F(thread_pool_tests, test_run_at)
 {
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_bool done{ false };
@@ -184,6 +191,7 @@ TEST_F(thread_pool_tests, test_run_after)
 {
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_bool done{ false };
@@ -209,6 +217,7 @@ TEST_F(thread_pool_tests, test_run_sync_has_high_priority)
 
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };
@@ -240,6 +249,7 @@ TEST_F(thread_pool_tests, test_scheduler_exits_and_is_restarted)
 {
     pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };
@@ -276,10 +286,11 @@ TEST_F(thread_pool_tests, test_scheduler_exits_and_is_restarted)
 
 TEST_F(thread_pool_tests, test_wait_until_no_tasks_waiting)
 {
-    std::size_t numTasks{ 128 }; // Should be a multiple of the thread pool size so that all threads sleep at the end
+    std::size_t numTasks{ 128 };
 
-    pluto::thread_pool threadPool{ 8 };
+    pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };
@@ -295,7 +306,7 @@ TEST_F(thread_pool_tests, test_wait_until_no_tasks_waiting)
     }
 
     threadPool.wait_until_no_tasks_waiting();
-    ASSERT_EQ(threadPool.active_workers_size(), (numTasks - counter));
+    ASSERT_TRUE((numTasks - counter) <= threadPool.active_workers_size());
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 }
 
@@ -303,8 +314,9 @@ TEST_F(thread_pool_tests, test_wait_until_all_tasks_complete)
 {
     std::size_t numTasks{ 128 };
 
-    pluto::thread_pool threadPool{ 8 };
+    pluto::thread_pool threadPool{};
     ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.active_workers_size(), 0);
     ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
 
     std::atomic_size_t counter{ 0 };

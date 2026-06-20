@@ -23,7 +23,7 @@ namespace pluto
         template<class ValueT>
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
         {
-            return !!(value);
+            return (value ? true : false);
         }
     };
 
@@ -32,7 +32,7 @@ namespace pluto
         template<class ValueT>
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
         {
-            return !(value);
+            return (value ? false : true);
         }
     };
 

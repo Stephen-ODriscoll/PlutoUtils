@@ -14,11 +14,10 @@
 #include <chrono>
 #include <string>
 #include <thread>
-#include <vector>
+#include <cstdarg>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
-#include <stdarg.h>
 #include <functional>
 #include <condition_variable>
 
@@ -642,11 +641,12 @@ namespace pluto
         {
             if (should_log(logLevel))
             {
-                va_list args;
                 std::string message{};
                 bool messageCreated{ false };
+                std::va_list args, argsCopy;
 
                 va_start(args, scheme);
+                va_copy(argsCopy, args);
 
                 try
                 {
@@ -655,7 +655,7 @@ namespace pluto
                     if (0 < messageLength)
                     {
                         message.resize(messageLength + 1);
-                        if (std::vsnprintf(&message[0], message.size(), scheme, args) == messageLength)
+                        if (std::vsnprintf(&message[0], message.size(), scheme, argsCopy) == messageLength)
                         {
                             message.resize(messageLength);
                             messageCreated = true;
@@ -665,6 +665,7 @@ namespace pluto
                 catch (...) {}
 
                 va_end(args);
+                va_end(argsCopy);
 
                 // If message creation failed, use scheme
                 if (!messageCreated)

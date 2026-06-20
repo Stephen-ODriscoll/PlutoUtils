@@ -5,10 +5,10 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#include <gtest/gtest.h>
-
 #include <fstream>
 #include <stdexcept>
+
+#include <gtest/gtest.h>
 
 #include <pluto/unicode.hpp>
 #include <pluto/filesystem.hpp>
@@ -65,6 +65,21 @@ std::string write_bytes(const std::string& bytes)
     );
 }
 
+std::string bytes_to_string(const std::string& bytes)
+{
+    return { bytes.c_str(), bytes.size() };
+}
+
+std::u16string bytes_to_u16string(const std::string& bytes)
+{
+    return { reinterpret_cast<const char16_t* const>(bytes.c_str()), (bytes.size() / 2) };
+}
+
+std::u32string bytes_to_u32string(const std::string& bytes)
+{
+    return { reinterpret_cast<const char32_t* const>(bytes.c_str()), (bytes.size() / 4) };
+}
+
 TEST_F(unicode_tests, reading_characters)
 {
     std::ifstream fileStream{ "unicode.csv" };
@@ -84,12 +99,16 @@ TEST_F(unicode_tests, reading_characters)
         auto utf16Bytes { write_bytes(splits[3]) };
         auto utf32Bytes { write_bytes(splits[4]) };
 
+        auto utf8String { bytes_to_string(utf8Bytes) };
+        auto utf16String{ bytes_to_u16string(utf16Bytes) };
+        auto utf32String{ bytes_to_u32string(utf32Bytes) };
+
         g_characters.emplace_back(
             std::stoi(splits[0]),
             splits[1],
-            utf8Bytes.c_str(),
-            reinterpret_cast<const char16_t*>(utf16Bytes.c_str()),
-            reinterpret_cast<const char32_t*>(utf32Bytes.c_str()));
+            utf8String,
+            utf16String,
+            utf32String);
     }
 }
 

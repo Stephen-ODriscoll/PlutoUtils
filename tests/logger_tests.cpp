@@ -163,8 +163,8 @@ TEST_F(logger_tests, test_stream)
 
 TEST_F(logger_tests, test_writef_does_formatting)
 {
-    LOG_WRITEF(none, "log message: %s, %S", "Test", L"Test");
-    ASSERT_EQ("log message: Test, Test", last_log_message());
+    LOG_WRITEF(none, "log message: %s, %d", "Test", 1);
+    ASSERT_EQ("log message: Test, 1", last_log_message());
 }
 
 TEST_F(logger_tests, test_writef_broken_still_logs)

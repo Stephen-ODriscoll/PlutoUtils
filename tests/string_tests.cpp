@@ -5,6 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
+#include <cstring>
+
 #include <gtest/gtest.h>
 
 #include <pluto/string.hpp>
