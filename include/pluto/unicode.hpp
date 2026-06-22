@@ -116,7 +116,7 @@ namespace pluto
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
-            const auto elem{ static_cast<unsigned long>(pElem16[i]) };
+            const auto elem{ static_cast<unsigned short>(pElem16[i]) };
 
             if (elem < 0x80)
             {
@@ -143,7 +143,7 @@ namespace pluto
             {
                 if ((i + 1) < size)
                 {
-                    const auto elem2{ static_cast<unsigned long>(pElem16[i + 1]) };
+                    const auto elem2{ static_cast<unsigned short>(pElem16[i + 1]) };
 
                     if (0xDBFF < elem2 && elem2 < 0xE000)
                     {
@@ -333,7 +333,7 @@ namespace pluto
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
-            const auto elem{ static_cast<unsigned long>(pElem16[i]) };
+            const auto elem{ static_cast<unsigned short>(pElem16[i]) };
 
             if (elem < 0xD800 || (0xDFFF < elem && elem < 0x10000))
             {
@@ -344,7 +344,7 @@ namespace pluto
             {
                 if ((i + 1) < size)
                 {
-                    const auto elem2{ static_cast<unsigned long>(pElem16[i + 1]) };
+                    const auto elem2{ static_cast<unsigned short>(pElem16[i + 1]) };
 
                     if (0xDBFF < elem2 && elem2 < 0xE000)
                     {
