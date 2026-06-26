@@ -11,7 +11,6 @@
 #include <gtest/gtest.h>
 
 #include <pluto/unicode.hpp>
-#include <pluto/filesystem.hpp>
 #include <pluto/string.hpp>
 
 struct character
@@ -72,12 +71,12 @@ std::string bytes_to_string(const std::string& bytes)
 
 std::u16string bytes_to_u16string(const std::string& bytes)
 {
-    return { reinterpret_cast<const char16_t* const>(bytes.c_str()), (bytes.size() / 2) };
+    return { reinterpret_cast<const char16_t*>(bytes.c_str()), (bytes.size() / 2) };
 }
 
 std::u32string bytes_to_u32string(const std::string& bytes)
 {
-    return { reinterpret_cast<const char32_t* const>(bytes.c_str()), (bytes.size() / 4) };
+    return { reinterpret_cast<const char32_t*>(bytes.c_str()), (bytes.size() / 4) };
 }
 
 TEST_F(unicode_tests, reading_characters)
@@ -248,6 +247,24 @@ TEST_F(unicode_tests, test_str_use_wstring)
     }
 }
 
+#if PLUTO_UTILS_HAS_CXX_20
+TEST_F(unicode_tests, test_str_use_char8_array)
+{
+    for (const auto& character : g_characters)
+    {
+        ASSERT_EQ(pluto::str(character.u8string.c_str(), character.u8string.size()), character.string);
+    }
+}
+
+TEST_F(unicode_tests, test_str_use_u8string)
+{
+    for (const auto& character : g_characters)
+    {
+        ASSERT_EQ(pluto::str(character.u8string), character.string);
+    }
+}
+#endif
+
 TEST_F(unicode_tests, test_str_use_char16_array)
 {
     for (const auto& character : g_characters)
@@ -314,7 +331,6 @@ TEST_F(unicode_tests, test_wstr_use_u8string)
 }
 #endif
 
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
 TEST_F(unicode_tests, test_wstr_use_char16_array)
 {
     for (const auto& character : g_characters)
@@ -330,7 +346,7 @@ TEST_F(unicode_tests, test_wstr_use_u16string)
         ASSERT_EQ(pluto::wstr(character.u16string), character.wstring);
     }
 }
-#else
+
 TEST_F(unicode_tests, test_wstr_use_char32_array)
 {
     for (const auto& character : g_characters)
@@ -346,9 +362,24 @@ TEST_F(unicode_tests, test_wstr_use_u32string)
         ASSERT_EQ(pluto::wstr(character.u32string), character.wstring);
     }
 }
-#endif
 
 #if PLUTO_UTILS_HAS_CXX_20
+TEST_F(unicode_tests, test_u8str_use_char_array)
+{
+    for (const auto& character : g_characters)
+    {
+        ASSERT_EQ(pluto::u8str(character.string.c_str(), character.string.size()), character.u8string);
+    }
+}
+
+TEST_F(unicode_tests, test_u8str_use_string)
+{
+    for (const auto& character : g_characters)
+    {
+        ASSERT_EQ(pluto::u8str(character.string), character.u8string);
+    }
+}
+
 TEST_F(unicode_tests, test_u8str_use_wchar_array)
 {
     for (const auto& character : g_characters)
@@ -414,7 +445,6 @@ TEST_F(unicode_tests, test_u16str_use_string)
     }
 }
 
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
 TEST_F(unicode_tests, test_u16str_use_wchar_array)
 {
     for (const auto& character : g_characters)
@@ -430,7 +460,6 @@ TEST_F(unicode_tests, test_u16str_use_wstring)
         ASSERT_EQ(pluto::u16str(character.wstring), character.u16string);
     }
 }
-#endif
 
 #if PLUTO_UTILS_HAS_CXX_20
 TEST_F(unicode_tests, test_u16str_use_char8_array)
@@ -482,7 +511,6 @@ TEST_F(unicode_tests, test_u32str_use_string)
     }
 }
 
-#if !PLUTO_UTILS_HAS_32_BIT_WCHAR
 TEST_F(unicode_tests, test_u32str_use_wchar_array)
 {
     for (const auto& character : g_characters)
@@ -498,7 +526,6 @@ TEST_F(unicode_tests, test_u32str_use_wstring)
         ASSERT_EQ(pluto::u32str(character.wstring), character.u32string);
     }
 }
-#endif
 
 #if PLUTO_UTILS_HAS_CXX_20
 TEST_F(unicode_tests, test_u32str_use_char8_array)

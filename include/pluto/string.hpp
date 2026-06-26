@@ -233,18 +233,6 @@ namespace pluto
         return string;
     }
 
-#if PLUTO_UTILS_HAS_CXX_20
-    PLUTO_UTILS_NODISCARD inline std::string str(const char8_t* const pChar8, const std::size_t size)
-    {
-        return std::string{ reinterpret_cast<const char* const>(pChar8), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::string str(const std::u8string& u8string)
-    {
-        return pluto::str(u8string.c_str(), u8string.size());
-    }
-#endif
-
     template<class ValueT>
     PLUTO_UTILS_NODISCARD inline std::string str(const ValueT& value)
     {
@@ -263,28 +251,6 @@ namespace pluto
         return wstring;
     }
 
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const char32_t* const pChar32, const std::size_t size)
-    {
-        return std::wstring{ reinterpret_cast<const wchar_t* const>(pChar32), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::u32string& u32string)
-    {
-        return pluto::wstr(u32string.c_str(), u32string.size());
-    }
-#else
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const char16_t* const pChar16, const std::size_t size)
-    {
-        return std::wstring{ reinterpret_cast<const wchar_t* const>(pChar16), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::wstring wstr(const std::u16string& u16string)
-    {
-        return pluto::wstr(u16string.c_str(), u16string.size());
-    }
-#endif
-
     template<class ValueT>
     PLUTO_UTILS_NODISCARD inline std::wstring wstr(const ValueT& value)
     {
@@ -294,16 +260,6 @@ namespace pluto
     }
 
 #if PLUTO_UTILS_HAS_CXX_20
-    PLUTO_UTILS_NODISCARD inline std::u8string u8str(const char* const pChar, const std::size_t size)
-    {
-        return std::u8string{ reinterpret_cast<const char8_t* const>(pChar), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::u8string u8str(const std::string& string)
-    {
-        return pluto::u8str(string.c_str(), string.size());
-    }
-
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const char8_t* const pChar8, const std::size_t size)
     {
         return std::u8string{ pChar8, size };
@@ -312,18 +268,6 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const std::u8string& u8string)
     {
         return u8string;
-    }
-#endif
-
-#if !PLUTO_UTILS_HAS_32_BIT_WCHAR
-    PLUTO_UTILS_NODISCARD inline std::u16string u16str(const wchar_t* const pWChar, const std::size_t size)
-    {
-        return std::u16string{ reinterpret_cast<const char16_t* const>(pWChar), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::u16string u16str(const std::wstring& wstring)
-    {
-        return pluto::u16str(wstring.c_str(), wstring.size());
     }
 #endif
 
@@ -336,18 +280,6 @@ namespace pluto
     {
         return u16string;
     }
-
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
-    PLUTO_UTILS_NODISCARD inline std::u32string u32str(const wchar_t* const pWChar, const std::size_t size)
-    {
-        return std::u32string{ reinterpret_cast<const char32_t* const>(pWChar), size };
-    }
-
-    PLUTO_UTILS_NODISCARD inline std::u32string u32str(const std::wstring& wstring)
-    {
-        return pluto::u32str(wstring.c_str(), wstring.size());
-    }
-#endif
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const char32_t* const pChar32, const std::size_t size)
     {

@@ -4,7 +4,7 @@
 ## string.hpp
 When referring to strings, this includes **std::string**, **std::wstring**, **std::u8string**, **std::u16string** and **std::u32string**.
 
-String conversions between strings with characters of different sizes are handled in [unicode.hpp](./unicode.md).
+String conversions between strings with different characters are handled in [unicode.hpp](./unicode.md).
 
 Case insensitive checks avail of the performance benefits talked about in [compare.hpp](./compare.md).
 
@@ -36,50 +36,26 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 ### str()
 1. Takes a pointer to the start of a **char** array and the array size. Returns a **std::string** created using the array.
 2. Takes a **std::string**. Returns a copy of that **std::string**.
-3. Takes a pointer to the start of a **char8_t** array and the array size. Assumes same encoding. Returns a **std::string** created using the array.
-    - Only available with C++ 20 or above.
-4. Takes a **std::u8string**. Assumes same encoding. Returns a **std::string** created using the string.
-    - Only available with C++ 20 or above.
-5. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument using a string stream.
+3. Takes 1 argument that can be anything. Returns a **std::string** gotten by converting the argument using a string stream.
 
 ### wstr()
 1. Takes a pointer to the start of a **wchar_t** array and the array size. Returns a **std::wstring** created using the array.
 2. Takes a **std::wstring**. Returns a copy of that **std::wstring**.
-3. Takes a pointer to the start of a **char16_t** array and the array size. Assumes same encoding. Returns a **std::wstring** created using the array.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
-4. Takes a **std::u16string**. Assumes same encoding. Returns a **std::wstring** created using the string.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
-5. Takes a pointer to the start of a **char32_t** array and the array size. Assumes same encoding. Returns a **std::wstring** created using the array.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
-6. Takes a **std::u32string**. Assumes same encoding. Returns a **std::wstring** created using the string.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
-7. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument using a wide string stream.
+3. Takes 1 argument that can be anything. Returns a **std::wstring** gotten by converting the argument using a wide string stream.
 
 ### u8str()
-1. Takes a pointer to the start of a **char** array and the array size. Assumes same encoding. Returns a **std::u8string** created using the array.
+1. Takes a pointer to the start of a **char8_t** array and the array size. Returns a **std::u8string** created using the array.
     - Only available with C++ 20 or above.
-2. Takes a **std::string**. Assumes same encoding. Returns a **std::u8string** created using the string.
-    - Only available with C++ 20 or above.
-3. Takes a pointer to the start of a **char8_t** array and the array size. Returns a **std::u8string** created using the array.
-    - Only available with C++ 20 or above.
-4. Takes a **std::u8string**. Returns a copy of that **std::u8string**.
+2. Takes a **std::u8string**. Returns a copy of that **std::u8string**.
     - Only available with C++ 20 or above.
 
 ### u16str()
-1. Takes a pointer to the start of a **wchar_t** array and the array size. Assumes same encoding. Returns a **std::u16string** created using the array.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
-2. Takes a **std::wstring**. Assumes same encoding. Returns a **std::u16string** created using the string.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
-3. Takes a pointer to the start of a **char16_t** array and the array size. Returns a **std::u16string** created using the array.
-4. Takes a **std::u16string**. Returns a copy of that **std::u16string**.
+1. Takes a pointer to the start of a **char16_t** array and the array size. Returns a **std::u16string** created using the array.
+2. Takes a **std::u16string**. Returns a copy of that **std::u16string**.
 
 ### u32str()
-1. Takes a pointer to the start of a **wchar_t** array and the array size. Assumes same encoding. Returns a **std::u32string** created using the array.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
-2. Takes a **std::wstring**. Assumes same encoding. Returns a **std::u32string** created using the string.
-    - Only available when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
-3. Takes a pointer to the start of a **char32_t** array and the array size. Returns a **std::u32string** created using the array.
-4. Takes a **std::u32string**. Returns a copy of that **std::u32string**.
+1. Takes a pointer to the start of a **char32_t** array and the array size. Returns a **std::u32string** created using the array.
+2. Takes a **std::u32string**. Returns a copy of that **std::u32string**.
 
 ### str_to()
 1. Requires a template argument that can be anything. Takes a **std::string**. Converts the string to the template argument type using a string stream. Returns the result of the conversion.
