@@ -45,9 +45,9 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 
 ### u8str()
 1. Takes a pointer to the start of a **char8_t** array and the array size. Returns a **std::u8string** created using the array.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 2. Takes a **std::u8string**. Returns a copy of that **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 
 ### u16str()
 1. Takes a pointer to the start of a **char16_t** array and the array size. Returns a **std::u16string** created using the array.
@@ -99,11 +99,11 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 
 ### rfind()
 1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurence of right in left using **std::find_end**.
-    - Only available with C++ 17 or above.
+    - Requires C++ 17 or above.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
 2. Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::find_end**.
-    - Only available with C++ 17 or above.
+    - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
@@ -117,11 +117,11 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 
 ### irfind()
 1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::find_end**.
-    - Only available with C++ 17 or above.
+    - Requires C++ 17 or above.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
 2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::find_end**.
-    - Only available with C++ 17 or above.
+    - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 

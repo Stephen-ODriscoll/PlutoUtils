@@ -40,9 +40,9 @@ All conversions in the ASCII range are optimised to only require 1 check before 
 1. Takes a pointer to the start of a **wchar_t** array and the array size. Converts from either UTF-16 or UTF-32 to UTF-8. Returns the corresponding **std::string**.
 2. Takes a **std::wstring**. Converts from either UTF-16 or UTF-32 to UTF-8. Returns the corresponding **std::string**.
 3. Takes a pointer to the start of a **char8_t** array and the array size. Assumes same encoding. Returns the corresponding **std::string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 4. Takes a **std::u8string**. Assumes same encoding. Returns the corresponding **std::string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 5. Takes a pointer to the start of a **char16_t** array and the array size. Converts from UTF-16 to UTF-8. Returns the corresponding **std::string**.
 6. Takes a **std::u16string**. Converts from UTF-16 to UTF-8. Returns the corresponding **std::string**.
 7. Takes a pointer to the start of a **char32_t** array and the array size. Converts from UTF-32 to UTF-8. Returns the corresponding **std::string**.
@@ -52,9 +52,9 @@ All conversions in the ASCII range are optimised to only require 1 check before 
 1. Takes a pointer to the start of a **char** array and the array size. Converts from UTF-8 to either UTF-16 or UTF-32. Returns the corresponding **std::wstring**.
 2. Takes a **std::string**. Converts from UTF-8 to either UTF-16 or UTF-32. Returns the corresponding **std::wstring**.
 3. Takes a pointer to the start of a **char8_t** array and the array size. Converts from UTF-8 to either UTF-16 or UTF-32. Returns the corresponding **std::wstring**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 4. Takes a **std::u8string**. Converts from UTF-8 to either UTF-16 or UTF-32. Returns the corresponding **std::wstring**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 5. Takes a pointer to the start of a **char16_t** array and the array size. Returns the corresponding **std::wstring**.
     - Assumes same encoding when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
     - Converts from UTF-16 to UTF-32 when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
@@ -70,21 +70,21 @@ All conversions in the ASCII range are optimised to only require 1 check before 
 
 ### u8str()
 1. Takes a pointer to the start of a **char** array and the array size. Assumes same encoding. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 2. Takes a **std::string**. Assumes same encoding. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 3. Takes a pointer to the start of a **wchar_t** array and the array size. Converts from either UTF-16 or UTF-32 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 4. Takes a **std::wstring**. Converts from either UTF-16 or UTF-32 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 5. Takes a pointer to the start of a **char16_t** array and the array size. Converts from UTF-16 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 6. Takes a **std::u16string**. Converts from UTF-16 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 7. Takes a pointer to the start of a **char32_t** array and the array size. Converts from UTF-32 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 8. Takes a **std::u32string**. Converts from UTF-32 to UTF-8. Returns the corresponding **std::u8string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 
 ### u16str()
 1. Takes a pointer to the start of a **char** array and the array size. Converts from UTF-8 to UTF-16. Returns the corresponding **std::u16string**.
@@ -96,9 +96,9 @@ All conversions in the ASCII range are optimised to only require 1 check before 
     - Assumes same encoding when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
     - Converts from UTF-32 to UTF-16 [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
 5. Takes a pointer to the start of a **char8_t** array and the array size. Converts from UTF-8 to UTF-16. Returns the corresponding **std::u16string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 6. Takes a **std::u8string**. Converts from UTF-8 to UTF-16. Returns the corresponding **std::u16string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 7. Takes a pointer to the start of a **char32_t** array and the array size. Converts from UTF-32 to UTF-16. Returns the corresponding **std::u16string**.
 8. Takes a **std::u32string**. Converts from UTF-32 to UTF-16. Returns the corresponding **std::u16string**.
 
@@ -112,8 +112,8 @@ All conversions in the ASCII range are optimised to only require 1 check before 
     - Converts from UTF-16 to UTF-32 when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
     - Assumes same encoding when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
 5. Takes a pointer to the start of a **char8_t** array and the array size. Converts from UTF-8 to UTF-32. Returns the corresponding **std::u32string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 6. Takes a **std::u8string**. Converts from UTF-8 to UTF-32. Returns the corresponding **std::u32string**.
-    - Only available with C++ 20 or above.
+    - Requires C++ 20 or above.
 7. Takes a pointer to the start of a **char16_t** array and the array size. Converts from UTF-16 to UTF-32. Returns the corresponding **std::u32string**.
 8. Takes a **std::u16string**. Converts from UTF-16 to UTF-32. Returns the corresponding **std::u32string**.

@@ -29,7 +29,7 @@ Takes iterators for left begin, left end, right begin, right end and an optional
     - If found, an iterator for the location of the element is returned.
     - If not found, end is returned.
 2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurence of right in left using **std::find_end**.
-    - Only available with C++ 17 or above.
+    - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 

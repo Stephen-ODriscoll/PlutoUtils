@@ -30,7 +30,7 @@ Takes containers for left, right and an optional predicate. Looks for occurence 
 
 ### rfind_sequence()
 Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::find_end**.
-- Only available with C++ 17 or above.
+- Requires C++ 17 or above.
 - If found, an iterator for the start of right in left is returned.
 - If not found, left end is returned.
 
