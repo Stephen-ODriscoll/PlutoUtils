@@ -66,17 +66,43 @@ std::string write_bytes(const std::string& bytes)
 
 std::string bytes_to_string(const std::string& bytes)
 {
-    return { bytes.c_str(), bytes.size() };
+    return bytes;
 }
 
 std::u16string bytes_to_u16string(const std::string& bytes)
 {
-    return { reinterpret_cast<const char16_t*>(bytes.c_str()), (bytes.size() / 2) };
+    unsigned short elem{ 0 };
+    std::u16string u16string{};
+    for (std::size_t i{ 0 }; i < bytes.size(); ++i)
+    {
+        elem = ((elem << 8) | static_cast<unsigned char>(bytes[i]));
+
+        if ((i % 2) == 1)
+        {
+            u16string.push_back(static_cast<std::u16string::value_type>(elem));
+            elem = 0;
+        }
+    }
+
+    return u16string;
 }
 
 std::u32string bytes_to_u32string(const std::string& bytes)
 {
-    return { reinterpret_cast<const char32_t*>(bytes.c_str()), (bytes.size() / 4) };
+    unsigned long elem{ 0 };
+    std::u32string u32string{};
+    for (std::size_t i{ 0 }; i < bytes.size(); ++i)
+    {
+        elem = ((elem << 8) | static_cast<unsigned char>(bytes[i]));
+
+        if ((i % 4) == 3)
+        {
+            u32string.push_back(static_cast<std::u32string::value_type>(elem));
+            elem = 0;
+        }
+    }
+
+    return u32string;
 }
 
 TEST_F(unicode_tests, reading_characters)
@@ -102,12 +128,7 @@ TEST_F(unicode_tests, reading_characters)
         auto utf16String{ bytes_to_u16string(utf16Bytes) };
         auto utf32String{ bytes_to_u32string(utf32Bytes) };
 
-        g_characters.emplace_back(
-            std::stoi(splits[0]),
-            splits[1],
-            utf8String,
-            utf16String,
-            utf32String);
+        g_characters.emplace_back(std::stoi(splits[0]), splits[1], utf8String, utf16String, utf32String);
     }
 }
 

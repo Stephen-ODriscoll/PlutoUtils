@@ -7,7 +7,7 @@ def main(output_file):
     with open(output_file, mode='w', newline='', encoding='utf-8') as output:
         writer = csv.writer(output)
 
-        writer.writerow(['Decimal', 'Code Point', 'UTF-8', 'UTF-16', 'UTF-32'])
+        writer.writerow(['Decimal', 'Code Point', 'UTF-8', 'UTF-16BE', 'UTF-32BE'])
 
         for i in range(0x110000):
             if 0xD7FF < i < 0xE000:
@@ -19,14 +19,14 @@ def main(output_file):
                 code_point = f'U+{i:04X}'
 
                 utf8_bytes = char.encode('utf-8')
-                utf16_bytes = char.encode('utf-16le')
-                utf32_bytes = char.encode('utf-32le')
+                utf16be_bytes = char.encode('utf-16be')
+                utf32be_bytes = char.encode('utf-32be')
 
                 utf8_hex = ' '.join(f'{byte:02X}' for byte in utf8_bytes)
-                utf16_hex = ' '.join(f'{byte:02X}' for byte in utf16_bytes)
-                utf32_hex = ' '.join(f'{byte:02X}' for byte in utf32_bytes)
+                utf16be_hex = ' '.join(f'{byte:02X}' for byte in utf16be_bytes)
+                utf32be_hex = ' '.join(f'{byte:02X}' for byte in utf32be_bytes)
 
-                writer.writerow([i, code_point, utf8_hex, utf16_hex, utf32_hex])
+                writer.writerow([i, code_point, utf8_hex, utf16be_hex, utf32be_hex])
 
             except ValueError:
                 print(f'Failed to get encodings for {i}')
