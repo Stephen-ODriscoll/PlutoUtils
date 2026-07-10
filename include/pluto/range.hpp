@@ -37,7 +37,7 @@ namespace pluto
 
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_overlapping(const range& other) const
         {
-            return (begin < other.end && other.begin < end);
+            return (begin == other.begin || (begin < other.end && other.begin < end));
         }
 
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_less(const range& other) const
@@ -45,17 +45,9 @@ namespace pluto
             return ((begin == other.begin) ? (end < other.end) : (begin < other.begin));
         }
 
-        // Note:
-        // Ranges of size 0 sorted by "no overlap" will behave strangely.
-        // They will never overlap with anything as their size is 0.
-        // Multiple ranges of size 0 can exist at the same spot.
-        // Ranges of size 0 cannot be found using "no overlap".
-        // As such, they will be hidden in a sorted container.
-        //
-        // This is correct, technically a range of size 0 doesn't physically exist.
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool is_less_no_overlap(const range& other) const
         {
-            return (end <= other.begin);
+            return (begin != other.begin && end <= other.begin);
         }
 
         PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator==(const range& other) const

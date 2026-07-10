@@ -22,13 +22,14 @@ Takes another **pluto::range**. Returns a **bool** representing whether they are
 
 #### is_overlapping()
 Takes another **pluto::range**. Returns a **bool** representing whether they are overlapping.
+- Ranges are said to overlap if they either begin at the same point, or if they both begin before the other ends.
 
 #### is_less()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is less than the other range. The beginning of the range is prioritised.
 
 #### is_less_no_overlap()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is less than the other range, where they are equal if they overlap.
-- Note: Ranges of size 0 sorted by "no overlap" will behave strangely. They will never overlap with anything as their size is 0. Multiple ranges of size 0 can exist at the same spot. Ranges of size 0 cannot be found using "no overlap". As such, they will be hidden in a sorted container. This is correct, technically a range of size 0 doesn't physically exist.
+- Ranges are said to overlap if they either begin at the same point, or if they both begin before the other ends.
 
 #### operator==()
 Takes another **pluto::range**. Returns a **bool** representing whether they are equal.

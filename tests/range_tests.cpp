@@ -131,8 +131,8 @@ TEST_F(range_tests, test_is_greater_equal)
 
 TEST_F(range_tests, test_is_overlapping)
 {
-    ASSERT_FALSE(intRange1.is_overlapping(intRange2));
-    ASSERT_FALSE(intRange2.is_overlapping(intRange1));
+    ASSERT_TRUE(intRange1.is_overlapping(intRange2));
+    ASSERT_TRUE(intRange2.is_overlapping(intRange1));
     ASSERT_TRUE(intRange3.is_overlapping(intRange4));
     ASSERT_TRUE(intRange4.is_overlapping(intRange3));
     ASSERT_FALSE(intRange3.is_overlapping(intRange5));
@@ -141,8 +141,8 @@ TEST_F(range_tests, test_is_overlapping)
 
 TEST_F(range_tests, test_is_less_no_overlap)
 {
-    ASSERT_TRUE(intRange1.is_less_no_overlap(intRange2));
-    ASSERT_TRUE(intRange2.is_less_no_overlap(intRange1));
+    ASSERT_FALSE(intRange1.is_less_no_overlap(intRange2));
+    ASSERT_FALSE(intRange2.is_less_no_overlap(intRange1));
     ASSERT_FALSE(intRange3.is_less_no_overlap(intRange4));
     ASSERT_FALSE(intRange4.is_less_no_overlap(intRange3));
     ASSERT_TRUE(intRange3.is_less_no_overlap(intRange5));
