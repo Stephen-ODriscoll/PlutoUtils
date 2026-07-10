@@ -1746,7 +1746,7 @@ namespace pluto
         return result;
     }
 
-    template <typename ValueT>
+    template<class ValueT>
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string oct(const ValueT& value)
     {
         /*
@@ -1786,7 +1786,7 @@ namespace pluto
         return result;
     }
 
-    template <typename ValueT>
+    template<class ValueT>
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string hex(const ValueT& value)
     {
         constexpr char characters[] { "0123456789abcdef" };
