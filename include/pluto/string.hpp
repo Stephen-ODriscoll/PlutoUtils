@@ -1796,7 +1796,7 @@ namespace pluto
         std::size_t position{ maxLength * 4 };
         for (std::size_t i{ maxLength }; 0 < i; --i)
         {
-            const auto digit{ (value >> (position -= 4)) & 0xf };
+            const auto digit{ (value >> (position -= 4)) & 0xF };
             if (!result.empty())
             {
                 result.push_back(characters[digit]);
