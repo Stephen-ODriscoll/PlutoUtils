@@ -61,9 +61,9 @@ namespace pluto
     }
 #endif
 
-    template<class ElemT>
+    template<class Elem>
     PLUTO_UTILS_NODISCARD inline const auto& use_facet(const std::locale& locale)
     {
-        return std::use_facet<std::ctype<ElemT>>(locale);
+        return std::use_facet<std::ctype<Elem>>(locale);
     }
 }

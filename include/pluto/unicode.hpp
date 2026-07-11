@@ -13,14 +13,14 @@
 
 namespace pluto
 {
-    template<class Elem8T, class Elem16T, class Traits16T, class Alloc16T>
+    template<class Elem8, class Elem16, class Traits16, class Alloc16>
     PLUTO_UTILS_CONSTEXPR void utf8_to_utf16(
-        const Elem8T* const                                 pElem8,
-        const std::size_t                                   size,
-        std::basic_string<Elem16T, Traits16T, Alloc16T>&    utf16)
+        const Elem8* const                              pElem8,
+        const std::size_t                               size,
+        std::basic_string<Elem16, Traits16, Alloc16>&   utf16)
     {
-        static_assert(sizeof(Elem8T) == 1,  "pluto::utf8_to_utf16() expects an 8 bit UTF-8 string");
-        static_assert(sizeof(Elem16T) == 2, "pluto::utf8_to_utf16() expects a 16 bit UTF-16 string");
+        static_assert(sizeof(Elem8) == 1,   "pluto::utf8_to_utf16() expects an 8 bit UTF-8 string");
+        static_assert(sizeof(Elem16) == 2,  "pluto::utf8_to_utf16() expects a 16 bit UTF-16 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -28,7 +28,7 @@ namespace pluto
 
             if (elem < 0x80)
             {
-                utf16.push_back(static_cast<Elem16T>(elem));
+                utf16.push_back(static_cast<Elem16>(elem));
                 continue;
             }
             else if (elem < 0xC2)
@@ -42,7 +42,7 @@ namespace pluto
                     if (0x7F < elem2 && elem2 < 0xC0)
                     {
                         ++i;
-                        utf16.push_back(static_cast<Elem16T>(((elem & 0x1F) << 6) | (elem2 & 0x3F)));
+                        utf16.push_back(static_cast<Elem16>(((elem & 0x1F) << 6) | (elem2 & 0x3F)));
                         continue;
                     }
                 }
@@ -62,7 +62,7 @@ namespace pluto
                         if ((0x7FF < codePoint && codePoint < 0xD800) || 0xDFFF < codePoint)
                         {
                             i += 2;
-                            utf16.push_back(static_cast<Elem16T>(codePoint));
+                            utf16.push_back(static_cast<Elem16>(codePoint));
                             continue;
                         }
                     }
@@ -85,8 +85,8 @@ namespace pluto
                         {
                             i += 3;
                             codePoint -= 0x10000;
-                            utf16.push_back(static_cast<Elem16T>((codePoint >> 10) + 0xD800));
-                            utf16.push_back(static_cast<Elem16T>((codePoint & 0x3FF) + 0xDC00));
+                            utf16.push_back(static_cast<Elem16>((codePoint >> 10) + 0xD800));
+                            utf16.push_back(static_cast<Elem16>((codePoint & 0x3FF) + 0xDC00));
                             continue;
                         }
                     }
@@ -97,22 +97,22 @@ namespace pluto
         }
     }
 
-    template<class Elem8T, class Traits8T, class Alloc8T, class Elem16T, class Traits16T, class Alloc16T>
+    template<class Elem8, class Traits8, class Alloc8, class Elem16, class Traits16, class Alloc16>
     PLUTO_UTILS_CONSTEXPR void utf8_to_utf16(
-        const std::basic_string<Elem8T, Traits8T, Alloc8T>& utf8,
-        std::basic_string<Elem16T, Traits16T, Alloc16T>&    utf16)
+        const std::basic_string<Elem8, Traits8, Alloc8>&    utf8,
+        std::basic_string<Elem16, Traits16, Alloc16>&       utf16)
     {
         pluto::utf8_to_utf16(utf8.c_str(), utf8.size(), utf16);
     }
 
-    template<class Elem16T, class Elem8T, class Traits8T, class Alloc8T>
+    template<class Elem16, class Elem8, class Traits8, class Alloc8>
     PLUTO_UTILS_CONSTEXPR void utf16_to_utf8(
-        const Elem16T* const                            pElem16,
-        const std::size_t                               size,
-        std::basic_string<Elem8T, Traits8T, Alloc8T>&   utf8)
+        const Elem16* const                         pElem16,
+        const std::size_t                           size,
+        std::basic_string<Elem8, Traits8, Alloc8>&  utf8)
     {
-        static_assert(sizeof(Elem8T) == 1,  "pluto::utf16_to_utf8() expects an 8 bit UTF-8 string");
-        static_assert(sizeof(Elem16T) == 2, "pluto::utf16_to_utf8() expects a 16 bit UTF-16 string");
+        static_assert(sizeof(Elem8) == 1,   "pluto::utf16_to_utf8() expects an 8 bit UTF-8 string");
+        static_assert(sizeof(Elem16) == 2,  "pluto::utf16_to_utf8() expects a 16 bit UTF-16 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -120,22 +120,22 @@ namespace pluto
 
             if (elem < 0x80)
             {
-                utf8.push_back(static_cast<Elem8T>(elem));
+                utf8.push_back(static_cast<Elem8>(elem));
                 continue;
             }
             else if (elem < 0x800)
             {
-                utf8.push_back(static_cast<Elem8T>(0xC0 | (elem >> 6)));
-                utf8.push_back(static_cast<Elem8T>(0x80 | (elem & 0x3F)));
+                utf8.push_back(static_cast<Elem8>(0xC0 | (elem >> 6)));
+                utf8.push_back(static_cast<Elem8>(0x80 | (elem & 0x3F)));
                 continue;
             }
             else if (elem < 0xD800 || 0xDFFF < elem)
             {
                 if (elem < 0x10000)
                 {
-                    utf8.push_back(static_cast<Elem8T>(0xE0 | (elem >> 12)));
-                    utf8.push_back(static_cast<Elem8T>(0x80 | ((elem >> 6) & 0x3F)));
-                    utf8.push_back(static_cast<Elem8T>(0x80 | (elem & 0x3F)));
+                    utf8.push_back(static_cast<Elem8>(0xE0 | (elem >> 12)));
+                    utf8.push_back(static_cast<Elem8>(0x80 | ((elem >> 6) & 0x3F)));
+                    utf8.push_back(static_cast<Elem8>(0x80 | (elem & 0x3F)));
                     continue;
                 }
             }
@@ -150,38 +150,38 @@ namespace pluto
                         const auto codePoint{ (((elem & 0x3FF) << 10) | (elem2 & 0x3FF)) + 0x10000 };
 
                         ++i;
-                        utf8.push_back(static_cast<Elem8T>(0xF0 | (codePoint >> 18)));
-                        utf8.push_back(static_cast<Elem8T>(0x80 | ((codePoint >> 12) & 0x3F)));
-                        utf8.push_back(static_cast<Elem8T>(0x80 | ((codePoint >> 6) & 0x3F)));
-                        utf8.push_back(static_cast<Elem8T>(0x80 | (codePoint & 0x3F)));
+                        utf8.push_back(static_cast<Elem8>(0xF0 | (codePoint >> 18)));
+                        utf8.push_back(static_cast<Elem8>(0x80 | ((codePoint >> 12) & 0x3F)));
+                        utf8.push_back(static_cast<Elem8>(0x80 | ((codePoint >> 6) & 0x3F)));
+                        utf8.push_back(static_cast<Elem8>(0x80 | (codePoint & 0x3F)));
                         continue;
                     }
                 }
             }
 
             // Invalid
-            utf8.push_back(static_cast<Elem8T>(0xEF));
-            utf8.push_back(static_cast<Elem8T>(0xBF));
-            utf8.push_back(static_cast<Elem8T>(0xBD));
+            utf8.push_back(static_cast<Elem8>(0xEF));
+            utf8.push_back(static_cast<Elem8>(0xBF));
+            utf8.push_back(static_cast<Elem8>(0xBD));
         }
     }
 
-    template<class Elem16T, class Traits16T, class Alloc16T, class Elem8T, class Traits8T, class Alloc8T>
+    template<class Elem16, class Traits16, class Alloc16, class Elem8, class Traits8, class Alloc8>
     PLUTO_UTILS_CONSTEXPR void utf16_to_utf8(
-        const std::basic_string<Elem16T, Traits16T, Alloc16T>&  utf16,
-        std::basic_string<Elem8T, Traits8T, Alloc8T>&           utf8)
+        const std::basic_string<Elem16, Traits16, Alloc16>& utf16,
+        std::basic_string<Elem8, Traits8, Alloc8>&          utf8)
     {
         pluto::utf16_to_utf8(utf16.c_str(), utf16.size(), utf8);
     }
 
-    template<class Elem8T, class Elem32T, class Traits32T, class Alloc32T>
+    template<class Elem8, class Elem32, class Traits32, class Alloc32>
     PLUTO_UTILS_CONSTEXPR void utf8_to_utf32(
-        const Elem8T* const                                 pElem8,
-        const std::size_t                                   size,
-        std::basic_string<Elem32T, Traits32T, Alloc32T>&    utf32)
+        const Elem8* const                              pElem8,
+        const std::size_t                               size,
+        std::basic_string<Elem32, Traits32, Alloc32>&   utf32)
     {
-        static_assert(sizeof(Elem8T) == 1,  "pluto::utf8_to_utf32() expects an 8 bit UTF-8 string");
-        static_assert(sizeof(Elem32T) == 4, "pluto::utf8_to_utf32() expects a 32 bit UTF-32 string");
+        static_assert(sizeof(Elem8) == 1,   "pluto::utf8_to_utf32() expects an 8 bit UTF-8 string");
+        static_assert(sizeof(Elem32) == 4,  "pluto::utf8_to_utf32() expects a 32 bit UTF-32 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -189,7 +189,7 @@ namespace pluto
 
             if (elem < 0x80)
             {
-                utf32.push_back(static_cast<Elem32T>(elem));
+                utf32.push_back(static_cast<Elem32>(elem));
                 continue;
             }
             else if (elem < 0xC2)
@@ -203,7 +203,7 @@ namespace pluto
                     if (0x7F < elem2 && elem2 < 0xC0)
                     {
                         ++i;
-                        utf32.push_back(static_cast<Elem32T>(((elem & 0x1F) << 6) | (elem2 & 0x3F)));
+                        utf32.push_back(static_cast<Elem32>(((elem & 0x1F) << 6) | (elem2 & 0x3F)));
                         continue;
                     }
                 }
@@ -217,7 +217,7 @@ namespace pluto
 
                     if (0x7F < elem2 && elem2 < 0xC0 && 0x7F < elem3 && elem3 < 0xC0)
                     {
-                        auto codePoint{ static_cast<Elem32T>(
+                        auto codePoint{ static_cast<Elem32>(
                             ((elem & 0xF) << 12) | ((elem2 & 0x3F) << 6) | (elem3 & 0x3F)) };
 
                         if ((0x7FF < codePoint && codePoint < 0xD800) || 0xDFFF < codePoint)
@@ -239,7 +239,7 @@ namespace pluto
 
                     if (0x7F < elem2 && elem2 < 0xC0 && 0x7F < elem3 && elem3 < 0xC0 && 0x7F < elem4 && elem4 < 0xC0)
                     {
-                        const auto codePoint{ static_cast<Elem32T>(
+                        const auto codePoint{ static_cast<Elem32>(
                             ((elem & 0x7) << 18) | ((elem2 & 0x3F) << 12) | ((elem3 & 0x3F) << 6) | (elem4 & 0x3F)) };
 
                         if (0xFFFF < codePoint && codePoint < 0x110000)
@@ -256,22 +256,22 @@ namespace pluto
         }
     }
 
-    template<class Elem8T, class Traits8T, class Alloc8T, class Elem32T, class Traits32T, class Alloc32T>
+    template<class Elem8, class Traits8, class Alloc8, class Elem32, class Traits32, class Alloc32>
     PLUTO_UTILS_CONSTEXPR void utf8_to_utf32(
-        const std::basic_string<Elem8T, Traits8T, Alloc8T>& utf8,
-        std::basic_string<Elem32T, Traits32T, Alloc32T>&    utf32)
+        const std::basic_string<Elem8, Traits8, Alloc8>&    utf8,
+        std::basic_string<Elem32, Traits32, Alloc32>&       utf32)
     {
         pluto::utf8_to_utf32(utf8.c_str(), utf8.size(), utf32);
     }
 
-    template<class Elem32T, class Elem8T, class Traits8T, class Alloc8T>
+    template<class Elem32, class Elem8, class Traits8, class Alloc8>
     PLUTO_UTILS_CONSTEXPR void utf32_to_utf8(
-        const Elem32T* const                            pElem32,
-        const std::size_t                               size,
-        std::basic_string<Elem8T, Traits8T, Alloc8T>&   utf8)
+        const Elem32* const                         pElem32,
+        const std::size_t                           size,
+        std::basic_string<Elem8, Traits8, Alloc8>&  utf8)
     {
-        static_assert(sizeof(Elem8T) == 1,  "pluto::utf32_to_utf8() expects an 8 bit UTF-8 string");
-        static_assert(sizeof(Elem32T) == 4, "pluto::utf32_to_utf8() expects a 32 bit UTF-32 string");
+        static_assert(sizeof(Elem8) == 1,   "pluto::utf32_to_utf8() expects an 8 bit UTF-8 string");
+        static_assert(sizeof(Elem32) == 4,  "pluto::utf32_to_utf8() expects a 32 bit UTF-32 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -279,57 +279,57 @@ namespace pluto
 
             if (codePoint < 0x80)
             {
-                utf8.push_back(static_cast<Elem8T>(codePoint));
+                utf8.push_back(static_cast<Elem8>(codePoint));
                 continue;
             }
             else if (codePoint < 0x800)
             {
-                utf8.push_back(static_cast<Elem8T>(0xC0 | (codePoint >> 6)));
-                utf8.push_back(static_cast<Elem8T>(0x80 | (codePoint & 0x3F)));
+                utf8.push_back(static_cast<Elem8>(0xC0 | (codePoint >> 6)));
+                utf8.push_back(static_cast<Elem8>(0x80 | (codePoint & 0x3F)));
                 continue;
             }
             else if (codePoint < 0x10000)
             {
                 if (codePoint < 0xD800 || 0xDFFF < codePoint)
                 {
-                    utf8.push_back(static_cast<Elem8T>(0xE0 | (codePoint >> 12)));
-                    utf8.push_back(static_cast<Elem8T>(0x80 | ((codePoint >> 6) & 0x3F)));
-                    utf8.push_back(static_cast<Elem8T>(0x80 | (codePoint & 0x3F)));
+                    utf8.push_back(static_cast<Elem8>(0xE0 | (codePoint >> 12)));
+                    utf8.push_back(static_cast<Elem8>(0x80 | ((codePoint >> 6) & 0x3F)));
+                    utf8.push_back(static_cast<Elem8>(0x80 | (codePoint & 0x3F)));
                     continue;
                 }
             }
             else if (codePoint < 0x110000)
             {
-                utf8.push_back(static_cast<Elem8T>(0xF0 | (codePoint >> 18)));
-                utf8.push_back(static_cast<Elem8T>(0x80 | ((codePoint >> 12) & 0x3F)));
-                utf8.push_back(static_cast<Elem8T>(0x80 | ((codePoint >> 6) & 0x3F)));
-                utf8.push_back(static_cast<Elem8T>(0x80 | (codePoint & 0x3F)));
+                utf8.push_back(static_cast<Elem8>(0xF0 | (codePoint >> 18)));
+                utf8.push_back(static_cast<Elem8>(0x80 | ((codePoint >> 12) & 0x3F)));
+                utf8.push_back(static_cast<Elem8>(0x80 | ((codePoint >> 6) & 0x3F)));
+                utf8.push_back(static_cast<Elem8>(0x80 | (codePoint & 0x3F)));
                 continue;
             }
 
             // Invalid
-            utf8.push_back(static_cast<Elem8T>(0xEF));
-            utf8.push_back(static_cast<Elem8T>(0xBF));
-            utf8.push_back(static_cast<Elem8T>(0xBD));
+            utf8.push_back(static_cast<Elem8>(0xEF));
+            utf8.push_back(static_cast<Elem8>(0xBF));
+            utf8.push_back(static_cast<Elem8>(0xBD));
         }
     }
 
-    template<class Elem32T, class Traits32T, class Alloc32T, class Elem8T, class Traits8T, class Alloc8T>
+    template<class Elem32, class Traits32, class Alloc32, class Elem8, class Traits8, class Alloc8>
     PLUTO_UTILS_CONSTEXPR void utf32_to_utf8(
-        const std::basic_string<Elem32T, Traits32T, Alloc32T>&  utf32,
-        std::basic_string<Elem8T, Traits8T, Alloc8T>&           utf8)
+        const std::basic_string<Elem32, Traits32, Alloc32>& utf32,
+        std::basic_string<Elem8, Traits8, Alloc8>&          utf8)
     {
         pluto::utf32_to_utf8(utf32.c_str(), utf32.size(), utf8);
     }
 
-    template<class Elem16T, class Elem32T, class Traits32T, class Alloc32T>
+    template<class Elem16, class Elem32, class Traits32, class Alloc32>
     PLUTO_UTILS_CONSTEXPR void utf16_to_utf32(
-        const Elem16T* const                                pElem16,
-        const std::size_t                                   size,
-        std::basic_string<Elem32T, Traits32T, Alloc32T>&    utf32)
+        const Elem16* const                             pElem16,
+        const std::size_t                               size,
+        std::basic_string<Elem32, Traits32, Alloc32>&   utf32)
     {
-        static_assert(sizeof(Elem16T) == 2, "pluto::utf16_to_utf32() expects a 16 bit UTF-16 string");
-        static_assert(sizeof(Elem32T) == 4, "pluto::utf16_to_utf32() expects a 32 bit UTF-32 string");
+        static_assert(sizeof(Elem16) == 2, "pluto::utf16_to_utf32() expects a 16 bit UTF-16 string");
+        static_assert(sizeof(Elem32) == 4, "pluto::utf16_to_utf32() expects a 32 bit UTF-32 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -337,7 +337,7 @@ namespace pluto
 
             if (elem < 0xD800 || (0xDFFF < elem && elem < 0x10000))
             {
-                utf32.push_back(static_cast<Elem32T>(elem));
+                utf32.push_back(static_cast<Elem32>(elem));
                 continue;
             }
             else if (0xD7FF < elem && elem < 0xDC00)
@@ -349,7 +349,7 @@ namespace pluto
                     if (0xDBFF < elem2 && elem2 < 0xE000)
                     {
                         ++i;
-                        utf32.push_back(static_cast<Elem32T>((((elem & 0x3FF) << 10) | (elem2 & 0x3FF)) + 0x10000));
+                        utf32.push_back(static_cast<Elem32>((((elem & 0x3FF) << 10) | (elem2 & 0x3FF)) + 0x10000));
                         continue;
                     }
                 }
@@ -359,22 +359,22 @@ namespace pluto
         }
     }
 
-    template<class Elem16T, class Traits16T, class Alloc16T, class Elem32T, class Traits32T, class Alloc32T>
+    template<class Elem16, class Traits16, class Alloc16, class Elem32, class Traits32, class Alloc32>
     PLUTO_UTILS_CONSTEXPR void utf16_to_utf32(
-        const std::basic_string<Elem16T, Traits16T, Alloc16T>&  utf16,
-        std::basic_string<Elem32T, Traits32T, Alloc32T>&        utf32)
+        const std::basic_string<Elem16, Traits16, Alloc16>& utf16,
+        std::basic_string<Elem32, Traits32, Alloc32>&       utf32)
     {
         pluto::utf16_to_utf32(utf16.c_str(), utf16.size(), utf32);
     }
 
-    template<class Elem32T, class Elem16T, class Traits16T, class Alloc16T>
+    template<class Elem32, class Elem16, class Traits16, class Alloc16>
     PLUTO_UTILS_CONSTEXPR void utf32_to_utf16(
-        const Elem32T* const                                pElem32,
-        const std::size_t                                   size,
-        std::basic_string<Elem16T, Traits16T, Alloc16T>&    utf16)
+        const Elem32* const                             pElem32,
+        const std::size_t                               size,
+        std::basic_string<Elem16, Traits16, Alloc16>&   utf16)
     {
-        static_assert(sizeof(Elem16T) == 2, "pluto::utf32_to_utf16() expects a 16 bit UTF-16 string");
-        static_assert(sizeof(Elem32T) == 4, "pluto::utf32_to_utf16() expects a 32 bit UTF-32 string");
+        static_assert(sizeof(Elem16) == 2, "pluto::utf32_to_utf16() expects a 16 bit UTF-16 string");
+        static_assert(sizeof(Elem32) == 4, "pluto::utf32_to_utf16() expects a 32 bit UTF-32 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
@@ -382,14 +382,14 @@ namespace pluto
 
             if (codePoint < 0xD800 || (0xDFFF < codePoint && codePoint < 0x10000))
             {
-                utf16.push_back(static_cast<Elem16T>(codePoint));
+                utf16.push_back(static_cast<Elem16>(codePoint));
                 continue;
             }
             else if (0xFFFF < codePoint && codePoint < 0x110000)
             {
                 codePoint -= 0x10000;
-                utf16.push_back(static_cast<Elem16T>((codePoint >> 10) + 0xD800));
-                utf16.push_back(static_cast<Elem16T>((codePoint & 0x3FF) + 0xDC00));
+                utf16.push_back(static_cast<Elem16>((codePoint >> 10) + 0xD800));
+                utf16.push_back(static_cast<Elem16>((codePoint & 0x3FF) + 0xDC00));
                 continue;
             }
 
@@ -397,10 +397,10 @@ namespace pluto
         }
     }
 
-    template<class Elem32T, class Traits32T, class Alloc32T, class Elem16T, class Traits16T, class Alloc16T>
+    template<class Elem32, class Traits32, class Alloc32, class Elem16, class Traits16, class Alloc16>
     PLUTO_UTILS_CONSTEXPR void utf32_to_utf16(
-        const std::basic_string<Elem32T, Traits32T, Alloc32T>&  utf32,
-        std::basic_string<Elem16T, Traits16T, Alloc16T>&        utf16)
+        const std::basic_string<Elem32, Traits32, Alloc32>& utf32,
+        std::basic_string<Elem16, Traits16, Alloc16>&       utf16)
     {
         pluto::utf32_to_utf16(utf32.c_str(), utf32.size(), utf16);
     }

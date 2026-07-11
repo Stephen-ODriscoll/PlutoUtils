@@ -14,12 +14,12 @@
 
 namespace pluto
 {
-    template<class KeyT, class ValueT>
+    template<class Key, class Value>
     class lru_cache
     {
     public:
-        typedef KeyT key_type;
-        typedef ValueT value_type;
+        typedef Key key_type;
+        typedef Value value_type;
         typedef std::list<key_type> list_type;
         typedef std::map<key_type, std::pair<value_type, typename list_type::iterator>> map_type;
 

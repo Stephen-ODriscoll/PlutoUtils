@@ -13,48 +13,48 @@
 
 namespace pluto
 {
-    template<class ValueT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR ValueT abs(const ValueT value)
+    template<class Value>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR Value abs(const Value value)
     {
         return ((value < 0) ? -value : value);
     }
 
-    template<class ValueT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR ValueT copy(const ValueT& value)
+    template<class Value>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR Value copy(const Value& value)
     {
         return { value };
     }
 
-    template<class ValueT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (min)(
-        const ValueT& left,
-        const ValueT& right)
+    template<class Value>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const Value& (min)(
+        const Value& left,
+        const Value& right)
     {
         return ((right < left) ? right : left);
     }
 
-    template<class ValueT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (min)(
-        const ValueT&   left,
-        const ValueT&   right,
-        PredicateT      predicate)
+    template<class Value, class Predicate>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const Value& (min)(
+        const Value&    left,
+        const Value&    right,
+        Predicate       predicate)
     {
         return (predicate(right, left) ? right : left);
     }
 
-    template<class ValueT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (max)(
-        const ValueT& left,
-        const ValueT& right)
+    template<class Value>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const Value& (max)(
+        const Value& left,
+        const Value& right)
     {
         return ((left < right) ? right : left);
     }
 
-    template<class ValueT, class PredicateT>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR const ValueT& (max)(
-        const ValueT&   left,
-        const ValueT&   right,
-        PredicateT      predicate)
+    template<class Value, class Predicate>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const Value& (max)(
+        const Value&    left,
+        const Value&    right,
+        Predicate       predicate)
     {
         return (predicate(left, right) ? right : left);
     }
@@ -80,16 +80,16 @@ namespace pluto
         return std::pow(value, power);
     }
 
-    template<class ValueT>
+    template<class Value>
     PLUTO_UTILS_NODISCARD inline auto pow(
-        const ValueT value,
-        const ValueT power)
+        const Value value,
+        const Value power)
     {
         return pluto::pow(static_cast<double>(value), static_cast<double>(power));
     }
 
-    template<class ValueT>
-    PLUTO_UTILS_NODISCARD inline auto round(const ValueT value)
+    template<class Value>
+    PLUTO_UTILS_NODISCARD inline auto round(const Value value)
     {
         return std::round(value);
     }

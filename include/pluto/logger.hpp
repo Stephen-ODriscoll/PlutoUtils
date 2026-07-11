@@ -347,8 +347,8 @@ namespace pluto
                 }
             }
 
-            template<class ValueT>
-            inline streamer& operator<<(const ValueT& value)
+            template<class Value>
+            inline streamer& operator<<(const Value& value)
             {
                 m_stream << value;
                 return *this;
@@ -678,25 +678,25 @@ namespace pluto
         }
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
-        template<class... ArgsT>
+        template<class... Args>
         inline void writef(
             const std::string&  logFile,
             const log_level     logLevel,
             const char* const   scheme,
-            ArgsT&&...          args)
+            Args&&...           args)
         {
-            writef(logFile, logLevel, { "", 0, "" }, scheme, std::forward<ArgsT>(args)...);
+            writef(logFile, logLevel, { "", 0, "" }, scheme, std::forward<Args>(args)...);
         }
 #endif
 
 #if PLUTO_LOGGER_HAS_FORMAT
-        template<class... ArgsT>
+        template<class... Args>
         void format(
             const std::string&                  logFile,
             const log_level                     logLevel,
             const source_info&                  sourceInfo,
-            const std::format_string<ArgsT...>  scheme,
-            ArgsT&&...                          args)
+            const std::format_string<Args...>   scheme,
+            Args&&...                           args)
         {
             if (should_log(logLevel))
             {
@@ -706,14 +706,14 @@ namespace pluto
         }
 
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
-        template<class... ArgsT>
+        template<class... Args>
         inline void format(
             const std::string&                  logFile,
             const log_level                     logLevel,
-            const std::format_string<ArgsT...>  scheme,
-            ArgsT&&...                          args)
+            const std::format_string<Args...>   scheme,
+            Args&&...                           args)
         {
-            format(logFile, logLevel, { "", 0, "" }, scheme, std::forward<ArgsT>(args)...);
+            format(logFile, logLevel, { "", 0, "" }, scheme, std::forward<Args>(args)...);
         }
 #endif
 #endif

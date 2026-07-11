@@ -50,16 +50,16 @@ namespace pluto
             return (m_isRunning ? (m_time + (clock_type::now() - m_start)) : m_time);
         }
 
-        template<class DurationT>
+        template<class Duration>
         PLUTO_UTILS_NODISCARD inline auto count() const
         {
-            return std::chrono::duration_cast<DurationT>(time()).count();
+            return std::chrono::duration_cast<Duration>(time()).count();
         }
 
-        template<class DurationT>
+        template<class Duration>
         PLUTO_UTILS_NODISCARD inline auto count(const long long rollover) const
         {
-            return (count<DurationT>() % rollover);
+            return (count<Duration>() % rollover);
         }
 
         PLUTO_UTILS_NODISCARD inline auto in_nanoseconds() const

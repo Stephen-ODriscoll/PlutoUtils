@@ -14,7 +14,7 @@
 
 namespace pluto
 {
-    template<class KeyT, class ValueT>
+    template<class Key, class Value>
     class safe_lru_cache
     {
 #if PLUTO_UTILS_HAS_CXX_17
@@ -24,13 +24,13 @@ namespace pluto
 #endif
 
         mutable shared_mutex_type       m_mutex{};
-        pluto::lru_cache<KeyT, ValueT>  m_lruCache;
+        pluto::lru_cache<Key, Value>    m_lruCache;
 
     public:
-        typedef typename pluto::lru_cache<KeyT, ValueT>::key_type key_type;
-        typedef typename pluto::lru_cache<KeyT, ValueT>::value_type value_type;
-        typedef typename pluto::lru_cache<KeyT, ValueT>::list_type list_type;
-        typedef typename pluto::lru_cache<KeyT, ValueT>::map_type map_type;
+        typedef typename pluto::lru_cache<Key, Value>::key_type key_type;
+        typedef typename pluto::lru_cache<Key, Value>::value_type value_type;
+        typedef typename pluto::lru_cache<Key, Value>::list_type list_type;
+        typedef typename pluto::lru_cache<Key, Value>::map_type map_type;
 
         inline safe_lru_cache(const std::size_t capacity) :
             m_lruCache{ capacity } {}

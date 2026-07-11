@@ -20,8 +20,8 @@ namespace pluto
             return value;
         }
 
-        template<class ValueT>
-        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
+        template<class Value>
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const Value& value) const
         {
             return (value ? true : false);
         }
@@ -29,8 +29,8 @@ namespace pluto
 
     struct is_false
     {
-        template<class ValueT>
-        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const ValueT& value) const
+        template<class Value>
+        PLUTO_UTILS_NODISCARD_CONSTEXPR bool operator()(const Value& value) const
         {
             return (value ? false : true);
         }
@@ -43,85 +43,85 @@ namespace pluto
     typedef std::less_equal<>       is_less_equal;
     typedef std::greater_equal<>    is_greater_equal;
 
-    template<class ElemT>
+    template<class Elem>
     struct is_iequal
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_iequal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (left == right || facet.toupper(left) == facet.toupper(right));
         }
     };
 
-    template<class ElemT>
+    template<class Elem>
     struct is_not_iequal
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_not_iequal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (left != right && facet.toupper(left) != facet.toupper(right));
         }
     };
 
-    template<class ElemT>
+    template<class Elem>
     struct is_iless
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_iless(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (facet.toupper(left) < facet.toupper(right));
         }
     };
     
-    template<class ElemT>
+    template<class Elem>
     struct is_igreater
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_igreater(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (facet.toupper(left) > facet.toupper(right));
         }
     };
 
-    template<class ElemT>
+    template<class Elem>
     struct is_iless_equal
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_iless_equal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (left == right || facet.toupper(left) <= facet.toupper(right));
         }
     };
 
-    template<class ElemT>
+    template<class Elem>
     struct is_igreater_equal
     {
-        const std::ctype<ElemT>& facet;
+        const std::ctype<Elem>& facet;
 
         inline is_igreater_equal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<ElemT>(locale) } {}
+            facet{ pluto::use_facet<Elem>(locale) } {}
 
-        PLUTO_UTILS_NODISCARD inline bool operator()(const ElemT& left, const ElemT& right) const
+        PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
             return (left == right || facet.toupper(left) >= facet.toupper(right));
         }
