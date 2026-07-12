@@ -10,11 +10,7 @@
 #include <pluto/platform.hpp>
 
 class platform_tests : public testing::Test
-{
-protected:
-    platform_tests() {}
-    ~platform_tests() {}
-};
+{};
 
 TEST_F(platform_tests, test_file_name_back_slash)
 {

@@ -37,10 +37,6 @@ public:
 
     const std::set<int> unmappedSet { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     const std::set<int> mappedSet   { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
-
-protected:
-    container_tests() {}
-    ~container_tests() {}
 };
 
 TEST_F(container_tests, test_equals_returns_true)

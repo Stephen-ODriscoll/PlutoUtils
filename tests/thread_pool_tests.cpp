@@ -12,11 +12,7 @@
 #include <pluto/thread_pool.hpp>
 
 class thread_pool_tests : public testing::Test
-{
-protected:
-    thread_pool_tests() {}
-    ~thread_pool_tests() {}
-};
+{};
 
 TEST_F(thread_pool_tests, test_sanity)
 {

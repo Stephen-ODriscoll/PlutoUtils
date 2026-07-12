@@ -40,11 +40,6 @@ namespace pluto
             }
         }
 
-        inline stopwatch(const stopwatch& other) :
-            m_time      { other.m_time },
-            m_start     { other.m_start },
-            m_isRunning { other.m_isRunning } {}
-
         PLUTO_UTILS_NODISCARD inline auto time() const
         {
             return (m_isRunning ? (m_time + (clock_type::now() - m_start)) : m_time);

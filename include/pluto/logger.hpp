@@ -195,11 +195,6 @@ namespace pluto
             line    { line },
             function{ function } {}
 
-        PLUTO_UTILS_CONSTEXPR source_info(const source_info& other) :
-            file    { other.file },
-            line    { other.line },
-            function{ other.function } {}
-
 #if PLUTO_LOGGER_HAS_SOURCE_LOCATION
         PLUTO_UTILS_CONSTEXPR source_info(const std::source_location& source = std::source_location::current()) :
             file    { source.file_name() },
@@ -338,6 +333,14 @@ namespace pluto
                 end();
             }
 
+            streamer(const streamer&) = delete;
+
+            streamer(streamer&&) = delete;
+
+            streamer& operator=(const streamer&) = delete;
+
+            streamer& operator=(streamer&&) = delete;
+
             void end()
             {
                 if (m_logger && m_logger->should_log(m_logLevel))
@@ -425,7 +428,11 @@ namespace pluto
     public:
         logger(const logger&) = delete;
 
+        logger(logger&&) = delete;
+
         logger& operator=(const logger&) = delete;
+
+        logger& operator=(logger&&) = delete;
 
         static inline logger& instance()
         {

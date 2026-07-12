@@ -10,11 +10,7 @@
 #include <pluto/locale.hpp>
 
 class locale_tests : public testing::Test
-{
-protected:
-    locale_tests() {}
-    ~locale_tests() {}
-};
+{};
 
 TEST_F(locale_tests, test_c_locale)
 {

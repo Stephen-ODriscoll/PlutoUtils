@@ -24,10 +24,6 @@
 class logger_tests : public testing::Test
 {
 protected:
-    logger_tests() {}
-
-    ~logger_tests() {}
-
     void TearDown() override
     {
         if (pluto::filesystem::exists(LOG_FILE))

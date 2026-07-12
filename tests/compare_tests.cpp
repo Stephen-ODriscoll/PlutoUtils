@@ -84,11 +84,7 @@
     while (false)
 
 class compare_tests : public testing::Test
-{
-protected:
-    compare_tests() {}
-    ~compare_tests() {}
-};
+{};
 
 TEST_F(compare_tests, test_is_true)
 {

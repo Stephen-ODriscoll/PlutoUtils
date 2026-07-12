@@ -10,8 +10,4 @@
 #include <pluto/standard.hpp>
 
 class standard_tests : public testing::Test
-{
-protected:
-    standard_tests() {}
-    ~standard_tests() {}
-};
+{};

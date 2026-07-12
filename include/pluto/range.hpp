@@ -21,10 +21,6 @@ namespace pluto
             begin   { begin },
             end     { end } {}
 
-        PLUTO_UTILS_CONSTEXPR range(const range& other) :
-            begin   { other.begin },
-            end     { other.end } {}
-
         PLUTO_UTILS_NODISCARD_CONSTEXPR auto size() const
         {
             return (end - begin);

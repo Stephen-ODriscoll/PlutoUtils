@@ -670,11 +670,7 @@
     while (false)
 
 class string_tests : public testing::Test
-{
-protected:
-    string_tests() {}
-    ~string_tests() {}
-};
+{};
 
 TEST_F(string_tests, test_lower_use_elems)
 {

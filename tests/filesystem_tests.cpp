@@ -10,8 +10,4 @@
 #include <pluto/filesystem.hpp>
 
 class filesystem_tests : public testing::Test
-{
-protected:
-    filesystem_tests() {}
-    ~filesystem_tests() {}
-};
+{};

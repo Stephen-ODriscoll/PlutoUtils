@@ -12,11 +12,7 @@
 #include <pluto/stopwatch.hpp>
 
 class stopwatch_tests : public testing::Test
-{
-protected:
-    stopwatch_tests() {}
-    ~stopwatch_tests() {}
-};
+{};
 
 // Basic sanity, timings are difficult to test
 TEST_F(stopwatch_tests, test_sanity)

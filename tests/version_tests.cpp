@@ -10,8 +10,4 @@
 #include <pluto/version.hpp>
 
 class version_tests : public testing::Test
-{
-protected:
-    version_tests() {}
-    ~version_tests() {}
-};
+{};

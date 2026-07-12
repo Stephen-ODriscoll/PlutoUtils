@@ -46,7 +46,11 @@ namespace pluto
 
         on_scope_exit(const on_scope_exit&) = delete;
 
+        on_scope_exit(on_scope_exit&&) = delete;
+
         on_scope_exit& operator=(const on_scope_exit&) = delete;
+
+        on_scope_exit& operator=(on_scope_exit&&) = delete;
 
         inline void add(const std::function<void()>& task)
         {
@@ -92,7 +96,11 @@ namespace pluto
 
         on_scope_success(const on_scope_success&) = delete;
 
+        on_scope_success(on_scope_success&&) = delete;
+
         on_scope_success& operator=(const on_scope_success&) = delete;
+
+        on_scope_success& operator=(on_scope_success&&) = delete;
 
         inline void add(const std::function<void()>& task)
         {
@@ -138,7 +146,11 @@ namespace pluto
 
         on_scope_fail(const on_scope_fail&) = delete;
 
+        on_scope_fail(on_scope_fail&&) = delete;
+
         on_scope_fail& operator=(const on_scope_fail&) = delete;
+
+        on_scope_fail& operator=(on_scope_fail&&) = delete;
 
         inline void add(const std::function<void()>& task)
         {

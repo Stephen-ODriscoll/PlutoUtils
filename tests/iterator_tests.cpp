@@ -33,10 +33,6 @@ public:
     const std::vector<int> fiveToNine       { 5, 6, 7, 8, 9 };
     const std::vector<int> zeroToFourTwice  { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
     const std::vector<int> zeroToFourTwice2 { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
-
-protected:
-    iterator_tests() {}
-    ~iterator_tests() {}
 };
 
 TEST_F(iterator_tests, test_equals_same_size_returns_true)

@@ -49,11 +49,7 @@ struct character
 std::vector<character> g_characters{};
 
 class unicode_tests : public testing::Test
-{
-protected:
-    unicode_tests() {}
-    ~unicode_tests() {}
-};
+{};
 
 std::string write_bytes(const std::string& bytes)
 {

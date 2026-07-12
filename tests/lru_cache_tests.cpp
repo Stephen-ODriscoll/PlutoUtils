@@ -17,9 +17,6 @@ public:
     pluto::lru_cache<std::size_t, std::size_t> cache{ CACHE_CAPACITY };
 
 protected:
-    lru_cache_tests() {}
-    ~lru_cache_tests() {}
-
     void TearDown() override
     {
         cache.clear();

@@ -12,11 +12,7 @@
 #include <pluto/scope.hpp>
 
 class scope_tests : public testing::Test
-{
-protected:
-    scope_tests() {}
-    ~scope_tests() {}
-};
+{};
 
 TEST_F(scope_tests, test_on_scope_exit_with_success)
 {

@@ -149,7 +149,11 @@ namespace pluto
 
         thread_pool(const thread_pool&) = delete;
 
+        thread_pool(thread_pool&&) = delete;
+
         thread_pool& operator=(const thread_pool&) = delete;
+
+        thread_pool& operator=(thread_pool&&) = delete;
 
         static inline thread_pool& instance()
         {

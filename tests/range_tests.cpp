@@ -17,10 +17,6 @@ public:
     const pluto::int_range intRange3{ 1, 6 };
     const pluto::int_range intRange4{ 2, 8 };
     const pluto::int_range intRange5{ 6, 9 };
-
-protected:
-    range_tests() {}
-    ~range_tests() {}
 };
 
 TEST_F(range_tests, test_sanity)

@@ -10,11 +10,7 @@
 #include <pluto/value.hpp>
 
 class value_tests : public testing::Test
-{
-protected:
-    value_tests() {}
-    ~value_tests() {}
-};
+{};
 
 TEST_F(value_tests, test_abs)
 {
