@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_STANDARD_HPP
+#define PLUTO_UTILS_STANDARD_HPP
 
 #include "version.hpp"
 
@@ -233,4 +234,6 @@
 #if __has_include(<text_encoding>)
 #include <text_encoding>
 #endif
+#endif
+
 #endif

@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_LOCALE_HPP
+#define PLUTO_UTILS_LOCALE_HPP
 
 #include <locale>
 
@@ -67,3 +68,5 @@ namespace pluto
         return std::use_facet<std::ctype<Elem>>(locale);
     }
 }
+
+#endif

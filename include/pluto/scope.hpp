@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_SCOPE_HPP
+#define PLUTO_UTILS_SCOPE_HPP
 
 #include <stack>
 #include <exception>
@@ -158,3 +159,5 @@ namespace pluto
         }
     };
 }
+
+#endif

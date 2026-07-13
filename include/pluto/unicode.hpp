@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_UNICODE_HPP
+#define PLUTO_UTILS_UNICODE_HPP
 
 #include <string>
 
@@ -713,3 +714,5 @@ namespace pluto
         return pluto::u32str(u16string.c_str(), u16string.size());
     }
 }
+
+#endif

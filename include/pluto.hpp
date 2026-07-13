@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_PLUTO_HPP
+#define PLUTO_UTILS_PLUTO_HPP
 
 #include "pluto/compare.hpp"
 #include "pluto/container.hpp"
@@ -24,3 +25,5 @@
 #include "pluto/unicode.hpp"
 #include "pluto/value.hpp"
 #include "pluto/version.hpp"
+
+#endif

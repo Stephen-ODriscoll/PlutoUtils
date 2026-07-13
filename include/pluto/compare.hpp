@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_COMPARE_HPP
+#define PLUTO_UTILS_COMPARE_HPP
 
 #include <functional>
 
@@ -127,3 +128,5 @@ namespace pluto
         }
     };
 }
+
+#endif

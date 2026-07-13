@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_CONTAINER_HPP
+#define PLUTO_UTILS_CONTAINER_HPP
 
 #include <cassert>
 
@@ -371,3 +372,5 @@ namespace pluto
         return *pResult;
     }
 }
+
+#endif

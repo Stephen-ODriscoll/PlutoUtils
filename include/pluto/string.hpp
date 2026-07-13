@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_STRING_HPP
+#define PLUTO_UTILS_STRING_HPP
 
 #include <vector>
 #include <string>
@@ -1816,3 +1817,5 @@ namespace pluto
         return result;
     }
 }
+
+#endif

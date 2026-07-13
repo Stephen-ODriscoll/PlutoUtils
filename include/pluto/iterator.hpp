@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_ITERATOR_HPP
+#define PLUTO_UTILS_ITERATOR_HPP
 
 #include <iterator>
 #include <algorithm>
@@ -248,3 +249,5 @@ namespace pluto
         return std::transform(beginS, endS, beginD, function);
     }
 }
+
+#endif

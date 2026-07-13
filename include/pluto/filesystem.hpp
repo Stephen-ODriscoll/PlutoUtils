@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_FILESYSTEM_HPP
+#define PLUTO_UTILS_FILESYSTEM_HPP
 
 #include "version.hpp"
 
@@ -34,3 +35,5 @@ namespace pluto
     namespace filesystem = std::filesystem;
 #endif
 }
+
+#endif

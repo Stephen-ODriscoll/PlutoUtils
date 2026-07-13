@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_STOPWATCH_HPP
+#define PLUTO_UTILS_STOPWATCH_HPP
 
 #include <chrono>
 
@@ -161,3 +162,5 @@ namespace pluto
         }
     };
 }
+
+#endif

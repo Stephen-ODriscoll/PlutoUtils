@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_VERSION_HPP
+#define PLUTO_UTILS_VERSION_HPP
 
 #define PLUTO_UTILS_VERSION_MAJOR 2
 #define PLUTO_UTILS_VERSION_MINOR 0
@@ -86,4 +87,6 @@
 
 #ifndef PLUTO_UTILS_NODISCARD_CONSTEXPR
 #define PLUTO_UTILS_NODISCARD_CONSTEXPR PLUTO_UTILS_NODISCARD PLUTO_UTILS_CONSTEXPR
+#endif
+
 #endif

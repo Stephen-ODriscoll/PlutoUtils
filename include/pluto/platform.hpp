@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_PLATFORM_HPP
+#define PLUTO_UTILS_PLATFORM_HPP
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -78,3 +79,5 @@ namespace pluto
         return gmTime;
     }
 }
+
+#endif

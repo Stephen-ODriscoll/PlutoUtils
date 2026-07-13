@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_THREAD_POOL_HPP
+#define PLUTO_UTILS_THREAD_POOL_HPP
 
 #include <map>
 #include <mutex>
@@ -430,3 +431,5 @@ namespace pluto
         }
     };
 }
+
+#endif

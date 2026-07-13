@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_LOGGER_HPP
+#define PLUTO_UTILS_LOGGER_HPP
 
 #include <map>
 #include <list>
@@ -947,3 +948,5 @@ namespace pluto
         }
     };
 }
+
+#endif

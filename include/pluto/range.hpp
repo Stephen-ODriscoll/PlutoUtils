@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_RANGE_HPP
+#define PLUTO_UTILS_RANGE_HPP
 
 #include "version.hpp"
 
@@ -85,3 +86,5 @@ namespace pluto
     typedef range<unsigned long long>   ulong_long_range;
     typedef range<void*>                pvoid_range;
 }
+
+#endif

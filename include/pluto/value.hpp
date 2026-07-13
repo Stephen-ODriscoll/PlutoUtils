@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_VALUE_HPP
+#define PLUTO_UTILS_VALUE_HPP
 
 #include <cmath>
 
@@ -94,3 +95,5 @@ namespace pluto
         return std::round(value);
     }
 }
+
+#endif

@@ -5,7 +5,8 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#pragma once
+#ifndef PLUTO_UTILS_SAFE_LRU_CACHE_HPP
+#define PLUTO_UTILS_SAFE_LRU_CACHE_HPP
 
 #include <mutex>
 #include <shared_mutex>
@@ -96,3 +97,5 @@ namespace pluto
         }
     };
 }
+
+#endif
