@@ -37,16 +37,16 @@ Takes another **pluto::range**. Returns a **bool** representing whether they are
 #### operator!=()
 Takes another **pluto::range**. Returns a **bool** representing whether they are not equal.
 
-#### operator<()
+#### operator\<()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is less than the other range. The beginning of the range is prioritised.
 
-#### operator>()
+#### operator\>()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is greater than the other range. The beginning of the range is prioritised.
 
-#### operator<=()
+#### operator\<=()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is less than or equal to the other range. The beginning of the range is prioritised.
 
-#### operator>=()
+#### operator\>=()
 Takes another **pluto::range**. Returns a **bool** representing whether this range is greater than or equal to the other range. The beginning of the range is prioritised.
 
 ### int_range

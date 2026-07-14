@@ -20,22 +20,22 @@ Optional locales default to [pluto::default_locale()](./locale.md#default_locale
 Takes a value. Returns a **bool** representing whether that value equates to **false**.
 
 ### is_equal
-Alias of **std::equal_to<>**.
+Alias of **std::equal_to\<\>**.
 
 ### is_not_equal
-Alias of **std::not_equal_to<>**.
+Alias of **std::not_equal_to\<\>**.
 
 ### is_less
-Alias of **std::less<>**.
+Alias of **std::less\<\>**.
 
 ### is_greater
-Alias of **std::greater<>**.
+Alias of **std::greater\<\>**.
 
 ### is_less_equal
-Alias of **std::less_equal<>**.
+Alias of **std::less_equal\<\>**.
 
 ### is_greater_equal
-Alias of **std::greater_equal<>**.
+Alias of **std::greater_equal\<\>**.
 
 ### is_equal_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.

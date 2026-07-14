@@ -62,10 +62,10 @@ Define this macro to be a **std::size_t**. Sets the initial log file rotation si
 Define this macro to be a **std::size_t**. Sets the initial log file rotation limit. See [file_rotation_limit()](#file_rotation_limit). Defaults to 1.
 
 ### PLUTO_LOGGER_INITIAL_LOG_WRITER
-Define this macro to be a **std::function<void(std::ostream&, const log_entry&)>**. Sets the initial log writer. See [log_writer()](#log_writer). Defaults to [pluto::logger::default_log_writer()](#default_log_writer).
+Define this macro to be a **std::function\<void(std::ostream&, const log_entry&)\>**. Sets the initial log writer. See [log_writer()](#log_writer). Defaults to [pluto::logger::default_log_writer()](#default_log_writer).
 
 ### PLUTO_LOGGER_INITIAL_HEADER_WRITER
-Define this macro to be a **std::function<void(std::ostream&)>**. Sets the initial header writer. See [header_writer()](#header_writer). Defaults to [pluto::logger::default_header_writer()](#default_header_writer).
+Define this macro to be a **std::function\<void(std::ostream&)\>**. Sets the initial header writer. See [header_writer()](#header_writer). Defaults to [pluto::logger::default_header_writer()](#default_header_writer).
 
 ### PLUTO_LOG_WRITE_WITH
 Definition that takes a logger, a file, a level and any number of additional arguments and passes them to [write()](#write) on the logger.
@@ -212,12 +212,12 @@ Returns a **std::size_t** representing the current number of discarded logs.
 Resets the number of discarded logs back to 0. See [num_discarded_logs()](#num_discarded_logs).
 
 #### log_writer()
-1. Returns a **std::function<void(std::ostream&, const log_entry&)>** representing the current log writer.
-2. Takes a **std::function<void(std::ostream&, const log_entry&)>** and sets this to be the new log writer.
+1. Returns a **std::function\<void(std::ostream&, const log_entry&)\>** representing the current log writer.
+2. Takes a **std::function\<void(std::ostream&, const log_entry&)\>** and sets this to be the new log writer.
 
 #### header_writer()
-1. Returns a **std::function<void(std::ostream&)>** representing the current header writer.
-2. Takes a **std::function<void(std::ostream&)>** and sets this to be the new header writer.
+1. Returns a **std::function\<void(std::ostream&)\>** representing the current header writer.
+2. Takes a **std::function\<void(std::ostream&)\>** and sets this to be the new header writer.
 
 #### should_log()
 Takes a [pluto::log_level](#log_level). Returns a **bool** representing whether logging is enabled and the level is an equal or higher priority than the logger level.
