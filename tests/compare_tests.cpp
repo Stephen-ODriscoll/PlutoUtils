@@ -119,7 +119,7 @@ TEST_F(compare_tests, test_is_true)
     ASSERT_FALSE(pluto::is_true()(0.0));
     ASSERT_FALSE(pluto::is_true()(0.0f));
 
-    ASSERT_FALSE(pluto::is_true()(nullptr));
+    ASSERT_FALSE(pluto::is_true()(static_cast<int*>(nullptr)));
     ASSERT_FALSE(pluto::is_true()(false));
 }
 
@@ -156,7 +156,7 @@ TEST_F(compare_tests, test_is_false)
     ASSERT_TRUE(pluto::is_false()(0.0));
     ASSERT_TRUE(pluto::is_false()(0.0f));
 
-    ASSERT_TRUE(pluto::is_false()(nullptr));
+    ASSERT_TRUE(pluto::is_false()(static_cast<int*>(nullptr)));
     ASSERT_TRUE(pluto::is_false()(false));
 }
 
