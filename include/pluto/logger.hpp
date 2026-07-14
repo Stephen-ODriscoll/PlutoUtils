@@ -199,7 +199,7 @@ namespace pluto
         std::string message;
 
         log_entry(
-            const time_type&    time,
+            const time_type     time,
             const std::size_t   threadID,
             const log_level     level,
             const source_info&  source,
@@ -347,14 +347,9 @@ namespace pluto
 
         struct log_file
         {
-            log_buffer              buffer;
-            pluto::filesystem::path filePath;
-            bool                    dirsCreated;
-
-            log_file() :
-                buffer      {},
-                filePath    {},
-                dirsCreated { false } {}
+            log_buffer              buffer      {};
+            pluto::filesystem::path filePath    {};
+            bool                    dirsCreated { false };
         };
 
         mutable std::mutex              m_loggingMutex      {};
