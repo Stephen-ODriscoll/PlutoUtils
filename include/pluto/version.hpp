@@ -61,6 +61,22 @@
 #endif
 #endif
 
+#ifndef PLUTO_UTILS_HAS_FORMAT
+#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<format>)
+#define PLUTO_UTILS_HAS_FORMAT 1
+#else
+#define PLUTO_UTILS_HAS_FORMAT 0
+#endif
+#endif
+
+#ifndef PLUTO_UTILS_HAS_SOURCE_LOCATION
+#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<source_location>)
+#define PLUTO_UTILS_HAS_SOURCE_LOCATION 1
+#else
+#define PLUTO_UTILS_HAS_SOURCE_LOCATION 0
+#endif
+#endif
+
 #ifndef PLUTO_UTILS_HAS_32_BIT_WCHAR
 #ifdef _WIN32
 #define PLUTO_UTILS_HAS_32_BIT_WCHAR 0

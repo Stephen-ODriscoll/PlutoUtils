@@ -25,27 +25,11 @@
 #include "filesystem.hpp"
 #include "platform.hpp"
 
-#ifndef PLUTO_LOGGER_HAS_FORMAT
-#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<format>)
-#define PLUTO_LOGGER_HAS_FORMAT 1
-#else
-#define PLUTO_LOGGER_HAS_FORMAT 0
-#endif
-#endif
-
-#if PLUTO_LOGGER_HAS_FORMAT
+#if PLUTO_UTILS_HAS_FORMAT
 #include <format>
 #endif
 
-#ifndef PLUTO_LOGGER_HAS_SOURCE_LOCATION
-#if PLUTO_UTILS_HAS_CXX_20 && __has_include(<source_location>)
-#define PLUTO_LOGGER_HAS_SOURCE_LOCATION 1
-#else
-#define PLUTO_LOGGER_HAS_SOURCE_LOCATION 0
-#endif
-#endif
-
-#if PLUTO_LOGGER_HAS_SOURCE_LOCATION
+#if PLUTO_UTILS_HAS_SOURCE_LOCATION
 #include <source_location>
 #endif
 
@@ -133,7 +117,7 @@
 
 #define PLUTO_LOG_WRITEF(file, level, ...) PLUTO_LOG_WRITEF_WITH(pluto::logger::instance(), file, level, __VA_ARGS__)
 
-#if PLUTO_LOGGER_HAS_FORMAT
+#if PLUTO_UTILS_HAS_FORMAT
 #define PLUTO_LOG_FORMAT_WITH(logger, file, level, ...) \
     do \
     { \
@@ -196,7 +180,7 @@ namespace pluto
             line    { line },
             function{ function } {}
 
-#if PLUTO_LOGGER_HAS_SOURCE_LOCATION
+#if PLUTO_UTILS_HAS_SOURCE_LOCATION
         PLUTO_UTILS_CONSTEXPR source_info(const std::source_location& source = std::source_location::current()) :
             file    { source.file_name() },
             line    { static_cast<int>(source.line()) },
@@ -697,7 +681,7 @@ namespace pluto
         }
 #endif
 
-#if PLUTO_LOGGER_HAS_FORMAT
+#if PLUTO_UTILS_HAS_FORMAT
         template<class... Args>
         void format(
             const std::string&                  logFile,
