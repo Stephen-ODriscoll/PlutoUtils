@@ -21,7 +21,7 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        inline on_scope_exit() {}
+        inline on_scope_exit() = default;
 
         inline on_scope_exit(const std::function<void()>& task)
         {
@@ -64,7 +64,7 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        inline on_scope_success() {}
+        inline on_scope_success() = default;
 
         inline on_scope_success(const std::function<void()>& task)
         {
@@ -114,7 +114,7 @@ namespace pluto
         std::stack<std::function<void()>> m_tasks{};
 
     public:
-        inline on_scope_fail() {}
+        inline on_scope_fail() = default;
 
         inline on_scope_fail(const std::function<void()>& tasks)
         {
