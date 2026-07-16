@@ -199,15 +199,15 @@ namespace pluto
         std::string message;
 
         log_entry(
-            const time_type     time,
+            const time_type     logTime,
             const std::size_t   threadID,
-            const log_level     level,
-            const source_info&  source,
+            const log_level     logLevel,
+            const source_info   sourceInfo,
             const std::string&  message) :
-            time        { time },
+            time        { logTime },
             thread_id   { threadID },
-            level       { level },
-            source      { source },
+            level       { logLevel },
+            source      { sourceInfo },
             message     { message } {}
     };
 
@@ -306,7 +306,7 @@ namespace pluto
                 logger*             logger,
                 const std::string&  logFile,
                 const log_level     logLevel,
-                const source_info&  sourceInfo) :
+                const source_info   sourceInfo) :
                 m_logger    { logger },
                 m_logFile   { logFile },
                 m_logLevel  { logLevel },
@@ -600,7 +600,7 @@ namespace pluto
         void write(
             const std::string&  logFile,
             const log_level     logLevel,
-            const source_info&  sourceInfo,
+            const source_info   sourceInfo,
             const std::string&  message)
         {
             if (should_log(logLevel))
@@ -622,7 +622,7 @@ namespace pluto
         void writef(
             const std::string&  logFile,
             const log_level     logLevel,
-            const source_info&  sourceInfo,
+            const source_info   sourceInfo,
             const char* const   scheme,
             ...)
         {
@@ -681,7 +681,7 @@ namespace pluto
         void format(
             const std::string&                  logFile,
             const log_level                     logLevel,
-            const source_info&                  sourceInfo,
+            const source_info                   sourceInfo,
             const std::format_string<Args...>   scheme,
             Args&&...                           args)
         {
@@ -709,9 +709,9 @@ namespace pluto
             const std::string&  logFile,
             const log_level     logLevel,
 #if PLUTO_LOGGER_HIDE_SOURCE_INFO
-            const source_info&  sourceInfo = { "", 0, "" })
+            const source_info   sourceInfo = { "", 0, "" })
 #else
-            const source_info&  sourceInfo)
+            const source_info   sourceInfo)
 #endif
         {
             return { this, logFile, logLevel, sourceInfo };
@@ -721,7 +721,7 @@ namespace pluto
         void add_log_to_buffer(
             const std::string&  logFile,
             const log_level     logLevel,
-            const source_info&  sourceInfo,
+            const source_info   sourceInfo,
             const std::string&  message)
         {
             const auto logTime{ clock_type::now() };
