@@ -33,7 +33,7 @@ namespace pluto
         typedef typename pluto::lru_cache<Key, Value>::list_type list_type;
         typedef typename pluto::lru_cache<Key, Value>::map_type map_type;
 
-        inline safe_lru_cache(const std::size_t capacity) :
+        inline explicit safe_lru_cache(const std::size_t capacity) :
             m_lruCache{ capacity } {}
 
         PLUTO_UTILS_NODISCARD inline std::size_t size() const

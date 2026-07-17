@@ -30,7 +30,7 @@ namespace pluto
         bool                    m_isRunning;
 
     public:
-        inline stopwatch(const bool startNow = false) :
+        inline explicit stopwatch(const bool startNow = false) :
             m_time      {},
             m_start     {},
             m_isRunning { false }

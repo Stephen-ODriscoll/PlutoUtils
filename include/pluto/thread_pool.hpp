@@ -109,7 +109,7 @@ namespace pluto
         std::size_t m_activeWorkersSize;
 
     public:
-        thread_pool(const std::size_t targetWorkersSize = std::thread::hardware_concurrency()) :
+        explicit thread_pool(const std::size_t targetWorkersSize = std::thread::hardware_concurrency()) :
             m_onStop            { action::join_all },
             m_isStopping        { false },
             m_targetWorkersSize { targetWorkersSize },

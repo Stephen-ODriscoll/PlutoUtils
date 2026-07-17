@@ -30,7 +30,7 @@ namespace pluto
         map_type    m_map{};
     
     public:
-        inline lru_cache(const std::size_t capacity) :
+        inline explicit lru_cache(const std::size_t capacity) :
             m_capacity{ capacity } {}
 
         PLUTO_UTILS_NODISCARD inline std::size_t size() const

@@ -23,7 +23,7 @@ namespace pluto
     public:
         inline on_scope_exit() = default;
 
-        inline on_scope_exit(const std::function<void()>& task)
+        inline explicit on_scope_exit(const std::function<void()>& task)
         {
             add(task);
         }
@@ -66,7 +66,7 @@ namespace pluto
     public:
         inline on_scope_success() = default;
 
-        inline on_scope_success(const std::function<void()>& task)
+        inline explicit on_scope_success(const std::function<void()>& task)
         {
             add(task);
         }
@@ -116,7 +116,7 @@ namespace pluto
     public:
         inline on_scope_fail() = default;
 
-        inline on_scope_fail(const std::function<void()>& tasks)
+        inline explicit on_scope_fail(const std::function<void()>& tasks)
         {
             add(tasks);
         }
