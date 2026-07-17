@@ -25,15 +25,12 @@ namespace pluto
         typedef PLUTO_STOPWATCH_CLOCK_TYPE clock_type;
 
     private:
-        clock_type::duration    m_time;
-        clock_type::time_point  m_start;
-        bool                    m_isRunning;
+        clock_type::duration    m_time      {};
+        clock_type::time_point  m_start     {};
+        bool                    m_isRunning { false };
 
     public:
-        inline explicit stopwatch(const bool startNow = false) :
-            m_time      {},
-            m_start     {},
-            m_isRunning { false }
+        inline explicit stopwatch(const bool startNow = false)
         {
             if (startNow)
             {
