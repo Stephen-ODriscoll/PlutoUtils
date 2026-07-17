@@ -529,46 +529,46 @@ namespace pluto
             return m_headerWriter;
         }
 
-        inline logger& level(const log_level l)
+        inline logger& level(const log_level level)
         {
-            m_level.store(l);
+            m_level.store(level);
             return *this;
         }
 
-        inline logger& create_dirs(const bool b)
+        inline logger& create_dirs(const bool createDirs)
         {
-            m_createDirs.store(b);
+            m_createDirs.store(createDirs);
             return *this;
         }
 
-        inline logger& write_header(const bool b)
+        inline logger& write_header(const bool writeHeader)
         {
-            m_writeHeader.store(b);
+            m_writeHeader.store(writeHeader);
             return *this;
         }
 
-        inline logger& buffer_max_size(const std::size_t s)
+        inline logger& buffer_max_size(const std::size_t bufferMaxSize)
         {
-            m_bufferMaxSize.store(s);
+            m_bufferMaxSize.store(bufferMaxSize);
             return *this;
         }
 
-        inline logger& buffer_flush_size(const std::size_t s)
+        inline logger& buffer_flush_size(const std::size_t bufferFlushSize)
         {
-            m_bufferFlushSize.store(s);
+            m_bufferFlushSize.store(bufferFlushSize);
             m_loggingCondition.notify_one();  // wake the logging thread
             return *this;
         }
 
-        inline logger& file_rotation_size(const std::size_t s)
+        inline logger& file_rotation_size(const std::size_t fileRotationSize)
         {
-            m_fileRotationSize.store(s);
+            m_fileRotationSize.store(fileRotationSize);
             return *this;
         }
 
-        inline logger& file_rotation_limit(const std::size_t s)
+        inline logger& file_rotation_limit(const std::size_t fileRotationLimit)
         {
-            m_fileRotationLimit.store(s);
+            m_fileRotationLimit.store(fileRotationLimit);
             return *this;
         }
 
@@ -578,17 +578,17 @@ namespace pluto
             return *this;
         }
 
-        inline logger& log_writer(const std::function<void(std::ostream&, const log_entry&)>& f)
+        inline logger& log_writer(const std::function<void(std::ostream&, const log_entry&)>& logWriter)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
-            m_logWriter = f;
+            m_logWriter = logWriter;
             return *this;
         }
 
-        inline logger& header_writer(const std::function<void(std::ostream&)>& f)
+        inline logger& header_writer(const std::function<void(std::ostream&)>& headerWriter)
         {
             const std::unique_lock<std::mutex> lock{ m_configMutex };
-            m_headerWriter = f;
+            m_headerWriter = headerWriter;
             return *this;
         }
 
