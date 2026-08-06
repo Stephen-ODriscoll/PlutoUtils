@@ -724,9 +724,8 @@ namespace pluto
             const source_info   sourceInfo,
             const std::string&  message)
         {
-            const auto logTime{ clock_type::now() };
-
-            const auto threadID{ thread_id() };
+            const auto logTime  { clock_type::now() };
+            const auto threadID { pluto::thread_id() };
 
             std::unique_lock<std::mutex> lock{ m_loggingMutex };
 
