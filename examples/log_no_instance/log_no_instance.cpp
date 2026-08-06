@@ -5,13 +5,11 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
-#define PLUTO_LOGGER_NO_SINGLETON 1
-
 #include <pluto/logger.hpp>
 
 pluto::logger g_logger{};
 
-#define LOG_FILE "logs/log_no_singleton.log"
+#define LOG_FILE "logs/log_no_instance.log"
 
 #define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
 

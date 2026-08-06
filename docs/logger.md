@@ -31,9 +31,6 @@ Timestamp                 |PID    |TID    |Level   |File Name           |Line |F
 ### PLUTO_LOGGER_CLOCK_TYPE
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::system_clock**.
 
-### PLUTO_LOGGER_NO_SINGLETON
-Define this macro as 1 to expose the logger constructor and destructor. Otherwise, use [pluto::logger::instance()](#instance). Defaults to 0.
-
 ### PLUTO_LOGGER_HIDE_SOURCE_INFO
 Define this macro as 1 to hide all source info. This will prevent logger from using macros that expose the file name, line number and function name. Defaults to 0.
 
@@ -153,7 +150,7 @@ Takes a [pluto::log_level](#log_level). Returns a three character **const char\*
 Takes a [pluto::log_level](#log_level). Returns a **char** corresponding to that log level.
 
 ### logger
-Constructor takes no arguments as this class is normally a singleton. Define [PLUTO_LOGGER_NO_SINGLETON](#PLUTO_LOGGER_NO_SINGLETON) as 1 to access the constructor.
+Constructor takes no arguments.
 
 #### clock_type
 The type of the clock. Defaults to [PLUTO_LOGGER_CLOCK_TYPE](#PLUTO_LOGGER_CLOCK_TYPE).
@@ -206,7 +203,7 @@ The limit to the number of older files that are stored. If that number is 5, the
 Returns a **std::size_t** representing the current number of discarded logs.
 - Logs will be discarded when the buffer is full and a new log cannot be added.
 - If this is a problem, then you can increase the size of the log buffer with [buffer_max_size()](#buffer_max_size), or reduce the frequency of logging.
-- If you're logging to multiple files, you can try having multiple loggers, which means multiple logging threads. This can be done by defining [PLUTO_LOGGER_NO_SINGLETON](#PLUTO_LOGGER_NO_SINGLETON) as 1 and creating a global logger for each file.
+- If you're logging to multiple files, you can use multiple loggers, which means multiple logging threads.
 
 #### reset_num_discarded_logs()
 Resets the number of discarded logs back to 0. See [num_discarded_logs()](#num_discarded_logs).

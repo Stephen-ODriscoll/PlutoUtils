@@ -5,14 +5,14 @@
 # Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 #
 
-project(log_no_singleton)
+project(log_no_instance)
 
 include_directories(
     ../../include)
 
 add_executable(
     ${PROJECT_NAME}
-    log_no_singleton.cpp)
+    log_no_instance.cpp)
 
 if((NOT MSVC) AND CMAKE_CXX_STANDARD EQUAL 14)
     target_link_libraries(

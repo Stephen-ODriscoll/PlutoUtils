@@ -38,10 +38,6 @@
 #define PLUTO_LOGGER_CLOCK_TYPE std::chrono::system_clock
 #endif
 
-#ifndef PLUTO_LOGGER_NO_SINGLETON
-#define PLUTO_LOGGER_NO_SINGLETON 0 // Define as 1 or 0
-#endif
-
 #ifndef PLUTO_LOGGER_HIDE_SOURCE_INFO
 #define PLUTO_LOGGER_HIDE_SOURCE_INFO 0 // Define as 1 or 0
 #endif
@@ -371,9 +367,7 @@ namespace pluto
         std::function<void(std::ostream&, const log_entry&)>    m_logWriter     { PLUTO_LOGGER_INITIAL_LOG_WRITER };
         std::function<void(std::ostream&)>                      m_headerWriter  { PLUTO_LOGGER_INITIAL_HEADER_WRITER };
 
-#if PLUTO_LOGGER_NO_SINGLETON
     public:
-#endif
         logger()
         {
             m_loggingThread = std::thread(&logger::start_logging, this);
@@ -405,7 +399,6 @@ namespace pluto
             }
         }
 
-    public:
         logger(const logger&) = delete;
 
         logger(logger&&) = delete;
