@@ -6,7 +6,9 @@ This logger is tread safe.
 
 This logger can be configured with macros, or with setters.
 
-I would recommend having your own header file that incluces this logger, configures it and defines its own macros for logging that forward to [PLUTO_LOG_WRITE](#PLUTO_LOG_WRITE), [PLUTO_LOG_WRITEF](#PLUTO_LOG_WRITEF), [PLUTO_LOG_FORMAT](#PLUTO_LOG_FORMAT) or [PLUTO_LOG_STREAM](#PLUTO_LOG_STREAM).
+I would recommend using the logging macros, rather than calling the logging functions. The macros are optimised to check the logger level before calling the logging function. If extra work is required to create the message, it can be avoided if the message isn't logged.
+
+I would also recommend having your own header file that incluces this logger, configures it and defines its own macros for logging that forward to [PLUTO_LOG_WRITE](#PLUTO_LOG_WRITE), [PLUTO_LOG_WRITEF](#PLUTO_LOG_WRITEF), [PLUTO_LOG_FORMAT](#PLUTO_LOG_FORMAT) or [PLUTO_LOG_STREAM](#PLUTO_LOG_STREAM).
 
 The default behaviour is to write log details in a column format. These columns include timestamp, process id, thread id, level, file name, line, function and message.
 

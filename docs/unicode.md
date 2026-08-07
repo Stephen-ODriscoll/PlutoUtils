@@ -6,7 +6,9 @@ When referring to strings, this includes **std::string**, **std::wstring**, **st
 
 Whether **std::wstring** is treated as UTF-16 or UTF-32 is dependant on [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR).
 
-Tested against the same behaviour on Python for all valid Unicode characters, 0 to 0x110000. All conversions are tested.
+The Unicode endianness is expected to match the system endianness. UTF-16BE and UTF-32BE on Big Endian systems, and UTF-16LE and UTF-32LE on Little Endian systems.
+
+Tested against the same behaviour on Python for all valid Unicode characters, 0 to 0x110000. All conversions are tested by unit tests.
 
 Invalid characters are represented as U+FFFD(�). This is a "best effort" approach, no other errors or exceptions will be thrown.
 
