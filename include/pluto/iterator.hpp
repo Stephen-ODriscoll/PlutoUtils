@@ -122,7 +122,7 @@ namespace pluto
 
         auto rit{ pluto::find(rbegin, rend, elem) };
 
-        return (rit == rend ? end : --(rit.base()));
+        return ((rit == rend) ? end : --(rit.base()));
     }
 
 #if PLUTO_UTILS_HAS_CXX_17
@@ -158,7 +158,7 @@ namespace pluto
 
         auto rit{ pluto::find_if(rbegin, rend, predicate) };
 
-        return (rit == rend ? end : --(rit.base()));
+        return ((rit == rend) ? end : --(rit.base()));
     }
 
     template<class Iterator, class Predicate>
@@ -181,7 +181,7 @@ namespace pluto
 
         auto rit{ pluto::find_if_not(rbegin, rend, predicate) };
 
-        return (rit == rend ? end : --(rit.base()));
+        return ((rit == rend) ? end : --(rit.base()));
     }
 
     template<class Iterator, class Elem>

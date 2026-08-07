@@ -1767,7 +1767,7 @@ namespace pluto
         std::size_t position{ maxLength * 3 };
         for (std::size_t i{ maxLength }; 0 < i; --i)
         {
-            const auto digit{ (value >> (position -= 3)) & (i == maxLength ? lastBits[remainder] : 07) };
+            const auto digit{ (value >> (position -= 3)) & ((i == maxLength) ? lastBits[remainder] : 07) };
             if (!result.empty())
             {
                 result.push_back(characters[digit]);
