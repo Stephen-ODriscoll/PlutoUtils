@@ -16,18 +16,17 @@ Have a look at some of the examples for suggestions on how to setup and use this
 
 Sample output:
 ```
-Timestamp                 |PID    |TID    |Level   |File Name           |Line |Function            |Message
---------------------------+-------+-------+--------+--------------------+-----+--------------------+-------
-2025-09-12 18:49:19.566039|  41352|  26380|        |log_default.cpp     |   24|main                |Log write
-2025-09-12 18:49:19.566125|  41352|  26380|Verbose |log_default.cpp     |   29|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566140|  41352|  26380|Trace   |log_default.cpp     |   30|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566147|  41352|  26380|Debug   |log_default.cpp     |   31|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566151|  41352|  26380|Info    |log_default.cpp     |   32|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566155|  41352|  26380|Notice  |log_default.cpp     |   33|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566162|  41352|  26380|Warning |log_default.cpp     |   34|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566166|  41352|  26380|Error   |log_default.cpp     |   35|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566177|  41352|  26380|Critical|log_default.cpp     |   36|main                |Log writef 0 of 100
-2025-09-12 18:49:19.566181|  41352|  26380|Fatal   |log_default.cpp     |   37|main                |Log writef 0 of 100
+Timestamp                 |    TID|Level   |File Name           | Line|Function            |Message
+--------------------------+-------+--------+--------------------+-----+--------------------+-------
+2026-08-08 13:41:40.380332|  45336|Fatal   |log_default.cpp     |   27|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380372|  45336|Critical|log_default.cpp     |   28|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380383|  45336|Error   |log_default.cpp     |   29|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380386|  45336|Warning |log_default.cpp     |   30|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380388|  45336|Notice  |log_default.cpp     |   31|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380393|  45336|Info    |log_default.cpp     |   32|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380396|  45336|Debug   |log_default.cpp     |   33|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380398|  45336|Trace   |log_default.cpp     |   34|main                |Log writef 0 of 100
+2026-08-08 13:41:40.380401|  45336|Verbose |log_default.cpp     |   35|main                |Log writef 0 of 100
 ```
 
 ### PLUTO_LOGGER_CLOCK_TYPE
@@ -92,18 +91,17 @@ Definition that takes a file, a level and any number of additional arguments and
 
 ### log_level
 Represents a log level. Level options are:
-- **header**: Not an actual level. Used to get the level header.
-- **verbose**/**verb**: Very informative and noisy updates.
-- **trace**: Specialised step-by-step tracking updates.
-- **debug**: Helpful updates for more in depth tracking.
-- **info**: Important updates for tracking activity.
-- **notice**/**note**: Strange or significant behaviour that is not an issue by itself.
-- **warning**/**warn**: Issues which should not be noticed or have been mitigated.
-- **error**: Issues which have a noticeable impact but do not affect functionality.
-- **critical**/**crit**: Issues which cause high impact or loss of functionality.
-- **fatal**: Issues which break the application or a large portion of it.
-- **none**: No level specified. Always log if logging is enabled.
 - **off**: Disable logging.
+- **fatal**/**ftl**: Issues which break the application or a large portion of it.
+- **critical**/**crit**/**crt**: Issues which cause high impact or loss of functionality.
+- **error**/**err**: Issues which have a noticeable impact but do not affect functionality.
+- **warning**/**warn**/**wrn**: Issues which should not be noticed or have been mitigated.
+- **notice**/**note**/**ntc**: Strange or significant behaviour that is not an issue by itself.
+- **info**/**inf**: Important updates for tracking application activity.
+- **debug**/**dbg**: Helpful updates for more in depth tracking.
+- **trace**/**trc**: Specialised step-by-step tracking updates.
+- **verbose**/**verb**/**vrb**: Very informative and noisy updates.
+- **header**: Not an actual level. Used to get the level header.
 
 ### source_info
 Represents information about some source code.
@@ -192,7 +190,7 @@ The number of logs to store before waking the logging thread. 0 or 1 will wake t
 2. Takes a **std::size_t** and sets this to be the new log buffer flush size.
 
 #### file_rotation_size()
-The size of the file (in bytes) whereby the file will be rotated. Rotated means that the current file will have "_1" appended and any other file will have their number incremented. 0 means no rotation and log files will grow indefinitely.
+The size of the file (in bytes) whereby, after this size is hit, the file will be rotated. Rotated means that the current file will have "_1" appended, and any other file will have their index incremented. 0 means no rotation, and log files will grow indefinitely.
 1. Returns a **std::size_t** representing the current log file rotation size.
 2. Takes a **std::size_t** and sets this to be the new log file rotation size.
 

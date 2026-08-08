@@ -143,23 +143,32 @@ namespace pluto
 {
     enum class log_level : signed char
     {
-        header = -1,    // Reserved for header info.
-        verbose,        // Very informative and noisy updates.
-        trace,          // Specialised step-by-step tracking updates.
-        debug,          // Helpful updates for more in depth tracking.
-        info,           // Important updates for tracking activity.
-        notice,         // Strange or significant behaviour that is not an issue by itself.
-        warning,        // Issues which should not be noticed or have been mitigated.
-        error,          // Issues which have a noticeable impact but do not affect functionality.
-        critical,       // Issues which cause high impact or loss of functionality.
-        fatal,          // Issues which break the application or a large portion of it.
-        none,           // No level specified.
-        off,            // Disable logging.
+        off         = 9,    // Disable logging.
+        fatal       = 8,    // Issues which break the application or a large portion of it.
+        critical    = 7,    // Issues which cause high impact or loss of functionality.
+        error       = 6,    // Issues which have a noticeable impact but do not affect functionality.
+        warning     = 5,    // Issues which should not be noticed or have been mitigated.
+        notice      = 4,    // Strange or significant behaviour that is not an issue by itself.
+        info        = 3,    // Important updates for tracking application activity.
+        debug       = 2,    // Helpful updates for more in depth tracking.
+        trace       = 1,    // Specialised step-by-step tracking updates.
+        verbose     = 0,    // Very informative and noisy updates.
+        header      = -1,   // Reserved for header info.
 
-        verb = verbose,
-        note = notice,
+        crit = critical,
         warn = warning,
-        crit = critical
+        note = notice,
+        verb = verbose,
+
+        ftl = fatal,
+        crt = critical,
+        err = error,
+        wrn = warning,
+        ntc = notice,
+        inf = info,
+        dbg = debug,
+        trc = trace,
+        vrb = verbose
     };
 
     struct source_info
@@ -221,7 +230,6 @@ namespace pluto
             case log_level::error:      return "error";
             case log_level::critical:   return "critical";
             case log_level::fatal:      return "fatal";
-            case log_level::none:       return "";
             default:                    return "unknown";
         }
     }
@@ -240,7 +248,6 @@ namespace pluto
             case log_level::error:      return "Error";
             case log_level::critical:   return "Critical";
             case log_level::fatal:      return "Fatal";
-            case log_level::none:       return "";
             default:                    return "Unknown";
         }
     }
@@ -259,7 +266,6 @@ namespace pluto
             case log_level::error:      return "ERR";
             case log_level::critical:   return "CRT";
             case log_level::fatal:      return "FTL";
-            case log_level::none:       return "   ";
             default:                    return "UNK";
         }
     }
@@ -278,7 +284,6 @@ namespace pluto
             case log_level::error:      return 'E';
             case log_level::critical:   return 'C';
             case log_level::fatal:      return 'F';
-            case log_level::none:       return ' ';
             default:                    return '?';
         }
     }
@@ -348,7 +353,7 @@ namespace pluto
             bool                    dirsCreated { false };
         };
 
-        mutable std::mutex              m_loggingMutex      {};
+        std::mutex                      m_loggingMutex      {};
         std::thread                     m_loggingThread     {};
         std::condition_variable         m_loggingCondition  {};
         std::map<std::string, log_file> m_logFiles          {};
@@ -424,7 +429,6 @@ namespace pluto
                 << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S.")
                 << std::setw(6) << microseconds << '|'
                 << std::setfill(' ')
-                << std::setw(7) << pluto::process_id() << '|'
                 << std::setw(7) << log.thread_id << '|'
                 << std::left
                 << std::setw(8) << pluto::log_level_to_title(log.level) << '|'
@@ -442,18 +446,20 @@ namespace pluto
         {
             stream << std::left << std::setfill(' ')
                 << std::setw(26) << "Timestamp" << '|'
-                << std::setw(7) << "PID" << '|'
+                << std::right
                 << std::setw(7) << "TID" << '|'
+                << std::left
                 << std::setw(8) << pluto::log_level_to_title(log_level::header) << '|'
     #if !PLUTO_LOGGER_HIDE_SOURCE_INFO
                 << std::setw(20) << "File Name" << '|'
+                << std::right
                 << std::setw(5) << "Line" << '|'
+                << std::left
                 << std::setw(20) << "Function" << '|'
     #endif
                 << "Message" << '\n'
                 << std::setfill('-')
                 << std::setw(26) << "" << '+'
-                << std::setw(7) << "" << '+'
                 << std::setw(7) << "" << '+'
                 << std::setw(8) << "" << '+'
     #if !PLUTO_LOGGER_HIDE_SOURCE_INFO
@@ -549,7 +555,7 @@ namespace pluto
         inline logger& buffer_flush_size(const std::size_t bufferFlushSize)
         {
             m_bufferFlushSize.store(bufferFlushSize);
-            m_loggingCondition.notify_one();  // wake the logging thread
+            m_loggingCondition.notify_one(); // wake the logging thread
             return *this;
         }
 
