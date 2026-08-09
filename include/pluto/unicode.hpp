@@ -94,7 +94,7 @@ namespace pluto
                 }
             }
 
-            utf16.push_back(0xFFFD);    // Invalid
+            utf16.push_back(0xFFFD); // Invalid
         }
     }
 
@@ -253,7 +253,7 @@ namespace pluto
                 }
             }
 
-            utf32.push_back(0xFFFD);    // Invalid
+            utf32.push_back(0xFFFD); // Invalid
         }
     }
 
@@ -356,7 +356,7 @@ namespace pluto
                 }
             }
 
-            utf32.push_back(0xFFFD);   // Invalid
+            utf32.push_back(0xFFFD); // Invalid
         }
     }
 
@@ -394,7 +394,7 @@ namespace pluto
                 continue;
             }
 
-            utf16.push_back(0xFFFD);   // Invalid
+            utf16.push_back(0xFFFD); // Invalid
         }
     }
 
