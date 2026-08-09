@@ -13,7 +13,7 @@ Returns an **int** for the current process id.
 Returns an **std::size_t** for the current thread id.
 
 ### local_time()
-Takes a **std::time_t** for the posix time. Returns a **std::tm** for the local time using **localtime_s** or **localtime_r**.
+Takes a **std::time_t** for the posix time. Returns a **std::tm** for the local time using **localtime_s()** or **localtime_r()**.
 
 ### gm_time()
-Takes a **std::time_t** for the posix time. Returns a **std::tm** for the Greenwich Mean Time using **gmtime_s** or **gmtime_r**.
+Takes a **std::time_t** for the posix time. Returns a **std::tm** for the Greenwich Mean Time using **gmtime_s()** or **gmtime_r()**.

@@ -7,21 +7,21 @@ These utilities are very useful for cleanup, especially cleanup of handles or me
 
 ### on_scope_exit
 1. Takes no arguments and creates a blank stack of tasks to perform on scope exit.
-2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope exit.
+2. Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope exit.
 
 #### add()
-Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope exit.
+Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope exit.
 
 ### on_scope_success
 1. Takes no arguments and creates a blank stack of tasks to perform on scope success.
-2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope success.
+2. Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope success.
 
 #### add()
-Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope success.
+Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope success.
 
 ### on_scope_fail
 1. Takes no arguments and creates a blank stack of tasks to perform on scope fail.
-2. Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope fail.
+2. Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope fail.
 
 #### add()
-Takes a **std::function** with no arguments and **void** return type (use lambdas) and adds it to the stack of tasks to perform on scope fail.
+Takes a **std::function\<void()\>** (use lambdas) and adds it to the stack of tasks to perform on scope fail.
