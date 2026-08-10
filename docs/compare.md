@@ -11,12 +11,12 @@ Secondly, the functions that compare case insensitive equality do an initial equ
 Optional locales default to [pluto::default_locale()](./locale.md#default_locale).
 
 ### is_true
-#### operator()
+#### operator()()
 1. Takes a **bool**. Returns that **bool**.
 2. Takes a value. Returns a **bool** representing whether that value equates to **true**.
 
 ### is_false
-#### operator()
+#### operator()()
 Takes a value. Returns a **bool** representing whether that value equates to **false**.
 
 ### is_equal
@@ -40,35 +40,35 @@ Alias of **std::greater_equal\<\>**.
 ### is_equal_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left and right are equal, ignoring case.
 
 ### is_not_equal_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left and right are not equal, ignoring case.
 
 ### is_less_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is less than right, ignoring case.
 
 ### is_greater_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is greater than right, ignoring case.
 
 ### is_less_equal_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is less than or equal to right, ignoring case.
 
 ### is_greater_equal_ignore_case
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
-#### operator()
+#### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is greater than or equal to right, ignoring case.
