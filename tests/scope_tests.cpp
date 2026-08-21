@@ -14,7 +14,7 @@
 class scope_tests : public testing::Test
 {};
 
-TEST_F(scope_tests, test_on_scope_exit_with_success)
+TEST_F(scope_tests, test_on_scope_exit_construct_with_success)
 {
     bool changed{ false };
 
@@ -30,7 +30,7 @@ TEST_F(scope_tests, test_on_scope_exit_with_success)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_tests, test_on_scope_exit_with_fail)
+TEST_F(scope_tests, test_on_scope_exit_construct_with_fail)
 {
     bool changed{ false };
 
@@ -50,7 +50,37 @@ TEST_F(scope_tests, test_on_scope_exit_with_fail)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_tests, test_on_scope_success_with_success)
+TEST_F(scope_tests, test_on_scope_exit_add_with_success)
+{
+    bool changed{ false };
+
+    {
+        pluto::on_scope_exit onScopeExit{};
+        onScopeExit.add([&changed]() { changed = true; });
+        ASSERT_FALSE(changed);
+    }
+
+    ASSERT_TRUE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_exit_add_with_fail)
+{
+    bool changed{ false };
+
+    try
+    {
+        pluto::on_scope_exit onScopeExit{};
+        onScopeExit.add([&changed]() { changed = true; });
+        ASSERT_FALSE(changed);
+
+        throw std::runtime_error{ "Test error" };
+    }
+    catch (const std::runtime_error& err) {}
+
+    ASSERT_TRUE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_success_construct_with_success)
 {
     bool changed{ false };
 
@@ -66,7 +96,7 @@ TEST_F(scope_tests, test_on_scope_success_with_success)
     ASSERT_TRUE(changed);
 }
 
-TEST_F(scope_tests, test_on_scope_success_with_fail)
+TEST_F(scope_tests, test_on_scope_success_construct_with_fail)
 {
     bool changed{ false };
 
@@ -86,7 +116,37 @@ TEST_F(scope_tests, test_on_scope_success_with_fail)
     ASSERT_FALSE(changed);
 }
 
-TEST_F(scope_tests, test_on_scope_fail_with_success)
+TEST_F(scope_tests, test_on_scope_success_add_with_success)
+{
+    bool changed{ false };
+
+    {
+        pluto::on_scope_success onScopeSuccess{};
+        onScopeSuccess.add([&changed]() { changed = true; });
+        ASSERT_FALSE(changed);
+    }
+
+    ASSERT_TRUE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_success_add_with_fail)
+{
+    bool changed{ false };
+
+    try
+    {
+        pluto::on_scope_success onScopeSuccess{};
+        onScopeSuccess.add([&changed]() { changed = true; });
+        ASSERT_FALSE(changed);
+
+        throw std::runtime_error{ "Test error" };
+    }
+    catch (const std::runtime_error& err) {}
+
+    ASSERT_FALSE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_fail_construct_with_success)
 {
     bool changed{ false };
 
@@ -102,7 +162,7 @@ TEST_F(scope_tests, test_on_scope_fail_with_success)
     ASSERT_FALSE(changed);
 }
 
-TEST_F(scope_tests, test_on_scope_fail_with_fail)
+TEST_F(scope_tests, test_on_scope_fail_construct_with_fail)
 {
     bool changed{ false };
 
@@ -113,6 +173,36 @@ TEST_F(scope_tests, test_on_scope_fail_with_fail)
             [&changed]() { changed = true; }
         };
 
+        ASSERT_FALSE(changed);
+
+        throw std::runtime_error{ "Test error" };
+    }
+    catch (const std::runtime_error& err) {}
+
+    ASSERT_TRUE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_fail_add_with_success)
+{
+    bool changed{ false };
+
+    {
+        pluto::on_scope_fail onScopeFail{};
+        onScopeFail.add([&changed]() { changed = true; });
+        ASSERT_FALSE(changed);
+    }
+
+    ASSERT_FALSE(changed);
+}
+
+TEST_F(scope_tests, test_on_scope_fail_add_with_fail)
+{
+    bool changed{ false };
+
+    try
+    {
+        pluto::on_scope_fail onScopeFail{};
+        onScopeFail.add([&changed]() { changed = true; });
         ASSERT_FALSE(changed);
 
         throw std::runtime_error{ "Test error" };
