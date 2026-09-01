@@ -9,58 +9,90 @@
 
 #define LOG_FILE "logs/log_default.log"
 
-#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE(LOG_FILE, level, __VA_ARGS__)
+#define LOG_WRITE_FATAL(...)    PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::fatal, __VA_ARGS__)
+#define LOG_WRITE_CRITICAL(...) PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::critical, __VA_ARGS__)
+#define LOG_WRITE_ERROR(...)    PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::error, __VA_ARGS__)
+#define LOG_WRITE_WARNING(...)  PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::warning, __VA_ARGS__)
+#define LOG_WRITE_NOTICE(...)   PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::notice, __VA_ARGS__)
+#define LOG_WRITE_INFO(...)     PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::info, __VA_ARGS__)
+#define LOG_WRITE_DEBUG(...)    PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::debug, __VA_ARGS__)
+#define LOG_WRITE_TRACE(...)    PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::trace, __VA_ARGS__)
+#define LOG_WRITE_VERBOSE(...)  PLUTO_LOG_WRITE(LOG_FILE, pluto::log_level::verbose, __VA_ARGS__)
 
-#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF(LOG_FILE, level, __VA_ARGS__)
+#define LOG_WRITEF_FATAL(...)       PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::fatal, __VA_ARGS__)
+#define LOG_WRITEF_CRITICAL(...)    PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::critical, __VA_ARGS__)
+#define LOG_WRITEF_ERROR(...)       PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::error, __VA_ARGS__)
+#define LOG_WRITEF_WARNING(...)     PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::warning, __VA_ARGS__)
+#define LOG_WRITEF_NOTICE(...)      PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::notice, __VA_ARGS__)
+#define LOG_WRITEF_INFO(...)        PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::info, __VA_ARGS__)
+#define LOG_WRITEF_DEBUG(...)       PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::debug, __VA_ARGS__)
+#define LOG_WRITEF_TRACE(...)       PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::trace, __VA_ARGS__)
+#define LOG_WRITEF_VERBOSE(...)     PLUTO_LOG_WRITEF(LOG_FILE, pluto::log_level::verbose, __VA_ARGS__)
 
 #if PLUTO_UTILS_HAS_FORMAT
-#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT(LOG_FILE, level, __VA_ARGS__)
+#define LOG_FORMAT_FATAL(...)       PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::fatal, __VA_ARGS__)
+#define LOG_FORMAT_CRITICAL(...)    PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::critical, __VA_ARGS__)
+#define LOG_FORMAT_ERROR(...)       PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::error, __VA_ARGS__)
+#define LOG_FORMAT_WARNING(...)     PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::warning, __VA_ARGS__)
+#define LOG_FORMAT_NOTICE(...)      PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::notice, __VA_ARGS__)
+#define LOG_FORMAT_INFO(...)        PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::info, __VA_ARGS__)
+#define LOG_FORMAT_DEBUG(...)       PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::debug, __VA_ARGS__)
+#define LOG_FORMAT_TRACE(...)       PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::trace, __VA_ARGS__)
+#define LOG_FORMAT_VERBOSE(...)     PLUTO_LOG_FORMAT(LOG_FILE, pluto::log_level::verbose, __VA_ARGS__)
 #endif
 
-#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM(LOG_FILE, level, __VA_ARGS__)
+#define LOG_STREAM_FATAL(...)       PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::fatal, __VA_ARGS__)
+#define LOG_STREAM_CRITICAL(...)    PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::critical, __VA_ARGS__)
+#define LOG_STREAM_ERROR(...)       PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::error, __VA_ARGS__)
+#define LOG_STREAM_WARNING(...)     PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::warning, __VA_ARGS__)
+#define LOG_STREAM_NOTICE(...)      PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::notice, __VA_ARGS__)
+#define LOG_STREAM_INFO(...)        PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::info, __VA_ARGS__)
+#define LOG_STREAM_DEBUG(...)       PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::debug, __VA_ARGS__)
+#define LOG_STREAM_TRACE(...)       PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::trace, __VA_ARGS__)
+#define LOG_STREAM_VERBOSE(...)     PLUTO_LOG_STREAM(LOG_FILE, pluto::log_level::verbose, __VA_ARGS__)
 
 int main(int argc, char* argv[])
 {
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_WRITEF(fatal, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(critical, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(error, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(warning, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(notice, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(info, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(debug, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(trace, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(verbose, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_FATAL("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_CRITICAL("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_ERROR("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_WARNING("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_NOTICE("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_INFO("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_DEBUG("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_TRACE("Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF_VERBOSE("Log writef %zu of %zu", i, numLogs);
     }
 
 #if PLUTO_UTILS_HAS_FORMAT
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_FORMAT(fatal, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(critical, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(error, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(warning, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(notice, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(info, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(debug, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(trace, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(verbose, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT_FATAL("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_CRITICAL("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_ERROR("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_WARNING("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_NOTICE("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_INFO("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_DEBUG("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_TRACE("Log format {} of {}", i, numLogs);
+        LOG_FORMAT_VERBOSE("Log format {} of {}", i, numLogs);
     }
 #endif
 
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_STREAM(fatal, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(critical, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(error, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(warning, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(notice, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(info, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(debug, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(trace, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(verbose, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM_FATAL("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_CRITICAL("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_ERROR("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_WARNING("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_NOTICE("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_INFO("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_DEBUG("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_TRACE("Log stream " << i << " of " << numLogs);
+        LOG_STREAM_VERBOSE("Log stream " << i << " of " << numLogs);
     }
 
     return 0;

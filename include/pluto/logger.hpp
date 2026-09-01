@@ -54,7 +54,7 @@
 
 // Configurable with macros or setters
 #ifndef PLUTO_LOGGER_INITIAL_LEVEL
-#define PLUTO_LOGGER_INITIAL_LEVEL verbose
+#define PLUTO_LOGGER_INITIAL_LEVEL pluto::log_level::verbose
 #endif
 
 #ifndef PLUTO_LOGGER_INITIAL_CREATE_DIRS
@@ -92,9 +92,9 @@
 #define PLUTO_LOG_WRITE_WITH(logger, file, level, ...) \
     do \
     { \
-        if (logger.should_log(pluto::log_level::level)) \
+        if (logger.should_log(level)) \
         { \
-            logger.write(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.write(file, level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
@@ -104,9 +104,9 @@
 #define PLUTO_LOG_WRITEF_WITH(logger, file, level, ...) \
     do \
     { \
-        if (logger.should_log(pluto::log_level::level)) \
+        if (logger.should_log(level)) \
         { \
-            logger.writef(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.writef(file, level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
@@ -117,9 +117,9 @@
 #define PLUTO_LOG_FORMAT_WITH(logger, file, level, ...) \
     do \
     { \
-        if (logger.should_log(pluto::log_level::level)) \
+        if (logger.should_log(level)) \
         { \
-            logger.format(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
+            logger.format(file, level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }, __VA_ARGS__); \
         } \
     } \
     while(false)
@@ -130,9 +130,9 @@
 #define PLUTO_LOG_STREAM_WITH(logger, file, level, ...) \
     do \
     { \
-        if (logger.should_log(pluto::log_level::level)) \
+        if (logger.should_log(level)) \
         { \
-            (logger.stream(file, pluto::log_level::level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }) << __VA_ARGS__).end(); \
+            (logger.stream(file, level, { PLUTO_LOGGER_SOURCE_INFO_ARGS }) << __VA_ARGS__).end(); \
         } \
     } \
     while (false)
@@ -359,7 +359,7 @@ namespace pluto
         std::map<std::string, log_file> m_logFiles          {};
 
         std::atomic_bool        m_isLogging         { true };
-        std::atomic<log_level>  m_level             { log_level::PLUTO_LOGGER_INITIAL_LEVEL };
+        std::atomic<log_level>  m_level             { PLUTO_LOGGER_INITIAL_LEVEL };
         std::atomic_bool        m_createDirs        { PLUTO_LOGGER_INITIAL_CREATE_DIRS };
         std::atomic_bool        m_writeHeader       { PLUTO_LOGGER_INITIAL_WRITE_HEADER };
         std::atomic_size_t      m_bufferMaxSize     { PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE };

@@ -7,15 +7,15 @@
 
 #include <pluto/logger.hpp>
 
-#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE("logs/log_"#level".log", level, __VA_ARGS__)
+#define LOG_WRITE(lvl, ...) PLUTO_LOG_WRITE("logs/log_"#lvl".log", pluto::log_level::lvl, __VA_ARGS__)
 
-#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF("logs/log_"#level".log", level, __VA_ARGS__)
+#define LOG_WRITEF(lvl, ...)    PLUTO_LOG_WRITEF("logs/log_"#lvl".log", pluto::log_level::lvl, __VA_ARGS__)
 
 #if PLUTO_UTILS_HAS_FORMAT
-#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT("logs/log_"#level".log", level, __VA_ARGS__)
+#define LOG_FORMAT(lvl, ...)    PLUTO_LOG_FORMAT("logs/log_"#lvl".log", pluto::log_level::lvl, __VA_ARGS__)
 #endif
 
-#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM("logs/log_"#level".log", level, __VA_ARGS__)
+#define LOG_STREAM(lvl, ...)    PLUTO_LOG_STREAM("logs/log_"#lvl".log", pluto::log_level::lvl, __VA_ARGS__)
 
 void custom_log_writer(std::ostream& stream, const pluto::log_entry& log)
 {
@@ -69,43 +69,43 @@ int main(int argc, char* argv[])
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_WRITEF(fatal, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(critical, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(error, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(warning, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(notice, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(info, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(debug, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(trace, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(verbose, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(ftl, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(crt, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(err, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(wrn, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(ntc, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(inf, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(dbg, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(trc, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(vrb, "Log writef %zu of %zu", i, numLogs);
     }
 
 #if PLUTO_UTILS_HAS_FORMAT
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_FORMAT(fatal, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(critical, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(error, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(warning, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(notice, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(info, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(debug, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(trace, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(verbose, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(ftl, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(crt, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(err, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(wrn, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(ntc, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(inf, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(dbg, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(trc, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(vrb, "Log format {} of {}", i, numLogs);
     }
 #endif
 
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_STREAM(fatal, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(critical, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(error, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(warning, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(notice, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(info, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(debug, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(trace, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(verbose, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(ftl, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(crt, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(err, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(wrn, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(ntc, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(inf, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(dbg, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(trc, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(vrb, "Log stream " << i << " of " << numLogs);
     }
 
     return 0;

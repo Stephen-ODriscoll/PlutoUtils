@@ -39,7 +39,7 @@ Define this macro as 1 to hide all source info. This will prevent logger from us
 Define this macro to be the arguments that are passed to [pluto::source_info](#source_info) in logging macros. Defaults to **\_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, and **"", 0, ""** when 0.
 
 ### PLUTO_LOGGER_INITIAL_LEVEL
-Define this macro as a [pluto::log_level](#log_level). Sets the initial logger level. See [level()](#level). Defaults to **verbose**.
+Define this macro as a [pluto::log_level](#log_level). Sets the initial logger level. See [level()](#level). Defaults to **pluto::log_level::verbose**.
 
 ### PLUTO_LOGGER_INITIAL_CREATE_DIRS
 Define this macro as **false** to initially disable directory creation for log files. See [create_dirs()](#create_dirs). Defaults to **true**.

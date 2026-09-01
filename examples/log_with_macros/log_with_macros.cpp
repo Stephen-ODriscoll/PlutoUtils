@@ -7,7 +7,7 @@
 
 #define PLUTO_LOGGER_SOURCE_INFO_ARGS __FILE__, __LINE__, ""
 
-#define PLUTO_LOGGER_INITIAL_LEVEL info
+#define PLUTO_LOGGER_INITIAL_LEVEL pluto::log_level::info
 #define PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE 1000
 #define PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE 100
 #define PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE 10240 // 10 KB
@@ -40,6 +40,16 @@ void custom_header_writer(std::ostream& stream);
 
 #define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM(LOG_FILE, level, __VA_ARGS__)
 
+#define LOG_FATAL       pluto::log_level::fatal
+#define LOG_CRITICAL    pluto::log_level::critical
+#define LOG_ERROR       pluto::log_level::error
+#define LOG_WARNING     pluto::log_level::warning
+#define LOG_NOTICE      pluto::log_level::notice
+#define LOG_INFO        pluto::log_level::info
+#define LOG_DEBUG       pluto::log_level::debug
+#define LOG_TRACE       pluto::log_level::trace
+#define LOG_VERBOSE     pluto::log_level::verbose
+
 void custom_log_writer(std::ostream& stream, const pluto::log_entry& log)
 {
     const auto localTime{ pluto::local_time(pluto::logger::clock_type::to_time_t(log.time)) };
@@ -67,48 +77,48 @@ int main(int argc, char* argv[])
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_WRITEF(fatal, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(critical, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(error, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(warning, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(notice, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(info, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(debug, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(trace, "Log writef %zu of %zu", i, numLogs);
-        LOG_WRITEF(verbose, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_FATAL, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_CRITICAL, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_ERROR, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_WARNING, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_NOTICE, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_INFO, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_DEBUG, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_TRACE, "Log writef %zu of %zu", i, numLogs);
+        LOG_WRITEF(LOG_VERBOSE, "Log writef %zu of %zu", i, numLogs);
     }
 
 #if PLUTO_UTILS_HAS_FORMAT
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_FORMAT(fatal, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(critical, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(error, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(warning, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(notice, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(info, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(debug, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(trace, "Log format {} of {}", i, numLogs);
-        LOG_FORMAT(verbose, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_FATAL, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_CRITICAL, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_ERROR, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_WARNING, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_NOTICE, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_INFO, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_DEBUG, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_TRACE, "Log format {} of {}", i, numLogs);
+        LOG_FORMAT(LOG_VERBOSE, "Log format {} of {}", i, numLogs);
     }
 #endif
 
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
-        LOG_STREAM(fatal, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(critical, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(error, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(warning, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(notice, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(info, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(debug, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(trace, "Log stream " << i << " of " << numLogs);
-        LOG_STREAM(verbose, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_FATAL, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_CRITICAL, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_ERROR, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_WARNING, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_NOTICE, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_INFO, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_DEBUG, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_TRACE, "Log stream " << i << " of " << numLogs);
+        LOG_STREAM(LOG_VERBOSE, "Log stream " << i << " of " << numLogs);
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    LOG_STREAM(info, "Num logs discarded:" << pluto::logger::instance().num_discarded_logs());
+    LOG_STREAM(LOG_INFO, "Num logs discarded:" << pluto::logger::instance().num_discarded_logs());
 
     return 0;
 }

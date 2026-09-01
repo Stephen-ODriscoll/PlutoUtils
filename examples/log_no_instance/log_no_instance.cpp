@@ -11,15 +11,15 @@ pluto::logger g_logger{};
 
 #define LOG_FILE "logs/log_no_instance.log"
 
-#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
+#define LOG_WRITE(level, ...)   PLUTO_LOG_WRITE_WITH(g_logger, LOG_FILE, pluto::log_level::level, __VA_ARGS__)
 
-#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
+#define LOG_WRITEF(level, ...)  PLUTO_LOG_WRITEF_WITH(g_logger, LOG_FILE, pluto::log_level::level, __VA_ARGS__)
 
 #if PLUTO_UTILS_HAS_FORMAT
-#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
+#define LOG_FORMAT(level, ...)  PLUTO_LOG_FORMAT_WITH(g_logger, LOG_FILE, pluto::log_level::level, __VA_ARGS__)
 #endif
 
-#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM_WITH(g_logger, LOG_FILE, level, __VA_ARGS__)
+#define LOG_STREAM(level, ...)  PLUTO_LOG_STREAM_WITH(g_logger, LOG_FILE, pluto::log_level::level, __VA_ARGS__)
 
 int main(int argc, char* argv[])
 {
