@@ -57,14 +57,27 @@ int main(int argc, char* argv[])
 {
     pluto::logger::instance()
         .level(pluto::log_level::info)
-        .buffer_max_size(1000)
-        .buffer_flush_size(100)
-        .file_rotation_size(10240) // 10 KB
+        .buffer_max_size(2'000)
+        .buffer_flush_size(200)
+        .file_rotation_size(10'000) // 10 KB
         .file_rotation_limit(5)
         .log_writer(custom_log_writer)
         .header_writer(custom_header_writer);
 
     std::size_t numLogs{ 100 };
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
+        LOG_WRITE(LOG_FTL, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_CRT, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_ERR, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_WRN, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_NTC, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_INF, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_DBG, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_TRC, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_VRB, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+    }
+
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
         LOG_WRITEF(LOG_FTL, "Log writef %zu of %zu", i, numLogs);

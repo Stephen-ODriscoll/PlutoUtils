@@ -8,9 +8,9 @@
 #define PLUTO_LOGGER_SOURCE_INFO_ARGS __FILE__, __LINE__, ""
 
 #define PLUTO_LOGGER_INITIAL_LEVEL pluto::log_level::info
-#define PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE 1000
-#define PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE 100
-#define PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE 10240 // 10 KB
+#define PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE 2'000
+#define PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE 200
+#define PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE 10'000 // 10 KB
 #define PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT 5
 #define PLUTO_LOGGER_INITIAL_LOG_WRITER custom_log_writer
 #define PLUTO_LOGGER_INITIAL_HEADER_WRITER custom_header_writer
@@ -75,6 +75,19 @@ void custom_header_writer(std::ostream& stream)
 int main(int argc, char* argv[])
 {
     std::size_t numLogs{ 100 };
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
+        LOG_WRITE(LOG_FATAL, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_CRITICAL, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_ERROR, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_WARNING, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_NOTICE, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_INFO, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_DEBUG, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_TRACE, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(LOG_VERBOSE, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+    }
+
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
         LOG_WRITEF(LOG_FATAL, "Log writef %zu of %zu", i, numLogs);

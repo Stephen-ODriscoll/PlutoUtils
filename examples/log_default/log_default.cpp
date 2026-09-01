@@ -56,6 +56,19 @@ int main(int argc, char* argv[])
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
+        LOG_WRITE_FATAL(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_CRITICAL(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_ERROR(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_WARNING(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_NOTICE(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_INFO(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_DEBUG(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_TRACE(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE_VERBOSE(std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+    }
+
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
         LOG_WRITEF_FATAL("Log writef %zu of %zu", i, numLogs);
         LOG_WRITEF_CRITICAL("Log writef %zu of %zu", i, numLogs);
         LOG_WRITEF_ERROR("Log writef %zu of %zu", i, numLogs);

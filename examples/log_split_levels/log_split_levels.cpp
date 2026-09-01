@@ -69,6 +69,19 @@ int main(int argc, char* argv[])
     std::size_t numLogs{ 100 };
     for (std::size_t i{ 0 }; i < numLogs; ++i)
     {
+        LOG_WRITE(ftl, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(crt, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(err, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(wrn, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(ntc, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(inf, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(dbg, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(trc, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+        LOG_WRITE(vrb, std::string("Log write ") + std::to_string(i) + " of " + std::to_string(numLogs));
+    }
+
+    for (std::size_t i{ 0 }; i < numLogs; ++i)
+    {
         LOG_WRITEF(ftl, "Log writef %zu of %zu", i, numLogs);
         LOG_WRITEF(crt, "Log writef %zu of %zu", i, numLogs);
         LOG_WRITEF(err, "Log writef %zu of %zu", i, numLogs);
