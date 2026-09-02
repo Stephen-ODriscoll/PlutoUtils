@@ -128,6 +128,90 @@ TEST_F(unicode_tests, reading_characters)
     }
 }
 
+TEST_F(unicode_tests, test_swap_endian_use_utf16_elem_arrays)
+{
+    std::u16string u16string1{ u"0" };
+    std::u16string u16string2{ u"0" };
+    for (unsigned char i{ 0 }; i < 0xFF; ++i)
+    {
+        for (unsigned char j{ 0 }; j < 0xFF; ++j)
+        {
+            u16string1[0] = static_cast<std::u16string::value_type>((i << 8) | j);
+            u16string2[0] = static_cast<std::u16string::value_type>((j << 8) | i);
+
+            pluto::swap_endian(&u16string1[0], u16string1.size());
+
+            ASSERT_EQ(u16string1, u16string2);
+        }
+    }
+}
+
+TEST_F(unicode_tests, test_swap_endian_use_utf16_strings)
+{
+    std::u16string u16string1{ u"0" };
+    std::u16string u16string2{ u"0" };
+    for (unsigned char i{ 0 }; i < 0xFF; ++i)
+    {
+        for (unsigned char j{ 0 }; j < 0xFF; ++j)
+        {
+            u16string1[0] = static_cast<std::u16string::value_type>((i << 8) | j);
+            u16string2[0] = static_cast<std::u16string::value_type>((j << 8) | i);
+
+            pluto::swap_endian(u16string1);
+
+            ASSERT_EQ(u16string1, u16string2);
+        }
+    }
+}
+
+TEST_F(unicode_tests, test_swap_endian_use_utf32_elem_arrays)
+{
+    std::u32string u32string1{ U"0" };
+    std::u32string u32string2{ U"0" };
+    for (unsigned char i{ 0 }; i < 0x20; ++i)
+    {
+        for (unsigned char j{ 0 }; j < 0x20; ++j)
+        {
+            for (unsigned char k{ 0 }; k < 0x20; ++k)
+            {
+                for (unsigned char l{ 0 }; l < 0x20; ++l)
+                {
+                    u32string1[0] = static_cast<std::u32string::value_type>((i << 24) | (j << 16) | (k << 8) | l);
+                    u32string2[0] = static_cast<std::u32string::value_type>((l << 24) | (k << 16) | (j << 8) | i);
+
+                    pluto::swap_endian(&u32string1[0], u32string1.size());
+
+                    ASSERT_EQ(u32string1, u32string2);
+                }
+            }
+        }
+    }
+}
+
+TEST_F(unicode_tests, test_swap_endian_use_utf32_strings)
+{
+    std::u32string u32string1{ U"0" };
+    std::u32string u32string2{ U"0" };
+    for (unsigned char i{ 0 }; i < 0x20; ++i)
+    {
+        for (unsigned char j{ 0 }; j < 0x20; ++j)
+        {
+            for (unsigned char k{ 0 }; k < 0x20; ++k)
+            {
+                for (unsigned char l{ 0 }; l < 0x20; ++l)
+                {
+                    u32string1[0] = static_cast<std::u32string::value_type>((i << 24) | (j << 16) | (k << 8) | l);
+                    u32string2[0] = static_cast<std::u32string::value_type>((l << 24) | (k << 16) | (j << 8) | i);
+
+                    pluto::swap_endian(u32string1);
+
+                    ASSERT_EQ(u32string1, u32string2);
+                }
+            }
+        }
+    }
+}
+
 TEST_F(unicode_tests, test_utf8_to_utf16_use_elem_arrays)
 {
     for (const auto& character : g_characters)

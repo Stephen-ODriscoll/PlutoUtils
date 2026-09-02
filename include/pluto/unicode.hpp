@@ -14,6 +14,36 @@
 
 namespace pluto
 {
+    template<class Elem>
+    PLUTO_UTILS_CONSTEXPR void swap_endian(
+        Elem* const         pElem,
+        const std::size_t   size)
+    {
+        static_assert((sizeof(Elem) == 2 || sizeof(Elem) == 4),
+            "pluto::swap_endian() expects either a 16 bit UTF-16 string, or a 32 bit UTF-32 string");
+
+        for (std::size_t i{ 0 }; i < size; ++i)
+        {
+            if constexpr (sizeof(Elem) == 2)
+            {
+                const auto elem{ static_cast<unsigned short>(pElem[i]) };
+                pElem[i] = static_cast<Elem>((elem << 8) | (elem >> 8));
+            }
+            else
+            {
+                const auto elem{ static_cast<unsigned long>(pElem[i]) };
+                pElem[i] = static_cast<Elem>(
+                    (elem << 24) | ((elem << 8) & 0xFF0000) | ((elem >> 8) & 0xFF00) | (elem >> 24));
+            }
+        }
+    }
+
+    template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_CONSTEXPR void swap_endian(std::basic_string<Elem, Traits, Alloc>& string)
+    {
+        pluto::swap_endian(&string[0], string.size());
+    }
+
     template<class Elem8, class Elem16, class Traits16, class Alloc16>
     PLUTO_UTILS_CONSTEXPR void utf8_to_utf16(
         const Elem8* const                              pElem8,
