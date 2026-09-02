@@ -793,7 +793,7 @@ namespace pluto
                 pluto::filesystem::remove(thisPath);
             }
 
-            for (auto i{ numFiles }; 0 < i; )
+            for (auto i{ numFiles }; 0 < i;)
             {
                 const auto newStem{ stem + "_" + std::to_string(i) };
                 const auto newPath{ parentPath / (newStem + extension) };

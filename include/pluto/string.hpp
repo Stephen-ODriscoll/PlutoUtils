@@ -1306,14 +1306,15 @@ namespace pluto
         const std::basic_string<Elem, Traits, Alloc>&   separator)
     {
         std::basic_string<Elem, Traits, Alloc> joined{};
-        for (auto it{ begin }; it != end; ++it)
+        if (begin != end)
         {
-            if (it != begin)
+            joined.append(*begin);
+
+            for (auto it{ begin }; ++it != end;)
             {
                 joined.append(separator);
+                joined.append(*it);
             }
-
-            joined.append(*it);
         }
 
         return joined;
@@ -1428,14 +1429,15 @@ namespace pluto
         Function                                        function)
     {
         std::basic_string<Elem, Traits, Alloc> joined{};
-        for (auto it{ begin }; it != end; ++it)
+        if (begin != end)
         {
-            if (it != begin)
+            joined.append(function(*begin));
+
+            for (auto it{ begin }; ++it != end;)
             {
                 joined.append(separator);
+                joined.append(function(*it));
             }
-
-            joined.append(function(*it));
         }
 
         return joined;
