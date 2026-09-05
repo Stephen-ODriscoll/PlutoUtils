@@ -14,9 +14,13 @@ Invalid characters are represented as U+FFFD(�). This is a "best effort" appro
 
 All conversions in the ASCII range are optimised to only require 1 check before the character is copied.
 
-### swap_endian()
-1. Takes a pointer to the start of a modifiable UTF-16 or UTF-32 element array and the array size. Swaps the endianness of each element.
-2. Takes a modifiable UTF-16 or UTF-32 string. Swaps the endianness of each element.
+### utf16_swap_endian()
+1. Takes a pointer to the start of a modifiable UTF-16 element array and the array size. Swaps the endianness of each element.
+2. Takes a modifiable UTF-16 string. Swaps the endianness of each element.
+
+### utf32_swap_endian()
+1. Takes a pointer to the start of a modifiable UTF-32 element array and the array size. Swaps the endianness of each element.
+2. Takes a modifiable UTF-32 string. Swaps the endianness of each element.
 
 ### utf8_to_utf16()
 1. Takes a pointer to the start of a UTF-8 element array, the array size and a modifiable UTF-16 string. Converts each element and writes it to the modifiable string.

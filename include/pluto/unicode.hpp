@@ -14,34 +14,45 @@
 
 namespace pluto
 {
-    template<class Elem>
-    PLUTO_UTILS_CONSTEXPR void swap_endian(
-        Elem* const         pElem,
+    template<class Elem16>
+    PLUTO_UTILS_CONSTEXPR void utf16_swap_endian(
+        Elem16* const       pElem16,
         const std::size_t   size)
     {
-        static_assert((sizeof(Elem) == 2 || sizeof(Elem) == 4),
-            "pluto::swap_endian() expects either a 16 bit UTF-16 string, or a 32 bit UTF-32 string");
+        static_assert(sizeof(Elem16) == 2, "pluto::utf16_swap_endian() expects a 16 bit UTF-16 string");
 
         for (std::size_t i{ 0 }; i < size; ++i)
         {
-            if constexpr (sizeof(Elem) == 2)
-            {
-                const auto elem{ static_cast<unsigned short>(pElem[i]) };
-                pElem[i] = static_cast<Elem>((elem << 8) | (elem >> 8));
-            }
-            else
-            {
-                const auto elem{ static_cast<unsigned long>(pElem[i]) };
-                pElem[i] = static_cast<Elem>(
-                    (elem << 24) | ((elem << 8) & 0xFF0000) | ((elem >> 8) & 0xFF00) | (elem >> 24));
-            }
+            const auto elem{ static_cast<unsigned short>(pElem16[i]) };
+            pElem16[i] = static_cast<Elem16>((elem << 8) | (elem >> 8));
         }
     }
 
-    template<class Elem, class Traits, class Alloc>
-    PLUTO_UTILS_CONSTEXPR void swap_endian(std::basic_string<Elem, Traits, Alloc>& string)
+    template<class Elem16, class Traits16, class Alloc16>
+    PLUTO_UTILS_CONSTEXPR void utf16_swap_endian(std::basic_string<Elem16, Traits16, Alloc16>& utf16)
     {
-        pluto::swap_endian(&string[0], string.size());
+        pluto::utf16_swap_endian(&utf16[0], utf16.size());
+    }
+
+    template<class Elem32>
+    PLUTO_UTILS_CONSTEXPR void utf32_swap_endian(
+        Elem32* const       pElem32,
+        const std::size_t   size)
+    {
+        static_assert(sizeof(Elem32) == 4, "pluto::utf32_swap_endian() expects a 32 bit UTF-32 string");
+
+        for (std::size_t i{ 0 }; i < size; ++i)
+        {
+            const auto elem{ static_cast<unsigned long>(pElem32[i]) };
+            pElem32[i] = static_cast<Elem32>(
+                (elem << 24) | ((elem << 8) & 0xFF0000) | ((elem >> 8) & 0xFF00) | (elem >> 24));
+        }
+    }
+
+    template<class Elem32, class Traits32, class Alloc32>
+    PLUTO_UTILS_CONSTEXPR void utf32_swap_endian(std::basic_string<Elem32, Traits32, Alloc32>& utf32)
+    {
+        pluto::utf32_swap_endian(&utf32[0], utf32.size());
     }
 
     template<class Elem8, class Elem16, class Traits16, class Alloc16>
