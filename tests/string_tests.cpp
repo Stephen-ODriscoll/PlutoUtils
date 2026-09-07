@@ -2150,6 +2150,66 @@ TEST_F(string_tests, test_icontains_use_strings)
     TEST_ALL_STRINGS_3(ASSERT_FALSE, pluto::icontains, "ABCDEF", "aBcDeg");
 }
 
+TEST_F(string_tests, test_join_use_iterators)
+{
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
+
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "", 1, "");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", ",,", 3, "", "", "");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
+
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
+
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
+
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
+}
+
+TEST_F(string_tests, test_join_use_container)
+{
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
+
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "", 1, "");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", ",,", 3, "", "", "");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
+
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
+
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
+
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
+    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
+}
+
+TEST_F(string_tests, test_map_join_use_iterators)
+{
+    std::vector<int> vector { 1 };
+    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
+
+    ASSERT_EQ(pluto::map_join(vector.begin(), vector.end(), ",", pluto::str<int>), "1");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), "", pluto::str<int>), "123456");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), " ", pluto::str<int>), "1 2 3 4 5 6");
+    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
+}
+
+TEST_F(string_tests, test_map_join_use_container)
+{
+    std::vector<int> vector { 1 };
+    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
+
+    ASSERT_EQ(pluto::map_join(vector, ",", pluto::str<int>), "1");
+    ASSERT_EQ(pluto::map_join(vector2, "", pluto::str<int>), "123456");
+    ASSERT_EQ(pluto::map_join(vector2, " ", pluto::str<int>), "1 2 3 4 5 6");
+    ASSERT_EQ(pluto::map_join(vector2, ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
+}
+
 TEST_F(string_tests, test_split_no_separator)
 {
     TEST_ALL_STRINGS_5(ASSERT_EQ, pluto::split, "a", 1, "a");
@@ -2211,66 +2271,6 @@ TEST_F(string_tests, test_split_any_of)
 
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "abc", 2, "def", "def");
     TEST_ALL_STRINGS_6(ASSERT_EQ, pluto::split_any_of, "abcdefabcdef", "ace", 6, "b", "d", "f", "b", "d", "f");
-}
-
-TEST_F(string_tests, test_join_use_iterators)
-{
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
-
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", "", 1, "");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", ",,", 3, "", "", "");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
-
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
-
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
-
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_7(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
-}
-
-TEST_F(string_tests, test_join_use_container)
-{
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "a", 1, "a");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "A", 1, "A");
-
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", "", 1, "");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", ",,", 3, "", "", "");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ",", ",,,,,", 6, "", "", "", "", "", "");
-
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, "", "abcdef", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, "", "ABCDEF", 6, "A", "B", "C", "D", "E", "F");
-
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, " ", "a b c d e f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, " ", "A B C D E F", 6, "A", "B", "C", "D", "E", "F");
-
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "a, b, c, d, e, f", 6, "a", "b", "c", "d", "e", "f");
-    TEST_ALL_STRINGS_8(ASSERT_EQ, pluto::join, ", ", "A, B, C, D, E, F", 6, "A", "B", "C", "D", "E", "F");
-}
-
-TEST_F(string_tests, test_map_join_use_iterators)
-{
-    std::vector<int> vector { 1 };
-    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
-
-    ASSERT_EQ(pluto::map_join(vector.begin(), vector.end(), ",", pluto::str<int>), "1");
-    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), "", pluto::str<int>), "123456");
-    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), " ", pluto::str<int>), "1 2 3 4 5 6");
-    ASSERT_EQ(pluto::map_join(vector2.begin(), vector2.end(), ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
-}
-
-TEST_F(string_tests, test_map_join_use_container)
-{
-    std::vector<int> vector { 1 };
-    std::vector<int> vector2{ 1, 2, 3, 4, 5, 6 };
-
-    ASSERT_EQ(pluto::map_join(vector, ",", pluto::str<int>), "1");
-    ASSERT_EQ(pluto::map_join(vector2, "", pluto::str<int>), "123456");
-    ASSERT_EQ(pluto::map_join(vector2, " ", pluto::str<int>), "1 2 3 4 5 6");
-    ASSERT_EQ(pluto::map_join(vector2, ", ", pluto::str<int>), "1, 2, 3, 4, 5, 6");
 }
 
 TEST_F(string_tests, test_replace)

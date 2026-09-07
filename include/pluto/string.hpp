@@ -1105,200 +1105,6 @@ namespace pluto
     }
 #endif
 
-    template<class Elem, class Traits, class Alloc>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split(
-        const std::basic_string<Elem, Traits, Alloc>&   string,
-        const std::locale&                              locale = pluto::default_locale())
-    {
-        const auto& facet{ pluto::use_facet<Elem>(locale) };
-
-        std::size_t start{ 0 }, stop;
-        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
-        while (start < string.size())
-        {
-            if (facet.is(std::ctype_base::space, string[start]))
-            {
-                ++start;
-                continue;
-            }
-
-            stop = (start + 1);
-
-            while (stop < string.size() && !facet.is(std::ctype_base::space, string[stop]))
-            {
-                ++stop;
-            }
-
-            splits.emplace_back(string, start, (stop - start));
-            start = (stop + 1);
-        }
-
-        return splits;
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
-        const std::string& string,
-        const std::locale& locale = pluto::default_locale())
-    {
-        return pluto::split<>(string, locale);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
-        const std::wstring& wstring,
-        const std::locale&  locale = pluto::default_locale())
-    {
-        return pluto::split<>(wstring, locale);
-    }
-
-#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
-#if PLUTO_UTILS_HAS_CXX_20
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
-        const std::u8string&    u8string,
-        const std::locale&      locale = pluto::default_locale())
-    {
-        return pluto::split<>(u8string, locale);
-    }
-#endif
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
-        const std::u16string&   u16string,
-        const std::locale&      locale = pluto::default_locale())
-    {
-        return pluto::split<>(u16string, locale);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
-        const std::u32string&   u32string,
-        const std::locale&      locale = pluto::default_locale())
-    {
-        return pluto::split<>(u32string, locale);
-    }
-#endif
-
-    template<class Elem, class Traits, class Alloc>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split(
-        const std::basic_string<Elem, Traits, Alloc>& string,
-        const std::basic_string<Elem, Traits, Alloc>& separator)
-    {
-        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
-        if (separator.empty())
-        {
-            splits.reserve(string.size());
-
-            for (std::size_t i{ 0 }; i < string.size(); ++i)
-            {
-                splits.emplace_back(string, i, 1);
-            }
-        }
-        else
-        {
-            std::size_t start{ 0 }, stop;
-            while ((stop = string.find(separator, start)) != string.npos)
-            {
-                splits.emplace_back(string, start, (stop - start));
-                start = (stop + separator.size());
-            }
-
-            splits.emplace_back(string, start);
-        }
-
-        return splits;
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
-        const std::string& string,
-        const std::string& separator)
-    {
-        return pluto::split<>(string, separator);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
-        const std::wstring& wstring,
-        const std::wstring& separator)
-    {
-        return pluto::split<>(wstring, separator);
-    }
-
-#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
-#if PLUTO_UTILS_HAS_CXX_20
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
-        const std::u8string& u8string,
-        const std::u8string& separator)
-    {
-        return pluto::split<>(u8string, separator);
-    }
-#endif
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
-        const std::u16string& u16string,
-        const std::u16string& separator)
-    {
-        return pluto::split<>(u16string, separator);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
-        const std::u32string& u32string,
-        const std::u32string& separator)
-    {
-        return pluto::split<>(u32string, separator);
-    }
-#endif
-
-    template<class Elem, class Traits, class Alloc>
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split_any_of(
-        const std::basic_string<Elem, Traits, Alloc>& string,
-        const std::basic_string<Elem, Traits, Alloc>& separator)
-    {
-        std::size_t start, stop{ 0 };
-        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
-        while ((start = string.find_first_not_of(separator, stop)) != string.npos)
-        {
-            stop = string.find_first_of(separator, start);
-            splits.emplace_back(string, start, (stop - start));
-        }
-
-        return splits;
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split_any_of(
-        const std::string& string,
-        const std::string& separator)
-    {
-        return pluto::split_any_of<>(string, separator);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split_any_of(
-        const std::wstring& wstring,
-        const std::wstring& separator)
-    {
-        return pluto::split_any_of<>(wstring, separator);
-    }
-
-#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
-#if PLUTO_UTILS_HAS_CXX_20
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split_any_of(
-        const std::u8string& u8string,
-        const std::u8string& separator)
-    {
-        return pluto::split_any_of<>(u8string, separator);
-    }
-#endif
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split_any_of(
-        const std::u16string& u16string,
-        const std::u16string& separator)
-    {
-        return pluto::split_any_of<>(u16string, separator);
-    }
-
-    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split_any_of(
-        const std::u32string& u32string,
-        const std::u32string& separator)
-    {
-        return pluto::split_any_of<>(u32string, separator);
-    }
-#endif
-
     template<class Elem, class Traits, class Alloc, class Iterator>
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::basic_string<Elem, Traits, Alloc> join(
         const Iterator                                  begin,
@@ -1552,6 +1358,200 @@ namespace pluto
         Function                function)
     {
         return pluto::map_join<std::u32string::value_type>(container, separator, function);
+    }
+#endif
+
+    template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split(
+        const std::basic_string<Elem, Traits, Alloc>&   string,
+        const std::locale&                              locale = pluto::default_locale())
+    {
+        const auto& facet{ pluto::use_facet<Elem>(locale) };
+
+        std::size_t start{ 0 }, stop;
+        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
+        while (start < string.size())
+        {
+            if (facet.is(std::ctype_base::space, string[start]))
+            {
+                ++start;
+                continue;
+            }
+
+            stop = (start + 1);
+
+            while (stop < string.size() && !facet.is(std::ctype_base::space, string[stop]))
+            {
+                ++stop;
+            }
+
+            splits.emplace_back(string, start, (stop - start));
+            start = (stop + 1);
+        }
+
+        return splits;
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
+        const std::string& string,
+        const std::locale& locale = pluto::default_locale())
+    {
+        return pluto::split<>(string, locale);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
+        const std::wstring& wstring,
+        const std::locale&  locale = pluto::default_locale())
+    {
+        return pluto::split<>(wstring, locale);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
+        const std::u8string&    u8string,
+        const std::locale&      locale = pluto::default_locale())
+    {
+        return pluto::split<>(u8string, locale);
+    }
+#endif
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
+        const std::u16string&   u16string,
+        const std::locale&      locale = pluto::default_locale())
+    {
+        return pluto::split<>(u16string, locale);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
+        const std::u32string&   u32string,
+        const std::locale&      locale = pluto::default_locale())
+    {
+        return pluto::split<>(u32string, locale);
+    }
+#endif
+
+    template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split(
+        const std::basic_string<Elem, Traits, Alloc>& string,
+        const std::basic_string<Elem, Traits, Alloc>& separator)
+    {
+        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
+        if (separator.empty())
+        {
+            splits.reserve(string.size());
+
+            for (std::size_t i{ 0 }; i < string.size(); ++i)
+            {
+                splits.emplace_back(string, i, 1);
+            }
+        }
+        else
+        {
+            std::size_t start{ 0 }, stop;
+            while ((stop = string.find(separator, start)) != string.npos)
+            {
+                splits.emplace_back(string, start, (stop - start));
+                start = (stop + separator.size());
+            }
+
+            splits.emplace_back(string, start);
+        }
+
+        return splits;
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split(
+        const std::string& string,
+        const std::string& separator)
+    {
+        return pluto::split<>(string, separator);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split(
+        const std::wstring& wstring,
+        const std::wstring& separator)
+    {
+        return pluto::split<>(wstring, separator);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split(
+        const std::u8string& u8string,
+        const std::u8string& separator)
+    {
+        return pluto::split<>(u8string, separator);
+    }
+#endif
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split(
+        const std::u16string& u16string,
+        const std::u16string& separator)
+    {
+        return pluto::split<>(u16string, separator);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split(
+        const std::u32string& u32string,
+        const std::u32string& separator)
+    {
+        return pluto::split<>(u32string, separator);
+    }
+#endif
+
+    template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split_any_of(
+        const std::basic_string<Elem, Traits, Alloc>& string,
+        const std::basic_string<Elem, Traits, Alloc>& separator)
+    {
+        std::size_t start, stop{ 0 };
+        std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
+        while ((start = string.find_first_not_of(separator, stop)) != string.npos)
+        {
+            stop = string.find_first_of(separator, start);
+            splits.emplace_back(string, start, (stop - start));
+        }
+
+        return splits;
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split_any_of(
+        const std::string& string,
+        const std::string& separator)
+    {
+        return pluto::split_any_of<>(string, separator);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split_any_of(
+        const std::wstring& wstring,
+        const std::wstring& separator)
+    {
+        return pluto::split_any_of<>(wstring, separator);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split_any_of(
+        const std::u8string& u8string,
+        const std::u8string& separator)
+    {
+        return pluto::split_any_of<>(u8string, separator);
+    }
+#endif
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split_any_of(
+        const std::u16string& u16string,
+        const std::u16string& separator)
+    {
+        return pluto::split_any_of<>(u16string, separator);
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split_any_of(
+        const std::u32string& u32string,
+        const std::u32string& separator)
+    {
+        return pluto::split_any_of<>(u32string, separator);
     }
 #endif
 

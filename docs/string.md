@@ -141,6 +141,14 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
 
+### join()
+1. Takes iterators for begin, end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
+2. Takes a container and a join string. Returns a string created by appending all elements in the container, with the join string between them.
+
+### map_join()
+1. Takes iterators for begin, end, a join string and a function. Returns a string created by calling the function on all elements from begin to end and appending the results, with the join string between them.
+2. Takes a container, a join string and a function. Returns a string created by calling the function on all elements in the container and appending the results, with the join string between them.
+
 ### split()
 1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc. Returns a **std::vector** of strings.
     - When 2 "space" characters occur consecutively, nothing will be added to the returned strings. Only non-empty strings are added.
@@ -158,14 +166,6 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 ### replace_any_of()
 Takes a modify string, a find string and a replace string. Looks through the modify string for any element in the find string and replaces it with the replace string.
 - If a blank find string is given, then there will be no change to the modify string.
-
-### join()
-1. Takes iterators for begin, end and a join string. Returns a string created by appending all elements from begin to end, with the join string between them.
-2. Takes a container and a join string. Returns a string created by appending all elements in the container, with the join string between them.
-
-### map_join()
-1. Takes iterators for begin, end, a join string and a function. Returns a string created by calling the function on all elements from begin to end and appending the results, with the join string between them.
-2. Takes a container, a join string and a function. Returns a string created by calling the function on all elements in the container and appending the results, with the join string between them.
 
 ### lstrip()
 Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
