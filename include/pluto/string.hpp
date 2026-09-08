@@ -1693,6 +1693,53 @@ namespace pluto
     }
 
     template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::basic_string<Elem, Traits, Alloc>&         string,
+        const std::basic_string<Elem, Traits, Alloc>&   prefixes)
+    {
+        string.erase(0, string.find_first_not_of(prefixes));
+    }
+
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::string&        string,
+        const std::string&  prefixes)
+    {
+        pluto::lstrip<>(string, prefixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::wstring&       wstring,
+        const std::wstring& prefixes)
+    {
+        pluto::lstrip<>(wstring, prefixes);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::u8string&          u8string,
+        const std::u8string&    prefixes)
+    {
+        pluto::lstrip<>(u8string, prefixes);
+    }
+#endif
+
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::u16string&         u16string,
+        const std::u16string&   prefixes)
+    {
+        pluto::lstrip<>(u16string, prefixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void lstrip(
+        std::u32string&         u32string,
+        const std::u32string&   prefixes)
+    {
+        pluto::lstrip<>(u32string, prefixes);
+    }
+#endif
+
+    template<class Elem, class Traits, class Alloc>
     PLUTO_UTILS_CONSTEXPR void rstrip(
         std::basic_string<Elem, Traits, Alloc>& string,
         const std::locale&                      locale = pluto::default_locale())
@@ -1713,6 +1760,53 @@ namespace pluto
     }
 
     template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::basic_string<Elem, Traits, Alloc>&         string,
+        const std::basic_string<Elem, Traits, Alloc>&   suffixes)
+    {
+        string.erase(string.find_last_not_of(suffixes) + 1);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::string&        string,
+        const std::string&  suffixes)
+    {
+        pluto::rstrip<>(string, suffixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::wstring&       wstring,
+        const std::wstring& suffixes)
+    {
+        pluto::rstrip<>(wstring, suffixes);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::u8string&          u8string,
+        const std::u8string&    suffixes)
+    {
+        pluto::rstrip<>(u8string, suffixes);
+    }
+#endif
+
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::u16string&         u16string,
+        const std::u16string&   suffixes)
+    {
+        pluto::rstrip<>(u16string, suffixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void rstrip(
+        std::u32string&         u32string,
+        const std::u32string&   suffixes)
+    {
+        pluto::rstrip<>(u32string, suffixes);
+    }
+#endif
+
+    template<class Elem, class Traits, class Alloc>
     PLUTO_UTILS_CONSTEXPR void strip(
         std::basic_string<Elem, Traits, Alloc>& string,
         const std::locale&                      locale = pluto::default_locale())
@@ -1720,6 +1814,54 @@ namespace pluto
         pluto::rstrip(string, locale);
         pluto::lstrip(string, locale);
     }
+
+    template<class Elem, class Traits, class Alloc>
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::basic_string<Elem, Traits, Alloc>&         string,
+        const std::basic_string<Elem, Traits, Alloc>&   affixes)
+    {
+        pluto::rstrip<>(string, affixes);
+        pluto::lstrip<>(string, affixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::string&        string,
+        const std::string&  affixes)
+    {
+        pluto::strip<>(string, affixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::wstring&       wstring,
+        const std::wstring& affixes)
+    {
+        pluto::strip<>(wstring, affixes);
+    }
+
+#if PLUTO_STRING_OVERLOAD_FOR_UNICODE
+#if PLUTO_UTILS_HAS_CXX_20
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::u8string&          u8string,
+        const std::u8string&    affixes)
+    {
+        pluto::strip<>(u8string, affixes);
+    }
+#endif
+
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::u16string&         u16string,
+        const std::u16string&   affixes)
+    {
+        pluto::strip<>(u16string, affixes);
+    }
+
+    PLUTO_UTILS_CONSTEXPR void strip(
+        std::u32string&         u32string,
+        const std::u32string&   affixes)
+    {
+        pluto::strip<>(u32string, affixes);
+    }
+#endif
 
     template<class Value>
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string bin(const Value& value)

@@ -669,6 +669,55 @@
     } \
     while (false)
 
+#if PLUTO_UTILS_HAS_CXX_20
+#define TEST_CHAR8_STRINGS_10(check, function, x, y, z) \
+    do \
+    { \
+        std::u8string u8str{ u8##x }; \
+        function(u8str, u8##y); \
+        check(u8str, u8##z); \
+    } \
+    while (false)
+#else
+#define TEST_CHAR8_STRINGS_10(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#ifdef TEST_WITH_EXTRA_ELEMS
+#define TEST_EXTRA_STRINGS_10(check, function, x, y, z) \
+    do \
+    { \
+        TEST_CHAR8_STRINGS_10(check, function, x, y, z); \
+        \
+        std::u16string u16str{ u##x }; \
+        function(u16str, u##y); \
+        check(u16str, u##z); \
+        \
+        std::u32string u32str{ U##x }; \
+        function(u32str, U##y); \
+        check(u32str, U##z); \
+    } \
+    while (false)
+#else
+#define TEST_EXTRA_STRINGS_10(check, function, x, y, z) \
+    do {} while(false)
+#endif
+
+#define TEST_ALL_STRINGS_10(check, function, x, y, z) \
+    do \
+    { \
+        std::string str{ x }; \
+        function(str, y); \
+        check(str, z); \
+        \
+        std::wstring wstr{ L##x }; \
+        function(wstr, L##y); \
+        check(wstr, L##z); \
+        \
+        TEST_EXTRA_STRINGS_10(check, function, x, y, z); \
+    } \
+    while (false)
+
 class string_tests : public testing::Test
 {};
 
@@ -2326,7 +2375,7 @@ TEST_F(string_tests, test_replace_any_of)
     TEST_ALL_STRINGS_9(ASSERT_EQ, pluto::replace_any_of, "abcdefabcdef", "ace", "ab", "abbabdabfabbabdabf");
 }
 
-TEST_F(string_tests, test_lstrip)
+TEST_F(string_tests, test_lstrip_no_prefixes)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "A", "A");
@@ -2340,7 +2389,21 @@ TEST_F(string_tests, test_lstrip)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::lstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c\t\n\v\f\r");
 }
 
-TEST_F(string_tests, test_rstrip)
+TEST_F(string_tests, test_lstrip_use_prefixes)
+{
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "a", "012345", "a");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "A", "012345", "A");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "12345", "012345", "");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "0a0", "012345", "a0");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "0A0", "012345", "A0");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "12345a12345", "012345", "a12345");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "0a0b0c0", "012345", "a0b0c0");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::lstrip, "12345a0b0c12345", "012345", "a0b0c12345");
+}
+
+TEST_F(string_tests, test_rstrip_no_suffixes)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "A", "A");
@@ -2354,7 +2417,21 @@ TEST_F(string_tests, test_rstrip)
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::rstrip, "\t\n\v\f\ra b c\t\n\v\f\r", "\t\n\v\f\ra b c");
 }
 
-TEST_F(string_tests, test_strip)
+TEST_F(string_tests, test_rstrip_use_suffixes)
+{
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "a", "012345", "a");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "A", "012345", "A");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "12345", "012345", "");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "0a0", "012345", "0a");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "0A0", "012345", "0A");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "12345a12345", "12345", "12345a");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "0a0b0c0", "012345", "0a0b0c");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::rstrip, "12345a0b0c12345", "012345", "12345a0b0c");
+}
+
+TEST_F(string_tests, test_strip_no_affixes)
 {
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "a", "a");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "A", "A");
@@ -2366,6 +2443,20 @@ TEST_F(string_tests, test_strip)
 
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, " a b c ", "a b c");
     TEST_ALL_STRINGS_2(ASSERT_EQ, pluto::strip, "\t\n\v\f\ra b c\t\n\v\f\r", "a b c");
+}
+
+TEST_F(string_tests, test_strip_use_affixes)
+{
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "a", "012345", "a");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "A", "012345", "A");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "12345", "012345", "");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "0a0", "012345", "a");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "0A0", "012345", "A");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "12345a12345", "012345", "a");
+
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "0a0b0c0", "012345", "a0b0c");
+    TEST_ALL_STRINGS_10(ASSERT_EQ, pluto::strip, "12345a0b0c12345", "012345", "a0b0c");
 }
 
 TEST_F(string_tests, test_bin)

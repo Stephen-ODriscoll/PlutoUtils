@@ -168,13 +168,16 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 - If a blank find string is given, then there will be no change to the modify string.
 
 ### lstrip()
-Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
+2. Takes a string and a prefixes string. Removes all leading occurrences of any character in the prefixes string.
 
 ### rstrip()
-Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes new lines, tabs, spaces, etc.
+2. Takes a string and a suffixes string. Removes all trailing occurrences of any character in the suffixes string.
 
 ### strip()
-Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.
+2. Takes a string and an affixes string. Removes all leading and trailing occurrences of any character in the affixes string.
 
 ### bin()
 Takes a signed or unsigned number. Returns the **std::string** representation of that number in binary.
