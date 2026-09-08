@@ -157,7 +157,7 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
     - When 2 separators occur consecutively, a blank string will be added to the returned strings.
 
 ### split_any_of()
-Takes a split string and a separator string. Splits the split string where an element equals any element in the separator string. Returns a **std::vector** of strings.
+Takes a split string and a separators string. Splits the split string where an element equals any element in the separators string. Returns a **std::vector** of strings.
 
 ### replace()
 Takes a modify string, a find string and a replace string. Looks through the modify string for the find string and replaces it with the replace string.

@@ -1503,13 +1503,13 @@ namespace pluto
     template<class Elem, class Traits, class Alloc>
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::basic_string<Elem, Traits, Alloc>> split_any_of(
         const std::basic_string<Elem, Traits, Alloc>& string,
-        const std::basic_string<Elem, Traits, Alloc>& separator)
+        const std::basic_string<Elem, Traits, Alloc>& separators)
     {
         std::size_t start, stop{ 0 };
         std::vector<std::basic_string<Elem, Traits, Alloc>> splits{};
-        while ((start = string.find_first_not_of(separator, stop)) != string.npos)
+        while ((start = string.find_first_not_of(separators, stop)) != string.npos)
         {
-            stop = string.find_first_of(separator, start);
+            stop = string.find_first_of(separators, start);
             splits.emplace_back(string, start, (stop - start));
         }
 
@@ -1518,40 +1518,40 @@ namespace pluto
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::string> split_any_of(
         const std::string& string,
-        const std::string& separator)
+        const std::string& separators)
     {
-        return pluto::split_any_of<>(string, separator);
+        return pluto::split_any_of<>(string, separators);
     }
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::wstring> split_any_of(
         const std::wstring& wstring,
-        const std::wstring& separator)
+        const std::wstring& separators)
     {
-        return pluto::split_any_of<>(wstring, separator);
+        return pluto::split_any_of<>(wstring, separators);
     }
 
 #if PLUTO_STRING_OVERLOAD_FOR_UNICODE
 #if PLUTO_UTILS_HAS_CXX_20
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u8string> split_any_of(
         const std::u8string& u8string,
-        const std::u8string& separator)
+        const std::u8string& separators)
     {
-        return pluto::split_any_of<>(u8string, separator);
+        return pluto::split_any_of<>(u8string, separators);
     }
 #endif
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u16string> split_any_of(
         const std::u16string& u16string,
-        const std::u16string& separator)
+        const std::u16string& separators)
     {
-        return pluto::split_any_of<>(u16string, separator);
+        return pluto::split_any_of<>(u16string, separators);
     }
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::vector<std::u32string> split_any_of(
         const std::u32string& u32string,
-        const std::u32string& separator)
+        const std::u32string& separators)
     {
-        return pluto::split_any_of<>(u32string, separator);
+        return pluto::split_any_of<>(u32string, separators);
     }
 #endif
 
