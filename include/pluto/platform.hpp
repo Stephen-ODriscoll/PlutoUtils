@@ -24,7 +24,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR const char* file_name(const char* const filePath)
     {
         const char* fileName{ filePath };
-        for (const char* pChar{ filePath }; *pChar; ++pChar)
+        for (const char* pChar{ filePath }; *pChar != '\0'; ++pChar)
         {
             if (*pChar == '\\' || *pChar == '/')
             {
