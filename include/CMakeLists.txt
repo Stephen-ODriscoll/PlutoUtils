@@ -19,6 +19,7 @@ add_library(
     pluto/logger.hpp
     pluto/lru_cache.hpp
     pluto/platform.hpp
+    pluto/random.hpp
     pluto/range.hpp
     pluto/safe_lru_cache.hpp
     pluto/scope.hpp

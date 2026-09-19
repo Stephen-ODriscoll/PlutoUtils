@@ -16,6 +16,7 @@
 #include "pluto/logger.hpp"
 #include "pluto/lru_cache.hpp"
 #include "pluto/platform.hpp"
+#include "pluto/random.hpp"
 #include "pluto/range.hpp"
 #include "pluto/safe_lru_cache.hpp"
 #include "pluto/scope.hpp"

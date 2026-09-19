@@ -20,6 +20,7 @@ add_library(
     lru_cache.md
     platform.md
     pluto.md
+    random.md
     range.md
     safe_lru_cache.md
     scope.md

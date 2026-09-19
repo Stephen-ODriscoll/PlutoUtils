@@ -26,6 +26,7 @@ add_executable(
     main.cpp
     platform_tests.cpp
     pluto_tests.cpp
+    random_tests.cpp
     range_tests.cpp
     safe_lru_cache_tests.cpp
     scope_tests.cpp
