@@ -33,7 +33,7 @@ namespace pluto
             return instance;
         }
 
-        inline auto& engine()
+        inline engine_type& engine()
         {
             return m_engine;
         }
@@ -82,7 +82,7 @@ namespace pluto
         inline auto& choice(const Container& container)
         {
             typedef decltype(std::size(container)) Size;
-            return *(std::next(std::begin(container), rand_range<>(Size{ 0 }, std::size(container))));
+            return *(std::next(std::begin(container), rand_range<Size>(0, std::size(container))));
         }
 
         template<class Container>
