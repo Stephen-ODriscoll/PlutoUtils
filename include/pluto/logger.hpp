@@ -216,21 +216,39 @@ namespace pluto
             message     { message } {}
     };
 
-    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_c_str(const log_level logLevel)
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_lower(const log_level logLevel)
     {
         switch (logLevel)
         {
-            case log_level::header:     return "level";
-            case log_level::verbose:    return "verbose";
-            case log_level::trace:      return "trace";
-            case log_level::debug:      return "debug";
-            case log_level::info:       return "info";
-            case log_level::notice:     return "notice";
-            case log_level::warning:    return "warning";
-            case log_level::error:      return "error";
-            case log_level::critical:   return "critical";
             case log_level::fatal:      return "fatal";
+            case log_level::critical:   return "critical";
+            case log_level::error:      return "error";
+            case log_level::warning:    return "warning";
+            case log_level::notice:     return "notice";
+            case log_level::info:       return "info";
+            case log_level::debug:      return "debug";
+            case log_level::trace:      return "trace";
+            case log_level::verbose:    return "verbose";
+            case log_level::header:     return "level";
             default:                    return "unknown";
+        }
+    }
+
+    PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_upper(const log_level logLevel)
+    {
+        switch (logLevel)
+        {
+            case log_level::fatal:      return "FATAL";
+            case log_level::critical:   return "CRITICAL";
+            case log_level::error:      return "ERROR";
+            case log_level::warning:    return "WARNING";
+            case log_level::notice:     return "NOTICE";
+            case log_level::info:       return "INFO";
+            case log_level::debug:      return "DEBUG";
+            case log_level::trace:      return "TRACE";
+            case log_level::verbose:    return "VERBOSE";
+            case log_level::header:     return "LEVEL";
+            default:                    return "UNKNOWN";
         }
     }
 
@@ -238,16 +256,16 @@ namespace pluto
     {
         switch (logLevel)
         {
-            case log_level::header:     return "Level";
-            case log_level::verbose:    return "Verbose";
-            case log_level::trace:      return "Trace";
-            case log_level::debug:      return "Debug";
-            case log_level::info:       return "Info";
-            case log_level::notice:     return "Notice";
-            case log_level::warning:    return "Warning";
-            case log_level::error:      return "Error";
-            case log_level::critical:   return "Critical";
             case log_level::fatal:      return "Fatal";
+            case log_level::critical:   return "Critical";
+            case log_level::error:      return "Error";
+            case log_level::warning:    return "Warning";
+            case log_level::notice:     return "Notice";
+            case log_level::info:       return "Info";
+            case log_level::debug:      return "Debug";
+            case log_level::trace:      return "Trace";
+            case log_level::verbose:    return "Verbose";
+            case log_level::header:     return "Level";
             default:                    return "Unknown";
         }
     }
@@ -256,16 +274,16 @@ namespace pluto
     {
         switch (logLevel)
         {
-            case log_level::header:     return "LVL";
-            case log_level::verbose:    return "VRB";
-            case log_level::trace:      return "TRC";
-            case log_level::debug:      return "DBG";
-            case log_level::info:       return "INF";
-            case log_level::notice:     return "NTC";
-            case log_level::warning:    return "WRN";
-            case log_level::error:      return "ERR";
-            case log_level::critical:   return "CRT";
             case log_level::fatal:      return "FTL";
+            case log_level::critical:   return "CRT";
+            case log_level::error:      return "ERR";
+            case log_level::warning:    return "WRN";
+            case log_level::notice:     return "NTC";
+            case log_level::info:       return "INF";
+            case log_level::debug:      return "DBG";
+            case log_level::trace:      return "TRC";
+            case log_level::verbose:    return "VRB";
+            case log_level::header:     return "LVL";
             default:                    return "UNK";
         }
     }
@@ -274,16 +292,16 @@ namespace pluto
     {
         switch (logLevel)
         {
-            case log_level::header:     return 'L';
-            case log_level::verbose:    return 'V';
-            case log_level::trace:      return 'T';
-            case log_level::debug:      return 'D';
-            case log_level::info:       return 'I';
-            case log_level::notice:     return 'N';
-            case log_level::warning:    return 'W';
-            case log_level::error:      return 'E';
-            case log_level::critical:   return 'C';
             case log_level::fatal:      return 'F';
+            case log_level::critical:   return 'C';
+            case log_level::error:      return 'E';
+            case log_level::warning:    return 'W';
+            case log_level::notice:     return 'N';
+            case log_level::info:       return 'I';
+            case log_level::debug:      return 'D';
+            case log_level::trace:      return 'T';
+            case log_level::verbose:    return 'V';
+            case log_level::header:     return 'L';
             default:                    return '?';
         }
     }

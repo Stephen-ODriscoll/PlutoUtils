@@ -137,17 +137,20 @@ A [pluto::source_info](#source_info) representing the source code details for th
 #### message
 A **std::string** representing the log message.
 
-### log_level_to_c_str()
-Takes a [pluto::log_level](#log_level). Returns a **const char\*** corresponding to that log level.
+### log_level_to_lower()
+Takes a [pluto::log_level](#log_level). Returns a lowercased **const char\*** corresponding to that log level.
+
+### log_level_to_upper()
+Takes a [pluto::log_level](#log_level). Returns an uppercased **const char\*** corresponding to that log level.
 
 ### log_level_to_title()
 Takes a [pluto::log_level](#log_level). Returns a titled **const char\*** corresponding to that log level.
 
 ### log_level_to_shortened()
-Takes a [pluto::log_level](#log_level). Returns a three character **const char\*** corresponding to that log level.
+Takes a [pluto::log_level](#log_level). Returns a three character uppercased **const char\*** corresponding to that log level.
 
 ### log_level_to_char()
-Takes a [pluto::log_level](#log_level). Returns a **char** corresponding to that log level.
+Takes a [pluto::log_level](#log_level). Returns an uppercased **char** corresponding to that log level.
 
 ### logger
 Constructor takes no arguments.
