@@ -102,18 +102,21 @@ namespace pluto
         std::condition_variable m_schedulerCondition    {};
         std::condition_variable m_tasksWorkingCondition {};
         std::condition_variable m_tasksCompleteCondition{};
+        std::condition_variable m_workersStableCondition{};
 
         action      m_onStop;
         bool        m_isStopping;
         std::size_t m_targetWorkersSize;
-        std::size_t m_activeWorkersSize;
+        std::size_t m_workingWorkersSize;
+        std::size_t m_waitingWorkersSize;
 
     public:
         explicit thread_pool(const std::size_t targetWorkersSize = std::thread::hardware_concurrency()) :
             m_onStop            { action::join_all },
             m_isStopping        { false },
             m_targetWorkersSize { targetWorkersSize },
-            m_activeWorkersSize { 0 }
+            m_workingWorkersSize{ 0 },
+            m_waitingWorkersSize{ 0 }
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
 
@@ -174,28 +177,28 @@ namespace pluto
             return m_targetWorkersSize;
         }
 
-        PLUTO_UTILS_NODISCARD inline std::size_t active_workers_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t working_workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
-            return m_activeWorkersSize;
+            return m_workingWorkersSize;
         }
 
         PLUTO_UTILS_NODISCARD inline std::size_t waiting_workers_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
-            return (m_workers.size() - m_activeWorkersSize);
+            return m_waitingWorkersSize;
         }
 
         PLUTO_UTILS_NODISCARD inline std::size_t tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
-            return (m_waitingTasks.size() + m_activeWorkersSize);
+            return (m_waitingTasks.size() + m_workingWorkersSize);
         }
 
-        PLUTO_UTILS_NODISCARD inline std::size_t active_tasks_size() const
+        PLUTO_UTILS_NODISCARD inline std::size_t working_tasks_size() const
         {
             const std::unique_lock<std::mutex> lock{ m_mutex };
-            return m_activeWorkersSize;
+            return m_workingWorkersSize;
         }
 
         PLUTO_UTILS_NODISCARD inline std::size_t waiting_tasks_size() const
@@ -352,9 +355,19 @@ namespace pluto
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            while (!m_waitingTasks.empty() || m_activeWorkersSize != 0)
+            while (!m_waitingTasks.empty() || m_workingWorkersSize != 0)
             {
                 m_tasksCompleteCondition.wait(lock);
+            }
+        }
+
+        inline void wait_until_all_workers_stable()
+        {
+            std::unique_lock<std::mutex> lock{ m_mutex };
+
+            while (m_workers.size() != m_targetWorkersSize)
+            {
+                m_workersStableCondition.wait(lock);
             }
         }
 
@@ -363,8 +376,14 @@ namespace pluto
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            while (!m_scheduledTasks.empty() && !m_isStopping)
+            while (!m_isStopping)
             {
+                if (m_scheduledTasks.empty())
+                {
+                    m_scheduler.detach();
+                    break;
+                }
+
                 const auto begin{ m_scheduledTasks.begin() };
                 if (m_schedulerCondition.wait_until(lock, begin->first) == std::cv_status::timeout)
                 {
@@ -375,28 +394,33 @@ namespace pluto
                     m_workersCondition.notify_one();
                 }
             }
-
-            if (!m_isStopping)
-            {
-                m_scheduler.detach();
-            }
         }
 
         void start_working()
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            while (m_workers.size() <= m_targetWorkersSize &&
-                (!m_isStopping || (m_onStop == action::complete_tasks && !m_waitingTasks.empty())))
+            while (!m_isStopping || (m_onStop == action::complete_tasks && !m_waitingTasks.empty()))
             {
-                if (m_waitingTasks.empty())
+                if (m_targetWorkersSize < m_workers.size() && !m_isStopping)
                 {
-                    if (m_activeWorkersSize == 0)
+                    auto it{ m_workers.find(std::this_thread::get_id()) };
+                    it->second.detach();
+                    m_workers.erase(it);
+
+                    if (m_workers.size() == m_targetWorkersSize)
                     {
-                        m_tasksCompleteCondition.notify_all();
+                        lock.unlock();
+                        m_workersStableCondition.notify_all();
                     }
 
+                    break;
+                }
+                else if (m_waitingTasks.empty())
+                {
+                    ++m_waitingWorkersSize;
                     m_workersCondition.wait(lock);
+                    --m_waitingWorkersSize;
                 }
                 else
                 {
@@ -404,28 +428,25 @@ namespace pluto
                     const auto task { std::move(begin->second) };
                     m_waitingTasks.erase(begin);
 
-                    if (m_waitingTasks.empty())
+                    const bool waitingTasksEmpty{ m_waitingTasks.empty() };
+
+                    ++m_workingWorkersSize;
+                    lock.unlock();
+
+                    if (waitingTasksEmpty)
                     {
                         m_tasksWorkingCondition.notify_all();
                     }
-                    
-                    ++m_activeWorkersSize;
-                    lock.unlock();
 
                     task();
 
                     lock.lock();
-                    --m_activeWorkersSize;
-                }
-            }
+                    --m_workingWorkersSize;
 
-            if (!m_isStopping)
-            {
-                auto it{ m_workers.find(std::this_thread::get_id()) };
-                if (it != m_workers.end())
-                {
-                    it->second.detach();
-                    m_workers.erase(it);
+                    if (m_waitingTasks.empty() && m_workingWorkersSize == 0)
+                    {
+                        m_tasksCompleteCondition.notify_all();
+                    }
                 }
             }
         }

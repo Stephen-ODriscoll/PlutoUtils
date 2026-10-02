@@ -4,7 +4,7 @@
 ## thread_pool.hpp
 A thread pool that allows tasks (use lambdas) to be run synchronously, asynchronously or scheduled for a specific time.
 
-When the target worker size is changed, the worker size will eventually update to be the same value. If the target worker size is greater than the worker size, new threads will immediately be spawned. If the target worker size is less than the worker size, then waiting workers will exit until they are equal.
+When the target worker size is changed, the worker size will eventually update to be the same value. If the target worker size is greater than the worker size, new threads will immediately be spawned. If the target worker size is less than the worker size, then workers will exit when possible until they are equal.
 
 The task scheduler runs as an additional thread. The scheduler waits until the next scheduled task is ready, then adds it to the task queue. When there are no more tasks to schedule, the scheduler exits. The next thread to add a scheduled task will then restart the scheduler.
 
@@ -35,7 +35,7 @@ Definition used to represent the highest priority value as a **signed char**, wh
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::system_clock**.
 
 ### thread_pool
-A thread pool class. Takes a **std::size_t** for the target worker size. The thread pool will start with this many threads.
+A thread pool class. Takes a **std::size_t** for the target worker size. The thread pool will start with this many worker threads.
 
 #### clock_type
 The type of the clock. Defaults to [PLUTO_THREAD_POOL_CLOCK_TYPE](#PLUTO_THREAD_POOL_CLOCK_TYPE).
@@ -65,17 +65,17 @@ Returns a **std::size_t** representing the number of worker threads.
 1. Returns a **std::size_t** representing the current target number of worker threads.
 2. Takes a **std::size_t** and sets this to be the new target number of worker threads.
 
-#### active_workers_size()
-Returns a **std::size_t** representing the number of worker threads that are active.
+#### working_workers_size()
+Returns a **std::size_t** representing the number of worker threads that are working.
 
 #### waiting_workers_size()
 Returns a **std::size_t** representing the number of worker threads that are waiting.
 
 #### tasks_size()
-Returns a **std::size_t** representing the number of tasks that are either active or waiting.
+Returns a **std::size_t** representing the number of tasks that are either working or waiting.
 
-#### active_tasks_size()
-Returns a **std::size_t** representing the number of tasks that are active.
+#### working_tasks_size()
+Returns a **std::size_t** representing the number of tasks that are working.
 
 #### waiting_tasks_size()
 Returns a **std::size_t** representing the number of tasks that are waiting.
@@ -105,7 +105,10 @@ The action to perform when the thread pool is destroyed.
 2. Takes a [pluto::thread_pool::clock_type](#clock_type)**::duration**, a **std::function\<void()\>** (use lambdas) and a [pluto::thread_pool::priority](#priority).
 
 #### wait_until_no_tasks_waiting()
-Waits on calling thread until no tasks are waiting.
+Waits on the calling thread until no tasks are waiting.
 
 #### wait_until_all_tasks_complete()
-Waits on calling thread until all tasks are complete.
+Waits on the calling thread until all tasks are complete.
+
+#### wait_until_all_workers_stable()
+Waits on the calling thread until the worker size matches the target worker size.
