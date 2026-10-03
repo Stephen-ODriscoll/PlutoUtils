@@ -219,6 +219,22 @@ namespace pluto
             return m_onStop;
         }
 
+#if PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE
+        PLUTO_UTILS_NODISCARD inline std::vector<std::thread::native_handle_type> native_handles()
+        {
+            const std::unique_lock<std::mutex> lock{ m_mutex };
+
+            std::vector<std::thread::native_handle_type> result{};
+            result.reserve(m_workers.size());
+            for (auto& workerPair : m_workers)
+            {
+                result.push_back(workerPair.second.native_handle());
+            }
+
+            return result;
+        }
+#endif
+
         thread_pool& target_workers_size(const std::size_t targetWorkersSize)
         {
             std::unique_lock<std::mutex> lock{ m_mutex };

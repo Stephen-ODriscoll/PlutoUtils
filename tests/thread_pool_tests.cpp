@@ -17,7 +17,6 @@ class thread_pool_tests : public testing::Test
 TEST_F(thread_pool_tests, test_sanity)
 {
     pluto::thread_pool threadPool{ 0 };
-
     ASSERT_EQ(threadPool.workers_size(), 0);
     ASSERT_EQ(threadPool.target_workers_size(), 0);
     ASSERT_EQ(threadPool.working_workers_size(), 0);
@@ -103,6 +102,21 @@ TEST_F(thread_pool_tests, test_on_stop_complete_tasks)
 
     ASSERT_EQ(counter, numTasks);
 }
+
+#if PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE
+TEST_F(thread_pool_tests, test_native_handles)
+{
+    pluto::thread_pool threadPool{};
+    ASSERT_NE(threadPool.workers_size(), 0);
+    ASSERT_EQ(threadPool.working_workers_size(), 0);
+    ASSERT_EQ(threadPool.waiting_tasks_size(), 0);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    auto nativeHandles{ threadPool.native_handles() };
+    ASSERT_EQ(nativeHandles.size(), threadPool.workers_size());
+}
+#endif
 
 TEST_F(thread_pool_tests, test_run_async)
 {

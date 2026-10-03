@@ -88,6 +88,11 @@ The action to perform when the thread pool is destroyed.
 1. Returns a [pluto::thread_pool::action](#action) representing the current on stop action.
 2. Takes a [pluto::thread_pool::action](#action) and sets this to be the new on stop action.
 
+#### native_handles()
+Returns a **std::vector\<std::thread::native_handle_type\>** containing the native handles for each worker thread.
+- Requires [PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE](./version.md#PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE) to be 1.
+- It's recommended to call [wait_until_all_workers_stable()](#wait_until_all_workers_stable) first, to ensure the list of workers isn't changing.
+
 #### run_async()
 1. Takes a **std::function\<void()\>** (use lambdas) and an optional **signed char** for the priority (defaults to [PLUTO_THREAD_POOL_PRIORITY_NORMAL](#PLUTO_THREAD_POOL_PRIORITY_NORMAL)).
 2. Takes a **std::function\<void()\>** (use lambdas) and a [pluto::thread_pool::priority](#priority).
