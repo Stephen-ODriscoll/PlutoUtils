@@ -45,7 +45,7 @@ This macro will be 0 on Windows. Otherwise, it will be 1.
 
 ### PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE
 This macro will always be 1. This can be manually set to 0 if **std::thread::native_handle()** is not available.
-- This macro will be used in functions that depend on this implementation.
+- This macro will be used in functions that depend on **std::thread::native_handle()**.
 
 ### PLUTO_UTILS_NODISCARD
 This macro will be **[[nodiscard]]** for C++ 17 and above. Otherwise, it will not be set.
