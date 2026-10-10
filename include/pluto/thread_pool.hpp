@@ -134,8 +134,8 @@ namespace pluto
                 m_isStopping = true;
             }
 
-            m_workersCondition.notify_all();
-            m_schedulerCondition.notify_all();
+            m_workersCondition.notify_all();    // Wake the worker threads
+            m_schedulerCondition.notify_all();  // Wake the scheduler
 
             for (auto& workerPair : m_workers)
             {
@@ -251,9 +251,8 @@ namespace pluto
 
                 if (m_targetWorkersSize < m_workers.size())
                 {
-                    // Unlock the mutex and wake the worker threads
                     lock.unlock();
-                    m_workersCondition.notify_all();
+                    m_workersCondition.notify_all(); // Wake the worker threads
                 }
             }
 
@@ -276,8 +275,7 @@ namespace pluto
                 m_waitingTasks.emplace(priority, task);
             }
 
-            // Wake a worker thread
-            m_workersCondition.notify_one();
+            m_workersCondition.notify_one(); // Wake a worker thread
         }
 
         inline void run_async(
@@ -300,8 +298,7 @@ namespace pluto
                 priority
             );
 
-            // Wait for task completion
-            promise.get_future().wait();
+            promise.get_future().wait(); // Wait for task completion
         }
 
         inline void run_sync(
@@ -318,18 +315,17 @@ namespace pluto
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            m_scheduledTasks.emplace(time, task_info{ priority, task });
+            const auto it{ m_scheduledTasks.emplace(time, task_info{ priority, task }) };
 
             if (!m_scheduler.joinable())
             {
                 lock.unlock();
-                m_scheduler = std::thread{ &thread_pool::start_scheduling, this };
+                m_scheduler = std::thread{ &thread_pool::start_scheduling, this }; // Start the scheduler
             }
-            else if (time == m_scheduledTasks.begin()->first)
+            else if (it == m_scheduledTasks.begin())
             {
-                // Wake the scheduler so it knows it has less time to sleep
                 lock.unlock();
-                m_schedulerCondition.notify_one();
+                m_schedulerCondition.notify_one(); // Wake the scheduler so it knows it has less time to sleep
             }
         }
 
@@ -406,8 +402,7 @@ namespace pluto
                     m_waitingTasks.emplace(begin->second.priority, begin->second.task);
                     m_scheduledTasks.erase(begin);
 
-                    // New task from schedule, wake one of the workers
-                    m_workersCondition.notify_one();
+                    m_workersCondition.notify_one(); // New task from schedule, wake a worker
                 }
             }
         }
@@ -427,7 +422,7 @@ namespace pluto
                     if (m_workers.size() == m_targetWorkersSize)
                     {
                         lock.unlock();
-                        m_workersStableCondition.notify_all();
+                        m_workersStableCondition.notify_all(); // All workers stable
                     }
 
                     break;
@@ -435,7 +430,7 @@ namespace pluto
                 else if (m_waitingTasks.empty())
                 {
                     ++m_waitingWorkersSize;
-                    m_workersCondition.wait(lock);
+                    m_workersCondition.wait(lock);  // Waiting
                     --m_waitingWorkersSize;
                 }
                 else
@@ -451,17 +446,17 @@ namespace pluto
 
                     if (waitingTasksEmpty)
                     {
-                        m_tasksWorkingCondition.notify_all();
+                        m_tasksWorkingCondition.notify_all(); // No tasks waiting
                     }
 
-                    task();
+                    task(); // Working
 
                     lock.lock();
                     --m_workingWorkersSize;
 
                     if (m_waitingTasks.empty() && m_workingWorkersSize == 0)
                     {
-                        m_tasksCompleteCondition.notify_all();
+                        m_tasksCompleteCondition.notify_all(); // All tasks complete
                     }
                 }
             }
