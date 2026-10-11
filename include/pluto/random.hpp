@@ -10,6 +10,7 @@
 
 #include <limits>
 #include <random>
+#include <algorithm>
 
 // Configurable with a macro
 #ifndef PLUTO_RANDOM_ENGINE_TYPE
