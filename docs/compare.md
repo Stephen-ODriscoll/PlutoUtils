@@ -37,37 +37,37 @@ Alias of **std::less_equal\<\>**.
 ### is_greater_equal
 Alias of **std::greater_equal\<\>**.
 
-### is_equal_ignore_case
+### is_iequal
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left and right are equal, ignoring case.
 
-### is_not_equal_ignore_case
+### is_not_iequal
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left and right are not equal, ignoring case.
 
-### is_less_ignore_case
+### is_iless
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is less than right, ignoring case.
 
-### is_greater_ignore_case
+### is_igreater
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is greater than right, ignoring case.
 
-### is_less_equal_ignore_case
+### is_iless_equal
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
 Takes a left element and a right element. Returns a **bool** representing whether left is less than or equal to right, ignoring case.
 
-### is_greater_equal_ignore_case
+### is_igreater_equal
 A class that requires a template argument for elements. Takes an optional **std::locale**.
 
 #### operator()()
