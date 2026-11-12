@@ -46,10 +46,10 @@ Returns just the microseconds part of the time duration, i.e. 0 - 999.
 Returns just the milliseconds part of the time duration, i.e. 0 - 999.
 
 #### seconds_part()
-Returns just the seconds part of the time duration, i.e. 0 - 60.
+Returns just the seconds part of the time duration, i.e. 0 - 59.
 
 #### minutes_part()
-Returns just the minutes part of the time duration, i.e. 0 - 60.
+Returns just the minutes part of the time duration, i.e. 0 - 59.
 
 #### hours_part()
 Returns just the hours part of the time duration, i.e. 0 - infinity.

@@ -48,7 +48,7 @@ This macro will always be 1. This can be manually set to 0 if **std::thread::nat
 - This macro will be used in functions that depend on **std::thread::native_handle()**.
 
 ### PLUTO_UTILS_NODISCARD
-This macro will be **[[nodiscard]]** for C++ 17 and above. Otherwise, it will not be set.
+This macro will be **[[nodiscard]]** for C++ 17 and above. Otherwise, it will be empty.
 - This macro will be used in function declarations where the function has no affect without the return value.
 
 ### PLUTO_UTILS_CONSTEXPR

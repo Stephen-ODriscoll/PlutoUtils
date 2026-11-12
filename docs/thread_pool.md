@@ -46,7 +46,7 @@ Represents an action to preform on destruction of a thread pool. Action options 
 - **complete_tasks**: Complete all tasks. Threads are still joined, but not until all tasks are complete.
 
 #### priority
-Represents a priority for a given task. Higher priority tasks are always completed first. Priority options are:
+Represents a priority for a given task. Higher priority tasks are always started first. Priority options are:
 - **lowest**: The lowest value. Same value as **PLUTO_THREAD_POOL_PRIORITY_LOWEST**.
 - **lower**: A lower value. Same value as **PLUTO_THREAD_POOL_PRIORITY_LOWER**.
 - **low**: A low value. Same value as **PLUTO_THREAD_POOL_PRIORITY_LOW**.

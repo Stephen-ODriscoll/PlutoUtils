@@ -107,7 +107,7 @@ Takes a container and an optional value. Adds all elements to the value. Returns
 1. Takes a container. Returns a const reference to the minimum value in that container using **\<**.
     - If there is more than one minimum, the first occurence is returned.
     - Passing an empty container will result in an access violation.
-2. Takes a container and a predicate. Returns a const reference to the minimum value in that container using **\<**.
+2. Takes a container and a predicate. Returns a const reference to the minimum value in that container using the predicate.
     - If there is more than one minimum, the first occurence is returned.
     - Passing an empty container will result in an access violation.
 
@@ -115,6 +115,6 @@ Takes a container and an optional value. Adds all elements to the value. Returns
 1. Takes a container. Returns a const reference to the maximum value in that container using **\<**.
     - If there is more than one maximum, the first occurence is returned.
     - Passing an empty container will result in an access violation.
-2. Takes a container and a predicate. Returns a const reference to the maximum value in that container using **\<**.
+2. Takes a container and a predicate. Returns a const reference to the maximum value in that container using the predicate.
     - If there is more than one maximum, the first occurence is returned.
     - Passing an empty container will result in an access violation.

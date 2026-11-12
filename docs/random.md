@@ -22,10 +22,10 @@ Returns a reference to the underlying random engine for direct usage.
 Takes an optional seed and uses it to seed the random engine. Defaults to **std::random_device**.
 
 #### operator()()
-Returns a **double** such that `0 <= X <= 1` using **std::uniform_real_distribution**.
+Returns a **double** such that `0 <= X < 1` using **std::uniform_real_distribution**.
 
 #### uniform()
-Takes a **double** for minimum and a **double** for maximum. Returns a **double** such that `minimum <= X <= maximum` using **std::uniform_real_distribution**.
+Takes a **double** for minimum and a **double** for maximum. Returns a **double** such that `minimum <= X < maximum` using **std::uniform_real_distribution**.
 
 #### rand()
 Takes a number for minimum and a number for maximum. Returns a number such that `minimum <= X <= maximum` using **std::uniform_int_distribution**.

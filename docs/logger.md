@@ -10,7 +10,7 @@ I would recommend using the logging macros, rather than calling the logging func
 
 I would also recommend having your own header file that incluces this logger, configures it and defines its own macros for logging that forward to [PLUTO_LOG_WRITE](#PLUTO_LOG_WRITE), [PLUTO_LOG_WRITEF](#PLUTO_LOG_WRITEF), [PLUTO_LOG_FORMAT](#PLUTO_LOG_FORMAT) or [PLUTO_LOG_STREAM](#PLUTO_LOG_STREAM).
 
-The default behaviour is to write log details in a column format. These columns include timestamp, process id, thread id, level, file name, line, function and message.
+The default behaviour is to write log details in a column format. These columns include timestamp, thread id, level, file name, line, function and message.
 
 Have a look at some of the examples for suggestions on how to setup and use this logger.
 
@@ -36,7 +36,7 @@ Define this macro to be a clock from **std::chrono**. Sets the clock type. See [
 Define this macro as 1 to hide all source info. This will prevent logger from using macros that expose the file name, line number and function name. Defaults to 0.
 
 ### PLUTO_LOGGER_SOURCE_INFO_ARGS
-Define this macro to be the arguments that are passed to [pluto::source_info](#source_info) in logging macros. Defaults to **\_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, and **"", 0, ""** when 0.
+Define this macro to be the arguments that are passed to [pluto::source_info](#source_info) in logging macros. Defaults to **\_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 0, and **"", 0, ""** when 1.
 
 ### PLUTO_LOGGER_INITIAL_LEVEL
 Define this macro as a [pluto::log_level](#log_level). Sets the initial logger level. See [level()](#level). Defaults to **pluto::log_level::verbose**.
@@ -233,7 +233,7 @@ Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for t
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
 
 #### format()
-Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level, a [pluto::source_info](#source_info) for the source info, a **const char\*** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**.
+Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level, a [pluto::source_info](#source_info) for the source info, a **std::format_string<>** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**.
 - Requires C++ 20 or above, and **std::format**.
 - Adds the created log message to the corresponding log file buffer, if the level should be logged.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
