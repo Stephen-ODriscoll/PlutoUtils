@@ -41,7 +41,7 @@ A thread pool class. Takes a **std::size_t** for the target worker size. The thr
 The type of the clock. Defaults to [PLUTO_THREAD_POOL_CLOCK_TYPE](#PLUTO_THREAD_POOL_CLOCK_TYPE).
 
 #### action
-Represents an action to preform on destruction of a thread pool. Action options are:
+Represents an action to perform on destruction of a thread pool. Action options are:
 - **join_all**: Join all threads. Threads will finish their current tasks and exit.
 - **complete_tasks**: Complete all tasks. Threads are still joined, but not until all tasks are complete.
 

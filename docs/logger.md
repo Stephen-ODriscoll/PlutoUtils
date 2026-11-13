@@ -2,17 +2,17 @@
 [Back to README](../README.md#documentation)
 
 ## logger.hpp
-This logger is tread safe.
+This logger is thread-safe.
 
 This logger can be configured with macros, or with setters.
 
 I would recommend using the logging macros, rather than calling the logging functions. The macros are optimised to check the logger level before calling the logging function. If extra work is required to create the message, it can be avoided if the message isn't logged.
 
-I would also recommend having your own header file that incluces this logger, configures it and defines its own macros for logging that forward to [PLUTO_LOG_WRITE](#PLUTO_LOG_WRITE), [PLUTO_LOG_WRITEF](#PLUTO_LOG_WRITEF), [PLUTO_LOG_FORMAT](#PLUTO_LOG_FORMAT) or [PLUTO_LOG_STREAM](#PLUTO_LOG_STREAM).
+I would also recommend having your own header file that includes this logger, configures it and defines its own macros for logging that forward to [PLUTO_LOG_WRITE](#PLUTO_LOG_WRITE), [PLUTO_LOG_WRITEF](#PLUTO_LOG_WRITEF), [PLUTO_LOG_FORMAT](#PLUTO_LOG_FORMAT) or [PLUTO_LOG_STREAM](#PLUTO_LOG_STREAM).
 
 The default behaviour is to write log details in a column format. These columns include timestamp, thread id, level, file name, line, function and message.
 
-Have a look at some of the examples for suggestions on how to setup and use this logger.
+Have a look at some of the examples for suggestions on how to set up and use this logger.
 
 Sample output:
 ```
@@ -33,7 +33,7 @@ Timestamp                 |    TID|Level   |File Name           | Line|Function 
 Define this macro to be a clock from **std::chrono**. Sets the clock type. See [clock_type](#clock_type). Defaults to **std::chrono::system_clock**.
 
 ### PLUTO_LOGGER_HIDE_SOURCE_INFO
-Define this macro as 1 to hide all source info. This will prevent logger from using macros that expose the file name, line number and function name. Defaults to 0.
+Define this macro as 1 to hide all source info. This will prevent the logger from using macros that expose the file name, line number and function name. Defaults to 0.
 
 ### PLUTO_LOGGER_SOURCE_INFO_ARGS
 Define this macro to be the arguments that are passed to [pluto::source_info](#source_info) in logging macros. Defaults to **\_\_FILE\_\_, \_\_LINE\_\_, \_\_func\_\_** when [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 0, and **"", 0, ""** when 1.
@@ -45,16 +45,16 @@ Define this macro as a [pluto::log_level](#log_level). Sets the initial logger l
 Define this macro as **false** to initially disable directory creation for log files. See [create_dirs()](#create_dirs). Defaults to **true**.
 
 ### PLUTO_LOGGER_INITIAL_WRITE_HEADER
-Define this macro as **false** to initially disable writing of header for log files. See [write_header()](#write_header). Defaults to **true**.
+Define this macro as **false** to initially disable writing of the header for log files. See [write_header()](#write_header). Defaults to **true**.
 
 ### PLUTO_LOGGER_INITIAL_BUFFER_MAX_SIZE
-Define this macro to be a **std::size_t**. Sets the initial log buffer max size. See [buffer_max_size()](#buffer_max_size). Defaults to 0 which means unlimited.
+Define this macro to be a **std::size_t**. Sets the initial log buffer max size. See [buffer_max_size()](#buffer_max_size). Defaults to 0, which means unlimited.
 
 ### PLUTO_LOGGER_INITIAL_BUFFER_FLUSH_SIZE
 Define this macro to be a **std::size_t**. Sets the initial log buffer flush size. See [buffer_flush_size()](#buffer_flush_size). Defaults to 1.
 
 ### PLUTO_LOGGER_INITIAL_FILE_ROTATION_SIZE
-Define this macro to be a **std::size_t**. Sets the initial log file rotation size. See [file_rotation_size()](#file_rotation_size). Defaults to 0 which means no rotation (in bytes).
+Define this macro to be a **std::size_t**. Sets the initial log file rotation size. See [file_rotation_size()](#file_rotation_size). Defaults to 0, which means no rotation (in bytes).
 
 ### PLUTO_LOGGER_INITIAL_FILE_ROTATION_LIMIT
 Define this macro to be a **std::size_t**. Sets the initial log file rotation limit. See [file_rotation_limit()](#file_rotation_limit). Defaults to 1.
@@ -98,7 +98,7 @@ Represents a log level. Level options are:
 - **warning**/**warn**/**wrn**: Issues which should not be noticed or have been mitigated.
 - **notice**/**note**/**ntc**: Strange or significant behaviour that is not an issue by itself.
 - **info**/**inf**: Important updates for tracking application activity.
-- **debug**/**dbg**: Helpful updates for more in depth tracking.
+- **debug**/**dbg**: Helpful updates for more in-depth tracking.
 - **trace**/**trc**: Specialised step-by-step tracking updates.
 - **verbose**/**verb**/**vrb**: Very informative and noisy updates.
 - **header**: Not an actual level. Used to get the level header.
@@ -147,7 +147,7 @@ Takes a [pluto::log_level](#log_level). Returns an uppercased **const char\*** c
 Takes a [pluto::log_level](#log_level). Returns a titled **const char\*** corresponding to that log level.
 
 ### log_level_to_shortened()
-Takes a [pluto::log_level](#log_level). Returns a three character uppercased **const char\*** corresponding to that log level.
+Takes a [pluto::log_level](#log_level). Returns a three-character uppercased **const char\*** corresponding to that log level.
 
 ### log_level_to_char()
 Takes a [pluto::log_level](#log_level). Returns an uppercased **char** corresponding to that log level.
@@ -193,7 +193,7 @@ The number of logs to store before waking the logging thread. 0 or 1 will wake t
 2. Takes a **std::size_t** and sets this to be the new log buffer flush size.
 
 #### file_rotation_size()
-The size of the file (in bytes) whereby, after this size is hit, the file will be rotated. Rotated means that the current file will have "_1" appended, and any other file will have their index incremented. 0 means no rotation, and log files will grow indefinitely.
+The size of the file (in bytes) whereby, after this size is hit, the file will be rotated. Rotated means that the current file will have "_1" appended, and any other files will have their index incremented. 0 means no rotation, and log files will grow indefinitely.
 1. Returns a **std::size_t** representing the current log file rotation size.
 2. Takes a **std::size_t** and sets this to be the new log file rotation size.
 
@@ -233,7 +233,7 @@ Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for t
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.
 
 #### format()
-Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level, a [pluto::source_info](#source_info) for the source info, a **std::format_string<>** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**.
+Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level, a [pluto::source_info](#source_info) for the source info, a **std::format_string\<\>** for the scheme and any number of additional arguments. Message creation is done by **std::vformat**.
 - Requires C++ 20 or above, and **std::format**.
 - Adds the created log message to the corresponding log file buffer, if the level should be logged.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.

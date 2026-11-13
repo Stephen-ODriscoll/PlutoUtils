@@ -24,12 +24,12 @@ Takes a container and an element. Looks for the element using **std::find()** wi
 - If not found, an iterator for end is returned.
 
 ### find_sequence()
-Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::search()**.
+Takes containers for left, right and an optional predicate. Looks for occurrence of right in left using **std::search()**.
 - If found, an iterator for the start of right in left is returned.
 - If not found, left end is returned.
 
 ### rfind_sequence()
-Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::find_end()**.
+Takes containers for left, right and an optional predicate. Looks for occurrence of right in left using **std::find_end()**.
 - Requires C++ 17 or above.
 - If found, an iterator for the start of right in left is returned.
 - If not found, left end is returned.
@@ -58,7 +58,7 @@ Takes a container and a predicate. Looks for where the predicate returns **false
 Takes a container and an element. Looks for the element using **std::find()**. Returns a **bool** representing whether the element exists.
 
 ### contains_sequence()
-Takes containers for left, right and an optional predicate. Looks for occurence of right in left using **std::search()**.
+Takes containers for left, right and an optional predicate. Looks for occurrence of right in left using **std::search()**.
 - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
 - If right does not exist in left, **false** is returned.
 
@@ -81,12 +81,12 @@ Takes a container and a function. Calls the function on every element in the con
 
 ### slice()
 1. Takes a container and **long long**s for start and stop. Returns a new container.
-    - If start or stop are negative, then they are subtracted from the size of the container. If they fall outside the range of the container, then 0 or the container size is used.
+    - If start or stop are negative, they are counted back from the end of the container. If they fall outside the range of the container, then 0 or the container size is used.
 2. Takes a container and a **long long** for stop. Returns a new container.
-    - If stop is negative, then it is subtracted from the size of the container. If it falls outside the range of the container, then 0 or the container size is used.
+    - If stop is negative, it is counted back from the end of the container. If it falls outside the range of the container, then 0 or the container size is used.
 
 ### len()
-Takes a container. Returns the size of that container using **std::size**.
+Takes a container. Returns the size of that container using **std::size()**.
 
 ### any()
 Takes a container and an optional predicate. Returns a **bool** representing whether any element equates to **true**.
@@ -105,16 +105,16 @@ Takes a container and an optional value. Adds all elements to the value. Returns
 
 ### min()
 1. Takes a container. Returns a const reference to the minimum value in that container using **\<**.
-    - If there is more than one minimum, the first occurence is returned.
+    - If there is more than one minimum, the first occurrence is returned.
     - Passing an empty container will result in an access violation.
 2. Takes a container and a predicate. Returns a const reference to the minimum value in that container using the predicate.
-    - If there is more than one minimum, the first occurence is returned.
+    - If there is more than one minimum, the first occurrence is returned.
     - Passing an empty container will result in an access violation.
 
 ### max()
 1. Takes a container. Returns a const reference to the maximum value in that container using **\<**.
-    - If there is more than one maximum, the first occurence is returned.
+    - If there is more than one maximum, the first occurrence is returned.
     - Passing an empty container will result in an access violation.
 2. Takes a container and a predicate. Returns a const reference to the maximum value in that container using the predicate.
-    - If there is more than one maximum, the first occurence is returned.
+    - If there is more than one maximum, the first occurrence is returned.
     - Passing an empty container will result in an access violation.

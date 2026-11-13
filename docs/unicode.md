@@ -4,13 +4,13 @@
 ## unicode.hpp
 When referring to strings, this includes **std::string**, **std::wstring**, **std::u8string**, **std::u16string** and **std::u32string**.
 
-Whether **std::wstring** is treated as UTF-16 or UTF-32 is dependant on [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR).
+Whether **std::wstring** is treated as UTF-16 or UTF-32 is dependent on [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR).
 
-The Unicode endianness is expected to match the system endianness. UTF-16BE and UTF-32BE on Big Endian systems, and UTF-16LE and UTF-32LE on Little Endian systems.
+The Unicode endianness is expected to match the system endianness; UTF-16BE and UTF-32BE on big-endian systems, and UTF-16LE and UTF-32LE on little-endian systems.
 
 Tested against the same behaviour on Python for all valid Unicode characters, 0 to 0x10FFFF. All conversions are tested by unit tests.
 
-Invalid characters are represented as U+FFFD(�). This is a "best effort" approach, no other errors or exceptions will be thrown.
+Invalid characters are represented as U+FFFD(�). This is a "best effort" approach; no other errors or exceptions will be thrown.
 
 All conversions in the ASCII range are optimised to only require 1 check before the character is copied.
 
@@ -104,7 +104,7 @@ All conversions in the ASCII range are optimised to only require 1 check before 
     - Converts from UTF-32 to UTF-16 when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
 4. Takes a **std::wstring**. Returns the corresponding **std::u16string**.
     - Assumes same encoding when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 0.
-    - Converts from UTF-32 to UTF-16 [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
+    - Converts from UTF-32 to UTF-16 when [PLUTO_UTILS_HAS_32_BIT_WCHAR](./version.md#PLUTO_UTILS_HAS_32_BIT_WCHAR) is 1.
 5. Takes a pointer to the start of a **char8_t** array and the array size. Converts from UTF-8 to UTF-16. Returns the corresponding **std::u16string**.
     - Requires C++ 20 or above.
 6. Takes a **std::u8string**. Converts from UTF-8 to UTF-16. Returns the corresponding **std::u16string**.

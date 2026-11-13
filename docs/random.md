@@ -38,11 +38,11 @@ Takes an **int** for minimum and an **int** for maximum. Returns an **int** such
 2. Takes a number for stop. Returns a number such that `0 <= X < stop` using **std::uniform_int_distribution**.
 
 #### choice()
-Takes a container. Returns a random element using **std::next** and **std::uniform_int_distribution**.
+Takes a container. Returns a random element using **std::next()** and **std::uniform_int_distribution**.
 - Passing an empty container will result in an access violation.
 
 #### shuffle
-Takes a container. Randomly rearranges the container using **std::shuffle**.
+Takes a container. Randomly rearranges the container using **std::shuffle()**.
 
 #### bernoulli
 Takes an optional **double** for the probability of generating **true** (defaults to 0.5). Returns a random **bool** generated using **std::bernoulli_distribution**.
