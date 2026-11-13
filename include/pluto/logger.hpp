@@ -150,7 +150,7 @@ namespace pluto
         warning     = 5,    // Issues which should not be noticed or have been mitigated.
         notice      = 4,    // Strange or significant behaviour that is not an issue by itself.
         info        = 3,    // Important updates for tracking application activity.
-        debug       = 2,    // Helpful updates for more in depth tracking.
+        debug       = 2,    // Helpful updates for more in-depth tracking.
         trace       = 1,    // Specialised step-by-step tracking updates.
         verbose     = 0,    // Very informative and noisy updates.
         header      = -1,   // Reserved for header info.

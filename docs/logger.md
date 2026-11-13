@@ -98,7 +98,7 @@ Represents a log level. Level options are:
 - **warning**/**warn**/**wrn**: Issues which should not be noticed or have been mitigated.
 - **notice**/**note**/**ntc**: Strange or significant behaviour that is not an issue by itself.
 - **info**/**inf**: Important updates for tracking application activity.
-- **debug**/**dbg**: Helpful updates for more in depth tracking.
+- **debug**/**dbg**: Helpful updates for more in-depth tracking.
 - **trace**/**trc**: Specialised step-by-step tracking updates.
 - **verbose**/**verb**/**vrb**: Very informative and noisy updates.
 - **header**: Not an actual level. Used to get the level header.

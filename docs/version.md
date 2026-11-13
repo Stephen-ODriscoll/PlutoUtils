@@ -4,13 +4,13 @@
 ## version.hpp
 
 ### PLUTO_UTILS_VERSION_MAJOR
-This macro represents the current major version of Pluto Utils
+This macro represents the current major version of Pluto Utils.
 
 ### PLUTO_UTILS_VERSION_MINOR
-This macro represents the current minor version of Pluto Utils
+This macro represents the current minor version of Pluto Utils.
 
 ### PLUTO_UTILS_VERSION_PATCH
-This macro represents the current patch version of Pluto Utils
+This macro represents the current patch version of Pluto Utils.
 
 ### PLUTO_UTILS_VERSION_STRING
 This macro represents the current version of Pluto Utils in the format "x.x.x".
@@ -49,7 +49,7 @@ This macro will always be 1. This can be manually set to 0 if **std::thread::nat
 
 ### PLUTO_UTILS_NODISCARD
 This macro will be **[[nodiscard]]** for C++ 17 and above. Otherwise, it will be empty.
-- This macro will be used in function declarations where the function has no affect without the return value.
+- This macro will be used in function declarations where the function has no effect without the return value.
 
 ### PLUTO_UTILS_CONSTEXPR
 This macro will be **constexpr** for C++ 20 and above. Otherwise, it will be **inline**.

@@ -4,9 +4,9 @@
 ## lru_cache.hpp
 
 ### lru_cache
-Least Recently Used Cache. A class with a key-value based cache and a max capacity. The least recently used record is evicted on insert when cache is full.
+Least Recently Used Cache. A class with a key-value based cache and a max capacity. The least recently used record is evicted on insert when the cache is full.
 
-When a key is queried using get, or updated with insert_or_assign, that key will move to the front of the least recently used list and live for longer in cache.
+When a key is queried using get, or updated with insert_or_assign, that key will move to the front of the least recently used list and live for longer in the cache.
 
 Requires template arguments for key and value and a **std::size_t** for initial max capacity.
 
@@ -27,7 +27,7 @@ Returns a **std::size_t** representing the number of records in the cache.
 
 #### capacity()
 1. Returns a **std::size_t** representing the max capacity of the cache.
-2. Takes a **std::size_t** new max capacity for the cache. If this new max capacity is less than the existing one, it will evict until the size equals the new capacity. If this new max capacity is 0, then [clear](#clear) is called.
+2. Takes a **std::size_t** new max capacity for the cache. If this new max capacity is less than the current one, it will evict until the size equals the new capacity. If this new max capacity is 0, then [clear](#clear) is called.
 
 #### empty()
 Returns a **bool** representing whether the cache is empty.

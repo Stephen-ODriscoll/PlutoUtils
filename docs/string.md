@@ -6,12 +6,12 @@ When referring to strings, this includes **std::string**, **std::wstring**, **st
 
 String conversions between strings with different characters are handled in [unicode.hpp](./unicode.md).
 
-Case insensitive checks avail of the performance benefits talked about in [compare.hpp](./compare.md).
+Case-insensitive checks avail of the performance benefits talked about in [compare.hpp](./compare.md).
 
 Optional locales default to [pluto::default_locale()](./locale.md#default_locale).
 
 ### PLUTO_STRING_OVERLOAD_FOR_UNICODE
-Define this macro as 1 to enable overload for unicode strings, or 0 to disable it. This applies to **std::u8string**, **std::u16string** and **std::u32string**. Defaults to 1 on Windows and 0 everywhere else.
+Define this macro as 1 to enable overloads for unicode strings, or 0 to disable them. This applies to **std::u8string**, **std::u16string** and **std::u32string**. Defaults to 1 on Windows and 0 everywhere else.
 
 ### lower()
 1. Takes an element and an optional **std::locale**. Returns the lowercase letter for the element.
@@ -90,54 +90,54 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 2. Takes a left string, a right string and an optional **std::locale**. Returns a **bool** representing whether left ends with right, ignoring case.
 
 ### find()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurence of right in left using **std::search()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
-2. Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::search()**.
+2. Takes a left string, a right string and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
 ### rfind()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurence of right in left using **std::find_end()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurrence of right in left using **std::find_end()**.
     - Requires C++ 17 or above.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
-2. Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::find_end()**.
+2. Takes a left string, a right string and an optional predicate. Looks for occurrence of right in left using **std::find_end()**.
     - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
 ### ifind()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::search()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurrence of right in left using **std::search()**.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
-2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::search()**.
+2. Takes a left string, a right string and an optional **std::locale**. Looks for occurrence of right in left using **std::search()**.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
 ### irfind()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::find_end()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurrence of right in left using **std::find_end()**.
     - Requires C++ 17 or above.
     - If found, a pointer to the start of right in left is returned.
     - If not found, left end is returned.
-2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::find_end()**.
+2. Takes a left string, a right string and an optional **std::locale**. Looks for occurrence of right in left using **std::find_end()**.
     - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
 ### contains()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurence of right in left using **std::search()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
-2. Takes a left string, a right string and an optional predicate. Looks for occurence of right in left using **std::search()**.
+2. Takes a left string, a right string and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
 
 ### icontains()
-1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurence of right in left using **std::search()**.
+1. Takes a pointer to the start of a left element array, the left array size, a pointer to the start of a right element array, the right array size and an optional **std::locale**. Looks for occurrence of right in left using **std::search()**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
-2. Takes a left string, a right string and an optional **std::locale**. Looks for occurence of right in left using **std::search()**.
+2. Takes a left string, a right string and an optional **std::locale**. Looks for occurrence of right in left using **std::search()**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
 
@@ -150,7 +150,7 @@ Define this macro as 1 to enable overload for unicode strings, or 0 to disable i
 2. Takes a container, a join string and a function. Returns a string created by calling the function on all elements in the container and appending the results, with the join string between them.
 
 ### split()
-1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes new lines, tabs, spaces, etc. Returns a **std::vector** of strings.
+1. Takes a split string and an optional **std::locale**. Splits the split string where an element is considered a "space" character. This includes newlines, tabs, spaces, etc. Returns a **std::vector** of strings.
     - When 2 "space" characters occur consecutively, nothing will be added to the returned strings. Only non-empty strings are added.
 2. Takes a split string and a separator string. Splits the split string where a substring equals the separator string. Returns a **std::vector** of strings.
     - If a blank separator string is given, the split string is split into its individual characters.
@@ -168,15 +168,15 @@ Takes a modify string, a find string and a replace string. Looks through the mod
 - If a blank find string is given, then there will be no change to the modify string.
 
 ### lstrip()
-1. Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all leading "space" characters. This includes newlines, tabs, spaces, etc.
 2. Takes a string and a prefixes string. Removes all leading occurrences of any character in the prefixes string.
 
 ### rstrip()
-1. Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all trailing "space" characters. This includes newlines, tabs, spaces, etc.
 2. Takes a string and a suffixes string. Removes all trailing occurrences of any character in the suffixes string.
 
 ### strip()
-1. Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes new lines, tabs, spaces, etc.
+1. Takes a string and an optional **std::locale**. Removes all leading and trailing "space" characters. This includes newlines, tabs, spaces, etc.
 2. Takes a string and an affixes string. Removes all leading and trailing occurrences of any character in the affixes string.
 
 ### bin()

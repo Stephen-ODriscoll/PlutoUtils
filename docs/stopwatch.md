@@ -16,7 +16,7 @@ The type of the clock. Defaults to [PLUTO_STOPWATCH_CLOCK_TYPE](#PLUTO_STOPWATCH
 Returns the current time duration. Does not stop the stopwatch.
 
 #### count()
-Requires a template argument of **std::chrono::x** where **x** is hours, minutes, seconds, milliseconds, microseconds or nanoseconds and returns the duration in this format.
+Requires a template argument of **std::chrono::x**, where **x** is hours, minutes, seconds, milliseconds, microseconds or nanoseconds. Returns the duration in this format.
 
 #### in_nanoseconds()
 Returns the whole time duration in nanoseconds.
@@ -37,7 +37,7 @@ Returns the whole time duration in minutes.
 Returns the whole time duration in hours.
 
 #### nanoseconds_part()
-Returns just the nanoseconds part of the time duration, i.e. 0 - 999
+Returns just the nanoseconds part of the time duration, i.e. 0 - 999.
 
 #### microseconds_part()
 Returns just the microseconds part of the time duration, i.e. 0 - 999.
@@ -64,13 +64,13 @@ Resets the stopwatch and leaves it in a stopped state.
 Restarts the stopwatch. Clears the current time and starts timing again.
 
 #### start()
-Start the stopwatch.
+Starts the stopwatch.
 - If the stopwatch isn't running and the time is clear, the stopwatch will start timing now.
 - If the stopwatch was running previously but was stopped, the stopwatch will continue timing.
 - If the stopwatch is already running, this call does nothing.
 
 #### stop()
-Stop the stopwatch. This does not clear the time and if the stopwatch is started again, it will continue timing from where it left off.
+Stops the stopwatch. This does not clear the time, and if the stopwatch is started again, it will continue timing from where it left off.
 
 #### stop_and_time()
 Stops the stopwatch and returns the current time duration.

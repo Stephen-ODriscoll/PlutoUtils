@@ -20,7 +20,7 @@ Takes iterators for left begin, left end, right begin, right end and an optional
 1. Takes iterators for begin, end and an element. Looks for the element using **std::find()**.
     - If found, an iterator for the location of the element is returned.
     - If not found, end is returned.
-2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurence of right in left using **std::search()**.
+2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
 
@@ -28,7 +28,7 @@ Takes iterators for left begin, left end, right begin, right end and an optional
 1. Takes iterators for begin, end and an element. Looks for the element using **std::find()** with reverse iterators.
     - If found, an iterator for the location of the element is returned.
     - If not found, end is returned.
-2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurence of right in left using **std::find_end()**.
+2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurrence of right in left using **std::find_end()**.
     - Requires C++ 17 or above.
     - If found, an iterator for the start of right in left is returned.
     - If not found, left end is returned.
@@ -55,7 +55,7 @@ Takes iterators for begin, end and a predicate. Looks for where the predicate re
 
 ### contains()
 1. Takes iterators for begin, end and an element. Looks for the element using **std::find()**. Returns a **bool** representing whether the element exists.
-2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurence of right in left using **std::search()**.
+2. Takes iterators for left begin, left end, right begin, right end and an optional predicate. Looks for occurrence of right in left using **std::search()**.
     - If right exists in left, **true** is returned. If right is empty, then it always exists in left.
     - If right does not exist in left, **false** is returned.
 

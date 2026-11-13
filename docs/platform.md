@@ -10,10 +10,10 @@ Takes a **const char\*** for the file path. Gets the file name by finding the la
 Returns an **int** for the current process id.
 
 ### thread_id()
-Returns an **std::size_t** for the current thread id.
+Returns a **std::size_t** for the current thread id.
 
 ### local_time()
-Takes a **std::time_t** for the posix time. Returns a **std::tm** for the local time using **localtime_s()** or **localtime_r()**.
+Takes a **std::time_t** for the POSIX time. Returns a **std::tm** for the current local time using **localtime_s()** or **localtime_r()**.
 
 ### gm_time()
-Takes a **std::time_t** for the posix time. Returns a **std::tm** for the Greenwich Mean Time using **gmtime_s()** or **gmtime_r()**.
+Takes a **std::time_t** for the POSIX time. Returns a **std::tm** for the current Greenwich Mean Time using **gmtime_s()** or **gmtime_r()**.

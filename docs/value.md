@@ -7,7 +7,7 @@
 Takes a signed number. Returns the positive equivalent of that number.
 
 ### copy()
-Takes a value. Returns the copy of this value using the copy constructor.
+Takes a value. Returns a copy of this value using the copy constructor.
 
 ### min()
 1. Takes values for left and right. Returns the minimum of the two using **\<**.
