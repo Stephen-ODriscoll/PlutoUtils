@@ -39,6 +39,7 @@ Takes an **int** for minimum and an **int** for maximum. Returns an **int** such
 
 #### choice()
 Takes a container. Returns a random element using **std::next()** and **std::uniform_int_distribution**.
+- Requires C++ 17 or above.
 - Passing an empty container will result in an access violation.
 
 #### shuffle

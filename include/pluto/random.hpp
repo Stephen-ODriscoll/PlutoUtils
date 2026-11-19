@@ -79,12 +79,14 @@ namespace pluto
             return rand_range<Value>(0, stop);
         }
 
+#if PLUTO_UTILS_HAS_CXX_17
         template<class Container>
         inline auto& choice(const Container& container)
         {
             typedef decltype(std::size(container)) Size;
             return *(std::next(std::begin(container), rand_range<Size>(0, std::size(container))));
         }
+#endif
 
         template<class Container>
         inline void shuffle(Container& container)

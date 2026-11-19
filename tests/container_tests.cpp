@@ -395,6 +395,7 @@ TEST_F(container_tests, test_map_no_destination)
     ASSERT_EQ(pluto::map(unmappedSet, [](int x) { return x * 10; }), mappedSet);
 }
 
+#if PLUTO_UTILS_HAS_CXX_17
 TEST_F(container_tests, test_slice)
 {
     const std::vector<int> unslicedVector   { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -431,6 +432,7 @@ TEST_F(container_tests, test_len)
         ASSERT_EQ(pluto::len(vector), ++i);
     }
 }
+#endif
 
 TEST_F(container_tests, test_any)
 {

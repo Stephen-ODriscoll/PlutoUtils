@@ -656,7 +656,7 @@ namespace pluto
                 {
                     // Create message from scheme and args
                     auto messageLength{ std::vsnprintf(nullptr, 0, scheme, args) };
-                    if (0 < messageLength)
+                    if (0 <= messageLength)
                     {
                         message.resize(messageLength + 1);
                         if (std::vsnprintf(&message[0], message.size(), scheme, argsCopy) == messageLength)

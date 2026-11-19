@@ -24,7 +24,7 @@
 namespace pluto
 {
 #if PLUTO_LOCALE_NO_STATIC
-    PLUTO_UTILS_NODISCARD inline const auto c_locale()
+    PLUTO_UTILS_NODISCARD inline auto c_locale()
     {
         return std::locale{ "C" };
     }
@@ -37,7 +37,7 @@ namespace pluto
 #endif
 
 #if PLUTO_LOCALE_NO_STATIC
-    PLUTO_UTILS_NODISCARD inline const auto system_locale()
+    PLUTO_UTILS_NODISCARD inline auto system_locale()
     {
         return std::locale{ "" };
     }
@@ -50,7 +50,7 @@ namespace pluto
 #endif
 
 #if PLUTO_LOCALE_NO_STATIC
-    PLUTO_UTILS_NODISCARD inline const auto default_locale()
+    PLUTO_UTILS_NODISCARD inline auto default_locale()
     {
         return std::locale{ PLUTO_LOCALE_DEFAULT_LOCALE };
     }

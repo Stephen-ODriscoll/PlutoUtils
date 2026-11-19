@@ -81,12 +81,15 @@ Takes a container and a function. Calls the function on every element in the con
 
 ### slice()
 1. Takes a container and **long long**s for start and stop. Returns a new container.
+    - Requires C++ 17 or above.
     - If start or stop are negative, they are counted back from the end of the container. If they fall outside the range of the container, then 0 or the container size is used.
 2. Takes a container and a **long long** for stop. Returns a new container.
+    - Requires C++ 17 or above.
     - If stop is negative, it is counted back from the end of the container. If it falls outside the range of the container, then 0 or the container size is used.
 
 ### len()
 Takes a container. Returns the size of that container using **std::size()**.
+- Requires C++ 17 or above.
 
 ### any()
 Takes a container and an optional predicate. Returns a **bool** representing whether any element equates to **true**.

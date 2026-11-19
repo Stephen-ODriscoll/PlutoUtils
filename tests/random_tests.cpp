@@ -120,6 +120,7 @@ TEST_F(random_tests, test_rand_range_use_stop)
     }
 }
 
+#if PLUTO_UTILS_HAS_CXX_17
 TEST_F(random_tests, test_choice)
 {
     for (int i{ 0 }; i < NUM_RUNS; ++i)
@@ -127,6 +128,7 @@ TEST_F(random_tests, test_choice)
         TEST_WITHIN_MIN_MAX(pluto::random::instance().choice(zeroToNine), 0, 9);
     }
 }
+#endif
 
 TEST_F(random_tests, test_shuffle)
 {

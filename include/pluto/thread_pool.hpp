@@ -173,7 +173,7 @@ namespace pluto
 
         PLUTO_UTILS_NODISCARD inline std::size_t target_workers_size() const
         {
-            std::unique_lock<std::mutex> lock{ m_mutex };
+            const std::unique_lock<std::mutex> lock{ m_mutex };
             return m_targetWorkersSize;
         }
 
@@ -282,7 +282,7 @@ namespace pluto
             const std::function<void()>&    task,
             const priority                  priority)
         {
-            run_async(task, static_cast<const signed char>(priority));
+            run_async(task, static_cast<signed char>(priority));
         }
 
         void run_sync(
@@ -305,7 +305,7 @@ namespace pluto
             const std::function<void()>&    task,
             const priority                  priority)
         {
-            run_sync(task, static_cast<const signed char>(priority));
+            run_sync(task, static_cast<signed char>(priority));
         }
 
         void run_at(
@@ -319,7 +319,6 @@ namespace pluto
 
             if (!m_scheduler.joinable())
             {
-                lock.unlock();
                 m_scheduler = std::thread{ &thread_pool::start_scheduling, this }; // Start the scheduler
             }
             else if (it == m_scheduledTasks.begin())
@@ -334,7 +333,7 @@ namespace pluto
             const std::function<void()>&    task,
             const priority                  priority)
         {
-            run_at(time, task, static_cast<const signed char>(priority));
+            run_at(time, task, static_cast<signed char>(priority));
         }
 
         inline void run_after(
@@ -350,7 +349,7 @@ namespace pluto
             const std::function<void()>&    task,
             const priority                  priority)
         {
-            run_after(duration, task, static_cast<const signed char>(priority));
+            run_after(duration, task, static_cast<signed char>(priority));
         }
 
         inline void wait_until_no_tasks_waiting()
@@ -421,7 +420,6 @@ namespace pluto
 
                     if (m_workers.size() == m_targetWorkersSize)
                     {
-                        lock.unlock();
                         m_workersStableCondition.notify_all(); // All workers stable
                     }
 

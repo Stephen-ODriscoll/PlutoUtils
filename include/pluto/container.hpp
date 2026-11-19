@@ -9,6 +9,7 @@
 #define PLUTO_UTILS_CONTAINER_HPP
 
 #include <cassert>
+#include <type_traits>
 
 #include "iterator.hpp"
 
@@ -185,10 +186,11 @@ namespace pluto
         const Container<Sources...>&    source,
         Function                        function)
     {
-        typedef decltype(function(*std::begin(source))) Destination;
+        typedef typename std::decay<decltype(function(*std::begin(source)))>::type Destination;
         return pluto::map<Container<Destination>, Container<Sources...>, Function>(source, function);
     }
 
+#if PLUTO_UTILS_HAS_CXX_17
     template<class Container>
     PLUTO_UTILS_NODISCARD_CONSTEXPR Container slice(
         const Container&    container,
@@ -224,6 +226,7 @@ namespace pluto
     {
         return std::size(container);
     }
+#endif
 
     template<class Container, class Predicate = pluto::is_true>
     PLUTO_UTILS_NODISCARD_CONSTEXPR bool any(

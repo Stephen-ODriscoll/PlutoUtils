@@ -295,7 +295,7 @@ namespace pluto
     template<class Value>
     PLUTO_UTILS_NODISCARD inline Value str_to(const std::string& string)
     {
-        Value value;
+        Value value{};
         std::istringstream{ string } >> value;
         return value;
     }
@@ -309,7 +309,7 @@ namespace pluto
     template<class Value>
     PLUTO_UTILS_NODISCARD inline Value wstr_to(const std::wstring& wstring)
     {
-        Value value;
+        Value value{};
         std::wistringstream{ wstring } >> value;
         return value;
     }
