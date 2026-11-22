@@ -240,5 +240,6 @@ Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for t
 
 #### stream()
 Takes a **std::string** for the log file, a [pluto::log_level](#log_level) for the log level and a [pluto::source_info](#source_info) for the source info. Returns a **pluto::logger::streamer** that can be streamed to.
-- The log info is created and added to the log buffer when either **end()** is called or the streamer is destroyed. If you stream to the returned object but don't capture it, it'll be destroyed immediately.
+- The log info is created and added to the log buffer when either **end()** is called or the streamer is destroyed. If you stream to the returned streamer but don't capture it, it'll be destroyed immediately.
+- Calling **end()** on the streamer may result in the underlying stream being moved. As such, continuing to stream to an ended streamer may result in undefined behaviour.
 - If [PLUTO_LOGGER_HIDE_SOURCE_INFO](#PLUTO_LOGGER_HIDE_SOURCE_INFO) is 1, then source info can be omitted.

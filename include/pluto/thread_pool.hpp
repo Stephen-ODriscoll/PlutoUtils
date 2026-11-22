@@ -81,10 +81,10 @@ namespace pluto
             std::function<void()>   task;
 
             task_info(
-                const signed char               priority,
-                const std::function<void()>&    task) :
+                const signed char       priority,
+                std::function<void()>&& task) :
                 priority{ priority },
-                task    { task } {}
+                task    { std::move(task) } {}
         };
 
         typedef std::map<std::thread::id, std::thread> worker_map;
@@ -267,22 +267,22 @@ namespace pluto
         }
 
         void run_async(
-            const std::function<void()>&    task,
-            const signed char               priority = PLUTO_THREAD_POOL_PRIORITY_NORMAL)
+            std::function<void()>   task,
+            const signed char       priority = PLUTO_THREAD_POOL_PRIORITY_NORMAL)
         {
             {
                 const std::unique_lock<std::mutex> lock{ m_mutex };
-                m_waitingTasks.emplace(priority, task);
+                m_waitingTasks.emplace(priority, std::move(task));
             }
 
             m_workersCondition.notify_one(); // Wake a worker thread
         }
 
         inline void run_async(
-            const std::function<void()>&    task,
-            const priority                  priority)
+            std::function<void()>   task,
+            const priority          priority)
         {
-            run_async(task, static_cast<signed char>(priority));
+            run_async(std::move(task), static_cast<signed char>(priority));
         }
 
         void run_sync(
@@ -290,7 +290,7 @@ namespace pluto
             const signed char               priority = PLUTO_THREAD_POOL_PRIORITY_HIGH)
         {
             std::promise<void> promise{};
-            run_async([task, &promise]
+            run_async([&task, &promise]
                 {
                     task();
                     promise.set_value();
@@ -310,12 +310,12 @@ namespace pluto
 
         void run_at(
             const clock_type::time_point&   time,
-            const std::function<void()>&    task,
+            std::function<void()>           task,
             const signed char               priority = PLUTO_THREAD_POOL_PRIORITY_NORMAL)
         {
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            const auto it{ m_scheduledTasks.emplace(time, task_info{ priority, task }) };
+            const auto it{ m_scheduledTasks.emplace(time, task_info{ priority, std::move(task) }) };
 
             if (!m_scheduler.joinable())
             {
@@ -330,26 +330,26 @@ namespace pluto
 
         inline void run_at(
             const clock_type::time_point&   time,
-            const std::function<void()>&    task,
+            std::function<void()>           task,
             const priority                  priority)
         {
-            run_at(time, task, static_cast<signed char>(priority));
+            run_at(time, std::move(task), static_cast<signed char>(priority));
         }
 
         inline void run_after(
             const clock_type::duration&     duration,
-            const std::function<void()>&    task,
+            std::function<void()>           task,
             const signed char               priority = PLUTO_THREAD_POOL_PRIORITY_NORMAL)
         {
-            run_at((clock_type::now() + duration), task, priority);
+            run_at((clock_type::now() + duration), std::move(task), priority);
         }
 
         inline void run_after(
             const clock_type::duration&     duration,
-            const std::function<void()>&    task,
+            std::function<void()>           task,
             const priority                  priority)
         {
-            run_after(duration, task, static_cast<signed char>(priority));
+            run_after(duration, std::move(task), static_cast<signed char>(priority));
         }
 
         inline void wait_until_no_tasks_waiting()
@@ -398,7 +398,7 @@ namespace pluto
                 const auto begin{ m_scheduledTasks.begin() };
                 if (m_schedulerCondition.wait_until(lock, begin->first) == std::cv_status::timeout)
                 {
-                    m_waitingTasks.emplace(begin->second.priority, begin->second.task);
+                    m_waitingTasks.emplace(begin->second.priority, std::move(begin->second.task));
                     m_scheduledTasks.erase(begin);
 
                     m_workersCondition.notify_one(); // New task from schedule, wake a worker

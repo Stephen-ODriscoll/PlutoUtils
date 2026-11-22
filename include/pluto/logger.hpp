@@ -208,12 +208,12 @@ namespace pluto
             const std::size_t   threadID,
             const log_level     logLevel,
             const source_info   sourceInfo,
-            const std::string&  message) :
+            std::string&&       message) :
             time        { logTime },
             thread_id   { threadID },
             level       { logLevel },
             source      { sourceInfo },
-            message     { message } {}
+            message     { std::move(message) } {}
     };
 
     PLUTO_UTILS_NODISCARD_CONSTEXPR const char* log_level_to_lower(const log_level logLevel)
@@ -349,7 +349,7 @@ namespace pluto
             {
                 if (m_logger && m_logger->should_log(m_logLevel))
                 {
-                    m_logger->add_log_to_buffer(m_logFile, m_logLevel, m_sourceInfo, m_stream.str());
+                    m_logger->add_log_to_buffer(m_logFile, m_logLevel, m_sourceInfo, std::move(m_stream).str());
                     m_logger = nullptr;
                 }
             }
@@ -618,11 +618,11 @@ namespace pluto
             const std::string&  logFile,
             const log_level     logLevel,
             const source_info   sourceInfo,
-            const std::string&  message)
+            std::string         message)
         {
             if (should_log(logLevel))
             {
-                add_log_to_buffer(logFile, logLevel, sourceInfo, message);
+                add_log_to_buffer(logFile, logLevel, sourceInfo, std::move(message));
             }
         }
 
@@ -630,9 +630,9 @@ namespace pluto
         inline void write(
             const std::string&  logFile,
             const log_level     logLevel,
-            const std::string&  message)
+            std::string         message)
         {
-            write(logFile, logLevel, { "", 0, "" }, message);
+            write(logFile, logLevel, { "", 0, "" }, std::move(message));
         }
 #endif
 
@@ -677,7 +677,7 @@ namespace pluto
                     message.assign(scheme);
                 }
 
-                add_log_to_buffer(logFile, logLevel, sourceInfo, message);
+                add_log_to_buffer(logFile, logLevel, sourceInfo, std::move(message));
             }
         }
 
@@ -704,8 +704,11 @@ namespace pluto
         {
             if (should_log(logLevel))
             {
-                auto message{ std::vformat(scheme.get(), std::make_format_args(args...)) };
-                add_log_to_buffer(logFile, logLevel, sourceInfo, message);
+                add_log_to_buffer(
+                    logFile,
+                    logLevel,
+                    sourceInfo,
+                    std::vformat(scheme.get(), std::make_format_args(args...)));
             }
         }
 
@@ -739,7 +742,7 @@ namespace pluto
             const std::string&  logFile,
             const log_level     logLevel,
             const source_info   sourceInfo,
-            const std::string&  message)
+            std::string&&       message)
         {
             const auto logTime  { clock_type::now() };
             const auto threadID { pluto::thread_id() };
@@ -757,7 +760,7 @@ namespace pluto
 
             if (bufferMaxSize == 0 || buffer.size() < bufferMaxSize)
             {
-                buffer.emplace_front(logTime, threadID, logLevel, sourceInfo, message);
+                buffer.emplace_front(logTime, threadID, logLevel, sourceInfo, std::move(message));
 
                 if (buffer_flush_size() <= buffer.size())
                 {
