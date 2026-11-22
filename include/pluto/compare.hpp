@@ -47,10 +47,12 @@ namespace pluto
     template<class Elem>
     struct is_iequal
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_iequal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
@@ -61,10 +63,12 @@ namespace pluto
     template<class Elem>
     struct is_not_iequal
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_not_iequal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
@@ -75,10 +79,12 @@ namespace pluto
     template<class Elem>
     struct is_iless
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_iless(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
@@ -89,10 +95,12 @@ namespace pluto
     template<class Elem>
     struct is_igreater
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_igreater(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
@@ -103,10 +111,12 @@ namespace pluto
     template<class Elem>
     struct is_iless_equal
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_iless_equal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
@@ -117,10 +127,12 @@ namespace pluto
     template<class Elem>
     struct is_igreater_equal
     {
+        const std::locale       locale;
         const std::ctype<Elem>& facet;
 
         inline explicit is_igreater_equal(const std::locale& locale = pluto::default_locale()) :
-            facet{ pluto::use_facet<Elem>(locale) } {}
+            locale  { locale },
+            facet   { pluto::use_facet<Elem>(this->locale) } {}
 
         PLUTO_UTILS_NODISCARD inline bool operator()(const Elem& left, const Elem& right) const
         {
