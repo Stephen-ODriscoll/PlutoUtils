@@ -8,11 +8,14 @@
 #ifndef PLUTO_UTILS_PLATFORM_HPP
 #define PLUTO_UTILS_PLATFORM_HPP
 
+#include <ctime>
+
 #ifdef _WIN32
 #include <Windows.h>
 #elif defined(__APPLE__)
-#include <pthread.h>
+#include <cstdint>
 #include <unistd.h>
+#include <pthread.h>
 #else
 #include <unistd.h>
 #endif

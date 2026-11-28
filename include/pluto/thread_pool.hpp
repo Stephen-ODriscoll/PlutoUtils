@@ -13,9 +13,15 @@
 #include <chrono>
 #include <future>
 #include <thread>
+#include <cstddef>
+#include <utility>
 #include <condition_variable>
 
 #include "compare.hpp"
+
+#if PLUTO_UTILS_HAS_THREAD_NATIVE_HANDLE
+#include <vector>
+#endif
 
 #ifndef PLUTO_THREAD_POOL_PRIORITY_LOWEST
 #define PLUTO_THREAD_POOL_PRIORITY_LOWEST -128

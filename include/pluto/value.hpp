@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-#include "compare.hpp"
+#include "version.hpp"
 
 namespace pluto
 {

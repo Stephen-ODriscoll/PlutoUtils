@@ -9,6 +9,7 @@
 #define PLUTO_UTILS_UNICODE_HPP
 
 #include <string>
+#include <cstddef>
 
 #include "version.hpp"
 

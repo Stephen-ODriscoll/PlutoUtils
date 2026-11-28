@@ -13,12 +13,14 @@
 #include <mutex>
 #include <atomic>
 #include <chrono>
+#include <cstdio>
 #include <string>
 #include <thread>
 #include <cstdarg>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
+#include <utility>
 #include <functional>
 #include <condition_variable>
 

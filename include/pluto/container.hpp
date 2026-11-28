@@ -9,6 +9,7 @@
 #define PLUTO_UTILS_CONTAINER_HPP
 
 #include <cassert>
+#include <cstddef>
 #include <type_traits>
 
 #include "iterator.hpp"

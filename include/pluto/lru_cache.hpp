@@ -10,6 +10,8 @@
 
 #include <map>
 #include <list>
+#include <cstddef>
+#include <utility>
 
 #include "version.hpp"
 

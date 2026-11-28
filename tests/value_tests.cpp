@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 
 #include <pluto/value.hpp>
+#include <pluto/compare.hpp>
 
 class value_tests : public testing::Test
 {};

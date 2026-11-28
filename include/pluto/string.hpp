@@ -8,8 +8,8 @@
 #ifndef PLUTO_UTILS_STRING_HPP
 #define PLUTO_UTILS_STRING_HPP
 
-#include <vector>
 #include <string>
+#include <vector>
 #include <sstream>
 
 #include "container.hpp"

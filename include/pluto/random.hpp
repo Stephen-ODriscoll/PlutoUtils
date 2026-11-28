@@ -10,7 +10,11 @@
 
 #include <limits>
 #include <random>
+#include <cassert>
+#include <iterator>
 #include <algorithm>
+
+#include "version.hpp"
 
 // Configurable with a macro
 #ifndef PLUTO_RANDOM_ENGINE_TYPE

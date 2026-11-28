@@ -5,9 +5,15 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
+#include <string>
+
 #include <gtest/gtest.h>
 
 #include <pluto/platform.hpp>
+
+#ifdef _WIN32
+#include <sstream>
+#endif
 
 class platform_tests : public testing::Test
 {};

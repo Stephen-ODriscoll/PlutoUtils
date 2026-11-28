@@ -5,6 +5,9 @@
 * Official repository: https://github.com/Stephen-ODriscoll/PlutoUtils
 */
 
+#include <set>
+#include <vector>
+
 #include <gtest/gtest.h>
 
 #include <pluto/iterator.hpp>

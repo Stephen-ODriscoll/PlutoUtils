@@ -9,6 +9,7 @@
 #define PLUTO_UTILS_SCOPE_HPP
 
 #include <stack>
+#include <utility>
 #include <exception>
 #include <functional>
 
