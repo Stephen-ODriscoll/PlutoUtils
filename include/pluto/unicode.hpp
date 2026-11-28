@@ -451,6 +451,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const wchar_t* const pWChar, const std::size_t size)
     {
         std::string string{};
+        string.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf32_to_utf8(pWChar, size, string);
 #else
@@ -486,6 +487,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const char16_t* const pChar16, const std::size_t size)
     {
         std::string string{};
+        string.reserve(size);
         pluto::utf16_to_utf8(pChar16, size, string);
         return string;
     }
@@ -498,6 +500,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::string str(const char32_t* const pChar32, const std::size_t size)
     {
         std::string string{};
+        string.reserve(size);
         pluto::utf32_to_utf8(pChar32, size, string);
         return string;
     }
@@ -510,6 +513,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char* const pChar, const std::size_t size)
     {
         std::wstring wstring{};
+        wstring.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf8_to_utf32(pChar, size, wstring);
 #else
@@ -527,6 +531,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char8_t* const pChar8, const std::size_t size)
     {
         std::wstring wstring{};
+        wstring.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf8_to_utf32(pChar8, size, wstring);
 #else
@@ -544,10 +549,10 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char16_t* const pChar16, const std::size_t size)
     {
         std::wstring wstring{};
+        wstring.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf16_to_utf32(pChar16, size, wstring);
 #else
-        wstring.reserve(size);
         for (std::size_t i{ 0 }; i < size; ++i)
         {
             wstring.push_back(static_cast<std::wstring::value_type>(pChar16[i]));
@@ -564,8 +569,8 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::wstring wstr(const char32_t* const pChar32, const std::size_t size)
     {
         std::wstring wstring{};
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
         wstring.reserve(size);
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
         for (std::size_t i{ 0 }; i < size; ++i)
         {
             wstring.push_back(static_cast<std::wstring::value_type>(pChar32[i]));
@@ -602,6 +607,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const wchar_t* const pWChar, const std::size_t size)
     {
         std::u8string u8string{};
+        u8string.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf32_to_utf8(pWChar, size, u8string);
 #else
@@ -618,6 +624,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const char16_t* const pChar16, const std::size_t size)
     {
         std::u8string u8string{};
+        u8string.reserve(size);
         pluto::utf16_to_utf8(pChar16, size, u8string);
         return u8string;
     }
@@ -630,6 +637,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u8string u8str(const char32_t* const pChar32, const std::size_t size)
     {
         std::u8string u8string{};
+        u8string.reserve(size);
         pluto::utf32_to_utf8(pChar32, size, u8string);
         return u8string;
     }
@@ -643,6 +651,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const char* const pChar, const std::size_t size)
     {
         std::u16string u16string{};
+        u16string.reserve(size);
         pluto::utf8_to_utf16(pChar, size, u16string);
         return u16string;
     }
@@ -655,10 +664,10 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const wchar_t* const pWChar, const std::size_t size)
     {
         std::u16string u16string{};
+        u16string.reserve(size);
 #if PLUTO_UTILS_HAS_32_BIT_WCHAR
         pluto::utf32_to_utf16(pWChar, size, u16string);
 #else
-        u16string.reserve(size);
         for (std::size_t i{ 0 }; i < size; ++i)
         {
             u16string.push_back(static_cast<std::u16string::value_type>(pWChar[i]));
@@ -676,6 +685,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const char8_t* const pChar8, const std::size_t size)
     {
         std::u16string u16string{};
+        u16string.reserve(size);
         pluto::utf8_to_utf16(pChar8, size, u16string);
         return u16string;
     }
@@ -689,6 +699,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u16string u16str(const char32_t* const pChar32, const std::size_t size)
     {
         std::u16string u16string{};
+        u16string.reserve(size);
         pluto::utf32_to_utf16(pChar32, size, u16string);
         return u16string;
     }
@@ -701,6 +712,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const char* const pChar, const std::size_t size)
     {
         std::u32string u32string{};
+        u32string.reserve(size);
         pluto::utf8_to_utf32(pChar, size, u32string);
         return u32string;
     }
@@ -713,8 +725,8 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const wchar_t* const pWChar, const std::size_t size)
     {
         std::u32string u32string{};
-#if PLUTO_UTILS_HAS_32_BIT_WCHAR
         u32string.reserve(size);
+#if PLUTO_UTILS_HAS_32_BIT_WCHAR
         for (std::size_t i{ 0 }; i < size; ++i)
         {
             u32string.push_back(static_cast<std::u32string::value_type>(pWChar[i]));
@@ -734,6 +746,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const char8_t* const pChar8, const std::size_t size)
     {
         std::u32string u32string{};
+        u32string.reserve(size);
         pluto::utf8_to_utf32(pChar8, size, u32string);
         return u32string;
     }
@@ -747,6 +760,7 @@ namespace pluto
     PLUTO_UTILS_NODISCARD_CONSTEXPR std::u32string u32str(const char16_t* const pChar16, const std::size_t size)
     {
         std::u32string u32string{};
+        u32string.reserve(size);
         pluto::utf16_to_utf32(pChar16, size, u32string);
         return u32string;
     }
