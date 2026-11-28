@@ -62,7 +62,10 @@ namespace pluto
 
     class on_scope_success
     {
-        std::stack<std::function<void()>> m_tasks{};
+        std::stack<std::function<void()>>   m_tasks{};
+#if PLUTO_UTILS_HAS_CXX_17
+        const int                           m_uncaughtExceptions{ std::uncaught_exceptions() };
+#endif
 
     public:
         inline on_scope_success() = default;
@@ -75,7 +78,7 @@ namespace pluto
         ~on_scope_success()
         {
 #if PLUTO_UTILS_HAS_CXX_17
-            if (std::uncaught_exceptions() == 0)
+            if (std::uncaught_exceptions() <= m_uncaughtExceptions)
 #else
             if (!std::uncaught_exception())
 #endif
@@ -112,7 +115,10 @@ namespace pluto
 
     class on_scope_fail
     {
-        std::stack<std::function<void()>> m_tasks{};
+        std::stack<std::function<void()>>   m_tasks{};
+#if PLUTO_UTILS_HAS_CXX_17
+        const int                           m_uncaughtExceptions{ std::uncaught_exceptions() };
+#endif
 
     public:
         inline on_scope_fail() = default;
@@ -125,7 +131,7 @@ namespace pluto
         ~on_scope_fail()
         {
 #if PLUTO_UTILS_HAS_CXX_17
-            if (std::uncaught_exceptions() != 0)
+            if (m_uncaughtExceptions < std::uncaught_exceptions())
 #else
             if (std::uncaught_exception())
 #endif
